@@ -161,7 +161,7 @@ int main(int ac, char* *av)
 
 	init_data(data);
 	parsing_config(data, av[1]);
-	init_carte_joueur_test(data);
+	//init_carte_joueur_test(data);
 	print_data(data);
 	play_game(data);
 	erase_data(data);

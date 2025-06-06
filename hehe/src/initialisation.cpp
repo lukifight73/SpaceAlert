@@ -90,12 +90,6 @@ void init_zone_white(t_data& data)
     data.zones[ZONE_WHITE]->setcannon_haut(cannon_zone_white);
     data.zones[ZONE_WHITE]->setcannon_bas(cannon_impulsion_zone_white);
     data.zones[ZONE_WHITE]->setz_chemin(new chemin_menace());
-    int i = 1;
-	while (i <= data.nb_joueur)
-	{
-		data.zones[ZONE_WHITE]->addz_joueurs_haut(data.joueurs[i]);
-		i++;
-	}
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_A);
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_B);
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_C);
@@ -196,15 +190,8 @@ void init_zone_red(t_data& data)
 
 void init_data(t_data& data)
 {
-	data.nb_joueur = 4;
-	int i(1);
+	data.nb_joueur = 0;
 	data.tour = 1;
-
-	while (i < data.nb_joueur + 1)
-	{
-		data.joueurs[i] = new joueur;
-		i++;
-	}
 	data.zones[ZONE_WHITE] = new zone(ZONE_WHITE);
 	data.zones[ZONE_BLUE] = new zone(ZONE_BLUE);
 	data.zones[ZONE_RED] = new zone(ZONE_RED);

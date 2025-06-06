@@ -57,7 +57,63 @@ void pars_menace(t_data &data, std::string menace_str)
             std::cerr << "Erreur: Zone inconnue " << nomZone << std::endl;
             delete new_menace; // Nettoyage en cas d'erreur
         }
+        std::cout << new_menace->get_m_tourDarrivee() << std::endl;
     }
+}
+
+int get_nb_actions(std::string nomAction)
+{
+    if (nomAction == "ACT_A")
+        return ACT_A;
+    else if (nomAction == "ACT_B")
+        return ACT_B;
+    else if (nomAction == "ACT_C")
+        return ACT_C;
+    else if (nomAction == "ACT_R")
+        return ACT_R;
+    else if (nomAction == "ACT_AH")
+        return ACT_AH;
+    else if (nomAction == "ACT_BH")
+        return ACT_BH;
+    else if (nomAction == "DIR_R")
+        return DIR_R;
+    else if (nomAction == "DIR_B")
+        return DIR_B;
+    else if (nomAction == "DIR_A")
+        return DIR_A;
+    else
+        return INACTIF; // Action inactive
+}
+
+void pars_joueurs(t_data &data, std::string line_joueur)
+{
+    std::istringstream iss(line_joueur);
+    std::string joueur_keyword;
+    iss >> joueur_keyword; // Lire le mot-clé "joueur"
+    int nb_tour;
+    int nb_joueur;
+    int action;
+    std::string nomAction;
+    if (iss >> nb_joueur >> nb_tour >> nomAction) {
+        action = get_nb_actions(nomAction);
+        if (nb_joueur > data.nb_joueur)
+        {
+            data.nb_joueur++;
+            data.joueurs[nb_joueur] = new joueur(nomAction); // Créer un nouveau joueur
+        }
+        carte carte(action);
+        data.joueurs[nb_joueur]->addcartes(nb_tour, carte);
+    }
+}
+
+void place_joueurs(t_data& data)
+{
+    int i = 1;
+	while (i <= data.nb_joueur)
+	{
+		data.zones[ZONE_WHITE]->addz_joueurs_haut(data.joueurs[i]);
+		i++;
+	}
 }
 
 void parsing_config(t_data &data, char* av)
@@ -77,9 +133,13 @@ void parsing_config(t_data &data, char* av)
 		}
         if (line.find("menace") != std::string::npos) {
             pars_menace(data, line);
-		}  
+		}
+        if (line.find("joueur") != std::string::npos) {
+            pars_joueurs(data, line);
+        }
     }
 	file.close();
+    place_joueurs(data);
     data.zones[ZONE_RED]->printZone();
     data.zones[ZONE_WHITE]->printZone();
     data.zones[ZONE_BLUE]->printZone();
