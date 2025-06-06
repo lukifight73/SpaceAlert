@@ -23,8 +23,8 @@ void print_data(t_data& data)
 	std::cout << "-----------------------------------------DATA-------------------------------------------" << std::endl;
 	std::cout << "Nombre de joueur : " << data.nb_joueur << std::endl;
 	std::cout << "Tour : " << data.tour << std::endl;
-	int i(0);
-	while (i < data.nb_joueur)
+	int i(1);
+	while (i <= data.nb_joueur)
 	{
 		data.joueurs[i]->print();
 		i++;
@@ -32,10 +32,53 @@ void print_data(t_data& data)
 	std::cout << "-----------------------------------------DATA-------------------------------------------" << std::endl << std::endl;
 }
 
+void print_joueur_zone(t_data &data)
+{
+	int i(1);
+	while (i < 4)
+	{
+		std::vector <joueur*> joueurs_haut = data.zones[i]->getz_joueurs_haut();
+		std::vector <joueur*> joueurs_bas = data.zones[i]->getz_joueurs_bas();
+		for (std::vector<joueur*>::iterator it = joueurs_haut.begin(); it != joueurs_haut.end(); ++it)
+		{
+			std::cout << "Joueur en haut " << data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
+		}
+		for (std::vector<joueur*>::iterator it = joueurs_bas.begin(); it != joueurs_bas.end(); ++it)
+		{
+			std::cout << "Joueur en bas " <<  data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
+		}
+		i++;
+	}
+}
+
+std::string get_action(int action)
+{
+	if (action == ACT_A)
+		return "ACT_A";
+	else if (action == ACT_B)
+		return "ACT_B";
+	else if (action == ACT_C)
+		return "ACT_C";
+	else if (action == ACT_R)
+		return "ACT_R";
+	else if (action == ACT_AH)
+		return "ACT_AH";
+	else if (action == ACT_BH)
+		return "ACT_BH";
+	else if (action == DIR_R)
+		return "DIR_R";
+	else if (action == DIR_B)
+		return "DIR_B";
+	else if (action == DIR_A)
+		return "DIR_A";
+	else
+		return "INACTIF";
+}
+
 void	action_joueur(t_data &data, carte& carte, int joueur)
 {
-	int zone = data.joueurs[joueur]->getj_zone() % 3;
-	std::cout << "carte : " << carte.getc_action() << std::endl;
+	int zone = data.joueurs[joueur]->getj_zone();
+	std::cout << "carte : " << get_action(carte.getc_action()) << std::endl;
 	std::cout << "zone : " << zone << std::endl;
 	if (carte.getc_action() == ACT_A)
 	{
@@ -71,27 +114,33 @@ void	action_joueur(t_data &data, carte& carte, int joueur)
 	}
 }
 
-void put_joueur_playing(t_data &data, std::string nom_joueur)
+void init_zone_for_each_round(t_data &data, std::string nom_joueur)
 {
 	int i = 1;
 	while (i < 4)
 	{
 		data.zones[i]->setz_joueur_playing(nom_joueur);
+		data.zones[i]->clearz_actions_used_ce_tour_bas();
+		data.zones[i]->clearz_actions_used_ce_tour_haut();
 		i++;
 	}
 }
+
 
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)
 	{
-		int i(0);
-		while (i < data.nb_joueur)
+		int i(1);
+		std::cout << "\n\n\n\n\n----------------------------------- TOUR : " << data.tour << "----------------------------\n\n\n" << std::endl;
+		print_joueur_zone(data);
+		while (i <= data.nb_joueur)
 		{
-			std::cout << "joueur playing : " << data.joueurs[i]->getj_nom() << std::endl;
-			put_joueur_playing(data, data.joueurs[i]->getj_nom());
+			std::cout << "\n----------------------------------- joueur n " << i << " playing : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
+			init_zone_for_each_round(data, data.joueurs[i]->getj_nom());
 			carte action = data.joueurs[i]->getcartes()[data.tour];
 			action_joueur(data, action, i);
+			std::cout << "\n----------------------------------- fin tour joueur n " << i << " : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
 			i++;
 		}
 		print_data(data);

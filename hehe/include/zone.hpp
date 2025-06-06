@@ -79,6 +79,7 @@ class zone
         int getz_bouclier() const;
         int getz_max_energie_bouclier() const;
         int getz_zone() const;
+        std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         cannon *get_cannon_haut() const;
         cannon *get_cannon_bas() const;
