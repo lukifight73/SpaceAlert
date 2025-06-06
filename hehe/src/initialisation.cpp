@@ -73,46 +73,11 @@ void init_zone_white(t_data& data)
 {
 	cannon *cannon_zone_white = new cannon("Cannon laser lourd central", 5, 3, CANON_LOURD);
 	cannon *cannon_impulsion_zone_white = new cannon("Cannon a impulsion central", 1, 2, CANON_IMPULSION);
-<<<<<<< HEAD
-	while (i < data.nb_joueur)
-	{
-		data.joueurs[i] = new joueur;
-		i++;
-	}
-	data.zones[ZONE_WHITE] = new zone(ZONE_WHITE);
-	data.zones[ZONE_BLUE] = new zone(ZONE_BLUE);
-	data.zones[ZONE_RED] = new zone(ZONE_RED);
-	data.zones[ZONE_BLUE]->setzone_white(data.zones[ZONE_WHITE]);
-	data.zones[ZONE_BLUE]->setzone_red(data.zones[ZONE_RED]);
-	data.zones[ZONE_BLUE]->setzone_blue(data.zones[ZONE_BLUE]);
-	data.zones[ZONE_BLUE]->setzone_right(NULL);
-	data.zones[ZONE_BLUE]->setzone_left(data.zones[ZONE_WHITE]);
-    data.zones[ZONE_BLUE]->setcannon_haut(cannon_zone_blue);
-    data.zones[ZONE_BLUE]->setcannon_bas(cannon_leger_zone_blue);
-    data.zones[ZONE_BLUE]->setz_nom_zone("zone bleue");
-    data.zones[ZONE_BLUE]->setz_bots(true);
-    data.zones[ZONE_BLUE]->setz_temps(1);
-    data.zones[ZONE_BLUE]->setz_capsule_energie(0);
-    data.zones[ZONE_BLUE]->setz_ascenseur(true);
-    data.zones[ZONE_BLUE]->setz_reacteur(2);
-    data.zones[ZONE_BLUE]->setz_max_energie_reservoir(3);
-    data.zones[ZONE_BLUE]->setz_bouclier(1);
-    data.zones[ZONE_BLUE]->setz_max_energie_bouclier(2);
-
-	data.zones[ZONE_WHITE]->setzone_blue(data.zones[ZONE_BLUE]);
-	data.zones[ZONE_WHITE]->setzone_red(data.zones[ZONE_RED]);
-	data.zones[ZONE_WHITE]->setzone_white(data.zones[ZONE_WHITE]);
-	data.zones[ZONE_WHITE]->setzone_right(data.zones[ZONE_BLUE]);
-	data.zones[ZONE_WHITE]->setzone_left(data.zones[ZONE_RED]);
-    data.zones[ZONE_WHITE]->setcannon_haut(cannon_zone_white);
-    data.zones[ZONE_WHITE]->setcannon_bas(cannon_impulsion_zone_white);
-=======
     data.zones[ZONE_WHITE]->setzone_white(data.zones[ZONE_WHITE]);
     data.zones[ZONE_WHITE]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_WHITE]->setzone_blue(data.zones[ZONE_BLUE]);
     data.zones[ZONE_WHITE]->setzone_right(data.zones[ZONE_BLUE]);
     data.zones[ZONE_WHITE]->setzone_left(data.zones[ZONE_RED]);
->>>>>>> e3be2354622e083a28dffe63486e3fcd01b5e0b6
     data.zones[ZONE_WHITE]->setz_nom_zone("zone blanche");
     data.zones[ZONE_WHITE]->setz_bots(true);
     data.zones[ZONE_WHITE]->setz_temps(1);

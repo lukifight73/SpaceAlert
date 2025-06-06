@@ -46,6 +46,7 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				initialisation.cpp \
 				apparitionMenaces.cpp \
 				parsingConfig.cpp \
+				actionsDesJoueurs.cpp \
 				main.cpp \
 				utils.cpp
 
