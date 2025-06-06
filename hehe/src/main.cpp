@@ -1,7 +1,6 @@
 #include "space_alerte.hpp"
 #include "space_alerte_values.hpp"
 
-
 void erase_data(t_data& data)
 {
 	int i(0);
