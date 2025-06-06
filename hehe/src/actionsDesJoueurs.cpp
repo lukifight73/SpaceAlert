@@ -24,9 +24,11 @@ std::string get_action(int action)
 		return "INACTIF";
 }
 
-void	action_joueur(t_data &data, carte& carte, int joueur)
+
+void	action_joueur(t_data &data, int num_joueur)
 {
-	int zone = data.joueurs[joueur]->getj_zone();
+    carte carte = data.joueurs[num_joueur]->getcartes()[data.tour];
+	int zone = data.joueurs[num_joueur]->getj_zone();
 	std::cout << "carte : " << get_action(carte.getc_action()) << std::endl;
 	std::cout << "zone : " << zone << std::endl;
 	if (carte.getc_action() == ACT_A)
