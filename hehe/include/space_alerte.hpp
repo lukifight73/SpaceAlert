@@ -13,8 +13,7 @@
 #include "SA_Struct.hpp"
 #include "SA_Class.hpp"
 #include "zone.hpp"
-#include "carte.hpp"
-
+#include "joueur.hpp"
 
 void wr(std::string str);
 std::string generateRandomString(int length);
