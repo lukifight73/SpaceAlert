@@ -51,16 +51,24 @@ void print_joueur_zone(t_data &data)
 	}
 }
 
+void clear_actionUsage(t_data &data)
+{
+	int i(1);
+	while (i < 4)
+	{
+		data.zones[i]->clearz_actions_used_ce_tour_bas();
+		data.zones[i]->clearz_actions_used_ce_tour_haut();
+		i++;
+	}
+}
 
-
-void init_zone_for_each_round(t_data &data, std::string nom_joueur)
+// clarifie quelle joueur est en action
+void setPlayerEngaged(t_data &data, std::string nom_joueur)
 {
 	int i = 1;
 	while (i < 4)
 	{
 		data.zones[i]->setz_joueur_playing(nom_joueur);
-		data.zones[i]->clearz_actions_used_ce_tour_bas();
-		data.zones[i]->clearz_actions_used_ce_tour_haut();
 		i++;
 	}
 }
@@ -70,18 +78,18 @@ void	play_game(t_data &data)
 {
 	while (data.tour < 13)
 	{
-		int i(1);
+		int num_joueur(1);
 		std::cout << "\n\n\n\n\n----------------------------------- TOUR : " << data.tour << "----------------------------\n\n\n" << std::endl;
 		print_joueur_zone(data);
-		while (i <= data.nb_joueur)
+		apparitionMenaces(data);
+		clear_actionUsage(data);
+		while (num_joueur <= data.nb_joueur)
 		{
-			std::cout << "\n----------------------------------- joueur n " << i << " playing : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
-			init_zone_for_each_round(data, data.joueurs[i]->getj_nom());
-			carte action = data.joueurs[i]->getcartes()[data.tour];
-			apparitionMenaces(data);
-			action_joueur(data, action, i);
-			std::cout << "\n----------------------------------- fin tour joueur n " << i << " : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
-			i++;
+			std::cout << "\n----------------------------------- joueur n " << num_joueur << " playing : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
+			setPlayerEngaged(data, data.joueurs[num_joueur]->getj_nom());
+			action_joueur(data, num_joueur);
+			std::cout << "\n----------------------------------- fin tour joueur n " << num_joueur << " : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
+			num_joueur++;
 		}
 		print_data(data);
 		data.tour++;
