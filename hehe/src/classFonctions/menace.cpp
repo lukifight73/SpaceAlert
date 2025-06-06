@@ -6,6 +6,7 @@ menace::menace()
 
 menace::menace(std::string input, int tourDarrivee)
 {
+    m_presence = false;
     m_tourDarrivee = tourDarrivee;
     if(input == "se1-06")
     {

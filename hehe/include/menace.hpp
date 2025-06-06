@@ -10,6 +10,7 @@ class menace
     protected:
     std::string m_name;
     int m_tourDarrivee;
+    bool m_presence;
     int m_vitesse;
     int m_vie;
     int m_bouclier;
@@ -35,6 +36,12 @@ class menace
         };
         int get_m_difficulte() const {
             return m_difficulte;
+        };
+        bool get_m_presence() const {
+            return m_presence;
+        };
+        void set_m_presence(bool input) {
+            m_presence = input;
         };
         ~menace();
 };

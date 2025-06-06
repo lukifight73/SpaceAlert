@@ -20,6 +20,7 @@ void init_carte_joueur_test(t_data& data);
 void init_data(t_data& data);
 void apparitionMenaces(t_data &data);
 void parsing_config(t_data &data, char* av);
+void	action_joueur(t_data &data, carte& carte, int joueur);
 
 
 
