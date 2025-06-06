@@ -27,18 +27,24 @@ BLUE		=	\033[34m
 UP			=	\033[A
 CUT			=	\033[K
 
-SRC_FILES	=	classFonction/joueur.cpp \
-				classFonction/zone.cpp \
-				classFonction/carte.cpp \
-				classFonction/menace.cpp \
-				classFonction/menace_externe.cpp \
-				classFonction/menace_interne.cpp \
-				classFonction/cannon.cpp \
-				classFonction/chemin_menace.cpp \
-				classFonction/menace_interne_serieuse.cpp \
-				classFonction/jeux.cpp \
-				main.cpp \
+SRC_FILES	=	classFonctions/cannon.cpp \
+				classFonctions/carte_action.cpp \
+				classFonctions/carte_action_hero.cpp \
+				classFonctions/carte.cpp \
+				classFonctions/carte_deplacement.cpp \
+				classFonctions/carte_deplacement_hero.cpp \
+				classFonctions/carte_heros.cpp \
+				classFonctions/chemin_menace.cpp \
+				classFonctions/jeux.cpp \
+				classFonctions/joueur.cpp \
+				classFonctions/menace.cpp \
+				classFonctions/menace_externe.cpp \
+				classFonctions/menace_externe_serieuse.cpp \
+				classFonctions/menace_interne.cpp \
+				classFonctions/menace_interne_serieuse.cpp \
+				classFonctions/zone.cpp \
 				initialisation.cpp \
+				main.cpp \
 				utils.cpp
 
 OBJ			=	$(patsubst %.cpp,$(OBJ_DIR)%.o,$(SRC_FILES))
@@ -64,20 +70,21 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then \
 		rm -rf $(OBJ_DIR); \
-		echo "$(BLUE)Deleting all objects from /ex00...$(RESET)"; \
+		echo "$(BLUE)Deleting all objects from $(OBJ_DIR)...$(RESET)"; \
 	else \
-		echo "No objects to remove from /ex00."; \
+		echo "No objects to remove from $(OBJ_DIR)."; \
 	fi;
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 		rm -f $(NAME); \
-		echo "$(BLUE)Deleting $(NAME) from /ex00...$(RESET)"; \
+		echo "$(BLUE)Deleting $(NAME)...$(RESET)"; \
 	else \
-		echo "No Executable to remove from /ex00."; \
+		echo "No executable to remove."; \
 	fi;
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
 
