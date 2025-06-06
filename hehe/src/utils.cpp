@@ -14,6 +14,5 @@ std::string generateRandomString(int length) {
         int index = rand() % charsetSize;
         result += charset[index];
     }
-
     return result;
 }

@@ -6,7 +6,7 @@ joueur::joueur()
     j_nom = generateRandomString(5);
 	j_state = ACTIF;
     j_bots = NO_BOTS;
-    j_zone = ZONE_HAUT_WHITE;
+    j_zone = ZONE_WHITE;
     j_capitaine = false;
 }
 
@@ -15,24 +15,18 @@ joueur::joueur(std::string nom)
     j_nom = nom;
 	j_state = ACTIF;
     j_bots = NO_BOTS;
-    j_zone = ZONE_HAUT_WHITE;
+    j_zone = ZONE_WHITE;
 }
 void joueur::print()
 {
     std::cout  << "                     ----- JOUEUR ------" << std::endl;
     std::cout << "Je suis " << j_nom << " et je me trouve en ";
-    if (j_zone == ZONE_BAS_BLUE)
-        std::cout << "zone bas bleue.\n";
-    else if (j_zone == ZONE_BAS_WHITE)
-        std::cout << "zone bas blanche.\n";
-    else if (j_zone == ZONE_BAS_RED)
-        std::cout << "zone bas rouge.\n";
-    else if (j_zone == ZONE_HAUT_BLUE)
-        std::cout << "zone haute bleue.\n";
-    else if (j_zone == ZONE_HAUT_WHITE)
-        std::cout << "zone haute blanche.\n";
-    else if (j_zone == ZONE_HAUT_RED)
-        std::cout << "zone haute rouge.\n";
+    if (j_zone == ZONE_BLUE)
+        std::cout << "zone bleue.\n";
+    else if (j_zone == ZONE_WHITE)
+        std::cout << "zone blanche.\n";
+    else if (j_zone == ZONE_RED)
+        std::cout << "zone rouge.\n";
     if (j_state == INACTIF)
         std::cout << "Je suis inactif" << std::endl;
     if (j_bots == NO_BOTS)
