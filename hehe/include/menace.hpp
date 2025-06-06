@@ -43,5 +43,6 @@ class menace
         void set_m_presence(bool input) {
             m_presence = input;
         };
+        void send_announcement_message() const;
         ~menace();
 };

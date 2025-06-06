@@ -14,6 +14,7 @@
 #include "SA_Class.hpp"
 #include "zone.hpp"
 #include "joueur.hpp"
+#include "carte.hpp"
 
 void wr(std::string str);
 std::string generateRandomString(int length);

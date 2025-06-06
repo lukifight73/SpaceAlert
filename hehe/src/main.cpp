@@ -72,13 +72,13 @@ void	play_game(t_data &data)
 	{
 		int i(1);
 		std::cout << "\n\n\n\n\n----------------------------------- TOUR : " << data.tour << "----------------------------\n\n\n" << std::endl;
+		apparitionMenaces(data);
 		print_joueur_zone(data);
 		while (i <= data.nb_joueur)
 		{
 			std::cout << "\n----------------------------------- joueur n " << i << " playing : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
 			init_zone_for_each_round(data, data.joueurs[i]->getj_nom());
 			carte action = data.joueurs[i]->getcartes()[data.tour];
-			apparitionMenaces(data);
 			action_joueur(data, action, i);
 			std::cout << "\n----------------------------------- fin tour joueur n " << i << " : " << data.joueurs[i]->getj_nom() << "----------------------------" << std::endl;
 			i++;
