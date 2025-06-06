@@ -11,10 +11,28 @@ class menace;
 class chemin_menace
 {
     private:
-        std::vector<char> ch_chemin;
-        std::vector<menace> ch_menaces;
+        std::string          ch_nom;
+        std::map<int,char> ch_chemin;
+        int                 ch_chemin_size;
+        std::vector<menace*> ch_menaces;
 
     public:
         chemin_menace();
+        chemin_menace(std::string input);
+        void add_menace(menace *input) {
+            ch_menaces.push_back(input);
+        }
+        std::string get_ch_nom() const {
+            return ch_nom;
+        };
+        int  get_ch_chemin_size() const {
+            return ch_chemin_size;
+        };
+        std::map<int,char> get_ch_chemin() const {
+            return ch_chemin;
+        };
+        std::vector<menace*> get_menaces() const {
+            return ch_menaces;
+        };
         ~chemin_menace();
 };

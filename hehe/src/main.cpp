@@ -1,5 +1,5 @@
 #include "space_alerte.hpp"
-#include "space_alerte_values.hpp"
+#include "SA_Values.hpp"
 
 void erase_data(t_data& data)
 {
@@ -91,6 +91,7 @@ void	play_game(t_data &data)
 			std::cout << "joueur playing : " << data.joueurs[i]->getj_nom() << std::endl;
 			put_joueur_playing(data, data.joueurs[i]->getj_nom());
 			carte action = data.joueurs[i]->getcartes()[data.tour];
+			apparitionMenaces(data);
 			action_joueur(data, action, i);
 			i++;
 		}
@@ -99,11 +100,18 @@ void	play_game(t_data &data)
 	}
 }
 
-int main(void)
+
+int main(int ac, char* *av)
 {
-    t_data data;
+    if(ac != 2)
+	{
+		std::cerr << "Usage: " << av[0] << " <config_file>" << std::endl;
+		return 1;
+	}
+	t_data data;
 
 	init_data(data);
+	parsing_config(data, av[1]);
 	init_carte_joueur_test(data);
 	print_data(data);
 	play_game(data);

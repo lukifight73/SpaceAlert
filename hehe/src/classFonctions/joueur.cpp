@@ -1,5 +1,5 @@
 #include "joueur.hpp"
-#include "space_alerte_values.hpp"
+#include "SA_Values.hpp"
 
 joueur::joueur()
 {
@@ -42,6 +42,7 @@ void joueur::print()
     else if (j_bots == BOTS_INACTIF)
         std::cout << "J'ai des robots inactif avec moi" << std::endl;
 }
+
 void joueur::setj_state(bool input)
 {
     j_state = input;

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	webserv
+NAME		=	spaceAlert
 
 CXX			=	c++
 
@@ -44,6 +44,8 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/menace_interne_serieuse.cpp \
 				classFonctions/zone.cpp \
 				initialisation.cpp \
+				apparitionMenaces.cpp \
+				parsingConfig.cpp \
 				main.cpp \
 				utils.cpp
 

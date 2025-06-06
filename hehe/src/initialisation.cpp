@@ -1,6 +1,6 @@
 
 #include "space_alerte.hpp"
-#include "space_alerte_values.hpp"
+#include "SA_Values.hpp"
 
 void init_carte_joueur_test(t_data& data)
 {
@@ -80,7 +80,6 @@ void init_data(t_data& data)
 	cannon *cannon_leger_zone_blue = new cannon("Cannon laser leger lateral", 2, 3, CANON_LATERAUX);
 	cannon *cannon_leger_zone_red = new cannon("Cannon laser leger lateral", 2, 3, CANON_LATERAUX);
 	cannon *cannon_impulsion_zone_white = new cannon("Cannon a impulsion central", 1, 2, CANON_IMPULSION);
-	chemin_menace *menace_zone_blanche = new chemin_menace();
 	while (i < data.nb_joueur)
 	{
 		data.joueurs[i] = new joueur;
@@ -97,7 +96,6 @@ void init_data(t_data& data)
     data.zones[ZONE_BLUE]->setcannon_haut(cannon_zone_blue);
     data.zones[ZONE_BLUE]->setcannon_bas(cannon_leger_zone_blue);
     data.zones[ZONE_BLUE]->setz_nom_zone("zone bleue");
-    data.zones[ZONE_BLUE]->setz_chemin(menace_zone_blanche);
     data.zones[ZONE_BLUE]->setz_bots(true);
     data.zones[ZONE_BLUE]->setz_temps(1);
     data.zones[ZONE_BLUE]->setz_capsule_energie(0);
@@ -115,7 +113,6 @@ void init_data(t_data& data)
     data.zones[ZONE_WHITE]->setcannon_haut(cannon_zone_white);
     data.zones[ZONE_WHITE]->setcannon_bas(cannon_impulsion_zone_white);
     data.zones[ZONE_WHITE]->setz_nom_zone("zone blanche");
-    data.zones[ZONE_WHITE]->setz_chemin(menace_zone_blanche);
     data.zones[ZONE_WHITE]->setz_bots(true);
     data.zones[ZONE_WHITE]->setz_temps(1);
     data.zones[ZONE_WHITE]->setz_capsule_energie(3);
@@ -138,7 +135,6 @@ void init_data(t_data& data)
     data.zones[ZONE_RED]->setcannon_haut(cannon_zone_red);
     data.zones[ZONE_RED]->setcannon_bas(cannon_leger_zone_red);
     data.zones[ZONE_RED]->setz_nom_zone("zone rouge");
-    data.zones[ZONE_RED]->setz_chemin(menace_zone_blanche);
     data.zones[ZONE_RED]->setz_bots(true);
     data.zones[ZONE_RED]->setz_temps(1);
     data.zones[ZONE_RED]->setz_capsule_energie(0);

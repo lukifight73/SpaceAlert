@@ -29,6 +29,28 @@ zone::zone(int nb_zone)
 	z_ascenseur = true;
 }
 
+void zone::printZone() 
+{
+	wr("--------- ZONE START---------");
+	wr("Zone : " + z_nom_zone);
+	std::cout << "Temps : " << z_temps << std::endl;
+	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
+	std::cout << "Reacteur : " << z_reacteur << "/ " << z_max_reacteur << std::endl;
+	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
+	wr("Joueur en jeu : " + z_joueur_playing);
+	wr("chemin_menace : " + z_chemin_menace->get_ch_nom());
+	wr("Menaces : " + z_chemin_menace->get_menaces()[0]->get_m_name());
+	wr("--------- ZONE END---------");
+}
+
+chemin_menace* zone::getz_chemin_menace() const {
+	return (z_chemin_menace);
+}
+
+chemin_menace *zone::getz_chemin_menace_interne() const {
+	return (z_chemin_menace_interne);
+}
+
 void zone::setzone_white(zone* zone)
 {
 	zone_white = zone;
@@ -70,7 +92,7 @@ void zone::setz_nom_zone(std::string input)
 
 void zone::setz_chemin(chemin_menace *input)
 {
-	z_chemin = input;
+	z_chemin_menace = input;
 }
 
 void zone::setz_bots(bool input)
@@ -791,22 +813,22 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
 			if (action_ce_tour == this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end())
 			{
-				if (roquete_position[1] == 0)
+				if (z_roquete_position[1] == 0)
 				{
 					wr("[Lancement de la premiere requete !]");
-					roquete_position[1] = 1;
+					z_roquete_position[1] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
-				else if (roquete_position[2] == 0)
+				else if (z_roquete_position[2] == 0)
 				{
 					wr("[Lancement de la seconde requete !]");
-					roquete_position[2] = 1;
+					z_roquete_position[2] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
-				else if (roquete_position[3] == 0)
+				else if (z_roquete_position[3] == 0)
 				{
 					wr("[Lancement de la troisieme requete !]");
-					roquete_position[3] = 1;
+					z_roquete_position[3] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
 				else

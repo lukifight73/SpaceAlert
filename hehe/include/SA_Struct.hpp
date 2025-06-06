@@ -2,6 +2,7 @@
 #pragma once
 
 #include <vector>
+#include <sstream>
 #include <map>
 #include <string>
 #include <iostream>

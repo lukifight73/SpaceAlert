@@ -49,8 +49,10 @@
 #define ACTIF 1
 
 //Difficulte_menace
-#define MENACE_FACILE 1
-#define MENACE_DIFFICILE 2
+#define MENACE_COMMUNE 1
+#define MENACE_COMMUNE_AVANCEE 2
+#define MENACE_SERIEUSE 3
+#define MENACE_SERIEUSE_AVANCEE 4
 
 //Type Cannon
 #define CANON_LOURD 1

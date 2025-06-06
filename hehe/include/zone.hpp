@@ -4,7 +4,7 @@
 #include <map>
 #include <stdexcept>
 #include "joueur.hpp"
-#include "space_alerte_values.hpp"
+#include "SA_Values.hpp"
 #include "chemin_menace.hpp"
 #include "cannon.hpp"
 
@@ -17,7 +17,7 @@ class zone
         cannon *cannon_haut;
         cannon *cannon_bas;
         std::string z_nom_zone;
-        chemin_menace *z_chemin;
+        chemin_menace *z_chemin_menace;
         bool z_bots;
         int z_zone;//NUMERO DE La ZONE
         int z_temps;//chelou ici
@@ -27,7 +27,7 @@ class zone
         int z_max_reacteur;
         int z_bouclier;
         int z_max_energie_bouclier;
-        std::map<int, int> roquete_position;
+        std::map<int, int> z_roquete_position;
         std::vector<int> z_maintenance_ordinateur;
         std::vector<int> z_observations;
         zone *zone_blue;
@@ -80,6 +80,8 @@ class zone
         int getz_max_energie_bouclier() const;
         int getz_zone() const;
         bool getz_ascenseur() const;
+        chemin_menace *getz_chemin_menace() const;
+        chemin_menace *getz_chemin_menace_interne() const;
         cannon *get_cannon_haut() const;
         cannon *get_cannon_bas() const;
         std::string getz_joueur_playing() const;
@@ -95,6 +97,7 @@ class zone
         joueur* getz_joueur_haut(std::string nom);
         joueur* getz_joueur_bas(std::string nom);
         void print();
+        void printZone();
         void addtemps();
         void addz_joueurs_bas(joueur* input);
         void removez_joueurs_bas(std::string input);
