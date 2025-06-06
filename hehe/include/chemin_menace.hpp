@@ -6,6 +6,8 @@
 #include "space_alerte.hpp"
 #include "menace.hpp"
 
+class menace;
+
 class chemin_menace
 {
     private:

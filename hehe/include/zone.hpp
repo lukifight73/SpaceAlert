@@ -9,6 +9,7 @@
 #include "cannon.hpp"
 
 class joueur;
+class chemin_menace;
 
 class zone
 {
@@ -18,8 +19,8 @@ class zone
         std::string z_nom_zone;
         chemin_menace *z_chemin;
         bool z_bots;
-        int z_zone;
-        int z_temps;
+        int z_zone;//NUMERO DE La ZONE
+        int z_temps;//chelou ici
         int z_capsule_energie;
         bool z_ascenseur;
         int z_reacteur;
@@ -34,7 +35,7 @@ class zone
         zone *zone_white;
         zone *zone_right;
         zone *zone_left;
-        std::string z_joueur_playing;
+        std::string z_joueur_playing;//chelou ici
         std::vector<joueur*> z_joueurs_haut;
         std::vector<joueur*> z_joueurs_bas;
         std::vector<int>    z_actions_bas;
@@ -52,7 +53,6 @@ class zone
         //setters
         void setz_zone(int input);
         void setz_joueur_playing(std::string input);
-        void setz_ascenseur(bool input);
         void setzone_white(zone* zone);
         void setzone_red(zone* zone);
         void setzone_blue(zone* zone);
@@ -63,7 +63,6 @@ class zone
         void setz_nom_zone(std::string input);
         void setz_chemin(chemin_menace *input);
         void setz_bots(bool input);
-        void setz_zone(int input);
         void setz_temps(int input);
         void setz_capsule_energie(int input);
         void setz_ascenseur(bool input);
@@ -91,7 +90,6 @@ class zone
         std::vector<int>    getz_actions_haut() const;
         std::vector<int>    getz_actions_used_ce_tour_bas() const;
         std::vector<int>    getz_actions_used_ce_tour_haut() const;
-        virtual zone* getzone_bas() const = 0;
 
         //autre
         joueur* getz_joueur_haut(std::string nom);

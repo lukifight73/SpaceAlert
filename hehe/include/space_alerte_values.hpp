@@ -26,12 +26,12 @@
 #define DIR_B 9
 #define DIR_A 10       //ascenseur
 
-//carte_zone
+// //carte_zone
 #define ZONE_BAS_RED 1// Red Bas
-#define ZONE_HAUT_RED 2// Red Haut
-#define ZONE_BAS_WHITE 3// White Bas
-#define ZONE_HAUT_WHITE 4// White Haut
-#define ZONE_BAS_BLUE 5// Blue Bas
+#define ZONE_HAUT_RED 4// Red Haut
+#define ZONE_BAS_WHITE 2// White Bas
+#define ZONE_HAUT_WHITE 5// White Haut
+#define ZONE_BAS_BLUE 3// Blue Bas
 #define ZONE_HAUT_BLUE 6// Blue Haut
 
 //carte_zone

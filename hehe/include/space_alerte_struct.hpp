@@ -12,6 +12,9 @@
 #include "joueur.hpp"
 #include "zone.hpp"
 
+class joueur;
+class zone;
+
 typedef struct s_data
 {
 	int nb_joueur;

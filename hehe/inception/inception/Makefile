@@ -1,5 +1,5 @@
-WP_DATA = /home/data/wordpress #define the path to the wordpress data
-DB_DATA = /home/data/mariadb #define the path to the mariadb data
+WP_DATA = /home/lbenatar/data/wordpress #define the path to the wordpress data
+DB_DATA = /home/lbenatar/data/mariadb #define the path to the mariadb data
 
 # default target
 all: up

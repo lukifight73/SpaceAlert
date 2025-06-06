@@ -13,7 +13,6 @@ private:
     std::string j_nom;
     bool j_state;//eveille / KO
     int j_bots;//
-    int etage;
     bool j_capitaine;
     int j_zone;//un joueur est dans une zone
     std::map<int, carte> cartes;//un joueur pose des cartes, associe au tour ou il pose ses cartes
