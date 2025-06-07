@@ -42,7 +42,10 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/menace_externe_serieuse.cpp \
 				classFonctions/menace_interne.cpp \
 				classFonctions/menace_interne_serieuse.cpp \
-				classFonctions/zone.cpp \
+				classFonctions/zoneGetSet.cpp \
+				classFonctions/zoneActDir.cpp \
+				classFonctions/zoneActAct.cpp \
+				classFonctions/zoneUtils.cpp \
 				initialisation.cpp \
 				apparitionMenaces.cpp \
 				parsingConfig.cpp \
