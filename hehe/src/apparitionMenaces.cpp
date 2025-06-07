@@ -6,7 +6,6 @@ void apparitionMenaces(t_data &data)
     while (i < 4) 
     {
         std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
-        std::vector<menace *>::iterator it;
         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->get_m_tourDarrivee() == data.tour)

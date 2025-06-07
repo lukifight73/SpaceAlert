@@ -19,9 +19,8 @@ class chemin_menace
     public:
         chemin_menace();
         chemin_menace(std::string input);
-        void add_menace(menace *input) {
-            ch_menaces.push_back(input);
-        }
+        void add_menace(menace *input);
+        menace* get_closest_menace();
         std::string get_ch_nom() const {
             return ch_nom;
         };

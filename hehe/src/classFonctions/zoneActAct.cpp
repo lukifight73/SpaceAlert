@@ -61,13 +61,6 @@ void zone::actionA()
 	}
 }
 
-void calculateDegatsCanons() 
-{
-	// dans quelle zone on est?
-	// quel est le type de canon?
-	// qui est le monstre le plus proche?
-	// combien de canons peuvent l'atteindre? combien de degats il prend 
-}
 
 void zone::actionAHeros()
 {

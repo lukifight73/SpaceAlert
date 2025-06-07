@@ -59,6 +59,11 @@ void clear_actionUsage(t_data &data)
 		data.zones[i]->clearz_actions_used_ce_tour_bas();
 		data.zones[i]->clearz_actions_used_ce_tour_haut();
 		data.zones[i]->clearz_cannon_used();
+		std::vector<menace*> vecteur_menace = data.zones[i]->getz_chemin_menace()->get_menaces();
+		for (std::vector<menace*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
+		{
+			(*it)->clear_m_canon_used();
+		}
 		i++;
 	}
 }
@@ -91,6 +96,15 @@ void	play_game(t_data &data)
 			action_joueur(data, num_joueur);
 			std::cout << "\n----------------------------------- fin tour joueur n " << num_joueur << " : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
 			num_joueur++;
+		}
+		assignationCannons(data);
+		for (int i = 1; i < 4; i++) 
+		{
+			std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
+			for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+			{
+				(*it)->print_menace();
+			}
 		}
 		print_data(data);
 		data.tour++;

@@ -32,4 +32,20 @@ void menace::send_announcement_message() const
     std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << ", Bouclier : " << m_bouclier << "]" << std::endl;
 }
 
+void menace::print_menace() const
+{
+    std::cout << "\n\n--------------------INFORMATION MENACE----------------------" << std::endl;
+    std::cout << "Menace : " << m_name << std::endl;
+    std::cout << "Tour d'arrivée : " << m_tourDarrivee << std::endl;
+    std::cout << "Position : " << m_position << std::endl;
+    std::cout << "Vitesse : " << m_vitesse << std::endl;
+    std::cout << "Vie : " << m_vie << std::endl;
+    std::cout << "Bouclier : " << m_bouclier << std::endl;
+    std::cout << "Difficulté : " << m_difficulte << std::endl;
+    for (std::vector<cannon *>::const_iterator it = m_canon_used.begin(); it != m_canon_used.end(); ++it)
+    {
+        std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;
+    }
+    std::cout << "\n\n--------------------INFORMATION MENACE FIN----------------------" << std::endl;
+}
 menace::~menace() {}

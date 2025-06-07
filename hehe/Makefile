@@ -14,7 +14,7 @@ NAME		=	spaceAlert
 
 CXX			=	c++
 
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -g3
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++11 -g3
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/
@@ -47,6 +47,7 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/zoneActAct.cpp \
 				classFonctions/zoneUtils.cpp \
 				initialisation.cpp \
+				calculDesDegats.cpp \
 				apparitionMenaces.cpp \
 				parsingConfig.cpp \
 				actionsDesJoueurs.cpp \
