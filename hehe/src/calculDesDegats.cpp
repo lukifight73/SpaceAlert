@@ -258,9 +258,23 @@ void impactDegatsTotaux(t_data &data)
             int degatsRecus = (*it)->get_m_degatsRecus();
             if (degatsRecus > 0) 
             {
-                (*it)->set_m_vie((*it)->get_m_vie() - degatsRecus + (*it)->get_m_bouclier());
+                int newLife(0);
+                if((*it)->get_m_bouclier() - degatsRecus >= 0)
+                {
+                    newLife = (*it)->get_m_vie();
+                    std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus << " points de dégâts, mais son bouclier a absorbé tous les dégâts.]\n";
+                }
+                else
+                {
+                    newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_bouclier();
+                    std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
+                }
+                if (newLife < 0) 
+                {
+                    newLife = 0; // Ensure life does not go below zero
+                }
+                (*it)->set_m_vie(newLife);
                 (*it)->set_m_degatsRecus(0); // Reset the damage received after applying it
-                std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
                 if ((*it)->get_m_vie() <= 0) 
                 {
                     (*it)->set_m_presence(false);
