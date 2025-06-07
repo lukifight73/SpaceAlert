@@ -74,7 +74,7 @@ void joueur::addcartes(int input, carte carte)
 void joueur::passerTour(int input)
 {
     int i = 12;
-    while (i > input)
+    while (i > input + 1)
     {
         cartes[i] = cartes[i - 1];
         i--;

@@ -112,6 +112,26 @@ void zone::clearz_actions_used_ce_tour_haut()
 	z_actions_used_ce_tour_haut.clear();
 }
 
+std::vector<int> zone::getz_maintenance_ordinateur() const
+{
+	return z_maintenance_ordinateur;
+}
+
+std::vector<int> zone::getz_observations() const
+{
+	return z_observations;
+}
+
+void zone::addz_maintenance_ordinateur(int input)
+{
+	z_maintenance_ordinateur.push_back(input);
+}
+
+void zone::addz_observations(int input)
+{
+	z_observations.push_back(input);
+}
+
 void zone::clearz_cannon_used() 
 {
 	z_cannon_used.clear();

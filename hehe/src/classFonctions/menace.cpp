@@ -35,7 +35,6 @@ void menace::send_announcement_message() const
 
 void menace::print_menace() const
 {
-    std::cout << "\n\n--------------------INFORMATION MENACE----------------------" << std::endl;
     std::cout << "Menace : " << m_name << std::endl;
     std::cout << "Tour d'arrivée : " << m_tourDarrivee << std::endl;
     std::cout << "Position : " << m_position << std::endl;
@@ -48,6 +47,5 @@ void menace::print_menace() const
     {
         std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;
     }
-    std::cout << "\n\n--------------------INFORMATION MENACE FIN----------------------" << std::endl;
 }
 menace::~menace() {}
