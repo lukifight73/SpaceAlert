@@ -14,8 +14,8 @@ class chemin_menace;
 class zone
 {
     private:
-        cannon *cannon_haut;
-        cannon *cannon_bas;
+        cannon *z_cannon_haut;
+        cannon *z_cannon_bas;
         std::string z_nom_zone;
         chemin_menace *z_chemin_menace;
         bool z_bots;
@@ -59,8 +59,8 @@ class zone
         void setzone_blue(zone* zone);
         void setzone_right(zone* zone);
         void setzone_left(zone* zone);
-        void setcannon_haut(cannon *input);
-        void setcannon_bas(cannon *input);
+        void setz_cannon_haut(cannon *input);
+        void setz_cannon_bas(cannon *input);
         void setz_nom_zone(std::string input);
         void setz_chemin(chemin_menace *input);
         void setz_bots(bool input);
@@ -84,10 +84,10 @@ class zone
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
         chemin_menace *getz_chemin_menace_interne() const;
-        cannon *get_cannon_haut() const;
-        cannon *get_cannon_bas() const;
+        cannon *getz_cannon_haut() const;
+        cannon *getz_cannon_bas() const;
         std::string getz_joueur_playing() const;
-        int gettemps() const;
+        int getz_temps() const;
         std::vector<joueur*> getz_joueurs_bas() const;
         std::vector<joueur*> getz_joueurs_haut() const;
         std::vector<cannon*> getz_cannon_used() const;

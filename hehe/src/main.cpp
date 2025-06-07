@@ -58,6 +58,7 @@ void clear_actionUsage(t_data &data)
 	{
 		data.zones[i]->clearz_actions_used_ce_tour_bas();
 		data.zones[i]->clearz_actions_used_ce_tour_haut();
+		data.zones[i]->clearz_cannon_used();
 		i++;
 	}
 }
@@ -76,7 +77,7 @@ void setPlayerEngaged(t_data &data, std::string nom_joueur)
 
 void	play_game(t_data &data)
 {
-	while (data.tour < 13)
+	while (data.tour < 13)//commence a 1 et finit a 12	
 	{
 		int num_joueur(1);
 		std::cout << "\n\n\n\n\n----------------------------------- TOUR : " << data.tour << "----------------------------\n\n\n" << std::endl;

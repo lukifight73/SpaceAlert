@@ -1,12 +1,14 @@
 #include "zone.hpp"
 
-
-chemin_menace* zone::getz_chemin_menace() const {
-	return (z_chemin_menace);
+zone::zone()
+{
 }
 
-chemin_menace *zone::getz_chemin_menace_interne() const {
-	return (z_chemin_menace_interne);
+zone::zone(int nb_zone)
+{
+	z_temps = 1;
+	z_zone = nb_zone;
+	z_ascenseur = true;
 }
 
 void zone::setzone_white(zone* zone)
@@ -33,14 +35,14 @@ void zone::setzone_left(zone* zone)
 	zone_left = zone;
 }
 
-void zone::setcannon_haut(cannon *input)
+void zone::setz_cannon_haut(cannon *input)
 {
-	cannon_haut = input;
+	z_cannon_haut = input;
 }
 
-void zone::setcannon_bas(cannon *input)
+void zone::setz_cannon_bas(cannon *input)
 {
-	cannon_bas = input;
+	z_cannon_bas = input;
 }
 
 void zone::setz_nom_zone(std::string input)
@@ -103,7 +105,7 @@ void zone::setz_joueur_playing(std::string input)
 	z_joueur_playing = input;
 }
 
-int zone::gettemps() const
+int zone::getz_temps() const
 {
 	return (z_temps);
 }
@@ -176,4 +178,36 @@ std::vector<int>    zone::getz_actions_haut() const
 std::vector<int>    zone::getz_actions_used_ce_tour_haut() const
 {
 	return (z_actions_used_ce_tour_haut);
+}
+
+chemin_menace* zone::getz_chemin_menace() const {
+	return (z_chemin_menace);
+}
+
+chemin_menace *zone::getz_chemin_menace_interne() const {
+	return (z_chemin_menace_interne);
+}
+
+bool zone::getz_ascenseur() const
+{
+	return (z_ascenseur);
+}
+
+cannon *zone::getz_cannon_haut() const
+{
+	return (z_cannon_haut);
+}
+cannon *zone::getz_cannon_bas() const
+{
+	return (z_cannon_bas);
+}
+
+int zone::getz_zone() const
+{
+	return (z_zone);
+}
+
+std::string zone::getz_nom_zone() const
+{
+	return (z_nom_zone);
 }

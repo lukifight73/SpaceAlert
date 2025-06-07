@@ -1,359 +1,5 @@
 #include "zone.hpp"
 
-zone::zone()
-{
-}
-
-zone::zone(int nb_zone)
-{
-	z_temps = 1;
-	z_zone = nb_zone;
-	z_ascenseur = true;
-}
-
-void zone::printZone() 
-{
-	wr("--------- ZONE START---------");
-	wr("Zone : " + z_nom_zone);
-	std::cout << "Temps : " << z_temps << std::endl;
-	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
-	std::cout << "Reacteur : " << z_reacteur << "/ " << z_max_reacteur << std::endl;
-	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
-	wr("Joueur en jeu : " + z_joueur_playing);
-	wr("chemin_menace : " + z_chemin_menace->get_ch_nom());
-	wr("Menaces : " + z_chemin_menace->get_menaces()[0]->get_m_name());
-	wr("--------- ZONE END---------");
-}
-
-void zone::addtemps()
-{
-	z_temps++;
-}
-
-void zone::addz_joueurs_bas(joueur* input)
-{
-	z_joueurs_bas.push_back(input);
-}
-
-void zone::addz_joueurs_haut(joueur* input)
-{
-	z_joueurs_haut.push_back(input);
-}
-
-void zone::removez_joueurs_haut(std::string input)
-{
-	for (std::vector<joueur*>::iterator it = z_joueurs_haut.begin(); it != z_joueurs_haut.end();)
-	{
-		if (!*it)
-		{
-			it = z_joueurs_haut.erase(it);
-			continue;
-		}
-		if (z_joueurs_haut.size() == 0)
-		{
-			return;
-		}
-        if ((*it)->getj_nom() == input)
-		{
-            it = z_joueurs_haut.erase(it);
-		}
-        else
-            ++it;
-    }
-}
-
-void zone::removez_joueurs_bas(std::string input)
-{
-	for (std::vector<joueur*>::iterator it = z_joueurs_bas.begin(); it != z_joueurs_bas.end();)
-	{
-		if (!*it)
-		{
-			it = z_joueurs_bas.erase(it);
-			continue;
-		}
-		if (z_joueurs_bas.size() == 0)
-		{
-			return;
-		}
-        if ((*it)->getj_nom() == input)
-            it = z_joueurs_bas.erase(it);
-        else
-            ++it;
-    }
-}
-
-joueur* zone::getz_joueur_bas(std::string nom)
-{
-	std::vector<joueur*>::iterator it;
-
-	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end();)
-	{
-        if ((*it)->getj_nom() == nom)
-            return *it;
-        else
-            ++it;
-		std::cout << "ici1" << std::endl;
-    }
-	std::cout << "joueur pas trouve" << std::endl;
-	return (NULL);
-}
-
-joueur* zone::getz_joueur_haut(std::string nom)
-{
-	std::vector<joueur*>::iterator it;
-
-	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end();)
-	{
-        if ((*it)->getj_nom() == nom)
-		{
-			return *it;
-		}
-        else
-            ++it;
-    }
-	std::cout << "ici2" << std::endl;
-	return (NULL);
-}
-
-void zone::addz_actions_haut(int input)
-{
-	z_actions_haut.push_back(input);
-}
-
-void zone::removez_actions_haut(int input)
-{
-	z_actions_haut.erase(std::remove(z_actions_haut.begin(), z_actions_haut.end(), input), z_actions_haut.end());
-}
-
-void zone::removez_actions_bas(int input)
-{
-	z_actions_bas.erase(std::remove(z_actions_bas.begin(), z_actions_bas.end(), input), z_actions_bas.end());
-}
-
-void zone::addz_actions_used_ce_tour_haut(int input)
-{
-	z_actions_used_ce_tour_haut.push_back(input);
-}
-
-void zone::clearz_actions_used_ce_tour_haut()
-{
-	z_actions_used_ce_tour_haut.clear();
-}
-
-void zone::clearz_cannon_used() 
-{
-	z_cannon_used.clear();
-}
-
-void zone::addz_cannon_used(cannon* input)
-{
-	z_cannon_used.push_back(input);
-}
-
-
-
-void zone::addz_actions_bas(int input)
-{
-	z_actions_bas.push_back(input);
-}
-
-void zone::addz_actions_used_ce_tour_bas(int input)
-{
-	z_actions_used_ce_tour_bas.push_back(input);
-}
-
-void zone::clearz_actions_used_ce_tour_bas()
-{
-	z_actions_used_ce_tour_bas.clear();
-}
-
-
-
-
-
-void zone::flechesRouge()
-{
-	if (this->getz_joueur_haut(z_joueur_playing))
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_R);
-		if (action_possible != this->getz_actions_haut().end())
-		{
-			wr("[Vous vous deplacez.]");
-			if (z_zone == ZONE_BLUE)
-			{
-				this->getz_joueur_haut(this->getz_joueur_playing())->setj_zone(ZONE_WHITE);
-				zone_left->addz_joueurs_haut(this->getz_joueur_haut(z_joueur_playing));
-				this->removez_joueurs_haut(z_joueur_playing);
-				wr("[Vous arrivez en zone blanche, en haut.]");
-			}
-			if (z_zone == ZONE_WHITE)
-			{
-				this->getz_joueur_haut(this->getz_joueur_playing())->setj_zone(ZONE_RED);
-				zone_left->addz_joueurs_haut(this->getz_joueur_haut(z_joueur_playing));
-				this->removez_joueurs_haut(z_joueur_playing);
-				wr("[Vous arrivez en zone rouge, en haut.]");
-			}
-		}
-		else
-		{
-			wr("[Vous ne pouvez pas vous deplacer par la.]");
-		}
-	}
-	else
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_R);
-		if (action_possible != this->getz_actions_bas().end())
-		{
-			wr("[Vous vous deplacez.]");
-			if (z_zone == ZONE_BLUE)
-			{
-				wr("iceeeei\n");
-				std::cout << this->getz_joueur_playing() << "feijgbfuirgfiuewhfewjfiuhwerfih" <<  std::endl;
-				std::cout << this->getz_joueur_bas(this->getz_joueur_playing())->getj_nom() << this->getz_joueur_playing() << std::endl;
-				this->getz_joueur_bas(this->getz_joueur_playing())->setj_zone(ZONE_WHITE);
-				wr("iciefdefef1\n");
-				zone_left->addz_joueurs_bas(this->getz_joueur_bas(z_joueur_playing));
-				wr("icifefefdas2\n");
-				this->removez_joueurs_bas(z_joueur_playing);
-				wr("[Vous arrivez en zone blanche, en bas.]");
-			}
-			if (z_zone == ZONE_WHITE)
-			{
-				this->getz_joueur_bas(this->getz_joueur_playing())->setj_zone(ZONE_RED);
-				zone_left->addz_joueurs_bas(this->getz_joueur_bas(z_joueur_playing));
-				this->removez_joueurs_bas(z_joueur_playing);
-				wr("[Vous arrivez en zone rouge, en bas.]");
-			}
-		}
-		else
-		{
-			wr("[Vous ne pouvez pas vous deplacer par la.]");
-		}
-	}
-}
-
-void zone::flechesBleue()
-{
-	if (this->getz_joueur_haut(z_joueur_playing))
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_B);
-		if (action_possible != this->getz_actions_haut().end())
-		{
-			wr("[Vous vous deplacez.]");
-			if (z_zone == ZONE_RED)
-			{
-				this->getz_joueur_haut(this->getz_joueur_playing())->setj_zone(ZONE_WHITE);
-				zone_right->addz_joueurs_haut(this->getz_joueur_haut(z_joueur_playing));
-				this->removez_joueurs_haut(z_joueur_playing);
-				wr("[Vous arrivez en zone blanche, en haut.]");
-			}
-			if (z_zone == ZONE_WHITE)
-			{
-				this->getz_joueur_haut(this->getz_joueur_playing())->setj_zone(ZONE_BLUE);
-				zone_right->addz_joueurs_haut(this->getz_joueur_haut(z_joueur_playing));
-				this->removez_joueurs_haut(z_joueur_playing);
-				wr("[Vous arrivez en zone bleue, en haut.]");
-			}
-		}
-		else
-		{
-			wr("[Vous ne pouvez pas vous deplacer par la.]");
-		}
-	}
-	else
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_B);
-		if (action_possible != this->getz_actions_bas().end())
-		{
-			wr("[Vous vous deplacez.]");
-			if (z_zone == ZONE_RED)
-			{
-				this->getz_joueur_bas(this->getz_joueur_playing())->setj_zone(ZONE_WHITE);
-				zone_right->addz_joueurs_bas(this->getz_joueur_bas(z_joueur_playing));
-				this->removez_joueurs_bas(z_joueur_playing);
-				wr("[Vous arrivez en zone blanche, en bas.]");
-			}
-			if (z_zone == ZONE_WHITE)
-			{
-				this->getz_joueur_bas(this->getz_joueur_playing())->setj_zone(ZONE_BLUE);
-				zone_right->addz_joueurs_bas(this->getz_joueur_bas(z_joueur_playing));
-				this->removez_joueurs_bas(z_joueur_playing);
-				wr("[Vous arrivez en zone bleue, en bas.]");
-			}
-		}
-		else
-		{
-			wr("[Vous ne pouvez pas vous deplacer par la.]");
-		}
-	}
-}
-
-bool zone::getz_ascenseur() const
-{
-	return (z_ascenseur);
-}
-
-cannon *zone::get_cannon_haut() const
-{
-	return (cannon_haut);
-}
-cannon *zone::get_cannon_bas() const
-{
-	return (cannon_bas);
-}
-
-int zone::getz_zone() const
-{
-	return (z_zone);
-}
-
-std::string zone::getz_nom_zone() const
-{
-	return (z_nom_zone);
-}
-
-void zone::ascenseur()
-{
-	if (this->getz_joueur_haut(z_joueur_playing))
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), DIR_A);
-		if (action_possible != this->getz_actions_haut().end() && this->getz_ascenseur() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
-		{
-			wr("[Vous prenez l'ascenseur pour descendre d'un etage.]");
-			std::cout << "[Vous arrivez en bas, dans la " << this->getz_nom_zone() << ".]\n";
-			this->addz_actions_used_ce_tour_haut(DIR_A);
-			this->addz_actions_used_ce_tour_bas(DIR_A);
-			this->addz_joueurs_bas(this->getz_joueur_haut(z_joueur_playing));
-			this->removez_joueurs_haut(z_joueur_playing);
-		}
-		else
-		{
-			wr("[Vous ne ddpouvez pas vous deplacer par la.]");
-		}
-	}
-	else
-	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), DIR_A);
-		if (action_possible != this->getz_actions_bas().end() && this->getz_ascenseur() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
-		{
-			wr("[Vous prenez l'ascenseur pour monter d'un etage.]");
-			std::cout << "[Vous arrivez en haut, dans la " << this->getz_nom_zone() << ".]\n";
-			this->addz_actions_used_ce_tour_haut(DIR_A);
-			this->addz_actions_used_ce_tour_bas(DIR_A);
-			this->addz_joueurs_haut(this->getz_joueur_bas(z_joueur_playing));
-			this->removez_joueurs_bas(z_joueur_playing);
-		}
-		else
-		{
-			wr("[Vous ne pouvez pas vous deplacer par la.]");
-		}
-	}
-}
-
-
-
 void zone::actionA()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
@@ -364,24 +10,24 @@ void zone::actionA()
 		{
 			if (z_reacteur)
 			{
-				wr("[ATTACK avec le " + this->get_cannon_haut()->getnom_cannon() + " !]");
+				wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
 				z_reacteur -= 1;
 				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				this->addz_actions_used_ce_tour_haut(ACT_A);
-				addz_cannon_used(this->get_cannon_haut());
+				addz_cannon_used(this->getz_cannon_haut());
 			}
 			else
 			{
-				wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
 				this->addz_actions_used_ce_tour_haut(ACT_A);
 			}
 		}
 		else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
 		{
-			wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 		}
 		else
-			wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
 	}
 	else
 	{
@@ -391,27 +37,27 @@ void zone::actionA()
 		{
 			if (z_reacteur)
 			{
-				wr("[ATTACK avec le " + this->get_cannon_bas()->getnom_cannon() + " !]");
-				if (this->get_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
+				wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
+				if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
 				{
 					z_reacteur -= 1;
 					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				}
 				this->addz_actions_used_ce_tour_bas(ACT_A);
-				addz_cannon_used(this->get_cannon_bas());
+				addz_cannon_used(this->getz_cannon_bas());
 			}
 			else
 			{
-				wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
 				this->addz_actions_used_ce_tour_bas(ACT_A);
 			}
 		}
 		else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
 		{
-			wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 		}
 		else
-			wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
 	}
 }
 
@@ -434,23 +80,23 @@ void zone::actionAHeros()
 		{
 			if (z_reacteur)
 			{
-				wr("[ATTACK avec le " + this->get_cannon_haut()->getnom_cannon() + " !]");
+				wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
 				z_reacteur -= 1;
 				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				this->addz_actions_used_ce_tour_haut(ACT_AH);
 			}
 			else
 			{
-				wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
 				this->addz_actions_used_ce_tour_haut(ACT_AH);
 			}
 		}
 		else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
 		{
-			wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 		}
 		else
-			wr("[Tentative d'attack avec " + this->get_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
 	}
 	else
 	{
@@ -460,8 +106,8 @@ void zone::actionAHeros()
 		{
 			if (z_reacteur)
 			{
-				wr("[ATTACK avec le " + this->get_cannon_bas()->getnom_cannon() + " !]");
-				if (this->get_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
+				wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
+				if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
 				{
 					z_reacteur -= 1;
 					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
@@ -470,16 +116,16 @@ void zone::actionAHeros()
 			}
 			else
 			{
-				wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
 				this->addz_actions_used_ce_tour_bas(ACT_AH);
 			}
 		}
 		else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
 		{
-			wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 		}
 		else
-			wr("[Tentative d'attack avec " + this->get_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
 	}
 }
 
@@ -644,7 +290,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_C);
 			if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
 			{
-				z_maintenance_ordinateur.push_back(this->gettemps());
+				z_maintenance_ordinateur.push_back(this->getz_temps());
 				wr("[Bravo! Vous avez fait la maintenance! (elle genere toujours autant d'enthousiasme celle la)]");
 				this->addz_actions_used_ce_tour_haut(ACT_C);
 				//this->removez_actions_haut(ACT_C);
