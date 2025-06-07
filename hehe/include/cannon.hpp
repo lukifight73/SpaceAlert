@@ -35,6 +35,8 @@ class cannon
 
     public:
         cannon();
+        void setpuissance_cannon(int input);
+        void setportee_cannon(int input);
         int getpuissance_cannon() const;
         int getportee_cannon() const;
         int gettype_cannon() const;

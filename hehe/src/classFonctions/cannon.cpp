@@ -19,6 +19,16 @@ void cannon::debuf_puissance_cannon(int debuf)
 		puissance_cannon = 0;
 }
 
+void cannon::setpuissance_cannon(int input)
+{
+	puissance_cannon = input;
+}
+
+void cannon::setportee_cannon(int input)
+{
+	portee_cannon = input;
+}
+
 int cannon::getpuissance_cannon() const
 {
 	return (puissance_cannon);

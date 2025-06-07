@@ -29,3 +29,4 @@ void remove_dead_or_outdated_menaces(t_data &data);
 void analyseDesDegatsCanons(t_data &data);
 void rocketActions(t_data &data);
 void impactDegatsTotaux(t_data &data);
+void check_maintenance(t_data &data);

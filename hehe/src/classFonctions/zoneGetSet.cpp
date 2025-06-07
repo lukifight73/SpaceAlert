@@ -75,6 +75,28 @@ void zone::setz_capsule_energie(int input)
 	z_capsule_energie = input;
 }
 
+void zone::setz_ordre_degats()
+{
+	std::vector<int> valeurs = {1, 2, 3, 4, 5, 6};
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(valeurs.begin(), valeurs.end(), g);
+
+	std::map<int, int> degats;
+	for (int i = 1; i <= 6; ++i)
+		degats[i] = valeurs[i - 1];
+}
+
+void zone::setz_degats_recu(int input)
+{
+	z_degats_recu = input;
+}
+
+int zone::getz_degats_recu() const
+{
+	return (z_degats_recu);
+}
+
 void zone::setz_reacteur(int input)
 {
 	z_reacteur = input;
