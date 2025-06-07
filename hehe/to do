@@ -12,3 +12,17 @@ Done
 
 //faire uniquement trois zones, parce que la c'est la merde, faire une zone blanche, une zone bleue et une zone blanche avec des reacteurs deux cannons etc, et le joueur est soit a l'etage du dessus soit a l'etage du dessous.
 
+
+
+
+
+sa valeur de blindage = 0 quand il est touche par le canon a impulsion
+Ne peut etre pris pour cible a une distance de 3
+ne peut etre la cible des roquettes
+la premiere fois qu'elle est touchee, ne prend pas de degat
+les intercepteurs font 9 de degats contre lui, pas 3
+les roquettes le ciblent toujours et ignorent les autres menaces, quelque soit la distance
++1 valeur de blindage lorsqu'il est touche par une roquette
+ne peut etre pris pour cible avant qu'il ne se revele lui meme
+ne peut etre la cible des canons lasers lourds
+ne peut prendre plus de un degat par tour les roquettes le ciblent mais ne le touche pas
