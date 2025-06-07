@@ -67,9 +67,7 @@ joueur* zone::getz_joueur_bas(std::string nom)
             return *it;
         else
             ++it;
-		std::cout << "ici1" << std::endl;
     }
-	std::cout << "joueur pas trouve" << std::endl;
 	return (NULL);
 }
 
@@ -86,7 +84,6 @@ joueur* zone::getz_joueur_haut(std::string nom)
         else
             ++it;
     }
-	std::cout << "ici2" << std::endl;
 	return (NULL);
 }
 

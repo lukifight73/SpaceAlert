@@ -13,6 +13,7 @@ private:
     std::string j_nom;
     bool j_state;//eveille / KO
     int j_bots;//
+    int j_number;//numero du joueur
     bool j_capitaine;
     int j_zone;//un joueur est dans une zone
     std::map<int, carte> cartes;//un joueur pose des cartes, associe au tour ou il pose ses cartes
@@ -22,6 +23,7 @@ public:
     joueur(std::string nom);
 
     //setters
+    void setj_number(int input);
     void setj_state(bool input);
     void setj_bots(int input);
     void setj_capitaine(bool input);
@@ -33,6 +35,7 @@ public:
     void print();
 
     //getters
+    int getj_number() const;
     bool getj_state()const;
     bool getj_capitaine()const;
     std::string getj_nom() const;

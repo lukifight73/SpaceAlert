@@ -18,6 +18,7 @@ class menace
     int m_position; // position dans le chemin
     int m_bouclier;
     int m_difficulte;
+    int m_degatsRecus;
     std::vector<cannon *> m_canon_used; // pour les menaces qui utilisent des canons
     std::vector<int>    m_canon_immunity; // pour les menaces qui sont immunisées contre certains canons
 
@@ -51,6 +52,12 @@ class menace
         bool get_m_presence() const {
             return m_presence;
         };
+        int get_m_degatsRecus() const {
+            return m_degatsRecus;
+        };
+        void set_m_degatsRecus(int input) {
+            m_degatsRecus = input;
+        };
         std::vector<int> get_m_canon_immunity() const {
             return m_canon_immunity;
         };
@@ -72,4 +79,21 @@ class menace
         void send_announcement_message() const;
         void print_menace() const;
         ~menace();
+
+
+        menace &operator=(const menace &other) {
+            if (this != &other) {
+                m_name = other.m_name;
+                m_tourDarrivee = other.m_tourDarrivee;
+                m_presence = other.m_presence;
+                m_vitesse = other.m_vitesse;
+                m_vie = other.m_vie;
+                m_position = other.m_position;
+                m_bouclier = other.m_bouclier;
+                m_difficulte = other.m_difficulte;
+                m_canon_used = other.m_canon_used;
+                m_canon_immunity = other.m_canon_immunity;
+            }
+            return *this;
+        }
 };

@@ -99,7 +99,8 @@ void pars_joueurs(t_data &data, std::string line_joueur)
         if (nb_joueur > data.nb_joueur)
         {
             data.nb_joueur++;
-            data.joueurs[nb_joueur] = new joueur(nomAction); // Créer un nouveau joueur
+            data.joueurs[nb_joueur] = new joueur();
+            data.joueurs[nb_joueur]->setj_number(data.nb_joueur); // Créer un nouveau joueur
         }
         carte carte(action);
         data.joueurs[nb_joueur]->addcartes(nb_tour, carte);

@@ -121,9 +121,17 @@ void zone::ascenseur()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
+		std::vector<int> actions_used = this->getz_actions_used_ce_tour_haut();
 		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), DIR_A);
-		if (action_possible != this->getz_actions_haut().end() && this->getz_ascenseur() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+		const std::vector<int>::const_iterator action_ce_tour = std::find(actions_used.begin(), actions_used.end(), DIR_A);
+		//std::cout << *action_ce_tour.base() << std::endl;
+		// std::cout << "action_ce_tour" << std::endl;
+		// std::vector<int> yo = this->getz_actions_used_ce_tour_haut();
+		// for (std::vector<int>::const_iterator it = yo.begin(); it != yo.end(); ++it)
+		// {
+		// 	std::cout << *it << std::endl;
+		// }
+		if (action_possible != this->getz_actions_haut().end() && action_ce_tour == actions_used.end())
 		{
 			wr("[Vous prenez l'ascenseur pour descendre d'un etage.]");
 			std::cout << "[Vous arrivez en bas, dans la " << this->getz_nom_zone() << ".]\n";
@@ -139,9 +147,10 @@ void zone::ascenseur()
 	}
 	else
 	{
+		std::vector<int> actions_used = this->getz_actions_used_ce_tour_bas();
 		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), DIR_A);
-		if (action_possible != this->getz_actions_bas().end() && this->getz_ascenseur() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
+		const std::vector<int>::const_iterator action_ce_tour = std::find(actions_used.begin(), actions_used.end(), DIR_A);
+		if (action_possible != this->getz_actions_bas().end() && action_ce_tour == actions_used.end())
 		{
 			wr("[Vous prenez l'ascenseur pour monter d'un etage.]");
 			std::cout << "[Vous arrivez en haut, dans la " << this->getz_nom_zone() << ".]\n";

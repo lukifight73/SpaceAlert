@@ -13,7 +13,8 @@ void chemin_menace::add_menace(menace *input) {
 menace* chemin_menace::get_closest_menace() 
 {
     if (ch_menaces.empty()) {
-        throw std::runtime_error("No menaces available.");
+        wr("No menaces available.");
+        return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
     menace *menaceProche = nullptr;
@@ -35,6 +36,16 @@ menace* chemin_menace::get_closest_menace()
         }
     }
     return menaceProche; // On retourne la menace la plus proche
+}
+
+void chemin_menace::remove_menace(menace *input) {
+    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); ++it) {
+        if (*it == input) {
+            delete (*it); // Libération de la mémoire
+            ch_menaces.erase(it); // Suppression de l'élément du vecteur
+            return;
+        }
+    }
 }
 
 chemin_menace::chemin_menace(std::string input)

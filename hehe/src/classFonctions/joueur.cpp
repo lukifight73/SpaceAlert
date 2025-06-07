@@ -37,6 +37,16 @@ void joueur::print()
         std::cout << "J'ai des robots inactif avec moi" << std::endl;
 }
 
+void joueur::setj_number(int input)
+{
+    j_number = input;
+}
+
+int joueur::getj_number() const
+{
+    return (j_number);
+}
+
 void joueur::setj_state(bool input)
 {
     j_state = input;

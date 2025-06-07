@@ -6,6 +6,7 @@ menace::menace()
 
 menace::menace(std::string input, int tourDarrivee)
 {
+    m_degatsRecus = 0;
     m_presence = false;
     m_tourDarrivee = tourDarrivee;
     if(input == "se1-06")
@@ -42,6 +43,7 @@ void menace::print_menace() const
     std::cout << "Vie : " << m_vie << std::endl;
     std::cout << "Bouclier : " << m_bouclier << std::endl;
     std::cout << "Difficulté : " << m_difficulte << std::endl;
+    std::cout << "m_degatsRecus : " << m_degatsRecus << std::endl;
     for (std::vector<cannon *>::const_iterator it = m_canon_used.begin(); it != m_canon_used.end(); ++it)
     {
         std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;

@@ -41,16 +41,17 @@ void print_joueur_zone(t_data &data)
 		std::vector <joueur*> joueurs_bas = data.zones[i]->getz_joueurs_bas();
 		for (std::vector<joueur*>::iterator it = joueurs_haut.begin(); it != joueurs_haut.end(); ++it)
 		{
-			std::cout << "Joueur en haut " << data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
+			std::cout << "Joueur " << (*it)->getj_number() << " en haut de la " << data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
 		}
 		for (std::vector<joueur*>::iterator it = joueurs_bas.begin(); it != joueurs_bas.end(); ++it)
 		{
-			std::cout << "Joueur en bas " <<  data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
+			std::cout << "Joueur " << (*it)->getj_number() << " en bas de la " << data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
 		}
 		i++;
 	}
 }
 
+// on clear et reset tout ce qui doit l etre
 void clear_actionUsage(t_data &data)
 {
 	int i(1);
@@ -63,6 +64,7 @@ void clear_actionUsage(t_data &data)
 		for (std::vector<menace*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
 		{
 			(*it)->clear_m_canon_used();
+			(*it)->set_m_degatsRecus(0);
 		}
 		i++;
 	}
@@ -98,6 +100,9 @@ void	play_game(t_data &data)
 			num_joueur++;
 		}
 		assignationCannons(data);
+		analyseDesDegatsCanons(data);
+		mouvement_menaces(data);
+	    remove_dead_or_outdated_menaces(data);
 		for (int i = 1; i < 4; i++) 
 		{
 			std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
