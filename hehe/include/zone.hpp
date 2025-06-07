@@ -71,8 +71,10 @@ class zone
         void setz_max_energie_reservoir(int input);
         void setz_bouclier(int input);
         void setz_max_energie_bouclier(int input);
+        void setz_roquete_position(int, int);
 
         //getters
+        std::map<int, int> getz_roquete_position();
         int getz_reacteur() const;
         int getz_max_energie_reservoir() const;
         int getz_capsule_energie() const;

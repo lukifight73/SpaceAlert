@@ -55,6 +55,10 @@ class menace
         int get_m_degatsRecus() const {
             return m_degatsRecus;
         };
+        void set_m_vie(int input) {
+            m_vie = input;
+        };
+
         void set_m_degatsRecus(int input) {
             m_degatsRecus = input;
         };
