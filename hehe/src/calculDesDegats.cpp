@@ -79,3 +79,195 @@ void assignationCannons(t_data &data)
         i++;
     }
 }
+
+// menace *getMenaceLaPlusProcheParmisDeux(menace *menace1, menace *menace2)
+// {
+//     if (!menace1) 
+//     {
+//         return menace2; // Si seulement menace2 est trouvée
+//     }
+//     else if (!menace2) 
+//     {
+//         return menace1; // Si seulement menace1 est trouvée
+//     }
+//     else if (menace1->get_m_position() < menace2->get_m_position()) 
+//     {
+//         return menace1; // Si menace1 est plus proche
+//     }
+//     else if (menace2->get_m_position() < menace1->get_m_position()) 
+//     {
+//         return menace2; // Si menace2 est plus proche
+//     }
+//     else if (menace1->get_m_tourDarrivee() < menace2->get_m_tourDarrivee()) 
+//     {
+//         return menace1; // Si menace1 est arrivée plus tôt
+//     }
+//     else 
+//     {
+//         return menace2; // Si menace2 est arrivée plus tôt ou égale
+//     }
+// }
+
+menace *getMenaceLaPlusProcheTouteZones(t_data &data)
+{
+    menace *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_closest_menace();
+    menace *menaceProcheR = data.zones[ZONE_RED]->getz_chemin_menace()->get_closest_menace();
+    menace *menaceProcheW = data.zones[ZONE_WHITE]->getz_chemin_menace()->get_closest_menace();
+
+    if (!menaceProcheB && !menaceProcheR && !menaceProcheW) 
+    {
+        return nullptr; // Si aucune menace n'est trouvée, retourner nullptr
+    }
+    else if (!menaceProcheB && !menaceProcheR) 
+    {
+        return menaceProcheW; // Si seulement menaceProcheW est trouvée
+    }
+    else if (!menaceProcheB && !menaceProcheW) 
+    {
+        return menaceProcheR; // Si seulement menaceProcheR est trouvée
+    }
+    else if (!menaceProcheR && !menaceProcheW) 
+    {
+        return menaceProcheB; // Si seulement menaceProcheB est trouvée
+    }
+    /// Cas ou une seule menace est manquante
+    else if (!menaceProcheB) 
+    {
+        if (menaceProcheR->get_m_position() < menaceProcheW->get_m_position())
+            return menaceProcheR;
+        else if (menaceProcheW->get_m_position() == menaceProcheR->get_m_position())
+        {
+            if (menaceProcheR->get_m_tourDarrivee() < menaceProcheW->get_m_tourDarrivee())
+                return menaceProcheR; // Si menaceProcheR est plus proche ou égale mais arrivée plus tôt
+            else
+                return menaceProcheW; // Si menaceProcheW est arrivée plus tôt ou égale
+        }
+        else
+            return menaceProcheW; // Si seulement menaceProcheB est absente
+    }
+    else if (!menaceProcheR) 
+    {
+        if (menaceProcheB->get_m_position() < menaceProcheW->get_m_position())
+            return menaceProcheB;
+        else if (menaceProcheW->get_m_position() == menaceProcheB->get_m_position())
+        {
+            if (menaceProcheB->get_m_tourDarrivee() < menaceProcheW->get_m_tourDarrivee())
+                return menaceProcheB; // Si menaceProcheB est plus proche ou égale mais arrivée plus tôt
+            else
+                return menaceProcheW; // Si menaceProcheW est arrivée plus tôt ou égale
+        }
+        else
+            return menaceProcheW; // Si seulement menaceProcheR est absente
+    }
+    else if (!menaceProcheW) 
+    {
+        if (menaceProcheB->get_m_position() < menaceProcheR->get_m_position())
+            return menaceProcheB;
+        else if (menaceProcheR->get_m_position() == menaceProcheB->get_m_position())
+        {
+            if (menaceProcheB->get_m_tourDarrivee() < menaceProcheR->get_m_tourDarrivee())
+                return menaceProcheB; // Si menaceProcheB est plus proche ou égale mais arrivée plus tôt
+            else
+                return menaceProcheR; // Si menaceProcheR est arrivée plus tôt ou égale
+        }
+        else
+            return menaceProcheR; // Si seulement menaceProcheW est absente
+    }
+    /// Cas ou il y a une menace par Zone
+    else if(menaceProcheB->get_m_position() < menaceProcheR->get_m_position() && menaceProcheB->get_m_position() < menaceProcheW->get_m_position())
+    {
+        return menaceProcheB;
+    }
+    else if(menaceProcheR->get_m_position() < menaceProcheB->get_m_position() && menaceProcheR->get_m_position() < menaceProcheW->get_m_position())
+    {
+        return menaceProcheR;
+    }
+    else if(menaceProcheW->get_m_position() < menaceProcheB->get_m_position() && menaceProcheW->get_m_position() < menaceProcheR->get_m_position())
+    {
+        return menaceProcheW;
+    }
+    else if ((menaceProcheB->get_m_position() == menaceProcheR->get_m_position() && menaceProcheB->get_m_tourDarrivee() < menaceProcheR->get_m_tourDarrivee()) || (menaceProcheB->get_m_position() == menaceProcheW->get_m_position() && menaceProcheB->get_m_tourDarrivee() < menaceProcheW->get_m_tourDarrivee()))
+    {
+        return menaceProcheB;
+    }
+    else if ((menaceProcheR->get_m_position() == menaceProcheW->get_m_position() && menaceProcheR->get_m_tourDarrivee() < menaceProcheW->get_m_tourDarrivee()) || (menaceProcheR->get_m_position() == menaceProcheB->get_m_position() && menaceProcheR->get_m_tourDarrivee() < menaceProcheB->get_m_tourDarrivee()))
+    {
+        return menaceProcheR;
+    }
+    else if ((menaceProcheW->get_m_position() == menaceProcheB->get_m_position() && menaceProcheW->get_m_tourDarrivee() < menaceProcheB->get_m_tourDarrivee()) || (menaceProcheW->get_m_position() == menaceProcheR->get_m_position() && menaceProcheW->get_m_tourDarrivee() < menaceProcheR->get_m_tourDarrivee()))
+    {
+        return menaceProcheW;
+    }
+    else
+        return nullptr; // Si aucune menace n'est trouvée, retourner nullptr
+}
+
+void checkMenaceHitByRocket(t_data &data, int rocketNumber) 
+{
+    std::map<int, int> rocketMap = data.zones[ZONE_BLUE]->getz_roquete_position();
+    
+    menace *menaceProche = getMenaceLaPlusProcheTouteZones(data);
+    //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
+    if (menaceProche && menaceProche->get_m_position() <= 10) 
+    {
+        int degatsRecus = menaceProche->get_m_degatsRecus();
+        menaceProche->set_m_degatsRecus(degatsRecus + 3); // exemple de dégâts infligés par la roquette
+        std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
+        data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
+    }
+    else
+    {
+        data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 0); // Reset the rocket position
+        std::cout << "[La roquette n'a touché aucune menace, elle revient a la base.]\n";
+    }
+}
+
+
+void rocketActions(t_data &data) 
+{
+    std::map<int, int> rocketMap = data.zones[ZONE_BLUE]->getz_roquete_position();
+    int rocketNum(1);
+    while (rocketNum < 4) 
+    {
+        if (rocketMap[rocketNum] == 1) 
+        {
+            data.zones[ZONE_BLUE]->setz_roquete_position(rocketNum, 2);
+            std::cout << "[La roquette numero " << rocketNum << " a été lancée !]\n";
+        }
+        else if (rocketMap[rocketNum] == 2) 
+        {
+            data.zones[ZONE_BLUE]->setz_roquete_position(rocketNum, 3);
+            std::cout << "[La roquette numero " << rocketNum << " est en vol !]\n";
+        }
+        else if (rocketMap[rocketNum] == 3) 
+        {
+            checkMenaceHitByRocket(data, rocketNum);
+        }
+        rocketNum++;
+    }
+}
+
+void impactDegatsTotaux(t_data &data)
+{
+    int numZone(1);
+    while (numZone < 4) 
+    {
+        std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
+        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        {
+            int degatsRecus = (*it)->get_m_degatsRecus();
+            if (degatsRecus > 0) 
+            {
+                (*it)->set_m_vie((*it)->get_m_vie() - degatsRecus + (*it)->get_m_bouclier());
+                (*it)->set_m_degatsRecus(0); // Reset the damage received after applying it
+                std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
+                if ((*it)->get_m_vie() <= 0) 
+                {
+                    (*it)->set_m_presence(false);
+                    std::cout << "[La menace " << (*it)->get_m_name() << " a été détruite !]\n";
+                }
+            }
+        }
+        numZone++;
+    }
+}

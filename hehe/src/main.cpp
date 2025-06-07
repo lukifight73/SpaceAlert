@@ -101,6 +101,9 @@ void	play_game(t_data &data)
 		}
 		assignationCannons(data);
 		analyseDesDegatsCanons(data);
+		rocketActions(data);
+		impactDegatsTotaux(data);
+		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces
 		mouvement_menaces(data);
 	    remove_dead_or_outdated_menaces(data);
 		for (int i = 1; i < 4; i++) 

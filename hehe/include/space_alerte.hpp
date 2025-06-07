@@ -27,3 +27,5 @@ void assignationCannons(t_data &data);
 void mouvement_menaces(t_data &data);
 void remove_dead_or_outdated_menaces(t_data &data);
 void analyseDesDegatsCanons(t_data &data);
+void rocketActions(t_data &data);
+void impactDegatsTotaux(t_data &data);

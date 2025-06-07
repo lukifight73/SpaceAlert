@@ -105,6 +105,11 @@ void zone::setz_joueur_playing(std::string input)
 	z_joueur_playing = input;
 }
 
+void zone::setz_roquete_position(int key, int value)
+{
+	z_roquete_position[key] = value;
+}
+
 int zone::getz_temps() const
 {
 	return (z_temps);
@@ -210,4 +215,9 @@ int zone::getz_zone() const
 std::string zone::getz_nom_zone() const
 {
 	return (z_nom_zone);
+}
+
+std::map<int, int> zone::getz_roquete_position()
+{
+	return (z_roquete_position);
 }
