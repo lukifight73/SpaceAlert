@@ -60,7 +60,7 @@ void zone::etatdesdegats()
 		if (z_zone == ZONE_WHITE)
 		{
 			std::cout << "[Le vaisseau a recu des degats et le canon a impulsion de la " << z_nom_zone << " est endommage !]\n";
-			z_cannon_bas->setportee_cannon(z_cannon_bas->getportee_cannon() - 1);
+			z_cannon_bas->setportee_cannon(z_cannon_bas->getportee_cannon() - 5);
 			std::cout << "[Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]\n";
 		}
 		else
@@ -69,7 +69,6 @@ void zone::etatdesdegats()
 			z_cannon_bas->setpuissance_cannon(z_cannon_bas->getpuissance_cannon() - 1);
 			std::cout << "[Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]\n";
 		}
-		wr("[Des degats ont ete infliges !]");
 	}
 }
 
@@ -80,10 +79,8 @@ void zone::getdegats(int input)
 		z_bouclier --;
 		input--;
 	}
-	if (input > 0)
-	{
-		z_degats_recu += input;
-	}
+	while (input > 0)
+		etatdesdegats();
 }
 
 void zone::removez_joueurs_haut(std::string input)

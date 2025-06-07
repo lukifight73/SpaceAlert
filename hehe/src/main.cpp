@@ -91,6 +91,19 @@ void setTemps(t_data &data)
 	}
 } 
 
+void printInfoMenace(t_data &data)
+{
+	for (int i = 1; i < 4; i++) 
+	{
+		std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
+		std::cout << "--------------------INFORMATION MENACE ZONE " << data.zones[i]->getz_nom_zone() << "----------------------" << std::endl;
+		for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		{
+			(*it)->print_menace();
+		}
+	}
+}
+
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12	
@@ -115,8 +128,12 @@ void	play_game(t_data &data)
 		rocketActions(data);
 		impactDegatsTotaux(data);
 		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces
+		std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
+		printInfoMenace(data);
+		std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		mouvement_menaces(data);
 	    remove_dead_or_outdated_menaces(data);
+<<<<<<< HEAD
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE apres mvmt -----------------------------" << std::endl;
 		for (int i = 1; i < 4; i++) 
 		{
@@ -128,6 +145,11 @@ void	play_game(t_data &data)
 			}
 		}
 		std::cout << "----------------------------- FIN INFORMATIONS MENACE -----------------------------" << std::endl;
+=======
+		std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
+		printInfoMenace(data);
+		std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
+>>>>>>> 737d348aa32290d545997058bd049495659e3eae
 		check_maintenance(data);
 		//print_data(data);
 		setTemps(data);
