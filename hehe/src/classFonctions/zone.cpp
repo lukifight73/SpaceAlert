@@ -508,6 +508,8 @@ void zone::ascenseur()
 	}
 }
 
+
+
 void zone::actionA()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
