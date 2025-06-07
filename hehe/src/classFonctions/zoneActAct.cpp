@@ -14,6 +14,7 @@ void zone::actionA()
 				z_reacteur -= 1;
 				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				this->addz_actions_used_ce_tour_haut(ACT_A);
+				addz_cannon_used(this->getz_cannon_haut());
 			}
 			else
 			{
@@ -43,6 +44,7 @@ void zone::actionA()
 					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				}
 				this->addz_actions_used_ce_tour_bas(ACT_A);
+				addz_cannon_used(this->getz_cannon_bas());
 			}
 			else
 			{
@@ -57,6 +59,14 @@ void zone::actionA()
 		else
 			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
 	}
+}
+
+void calculateDegatsCanons() 
+{
+	// dans quelle zone on est?
+	// quel est le type de canon?
+	// qui est le monstre le plus proche?
+	// combien de canons peuvent l'atteindre? combien de degats il prend 
 }
 
 void zone::actionAHeros()

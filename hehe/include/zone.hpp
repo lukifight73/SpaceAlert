@@ -96,6 +96,9 @@ class zone
         std::vector<int>    getz_actions_used_ce_tour_bas() const;
         std::vector<int>    getz_actions_used_ce_tour_haut() const;
 
+        //degats
+        void calculateDegatsCanons();
+
         //autre
         joueur* getz_joueur_haut(std::string nom);
         joueur* getz_joueur_bas(std::string nom);
