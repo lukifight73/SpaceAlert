@@ -80,8 +80,8 @@ void	play_game(t_data &data)
 	{
 		int num_joueur(1);
 		std::cout << "\n\n\n\n\n----------------------------------- TOUR : " << data.tour << "----------------------------\n\n\n" << std::endl;
-		print_joueur_zone(data);
 		apparitionMenaces(data);
+		print_joueur_zone(data);
 		clear_actionUsage(data);
 		while (num_joueur <= data.nb_joueur)
 		{

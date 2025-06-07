@@ -2,14 +2,21 @@
 
 void apparitionMenaces(t_data &data) 
 {
-    std::vector<menace *>::iterator it;
-    it = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_menaces().begin();
-    while (it != data.zones[ZONE_BLUE]->getz_chemin_menace()->get_menaces().end()) 
+    int i = 1;
+    while (i < 4) 
     {
-        if ((*it)->get_m_tourDarrivee() == data.tour) 
+        std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
+        std::vector<menace *>::iterator it;
+        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
-            (*it)->set_m_presence(true);
-        } 
-        ++it;
+            if ((*it)->get_m_tourDarrivee() == data.tour)
+            {
+                std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention, en " << data.zones[i]->getz_nom_zone();
+                std::cout << " une menace vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+                (*it)->set_m_presence(true);
+                (*it)->send_announcement_message();
+            }
+        }
+        i++;
     }
 }

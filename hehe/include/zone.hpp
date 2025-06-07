@@ -27,9 +27,10 @@ class zone
         int z_max_reacteur;
         int z_bouclier;
         int z_max_energie_bouclier;
-        std::map<int, int> z_roquete_position;
+        std::vector<cannon*> z_cannon_used;  // degats[3] += 4 // degats[3] += 2
         std::vector<int> z_maintenance_ordinateur;
         std::vector<int> z_observations;
+        std::map<int, int> z_roquete_position;
         zone *zone_blue;
         zone *zone_red;
         zone *zone_white;
@@ -89,6 +90,7 @@ class zone
         int gettemps() const;
         std::vector<joueur*> getz_joueurs_bas() const;
         std::vector<joueur*> getz_joueurs_haut() const;
+        std::vector<cannon*> getz_cannon_used() const;
         std::vector<int>    getz_actions_bas() const;
         std::vector<int>    getz_actions_haut() const;
         std::vector<int>    getz_actions_used_ce_tour_bas() const;
@@ -106,6 +108,8 @@ class zone
         void removez_actions_bas(int input);
         void addz_actions_used_ce_tour_bas(int input);
         void clearz_actions_used_ce_tour_bas();
+        void clearz_cannon_used();
+        void addz_cannon_used(cannon* input);
         void addz_joueurs_haut(joueur* input);
         void removez_joueurs_haut(std::string input);
         void addz_actions_haut(int input);
