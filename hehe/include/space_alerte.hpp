@@ -16,6 +16,8 @@
 #include "joueur.hpp"
 #include "carte.hpp"
 
+
+
 void wr(std::string str);
 std::string generateRandomString(int length);
 void init_carte_joueur_test(t_data& data);

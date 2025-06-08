@@ -5,7 +5,12 @@
 #include <stdexcept>
 #include "space_alerte.hpp"
 
+
 class cannon; // Forward declaration pour éviter les dépendances circulaires
+class chemin_menace; // Forward declaration pour éviter les dépendances circulaires
+class zone; // Forward declaration pour éviter les dépendances circulaires
+
+
 
 class menace
 {
@@ -19,15 +24,32 @@ class menace
     int m_bouclier;
     int m_difficulte;
     int m_degatsRecus;
+    chemin_menace *m_chemin; // chemin de la menace
+    zone *m_zone; // zone de la menace
     std::vector<cannon *> m_canon_used; // pour les menaces qui utilisent des canons
     std::vector<int>    m_canon_immunity; // pour les menaces qui sont immunisées contre certains canons
 
     public:
         menace();
         menace(std::string input, int tourDarrivee);
+        void actionMenace(char input);
+        void checkIfCrossActionZone(int positionBefore, int positionAfter);
         std::string get_m_name() const {
             return m_name;
         };
+        void set_m_zone(zone *input) {
+            m_zone = input;
+        };
+        zone *get_m_zone() const {
+            return m_zone;
+        };
+        chemin_menace *get_m_chemin() const {
+            return m_chemin;
+        };
+        void set_m_chemin(chemin_menace *input) {
+            m_chemin = input;
+        };
+
         void setm_position(int input) {
             m_position = input;
         };
