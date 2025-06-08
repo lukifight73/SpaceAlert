@@ -1,28 +1,190 @@
-Done
---> action A & B dans toutes les zones
---> action robot ?
---> action c ?
+MENACES EXTERNES SERIEUSES
+
+Pieuvre interstellaire
+-> !roquettes
+X->si 1 degat ou plus, attaque 1 sur toutes les zones
+Y->si ! degats ou plus, attaque 2 sur toutes les zones
+Z->attaque 2 par point de vie restant
+
+Maelstrom
+->valeur blindage a 0 si touche par cannon a impulsion
+X->draine toute energie de tous les boucliers
+Y->Attaque 2 sur les deux autres zones
+Z->Attaque 3 sur les deux autres zones
+
+Satellite a impulsion
+->ne peut etre pris pour cible a une distance de 3
+X->attaque 1 sur toutes les zones
+Y->attaque 2 sur toutes les zones
+Z->attaque 3 sur toutes les zones
+
+Ravitailleur Leviathan
+-> auqnd il est detruit, inflige 1 degat a toutes les autres menaces externes
+X->attaque 2
+Y->attaque 2 / recupere 2 points de vie 
+Z->attaque 2
+
+Man of War
+X -> Attaque 1 / vitesse +1
+Y -> Attaque 3 / bouclier +1
+Z -> Attaque 5
+
+Asteroide
+->!roquettes
+->quand il est detruit, attaque 2 pour chaque X et Y atteint
+Z -> Attaque egale a son nombre de points de vie restant
+
+Fregate a Cryoprotection
+-> lorsqu elle est touchee pour la premiere fois, elle ne subit pas de degats
+X-> attaque 2
+Y-> attaque 3
+Z-> attaque 4
+
+Fregate
+X-> attaque 2
+Y-> attaque 3
+Z-> attaque 4
 
 
-//reinitialiser les action par zone / ascenseur a la fin de chaque tour
-//replacer les joueurs la ou ils doivent etre apres chaque tour
-//yoyoyoyo
+
+
+MENACES EXTERNES SERIEUSES
+
+Nemesis
+->attaque 1 sur toutes les zones des qu il subit un degat
+X -> attaque 1 / prends 1 degat
+Y -> attaque 2 / prends 2 degats
+Z -> detruit le vaisseau en se detruisant
+
+Behemoth
+->les intercepteurs font 9 degats contre lui (pas 3) mais le joueur est assomme
+X->sauf s il a >= 2 degat, attaque 2
+Y->sauf s il a >= 3 degat, attaque 3
+Z->sauf s il a >= 6 degat, attaque 6
+
+Asteroide Majeur
+->!roquettes
+->quand il est detruit, attaque 3 pour chaque X et Y atteint
+Z -> Attaque egale a son nombre de points de vie restant
+
+Crabe Nebula
+->!roquettes
+X->blindage = 4
+Y->vitesse +2 / blindage = 2
+Z->attaque 5 zone bleue et zone rouge
+
+Satellite psionique
+->ne peut pas etre pris pour cible a une distance de 3
+X->tous les joueurs de la zone sont retardes de 1 tour
+Y->tous les joueurs du vaisseau sont retardes de 1 tour
+Z->tous les joueurs du vaisseau sont assommes
+
+Juggernaut
+->les roquettes le cible toujours (quelque soit la distance)
+->+1 blindage si touche par roquette
+X->attaque 2 / vitesse +2
+Y->attaque 3 / vitesse +2
+Z->attaque 7
 
 
 
-//faire uniquement trois zones, parce que la c'est la merde, faire une zone blanche, une zone bleue et une zone blanche avec des reacteurs deux cannons etc, et le joueur est soit a l'etage du dessus soit a l'etage du dessous.
+MENACES EXTERNES COMMUNES
+
+Constricteur Blinde
+X->attaque 1
+Y->Repare 1 point de vie
+Z->attaque 4
+
+Destroyer
+->double les degats qui transpercent le bouclier
+X->attaque 1
+Y->attaque 2
+Z->attaque 2
+
+Chasseur
+X->attaque 1
+Y->attaque 2
+Z->attaque 3
+
+Vaisseau de combat
+X->attaque 2
+Y->attaque 2
+Z->attaque 3
+
+Meteorite
+->!roquettes
+Z->attaque egale au nombre de ses points de vie restants
+
+Chasseur a cryoprotection
+-> lorsqu il est touchee pour la premiere fois, elle ne subit pas de degats
+X->attaque 1
+Y->attaque 2
+Z->attaque 2
+
+Amibe 
+->!roquettes
+X->guerit 2 degats
+Y->guerit 2 degats
+Z->Attaque 5
+
+Pulsar
+X->attaque 1 sur toutes les zones
+Y->attaque 1 sur toutes les zones
+Z->attaque 2 sur toutes les zones
+
+Nuage d energie
+->valeur blindage a 0 si touche par cannon a impulsion
+X->draine toute energie de tous les boucliers
+Y->Attaque 1 sur les deux autres zones
+Z->Attaque 2 sur les deux autres zones
+
+Chasseur furtif
+-> ne peut etre pris pour cible avant de se reveler
+X->se revele
+Y->attaque 2
+Z->attaque 2
 
 
+MENACES EXTERNES COMMUNES AVANCEES
 
+Eclaireur
+->!canons lourds
+X->toutes les autres menaces externes ont +1 d'attaque tant qu il est pas mort 
+Y->toutes les autres menaces externes avancent d'une case
+Z->Attaque 3, ignore les boucliers (le bonus persiste)
 
+Chasseur fantome
+->ne peut etre cible avant qu il ne se revele
+->les roquettes le cible mais ne le touchent pas
+X->se revele
+Y->attaque 2
+Z->attaque 3
 
-sa valeur de blindage = 0 quand il est touche par le canon a impulsion
-Ne peut etre pris pour cible a une distance de 3
-ne peut etre la cible des roquettes
-la premiere fois qu'elle est touchee, ne prend pas de degat
-les intercepteurs font 9 de degats contre lui, pas 3
-les roquettes le ciblent toujours et ignorent les autres menaces, quelque soit la distance
-+1 valeur de blindage lorsqu'il est touche par une roquette
-ne peut etre pris pour cible avant qu'il ne se revele lui meme
-ne peut etre la cible des canons lasers lourds
-ne peut prendre plus de un degat par tour les roquettes le ciblent mais ne le touche pas
+Kamikaze
+X->+1 vitesse / blindage =1
+Y->+1 vitesse / blindage =0
+Z->Attaque 6
+
+Nuee Insectoide
+->!roquettes
+->prends 1 degat par tour
+X->attaque 1
+Y->attaque 2 / 1 sur les autres zones
+Z->attaque 3 / 2 sur les autres zones
+
+Meduse
+->!roquettes
+X->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
+Y->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
+Z->attaque 2 sur toutes les zones
+
+Asteroide mineur
+->!roquettes
+->quand il est detruit, attaque 1 pour chaque X et Y atteint
+Z -> Attaque egale a son nombre de points de vie restant
+
+Maraudeur
+X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort
+Y->draine 1 energie de tous les boucliers
+Z->attaque 4 (le bonus persiste)
+
