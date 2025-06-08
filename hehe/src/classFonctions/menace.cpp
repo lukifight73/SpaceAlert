@@ -28,6 +28,7 @@ menace::menace(std::string input, int tourDarrivee)
     m_degatsRecus = 0;
     m_revele = true;
     m_presence = false;
+    m_immunity = false;
     m_tourDarrivee = tourDarrivee;
     if(input == "se1-01")
     {
@@ -55,14 +56,16 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se1-04")
     {
+        m_revele = false;
         m_bouclier = 2;
         m_difficulte = MENACE_SERIEUSE;
-        m_name ="satellite a impulsion";
+        m_name ="Satellite a impulsion";
         m_vie = 4;
         m_vitesse = 3;
     }
     if(input == "se1-05")
     {
+        m_immunity = true;
         m_bouclier = 1;
         m_difficulte = MENACE_SERIEUSE;
         m_name ="Fregate a Cryoprotection";
@@ -114,6 +117,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se2-03")
     {
+        m_revele = false;
         m_bouclier = 2;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Satellite Psionique";
@@ -189,6 +193,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e1-06")
     {
+        m_immunity = true;
         m_bouclier = 1;
         m_difficulte = MENACE_COMMUNE;
         m_name ="Chasseur a cryoprotection";

@@ -8,6 +8,8 @@ chemin_menace::chemin_menace()
 // arrive a la fin du chemin
 void chemin_menace::add_menace(menace *input) {
     input->setm_position(get_ch_chemin_size()); // On place la menace a la fin du chemin
+    if (input->get_m_position() == 10 && input->get_m_name().find("Satellite") != std::string::npos)
+        input->set_m_revele(true);
     ch_menaces.push_back(input);
 }
 
@@ -25,6 +27,7 @@ menace* chemin_menace::get_menace_that_attracts_rocket()
         }
         if ((*it)->get_m_attraction_roquette() && (*it)->get_m_vulnerable_roquette()) // Si la menace est une menace qui attire les roquettes et qu'elle est vulnérable aux roquettes (il y en a qu'une seule, c'est le juggernaut, et peu importe sa position)
         {
+            (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
             return (*it); // On retourne la menace qui attire les roquettes
         }
         else if ((*it)->get_m_attraction_roquette() && (*it)->get_m_position() <= 10) // Si la menace est une menace qui attire les roquettes mais qu'elle n'est pas vulnérable aux roquettes (il y en a qu'une seule, c'est le juggernaut)

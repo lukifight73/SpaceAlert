@@ -12,8 +12,8 @@ X->draine toute energie de tous les boucliers
 Y->Attaque 2 sur les deux autres zones
 Z->Attaque 3 sur les deux autres zones
 
-se1-04 Satellite a impulsion
-->ne peut etre pris pour cible a une distance de 3
+se1-04 Satellite a impulsion#done
+->ne peut etre pris pour cible a une distance de 3##
 X->attaque 1 sur toutes les zones
 Y->attaque 2 sur toutes les zones
 Z->attaque 3 sur toutes les zones
@@ -34,7 +34,7 @@ se1-08 Asteroide
 ->quand il est detruit, attaque 2 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-se1-05 Fregate a Cryoprotection
+se1-05 Fregate a Cryoprotection#done
 -> lorsqu elle est touchee pour la premiere fois, elle ne subit pas de degats
 X-> attaque 2
 Y-> attaque 3
@@ -74,7 +74,7 @@ Y->vitesse +2 / blindage = 2
 Z->attaque 5 zone bleue et zone rouge
 
 se2-03 Satellite psionique
-->ne peut pas etre pris pour cible a une distance de 3
+->ne peut pas etre pris pour cible a une distance de 3##
 X->tous les joueurs de la zone sont retardes de 1 tour
 Y->tous les joueurs du vaisseau sont retardes de 1 tour
 Z->tous les joueurs du vaisseau sont assommes
@@ -95,7 +95,7 @@ X->attaque 1
 Y->Repare 1 point de vie
 Z->attaque 4
 
-e1-02 Destroyer
+e1-02 Destroyer#done
 ->double les degats qui transpercent le bouclier
 X->attaque 1
 Y->attaque 2
@@ -115,7 +115,7 @@ e1-10 Meteorite#done
 ->!roquettes
 Z->attaque egale au nombre de ses points de vie restants
 
-e1-06 Chasseur a cryoprotection
+e1-06 Chasseur a cryoprotection#done
 -> lorsqu il est touchee pour la premiere fois, elle ne subit pas de degats
 X->attaque 1
 Y->attaque 2
@@ -133,7 +133,7 @@ Y->attaque 1 sur toutes les zones
 Z->attaque 2 sur toutes les zones
 
 e1-04 Nuage d energie
-->valeur blindage a 0 si touche par cannon a impulsion
+->valeur blindage a 0 si touche par cannon a impulsion//conplique
 X->draine toute energie de tous les boucliers
 Y->Attaque 1 sur les deux autres zones
 Z->Attaque 2 sur les deux autres zones
@@ -149,8 +149,8 @@ MENACES EXTERNES COMMUNES AVANCEES
 
 e2-02 Eclaireur
 ->!canons lourds
-X->toutes les autres menaces externes ont +1 d'attaque tant qu il est pas mort 
-Y->toutes les autres menaces externes avancent d'une case
+X->toutes les autres menaces externes ont +1 dattaque tant qu il est pas mort 
+Y->toutes les autres menaces externes avancent dune case
 Z->Attaque 3, ignore les boucliers (le bonus persiste)
 
 e2-03 Chasseur fantome#done
@@ -184,7 +184,7 @@ e2-07 Asteroide mineur
 Z -> Attaque egale a son nombre de points de vie restant
 
 e2-06 Maraudeur
-X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort
+X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort 
 Y->draine 1 energie de tous les boucliers
 Z->attaque 4 (le bonus persiste)
 

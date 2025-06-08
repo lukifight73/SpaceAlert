@@ -20,6 +20,11 @@ void remove_dead_or_outdated_menaces(t_data &data)
     }
 }
 
+void revelerMenace(menace* menace)
+{
+    if (menace->get_m_name().find("Satellite") != std::string::npos && menace->get_m_position() <= 10)
+        menace->set_m_revele(true);
+}
 
 
 void mouvement_menaces(t_data &data)
@@ -37,6 +42,8 @@ void mouvement_menaces(t_data &data)
                 (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
                 (*it)->setm_position((*it)->get_m_position() - (*it)->get_m_vitesse()); // update position
             }
+            if (!(*it)->get_m_revele())
+                revelerMenace(*it);
         }
         i++;
     }
