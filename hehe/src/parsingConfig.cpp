@@ -44,14 +44,20 @@ void pars_menace(t_data &data, std::string menace_str)
         if(nomZone == "ZONE_RED")
         {
             data.zones[ZONE_RED]->getz_chemin_menace()->add_menace(new_menace);
+            new_menace->set_m_zone(data.zones[ZONE_RED]);
+            new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
         }
         else if(nomZone == "ZONE_WHITE")
         {
             data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menace(new_menace);
+            new_menace->set_m_zone(data.zones[ZONE_WHITE]);
+            new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
         }
         else if(nomZone == "ZONE_BLUE")
         {
             data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menace(new_menace);
+            new_menace->set_m_zone(data.zones[ZONE_BLUE]);
+            new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
         }
         else {
             std::cerr << "Erreur: Zone inconnue " << nomZone << std::endl;
@@ -125,7 +131,6 @@ void parsing_config(t_data &data, char* av)
 		std::cerr << "Erreur lors de l'ouverture du fichier de configuration." << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
 	std::string line;
 	while (std::getline(file, line))
 	{

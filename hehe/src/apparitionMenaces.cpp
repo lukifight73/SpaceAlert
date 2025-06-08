@@ -19,6 +19,8 @@ void remove_dead_or_outdated_menaces(t_data &data)
     }
 }
 
+
+
 void mouvement_menaces(t_data &data)
 {
     int i = 1;
@@ -29,7 +31,10 @@ void mouvement_menaces(t_data &data)
         {
             if ((*it)->get_m_presence()) 
             {
-                (*it)->setm_position((*it)->get_m_position() - (*it)->get_m_vitesse());
+                int positionBefore = (*it)->get_m_position();
+                int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
+                (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
+                (*it)->setm_position((*it)->get_m_position() - (*it)->get_m_vitesse()); // update position
             }
         }
         i++;

@@ -274,10 +274,39 @@ void menace::print_menace() const
     std::cout << "Vie : " << m_vie << std::endl;
     std::cout << "Bouclier : " << m_bouclier << std::endl;
     std::cout << "Difficulté : " << m_difficulte << std::endl;
-    std::cout << "m_degatsRecus : " << m_degatsRecus << std::endl;
+    std::cout << "DegatsRecus : " << m_degatsRecus << std::endl;
+    std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
+    std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
     for (std::vector<cannon *>::const_iterator it = m_canon_used.begin(); it != m_canon_used.end(); ++it)
     {
         std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;
     }
 }
+void menace::actionMenace(char input)
+{
+    input += 0;
+    // Implement the action logic based on the input character
+    // This is a placeholder for the actual implementation
+}
+void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
+{
+    while(positionBefore != positionAfter) 
+    {
+        positionBefore--;
+        if(m_chemin->get_ch_chemin()[positionBefore] == 'X') 
+        {
+            actionMenace('X');
+        }
+        else if (m_chemin->get_ch_chemin()[positionBefore] == 'Y') 
+        {
+            actionMenace('Y');
+        }
+        else if (m_chemin->get_ch_chemin()[positionBefore] == 'Z')
+        {
+            actionMenace('Z');
+        }
+    }
+}
+
+
 menace::~menace() {}
