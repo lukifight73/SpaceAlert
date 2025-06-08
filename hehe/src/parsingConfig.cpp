@@ -38,6 +38,45 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     if (typeMenace == "se1-01") {
         return new menace_se1_01(typeMenace, tempsArrivee);
     }
+    // else if (typeMenace == "se1-02") {
+    //     return new menace_se1_02(typeMenace, tempsArrivee);
+    // }
+    else if (typeMenace == "se1-03") {
+        return new menace_se1_03(typeMenace, tempsArrivee);
+    }
+    // else if (typeMenace == "se1-04") {
+    //     return new menace_se1_04(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se1-05") {
+    //     return new menace_se1_05(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se1-06") {
+    //     return new menace_se1_06(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se1-07") {
+    //     return new menace_se1_07(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se1-08") {
+    //     return new menace_se1_08(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-01") {
+    //     return new menace_se2_01(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-02") {
+    //     return new menace_se2_02(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-03") {
+    //     return new menace_se2_03(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-04") {
+    //     return new menace_se2_04(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-05") {
+    //     return new menace_se2_05(typeMenace, tempsArrivee);
+    // }
+    // else if (typeMenace == "se2-06") {
+    //     return new menace_se2_06(typeMenace, tempsArrivee);
+    // }
     // Ajouter d'autres types de menaces ici si nécessaire
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;

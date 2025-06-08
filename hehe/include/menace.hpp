@@ -18,6 +18,7 @@ class menace
     int m_max_vie; // vie maximale de la menace
     int m_position; // position dans le chemin
     int m_bouclier;
+    int m_etat_bouclier;
     int m_difficulte;
     int m_degatsRecus;
     bool m_vulnerable_roquette;
@@ -96,8 +97,16 @@ class menace
         int get_m_degatsRecus() const {
             return m_degatsRecus;
         };
+
+        int get_m_etat_bouclier() const {
+            return m_etat_bouclier;
+        };
         void set_m_vie(int input) {
             m_vie = input;
+        };
+
+        void set_m_etat_bouclier(int input) {
+            m_etat_bouclier = input;
         };
 
         void set_m_degatsRecus(int input) {
@@ -134,6 +143,9 @@ class menace
         // Action de la menace
         virtual void actionMenace(char input);
 
+        virtual void actionQuandDetruit();
+
+
         void augmenteVie(int input) {
             m_vie += input;
         };
@@ -151,6 +163,6 @@ class menace
         void makedegatsRight(int input);
 
         void regeneration(int input);
-
+        
         virtual ~menace();
 };

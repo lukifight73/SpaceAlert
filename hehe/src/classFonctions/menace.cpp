@@ -292,6 +292,7 @@ menace::menace(std::string input, int tourDarrivee)
         m_vitesse = 4;
     }
     m_max_vie = m_vie; // Initialiser la vie maximale à la vie actuelle
+    m_etat_bouclier = m_bouclier; // L'état du bouclier est initialisé à la valeur de m_bouclier
 }
 
 void menace::send_announcement_message() const
@@ -321,8 +322,10 @@ void menace::print_menace() const
 void menace::actionMenace(char input)
 {
     input += 0;
-    // Implement the action logic based on the input character
-    // This is a placeholder for the actual implementation
+}
+
+void menace::actionQuandDetruit() {
+    wr("ICIIIIII");
 }
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)

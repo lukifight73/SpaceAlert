@@ -9,3 +9,4 @@ spaceAlert
 .vscode/
 *.tmp
 *.log
+*.conf

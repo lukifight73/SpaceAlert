@@ -66,6 +66,7 @@ void clear_actionUsage(t_data &data)
 		{
 			(*it)->clear_m_canon_used();
 			(*it)->set_m_degatsRecus(0);
+			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier());
 		}
 		i++;
 	}
