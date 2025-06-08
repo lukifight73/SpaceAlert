@@ -330,7 +330,7 @@ void menace::actionMenace(char input)
 }
 
 void menace::actionQuandDetruit() {
-    wr("ICIIIIII");
+    std::cout << "[La menace " << m_name << " a été détruite.]\n";
 }
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
@@ -405,4 +405,15 @@ void menace::regeneration(int input)
         m_vie = m_max_vie; // Ne pas dépasser la vie maximale
     }
     std::cout << "[La menace " << m_name << " se régénère de " << input << " points de vie. Vie actuelle : " << m_vie << "]" << std::endl;
+}
+
+int menace::checkNombreInputCrossed(char input) const
+{
+    int count = 0;
+    for (int i = m_chemin->get_ch_chemin_size(); i >= m_position; i--) {
+        if (m_chemin->get_ch_chemin()[i] == input) {
+            count++;
+        }
+    }
+    return count;
 }

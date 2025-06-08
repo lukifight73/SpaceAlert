@@ -82,6 +82,64 @@ void menace_se1_04::actionMenace(char input)
     }
 }
 
+void menace_se1_03::actionQuandDetruit() 
+{
+    std::vector<menace *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menaces();
+    
+    std::vector<menace *>::iterator it;
+    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    {
+        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
+        {
+            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            if ((*it)->get_m_vie() <= 0) 
+            {
+                (*it)->set_m_presence(false);
+                (*it)->actionQuandDetruit();
+            }
+        }
+    }
+    menaces = m_zone->getzone_right()->getz_chemin_menace()->get_menaces();
+    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    {
+        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
+        {
+            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            if ((*it)->get_m_vie() <= 0) 
+            {
+                (*it)->set_m_presence(false);
+                (*it)->actionQuandDetruit();
+            }
+        }
+    }
+    menaces = m_zone->getz_chemin_menace()->get_menaces();
+    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    {
+        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
+        {
+            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            if ((*it)->get_m_vie() <= 0) 
+            {
+                (*it)->set_m_presence(false);
+                (*it)->actionQuandDetruit();
+            }
+        }
+    }
+    std::cout << "[La menace " << m_name << " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]\n";
+}
+
+void menace_se1_08::actionMenace(char input) 
+{
+    if (input == 'Z') {
+        int degats = get_m_vie();
+        makedegatsInZone(degats);
+        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+    } 
+    else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
 void menace_se1_05::actionMenace(char input) 
 {
     if (input == 'X') {
@@ -96,6 +154,13 @@ void menace_se1_05::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_se1_08::actionQuandDetruit() 
+{
+    int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 2; // Dégâts infligés en fonction des actions croisées
+    makedegatsInZone(itemCrossed);
+    std::cout << "[La menace " << m_name << " a été détruite. Elle inflige " << itemCrossed << " points de dégâts!]\n";
 }
 
 //Actions des menaces externes serieuses avancees
@@ -143,6 +208,40 @@ void menace_se2_04::actionMenace(char input)
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
+
+void menace_se2_05::actionMenace(char input)
+{
+    if (input == 'X') {
+        makedegatsInZone(1);
+        if(get_m_etat_bouclier() <= 0)
+        {
+            set_m_vie(get_m_vie() - 1);
+            if (get_m_vie() <= 0) {
+                set_m_presence(false);
+                actionQuandDetruit();
+            }
+            std::cout << "[ " << m_name << " s'inflige 1 point de dégâts!]" << std::endl;
+        }
+        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+    } else if (input == 'Y') {
+        makedegatsInZone(2);
+        if(get_m_etat_bouclier() <= 1)
+        {
+            set_m_vie(get_m_vie() + get_m_etat_bouclier() - 2);
+            if (get_m_vie() <= 0) {
+                set_m_presence(false);
+                actionQuandDetruit();
+            }
+            std::cout << "[ " << m_name << " s'inflige " << 2 - get_m_etat_bouclier() << " point de dégâts!]" << std::endl;
+        }
+        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+    } else if (input == 'Z') {
+        std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!]" << std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
 
 
 //Actions des menaces externes communes
@@ -344,50 +443,4 @@ void menace_e2_03::actionMenace(char input)
     }
 }
 
-void menace_se1_03::actionQuandDetruit() 
-{
-    std::vector<menace *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menaces();
-    
-    std::vector<menace *>::iterator it;
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
-    {
-        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
-        {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
-            {
-                (*it)->set_m_presence(false);
-                (*it)->actionQuandDetruit();
-            }
-        }
-    }
-
-    menaces = m_zone->getzone_right()->getz_chemin_menace()->get_menaces();
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
-    {
-        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
-        {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
-            {
-                (*it)->set_m_presence(false);
-                (*it)->actionQuandDetruit();
-            }
-        }
-    }
-    menaces = m_zone->getz_chemin_menace()->get_menaces();
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
-    {
-        if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
-        {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
-            {
-                (*it)->set_m_presence(false);
-                (*it)->actionQuandDetruit();
-            }
-        }
-    }
-    std::cout << "[La menace " << m_name << " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]\n";
-}
         

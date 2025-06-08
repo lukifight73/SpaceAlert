@@ -29,7 +29,7 @@ X -> Attaque 1 / vitesse +1
 Y -> Attaque 3 / bouclier +1
 Z -> Attaque 5
 
-se1-08 Asteroide
+se1-08 Asteroide #done
 ->!roquettes
 ->quand il est detruit, attaque 2 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
@@ -50,7 +50,7 @@ Z-> attaque 4
 
 MENACES EXTERNES SERIEUSES
 
-se2-05 Nemesis
+se2-05 Nemesis #WIP
 ->attaque 1 sur toutes les zones des qu il subit un degat
 X -> attaque 1 / prends 1 degat
 Y -> attaque 2 / prends 2 degats
@@ -67,7 +67,7 @@ se2-06 Asteroide Majeur
 ->quand il est detruit, attaque 3 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-se2-04 Crabe Nebula#done
+se2-04 Crabe Nebula #done
 ->!roquettes
 X->blindage = 4
 Y->vitesse +2 / blindage = 2
