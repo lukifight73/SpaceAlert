@@ -120,7 +120,7 @@ void menace_se1_08::actionMenace(char input)
 
 void menace_se1_08::actionQuandDetruit() 
 {
-    int itemCrossed = checkNombreInputCrossed('X') + checkNombreInputCrossed('Y');
+    int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 2; // Dégâts infligés en fonction des actions croisées
     makedegatsInZone(itemCrossed);
     std::cout << "[La menace " << m_name << " a été détruite. Elle inflige " << itemCrossed << " points de dégâts!]\n";
 }
@@ -178,10 +178,7 @@ void menace_se2_05::actionMenace(char input)
     }
 }
 
-void menace_se2_05::actionQuandDetruit() 
-{
 
-}
 
 //Actions des menaces externes communes
 
