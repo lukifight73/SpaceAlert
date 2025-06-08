@@ -19,6 +19,7 @@ class menace
     int m_position; // position dans le chemin
     int m_bouclier;
     int m_etat_bouclier;
+    bool m_immunity;
     int m_difficulte;
     int m_degatsRecus;
     bool m_vulnerable_roquette;
@@ -39,7 +40,16 @@ class menace
         std::string get_m_name() const {
             return m_name;
         };
-        void setm_attraction_roquette(bool input) {
+        void set_m_bouclier(int input) {
+            m_bouclier = input;
+        }
+        void set_m_immunity(bool input) {
+            m_immunity = input;
+        }
+        bool get_m_immunity() const {
+            return m_immunity;
+        };
+        void set_m_attraction_roquette(bool input) {
             m_attraction_roquette = input;
         };
         bool get_m_revele() const {

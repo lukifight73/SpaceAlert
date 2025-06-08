@@ -282,6 +282,11 @@ void impactDegatsTotaux(t_data &data)
             int degatsRecus = (*it)->get_m_degatsRecus(); // tous les degats recu jusqu'ici
             if (degatsRecus > 0) 
             {
+                if ((*it)->get_m_immunity())
+                {
+                    (*it)->set_m_immunity(false);
+                    continue;
+                }
                 int newLife((*it)->get_m_vie());
                 if((*it)->get_m_bouclier() - degatsRecus >= 0)
                 {
