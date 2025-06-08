@@ -12,6 +12,7 @@
 // distance?
 // On le met dans son vector
 
+// additionne tous les degats des canons utilisés contre la menace
 void analyseDesDegatsCanons(t_data &data)
 {
     int numZone(1);
@@ -81,33 +82,6 @@ void assignationCannons(t_data &data)
     }
 }
 
-// menace *getMenaceLaPlusProcheParmisDeux(menace *menace1, menace *menace2)
-// {
-//     if (!menace1) 
-//     {
-//         return menace2; // Si seulement menace2 est trouvée
-//     }
-//     else if (!menace2) 
-//     {
-//         return menace1; // Si seulement menace1 est trouvée
-//     }
-//     else if (menace1->get_m_position() < menace2->get_m_position()) 
-//     {
-//         return menace1; // Si menace1 est plus proche
-//     }
-//     else if (menace2->get_m_position() < menace1->get_m_position()) 
-//     {
-//         return menace2; // Si menace2 est plus proche
-//     }
-//     else if (menace1->get_m_tourDarrivee() < menace2->get_m_tourDarrivee()) 
-//     {
-//         return menace1; // Si menace1 est arrivée plus tôt
-//     }
-//     else 
-//     {
-//         return menace2; // Si menace2 est arrivée plus tôt ou égale
-//     }
-// }
 
 menace *getMenaceLaPlusProcheTouteZones(t_data &data)
 {
@@ -256,18 +230,19 @@ void impactDegatsTotaux(t_data &data)
         std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
-            int degatsRecus = (*it)->get_m_degatsRecus();
+            int degatsRecus = (*it)->get_m_degatsRecus(); // tous les degats recu jusqu'ici
             if (degatsRecus > 0) 
             {
-                int newLife(0);
+                int newLife((*it)->get_m_vie());
                 if((*it)->get_m_bouclier() - degatsRecus >= 0)
                 {
-                    newLife = (*it)->get_m_vie();
+                    (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - degatsRecus);
                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus << " points de dégâts, mais son bouclier a absorbé tous les dégâts.]\n";
                 }
                 else
                 {
-                    newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_bouclier();
+                    newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_etat_bouclier();
+                    (*it)->set_m_etat_bouclier(0); // Bouclier épuisé
                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
                 }
                 if (newLife < 0) 
@@ -279,7 +254,7 @@ void impactDegatsTotaux(t_data &data)
                 if ((*it)->get_m_vie() <= 0) 
                 {
                     (*it)->set_m_presence(false);
-                    std::cout << "[La menace " << (*it)->get_m_name() << " a été détruite !]\n";
+                    (*it)->actionQuandDetruit();
                 }
             }
         }
