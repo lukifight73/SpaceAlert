@@ -243,3 +243,24 @@ std::map<int, int> zone::getz_roquete_position()
 {
 	return (z_roquete_position);
 }
+
+zone* zone::getzone_white() const
+{
+	return zone_white;
+}
+zone* zone::getzone_red() const
+{
+	return zone_red;
+}
+zone* zone::getzone_blue() const
+{
+	return zone_blue;
+}
+zone* zone::getzone_right() const
+{
+	return zone_right;
+}
+zone* zone::getzone_left() const
+{
+	return zone_left;
+}

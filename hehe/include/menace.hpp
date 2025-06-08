@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>    // pour std::string
-#include <map>
 #include <stdexcept>
 #include "space_alerte.hpp"
 
@@ -32,8 +30,10 @@ class menace
     public:
         menace();
         menace(std::string input, int tourDarrivee);
-        void actionMenace(char input);
-        void checkIfCrossActionZone(int positionBefore, int positionAfter);
+        // Surcharge de l'opérateur d'affectation
+        menace &operator=(const menace &other);
+
+        // Getters et Setters
         std::string get_m_name() const {
             return m_name;
         };
@@ -87,15 +87,22 @@ class menace
         std::vector<int> get_m_canon_immunity() const {
             return m_canon_immunity;
         };
-        void add_m_canon_immunity(int input) {
-            m_canon_immunity.push_back(input);
-        };
+
         void set_m_presence(bool input) {
             m_presence = input;
         };
         std::vector<cannon *> get_m_canon_used() const {
             return m_canon_used;
         };
+
+        // autres fonctions
+
+        void checkIfCrossActionZone(int positionBefore, int positionAfter);
+
+        void add_m_canon_immunity(int input) {
+            m_canon_immunity.push_back(input);
+        };
+
         void add_m_canon_used(cannon *input) {
             m_canon_used.push_back(input);
         };
@@ -104,22 +111,23 @@ class menace
         };
         void send_announcement_message() const;
         void print_menace() const;
-        ~menace();
 
+        // Action de la menace
+        virtual void actionMenace(char input);
 
-        menace &operator=(const menace &other) {
-            if (this != &other) {
-                m_name = other.m_name;
-                m_tourDarrivee = other.m_tourDarrivee;
-                m_presence = other.m_presence;
-                m_vitesse = other.m_vitesse;
-                m_vie = other.m_vie;
-                m_position = other.m_position;
-                m_bouclier = other.m_bouclier;
-                m_difficulte = other.m_difficulte;
-                m_canon_used = other.m_canon_used;
-                m_canon_immunity = other.m_canon_immunity;
-            }
-            return *this;
-        }
+        void augmenteVie(int input) {
+            m_vie += input;
+        };
+
+        void augmenteBouclier(int input) {
+            m_bouclier += input;
+        };
+
+        void draineEnergieBouclier(int input) {
+            
+        };
+
+        
+
+        virtual ~menace();
 };

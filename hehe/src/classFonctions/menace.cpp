@@ -4,6 +4,23 @@ menace::menace()
 {
 }
 
+// Surcharge de l'opérateur d'affectation
+menace &menace::operator=(const menace &other) {
+            if (this != &other) {
+                m_name = other.m_name;
+                m_tourDarrivee = other.m_tourDarrivee;
+                m_presence = other.m_presence;
+                m_vitesse = other.m_vitesse;
+                m_vie = other.m_vie;
+                m_position = other.m_position;
+                m_bouclier = other.m_bouclier;
+                m_difficulte = other.m_difficulte;
+                m_canon_used = other.m_canon_used;
+                m_canon_immunity = other.m_canon_immunity;
+            }
+            return *this;
+}
+
 menace::menace(std::string input, int tourDarrivee)
 {
     m_degatsRecus = 0;
@@ -50,12 +67,14 @@ void menace::print_menace() const
         std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;
     }
 }
+
 void menace::actionMenace(char input)
 {
     input += 0;
     // Implement the action logic based on the input character
     // This is a placeholder for the actual implementation
 }
+
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
 {
     while(positionBefore != positionAfter) 
@@ -78,3 +97,30 @@ void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
 
 
 menace::~menace() {}
+
+
+/// Action des menaces
+
+// draine l'energie du bouclier de toutes les zones
+void menace::draineEnergieBouclier(int input) 
+{
+    m_zone->setz_bouclier(m_zone->getz_bouclier() - input);
+    if (m_zone->getz_bouclier() < 0) {
+        m_zone->setz_bouclier(0);
+    }
+    m_zone->getzone_left()->setz_bouclier(m_zone->getzone_left()->getz_bouclier() - input);
+    if (m_zone->getzone_left()->getz_bouclier() < 0) {
+        m_zone->getzone_left()->setz_bouclier(0);
+    }
+    m_zone->getzone_right()->setz_bouclier(m_zone->getzone_right()->getz_bouclier() - input);
+    if (m_zone->getzone_right()->getz_bouclier() < 0) {
+        m_zone->getzone_right()->setz_bouclier(0);
+    }
+    if( m_zone->getz_bouclier() == 0 && m_zone->getzone_left()->getz_bouclier() == 0 && m_zone->getzone_right()->getz_bouclier() == 0) {
+        std::cout << "[Toutes les zones ont perdu leur bouclier !]\n";
+    } else {
+        std::cout << "[Le bouclier de la zone " << m_zone->getz_nom_zone() << " est maintenant de " << m_zone->getz_bouclier() << ".]\n";
+        std::cout << "[Le bouclier de la zone " << m_zone->getzone_left()->getz_nom_zone() << " est maintenant de " << m_zone->getzone_left()->getz_bouclier() << ".]\n";
+        std::cout << "[Le bouclier de la zone " << m_zone->getzone_right()->getz_nom_zone() << " est maintenant de " << m_zone->getzone_right()->getz_bouclier() << ".]\n";
+    }
+};

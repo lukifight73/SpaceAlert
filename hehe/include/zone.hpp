@@ -107,6 +107,11 @@ class zone
         std::vector<int>    getz_actions_used_ce_tour_haut() const;
         std::vector<int>    getz_maintenance_ordinateur() const;
         std::vector<int>    getz_observations() const;
+        zone* getzone_white() const;
+        zone* getzone_red() const;
+        zone* getzone_blue() const;
+        zone* getzone_right() const;
+        zone* getzone_left() const;
 
         //degats
         void calculateDegatsCanons();

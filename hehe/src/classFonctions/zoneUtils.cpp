@@ -18,6 +18,10 @@ void zone::addz_joueurs_haut(joueur* input)
 void zone::etatdesdegats()
 {
 	z_degats_recu++;
+	if(z_degats_recu > 6)
+	{
+		wr("[Le vaisseau a recu trop de degats, il est detruit !]");
+	}
 	int degat = z_ordre_degats[z_degats_recu];
 	if (degat == 1)
 	{
@@ -80,7 +84,11 @@ void zone::getdegats(int input)
 		input--;
 	}
 	while (input > 0)
+	{
 		etatdesdegats();
+		input--;
+	}
+		
 }
 
 void zone::removez_joueurs_haut(std::string input)

@@ -117,7 +117,7 @@ void init_zone_blue(t_data& data)
     data.zones[ZONE_BLUE]->setzone_white(data.zones[ZONE_WHITE]);
     data.zones[ZONE_BLUE]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_BLUE]->setzone_blue(data.zones[ZONE_BLUE]);
-    data.zones[ZONE_BLUE]->setzone_right(NULL);
+    data.zones[ZONE_BLUE]->setzone_right(data.zones[ZONE_RED]);
     data.zones[ZONE_BLUE]->setzone_left(data.zones[ZONE_WHITE]);
     data.zones[ZONE_BLUE]->setz_nom_zone("zone bleue");
     data.zones[ZONE_BLUE]->setz_bots(true);
@@ -157,7 +157,7 @@ void init_zone_red(t_data& data)
     data.zones[ZONE_RED]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_RED]->setzone_blue(data.zones[ZONE_BLUE]);
     data.zones[ZONE_RED]->setzone_right(data.zones[ZONE_WHITE]);
-    data.zones[ZONE_RED]->setzone_left(NULL);
+    data.zones[ZONE_RED]->setzone_left(data.zones[ZONE_BLUE]);
     data.zones[ZONE_RED]->setz_nom_zone("zone rouge");
     data.zones[ZONE_RED]->setz_bots(true);
     data.zones[ZONE_RED]->setz_temps(1);
