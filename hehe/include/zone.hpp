@@ -1,14 +1,11 @@
 #pragma once
 
-#include <string>    // pour std::string
-#include <map>
+
 #include <stdexcept>
 #include "joueur.hpp"
 #include "SA_Values.hpp"
 #include "chemin_menace.hpp"
 #include "cannon.hpp"
-#include <vector>
-#include <algorithm>
 #include <random>
 
 class joueur;

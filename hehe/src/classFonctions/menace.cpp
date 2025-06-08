@@ -296,7 +296,7 @@ void menace::print_menace() const
     std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
     for (std::vector<cannon *>::const_iterator it = m_canon_used.begin(); it != m_canon_used.end(); ++it)
     {
-        std::cout << "Canon utilisé : " << (*it)->getnom_cannon() << std::endl;
+        std::cout << "Canon utilisé contre elle : " << (*it)->getnom_cannon() << std::endl;
     }
 }
 
@@ -356,3 +356,18 @@ void menace::draineEnergieBouclier(int input)
         std::cout << "[Le bouclier de la zone " << m_zone->getzone_right()->getz_nom_zone() << " est maintenant de " << m_zone->getzone_right()->getz_bouclier() << ".]\n";
     }
 };
+
+void menace::makedegatsInZone(int input)
+{
+    m_zone->getdegats(input);
+}
+
+void menace::makedegatsLeft(int input)
+{
+    m_zone->getzone_left()->getdegats(input);
+}
+
+void menace::makedegatsRight(int input)
+{
+    m_zone->getzone_right()->getdegats(input);
+}

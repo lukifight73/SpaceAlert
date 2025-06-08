@@ -1,5 +1,8 @@
+#include "chemin_menace.hpp"
 #include "space_alerte.hpp"
 #include "SA_Values.hpp"
+#include "menace.hpp"
+#include "menace_externe.hpp"   
 
 void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
 {
@@ -30,6 +33,18 @@ void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
     }
 }
 
+menace *create_menace(std::string typeMenace, int tempsArrivee)
+{
+    if (typeMenace == "se1-01") {
+        return new menace_se1_01(typeMenace, tempsArrivee);
+    }
+    // Ajouter d'autres types de menaces ici si nécessaire
+    else {
+        std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
+        return new menace(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur
+    }
+}
+
 void pars_menace(t_data &data, std::string menace_str)
 {
     std::istringstream iss(menace_str);
@@ -40,7 +55,7 @@ void pars_menace(t_data &data, std::string menace_str)
     std::string typeMenace;
 
     if (iss >> typeMenace >> tempsArrivee >> nomZone) {
-        menace *new_menace = new menace(typeMenace, tempsArrivee);
+        menace *new_menace = create_menace(typeMenace, tempsArrivee);
         if(nomZone == "ZONE_RED")
         {
             data.zones[ZONE_RED]->getz_chemin_menace()->add_menace(new_menace);

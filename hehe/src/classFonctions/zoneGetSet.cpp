@@ -82,9 +82,8 @@ void zone::setz_ordre_degats()
 	std::mt19937 g(rd());
 	std::shuffle(valeurs.begin(), valeurs.end(), g);
 
-	std::map<int, int> degats;
 	for (int i = 1; i <= 6; ++i)
-		degats[i] = valeurs[i - 1];
+		z_ordre_degats[i] = valeurs[i - 1];
 }
 
 void zone::setz_degats_recu(int input)

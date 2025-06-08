@@ -108,6 +108,7 @@ void init_zone_white(t_data& data)
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_WHITE]->setz_ordre_degats();
 }
 
 void init_zone_blue(t_data& data)
@@ -147,6 +148,7 @@ void init_zone_blue(t_data& data)
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_BLUE]->setz_ordre_degats();
 }
 
 void init_zone_red(t_data& data)
@@ -186,6 +188,7 @@ void init_zone_red(t_data& data)
     data.zones[ZONE_RED]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_RED]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_RED]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_RED]->setz_ordre_degats();
 }
 
 void init_data(t_data& data)

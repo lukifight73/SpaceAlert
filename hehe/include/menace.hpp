@@ -3,12 +3,9 @@
 #include <stdexcept>
 #include "space_alerte.hpp"
 
-
 class cannon; // Forward declaration pour éviter les dépendances circulaires
 class chemin_menace; // Forward declaration pour éviter les dépendances circulaires
 class zone; // Forward declaration pour éviter les dépendances circulaires
-
-
 
 class menace
 {
@@ -123,11 +120,13 @@ class menace
             m_bouclier += input;
         };
 
-        void draineEnergieBouclier(int input) {
-            
-        };
+        void draineEnergieBouclier(int input);
 
-        
+        void makedegatsInZone(int input);
+
+        void makedegatsLeft(int input);
+
+        void makedegatsRight(int input);
 
         virtual ~menace();
 };

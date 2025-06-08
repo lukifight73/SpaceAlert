@@ -1,5 +1,6 @@
 #include "space_alerte.hpp"
 #include "SA_Values.hpp"
+#include "menace.hpp"
 
 void erase_data(t_data& data)
 {
@@ -99,7 +100,8 @@ void printInfoMenace(t_data &data)
 		std::cout << "--------------------INFORMATION MENACE ZONE " << data.zones[i]->getz_nom_zone() << "----------------------" << std::endl;
 		for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
 		{
-			(*it)->print_menace();
+			if((*it)->get_m_presence() == true)
+				(*it)->print_menace();
 		}
 	}
 }

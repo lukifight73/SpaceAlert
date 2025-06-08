@@ -1,4 +1,6 @@
 #include "zone.hpp"
+#include "chemin_menace.hpp"
+#include "menace.hpp" 
 
 void zone::addtemps()
 {
@@ -20,7 +22,7 @@ void zone::etatdesdegats()
 	z_degats_recu++;
 	if(z_degats_recu > 6)
 	{
-		wr("[Le vaisseau a recu trop de degats, il est detruit !]");
+		wr("[///////!!!!!\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]");
 	}
 	int degat = z_ordre_degats[z_degats_recu];
 	if (degat == 1)
@@ -238,7 +240,7 @@ void zone::printZone()
 	wr("--------- ZONE START---------");
 	wr("Zone : " + z_nom_zone);
 	std::cout << "Temps : " << z_temps << std::endl;
-	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
+	std::cout << "Bouclier : " << z_bouclier << std::endl;
 	std::cout << "Reacteur : " << z_reacteur << "/ " << z_max_reacteur << std::endl;
 	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
 	wr("Joueur en jeu : " + z_joueur_playing);

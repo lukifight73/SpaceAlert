@@ -4,9 +4,9 @@
 #include <map>
 #include <stdexcept>
 #include "space_alerte.hpp"
-#include "menace.hpp"
 
 class menace;
+class menace_se1_01; // Forward declaration pour éviter les dépendances circulaires
 
 class chemin_menace
 {

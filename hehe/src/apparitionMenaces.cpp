@@ -1,4 +1,5 @@
 #include "space_alerte.hpp"
+#include "menace.hpp"
 
 void remove_dead_or_outdated_menaces(t_data &data)
 {
