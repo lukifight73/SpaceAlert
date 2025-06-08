@@ -1,0 +1,11 @@
+# Fichiers compilés
+*.o
+*.d
+obj/
+spaceAlert
+*.exe
+
+# Autres fichiers à ignorer
+.vscode/
+*.tmp
+*.log

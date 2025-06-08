@@ -16,8 +16,6 @@
 #include "joueur.hpp"
 #include "carte.hpp"
 
-
-
 void wr(std::string str);
 std::string generateRandomString(int length);
 void init_carte_joueur_test(t_data& data);
@@ -31,3 +29,4 @@ void remove_dead_or_outdated_menaces(t_data &data);
 void analyseDesDegatsCanons(t_data &data);
 void rocketActions(t_data &data);
 void impactDegatsTotaux(t_data &data);
+void check_maintenance(t_data &data);

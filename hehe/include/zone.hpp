@@ -7,6 +7,9 @@
 #include "SA_Values.hpp"
 #include "chemin_menace.hpp"
 #include "cannon.hpp"
+#include <vector>
+#include <algorithm>
+#include <random>
 
 class joueur;
 class chemin_menace;
@@ -27,6 +30,8 @@ class zone
         int z_max_reacteur;
         int z_bouclier;
         int z_max_energie_bouclier;
+        int z_degats_recu;
+        std::map<int, int> z_ordre_degats; // 0 = degats recu, 1 = degats infliges, 2 = degats infliges aux menaces, 3 = degats infliges aux canons, 4 = degats infliges aux joueurs, 5 = degats infliges aux robots
         std::vector<cannon*> z_cannon_used;  // degats[3] += 4 // degats[3] += 2
         std::vector<int> z_maintenance_ordinateur;
         std::vector<int> z_observations;
@@ -57,6 +62,7 @@ class zone
         void setzone_white(zone* zone);
         void setzone_red(zone* zone);
         void setzone_blue(zone* zone);
+        void setz_degats_recu(int input);
         void setzone_right(zone* zone);
         void setzone_left(zone* zone);
         void setz_cannon_haut(cannon *input);
@@ -72,10 +78,12 @@ class zone
         void setz_bouclier(int input);
         void setz_max_energie_bouclier(int input);
         void setz_roquete_position(int, int);
+        void setz_ordre_degats();
 
         //getters
         std::map<int, int> getz_roquete_position();
         int getz_reacteur() const;
+        int getz_degats_recu() const;
         int getz_max_energie_reservoir() const;
         int getz_capsule_energie() const;
         bool getz_bots() const;
@@ -102,11 +110,13 @@ class zone
 
         //degats
         void calculateDegatsCanons();
+        void etatdesdegats();
+        void getdegats(int input);
 
         //autre
         joueur* getz_joueur_haut(std::string nom);
         joueur* getz_joueur_bas(std::string nom);
-        void addz_maintenance_ordinateur(int input);  
+        void addz_maintenance_ordinateur(int input);
         void addz_observations(int input);
         void print();
         void printZone();
