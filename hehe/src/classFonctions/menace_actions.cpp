@@ -257,6 +257,25 @@ void menace_se2_05::actionMenace(char input)
     }
 }
 
+void menace_se2_06::actionMenace(char input) 
+{
+    if (input == 'Z') {
+        int degats = get_m_vie();
+        makedegatsInZone(degats);
+        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+    } 
+    else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_se2_06::actionQuandDetruit() 
+{
+    int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 3; // Dégâts infligés en fonction des actions croisées
+    makedegatsInZone(itemCrossed);
+    std::cout << "[La menace " << m_name << " a été détruite. Elle inflige " << itemCrossed << " points de dégâts!]\n";
+}
+
 
 
 //Actions des menaces externes communes

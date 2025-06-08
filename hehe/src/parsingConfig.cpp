@@ -122,9 +122,9 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "se2-05") {
         return new menace_se2_05(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "se2-06") {
-    //     return new menace_se2_06(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "se2-06") {
+        return new menace_se2_06(typeMenace, tempsArrivee);
+    }
     // else if (typeMenace == "se2-07") {
     //     return new menace_se2_07(typeMenace, tempsArrivee);
     // }
