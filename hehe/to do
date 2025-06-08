@@ -62,7 +62,7 @@ X->sauf s il a >= 2 degat, attaque 2
 Y->sauf s il a >= 3 degat, attaque 3
 Z->sauf s il a >= 6 degat, attaque 6
 
-se2-06 Asteroide Majeur
+se2-06 Asteroide Majeur #done
 ->!roquettes
 ->quand il est detruit, attaque 3 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant

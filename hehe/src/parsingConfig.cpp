@@ -74,9 +74,9 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "se2-05") {
         return new menace_se2_05(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "se2-06") {
-    //     return new menace_se2_06(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "se2-06") {
+        return new menace_se2_06(typeMenace, tempsArrivee);
+    }
     // Ajouter d'autres types de menaces ici si nécessaire
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;

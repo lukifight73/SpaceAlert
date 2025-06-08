@@ -156,6 +156,7 @@ class menace_se2_06: public menace
     public:
         menace_se2_06() : menace() {};
         menace_se2_06(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
+        virtual void actionQuandDetruit();
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         ~menace_se2_06() {};
 };
