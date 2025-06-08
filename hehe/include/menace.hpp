@@ -145,11 +145,6 @@ class menace
 
         virtual void actionQuandDetruit();
 
-
-        void augmenteVie(int input) {
-            m_vie += input;
-        };
-
         void augmenteBouclier(int input) {
             m_bouclier += input;
         };

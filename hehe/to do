@@ -18,7 +18,7 @@ X->attaque 1 sur toutes les zones
 Y->attaque 2 sur toutes les zones
 Z->attaque 3 sur toutes les zones
 
-se1-03 Ravitailleur Leviathan
+se1-03 Ravitailleur Leviathan#done
 -> auqnd il est detruit, inflige 1 degat a toutes les autres menaces externes
 X->attaque 2
 Y->attaque 2 / recupere 2 points de vie 
@@ -90,7 +90,7 @@ Z->attaque 7
 
 MENACES EXTERNES COMMUNES
 
-e1-08 Constricteur Blinde
+e1-08 Constricteur Blinde#done
 X->attaque 1
 Y->Repare 1 point de vie
 Z->attaque 4

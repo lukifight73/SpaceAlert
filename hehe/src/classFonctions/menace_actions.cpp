@@ -108,10 +108,13 @@ void menace_e1_09::actionMenace(char input)
 {
     if (input == 'X') {
         regeneration(2);
+        std::cout << "[ " << m_name << " regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Y') {
         regeneration(2);
+        std::cout << "[ " << m_name << " regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(5);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 5!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -126,7 +129,7 @@ void menace_e1_03::actionMenace(char input)
         std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        augmenteVie(2);
+        regeneration(2);
         std::cout << "[ " << m_name << " lance une attaque de puissance 2 et regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(2);
@@ -164,6 +167,25 @@ void menace_e1_07::actionMenace(char input)
         makedegatsInZone(3);
         std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_e1_08::actionMenace(char input) 
+{
+    if (input == 'X') {
+        makedegatsInZone(1);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+    }
+    else if (input == 'Y') {
+        regeneration(1);
+        std::cout << "[ " << m_name << " regagne 1 points de vie!]" << std::endl;
+    } 
+    else if (input == 'Z') {
+        makedegatsInZone(4);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 4!]" << std::endl;
+    }
+    else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
