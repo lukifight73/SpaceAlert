@@ -23,7 +23,10 @@ menace &menace::operator=(const menace &other) {
 
 menace::menace(std::string input, int tourDarrivee)
 {
+    m_attraction_roquette = false;
+    m_vulnerable_roquette = true;
     m_degatsRecus = 0;
+    m_revele = true;
     m_presence = false;
     m_tourDarrivee = tourDarrivee;
     if(input == "se1-01")
@@ -68,6 +71,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se1-06")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 1;
         m_difficulte = MENACE_SERIEUSE;
         m_name ="Pieuvre Interstellaire";
@@ -84,9 +88,10 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se1-08")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_SERIEUSE;
-        m_name ="Pieuvre Interstellaire";
+        m_name ="Asteroide";
         m_vie = 9;
         m_vitesse = 3;
     }
@@ -100,6 +105,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se2-02")
     {
+        m_attraction_roquette = true;
         m_bouclier = 3;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Juggernaut";
@@ -116,6 +122,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se2-04")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 2;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Crabe nebula";
@@ -132,6 +139,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "se2-06")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Asteroide Majeur";
@@ -156,6 +164,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e1-03")
     {
+        m_revele = false;
         m_bouclier = 2;
         m_difficulte = MENACE_COMMUNE;
         m_name ="Chasseur furtif";
@@ -204,6 +213,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e1-09")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_COMMUNE;
         m_name ="Amibe";
@@ -212,6 +222,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e1-10")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_COMMUNE;
         m_name ="Meteorite";
@@ -236,6 +247,9 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e2-03")
     {
+        m_revele = false;
+        m_vulnerable_roquette = false;
+        m_attraction_roquette = true;
         m_bouclier = 3;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Chasseur fantome";
@@ -244,6 +258,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e2-04")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Nuee Insectoide";
@@ -252,6 +267,7 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e2-05")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = -2;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Meduse";
@@ -268,12 +284,14 @@ menace::menace(std::string input, int tourDarrivee)
     }
     if(input == "e2-07")
     {
+        m_vulnerable_roquette = false;
         m_bouclier = 0;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Asteroide mineur";
         m_vie = 7;
         m_vitesse = 4;
     }
+    m_max_vie = m_vie; // Initialiser la vie maximale à la vie actuelle
 }
 
 void menace::send_announcement_message() const
@@ -370,4 +388,13 @@ void menace::makedegatsLeft(int input)
 void menace::makedegatsRight(int input)
 {
     m_zone->getzone_right()->getdegats(input);
+}
+
+void menace::regeneration(int input)
+{
+    m_vie += input;
+    if (m_vie > m_max_vie) {
+        m_vie = m_max_vie; // Ne pas dépasser la vie maximale
+    }
+    std::cout << "[La menace " << m_name << " se régénère de " << input << " points de vie. Vie actuelle : " << m_vie << "]" << std::endl;
 }

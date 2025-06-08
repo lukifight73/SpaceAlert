@@ -15,10 +15,14 @@ class menace
     bool m_presence;
     int m_vitesse;
     int m_vie;
+    int m_max_vie; // vie maximale de la menace
     int m_position; // position dans le chemin
     int m_bouclier;
     int m_difficulte;
     int m_degatsRecus;
+    bool m_vulnerable_roquette;
+    bool m_attraction_roquette;
+    bool m_revele;
     chemin_menace *m_chemin; // chemin de la menace
     zone *m_zone; // zone de la menace
     std::vector<cannon *> m_canon_used; // pour les menaces qui utilisent des canons
@@ -33,6 +37,24 @@ class menace
         // Getters et Setters
         std::string get_m_name() const {
             return m_name;
+        };
+        void setm_attraction_roquette(bool input) {
+            m_attraction_roquette = input;
+        };
+        bool get_m_revele() const {
+            return m_revele;
+        };
+        void set_m_revele(bool input) {
+            m_revele = input;
+        };
+        bool get_m_attraction_roquette() const {
+            return m_attraction_roquette;
+        };
+        void setm_vulnerable_roquette(bool input) {
+            m_vulnerable_roquette = input;
+        };
+        bool get_m_vulnerable_roquette() const {
+            return m_vulnerable_roquette;
         };
         void set_m_zone(zone *input) {
             m_zone = input;
@@ -127,6 +149,8 @@ class menace
         void makedegatsLeft(int input);
 
         void makedegatsRight(int input);
+
+        void regeneration(int input);
 
         virtual ~menace();
 };

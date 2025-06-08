@@ -1,46 +1,46 @@
 MENACES EXTERNES SERIEUSES
 
-Pieuvre interstellaire
+se1-06 Pieuvre interstellaire
 -> !roquettes
 X->si 1 degat ou plus, attaque 1 sur toutes les zones
 Y->si ! degats ou plus, attaque 2 sur toutes les zones
 Z->attaque 2 par point de vie restant
 
-Maelstrom
+se1-07 Maelstrom
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 2 sur les deux autres zones
 Z->Attaque 3 sur les deux autres zones
 
-Satellite a impulsion
+se1-04 Satellite a impulsion
 ->ne peut etre pris pour cible a une distance de 3
 X->attaque 1 sur toutes les zones
 Y->attaque 2 sur toutes les zones
 Z->attaque 3 sur toutes les zones
 
-Ravitailleur Leviathan
+se1-03 Ravitailleur Leviathan
 -> auqnd il est detruit, inflige 1 degat a toutes les autres menaces externes
 X->attaque 2
 Y->attaque 2 / recupere 2 points de vie 
 Z->attaque 2
 
-Man of War
+se1-02 Man of War #done
 X -> Attaque 1 / vitesse +1
 Y -> Attaque 3 / bouclier +1
 Z -> Attaque 5
 
-Asteroide
+se1-08 Asteroide
 ->!roquettes
 ->quand il est detruit, attaque 2 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-Fregate a Cryoprotection
+se1-05 Fregate a Cryoprotection
 -> lorsqu elle est touchee pour la premiere fois, elle ne subit pas de degats
 X-> attaque 2
 Y-> attaque 3
 Z-> attaque 4
 
-Fregate
+se1-01 Fregate #done
 X-> attaque 2
 Y-> attaque 3
 Z-> attaque 4
@@ -50,36 +50,36 @@ Z-> attaque 4
 
 MENACES EXTERNES SERIEUSES
 
-Nemesis
+se2-05 Nemesis
 ->attaque 1 sur toutes les zones des qu il subit un degat
 X -> attaque 1 / prends 1 degat
 Y -> attaque 2 / prends 2 degats
 Z -> detruit le vaisseau en se detruisant
 
-Behemoth
+se2-01 Behemoth
 ->les intercepteurs font 9 degats contre lui (pas 3) mais le joueur est assomme
 X->sauf s il a >= 2 degat, attaque 2
 Y->sauf s il a >= 3 degat, attaque 3
 Z->sauf s il a >= 6 degat, attaque 6
 
-Asteroide Majeur
+se2-06 Asteroide Majeur
 ->!roquettes
 ->quand il est detruit, attaque 3 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-Crabe Nebula
+se2-04 Crabe Nebula#done
 ->!roquettes
 X->blindage = 4
 Y->vitesse +2 / blindage = 2
 Z->attaque 5 zone bleue et zone rouge
 
-Satellite psionique
+se2-03 Satellite psionique
 ->ne peut pas etre pris pour cible a une distance de 3
 X->tous les joueurs de la zone sont retardes de 1 tour
 Y->tous les joueurs du vaisseau sont retardes de 1 tour
 Z->tous les joueurs du vaisseau sont assommes
 
-Juggernaut
+se2-02 Juggernaut #done
 ->les roquettes le cible toujours (quelque soit la distance)
 ->+1 blindage si touche par roquette
 X->attaque 2 / vitesse +2
@@ -90,55 +90,55 @@ Z->attaque 7
 
 MENACES EXTERNES COMMUNES
 
-Constricteur Blinde
+e1-08 Constricteur Blinde
 X->attaque 1
 Y->Repare 1 point de vie
 Z->attaque 4
 
-Destroyer
+e1-02 Destroyer
 ->double les degats qui transpercent le bouclier
 X->attaque 1
 Y->attaque 2
 Z->attaque 2
 
-Chasseur
+e1-07 Chasseur#done
 X->attaque 1
 Y->attaque 2
 Z->attaque 3
 
-Vaisseau de combat
+e1-05 Vaisseau de combat#done
 X->attaque 2
 Y->attaque 2
 Z->attaque 3
 
-Meteorite
+e1-10 Meteorite#done
 ->!roquettes
 Z->attaque egale au nombre de ses points de vie restants
 
-Chasseur a cryoprotection
+e1-06 Chasseur a cryoprotection
 -> lorsqu il est touchee pour la premiere fois, elle ne subit pas de degats
 X->attaque 1
 Y->attaque 2
 Z->attaque 2
 
-Amibe 
+e1-09 Amibe #done
 ->!roquettes
 X->guerit 2 degats
 Y->guerit 2 degats
 Z->Attaque 5
 
-Pulsar
+e1-01 Pulsar#done
 X->attaque 1 sur toutes les zones
 Y->attaque 1 sur toutes les zones
 Z->attaque 2 sur toutes les zones
 
-Nuage d energie
+e1-04 Nuage d energie
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 1 sur les deux autres zones
 Z->Attaque 2 sur les deux autres zones
 
-Chasseur furtif
+e1-03 Chasseur furtif#done
 -> ne peut etre pris pour cible avant de se reveler
 X->se revele
 Y->attaque 2
@@ -147,43 +147,43 @@ Z->attaque 2
 
 MENACES EXTERNES COMMUNES AVANCEES
 
-Eclaireur
+e2-02 Eclaireur
 ->!canons lourds
 X->toutes les autres menaces externes ont +1 d'attaque tant qu il est pas mort 
 Y->toutes les autres menaces externes avancent d'une case
 Z->Attaque 3, ignore les boucliers (le bonus persiste)
 
-Chasseur fantome
+e2-03 Chasseur fantome#done
 ->ne peut etre cible avant qu il ne se revele
 ->les roquettes le cible mais ne le touchent pas
 X->se revele
 Y->attaque 2
 Z->attaque 3
 
-Kamikaze
+e2-01 Kamikaze
 X->+1 vitesse / blindage =1
 Y->+1 vitesse / blindage =0
 Z->Attaque 6
 
-Nuee Insectoide
+e2-04 Nuee Insectoide
 ->!roquettes
 ->prends 1 degat par tour
 X->attaque 1
 Y->attaque 2 / 1 sur les autres zones
 Z->attaque 3 / 2 sur les autres zones
 
-Meduse
+e2-05 Meduse
 ->!roquettes
 X->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
 Y->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
 Z->attaque 2 sur toutes les zones
 
-Asteroide mineur
+e2-07 Asteroide mineur
 ->!roquettes
 ->quand il est detruit, attaque 1 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-Maraudeur
+e2-06 Maraudeur
 X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort
 Y->draine 1 energie de tous les boucliers
 Z->attaque 4 (le bonus persiste)

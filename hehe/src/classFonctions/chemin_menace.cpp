@@ -11,6 +11,56 @@ void chemin_menace::add_menace(menace *input) {
     ch_menaces.push_back(input);
 }
 
+menace* chemin_menace::get_menace_that_attracts_rocket()
+{
+    if (ch_menaces.empty()) {
+        wr("No menaces available.");
+        return nullptr; // Si il n'y a pas de menace, on retourne nullptr
+    }
+    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
+    {
+        if ((*it)->get_m_presence() == false || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
+        {
+            continue;
+        }
+        if ((*it)->get_m_attraction_roquette() && (*it)->get_m_vulnerable_roquette()) // Si la menace est une menace qui attire les roquettes et qu'elle est vulnérable aux roquettes (il y en a qu'une seule, c'est le juggernaut, et peu importe sa position)
+        {
+            return (*it); // On retourne la menace qui attire les roquettes
+        }
+        else if ((*it)->get_m_attraction_roquette() && (*it)->get_m_position() <= 10) // Si la menace est une menace qui attire les roquettes mais qu'elle n'est pas vulnérable aux roquettes (il y en a qu'une seule, c'est le juggernaut)
+            return (*it); // On retourne la menace qui attire les roquettes
+    }
+    return (nullptr);
+}
+
+menace* chemin_menace::get_closest_menace_rocket_vulnerable() 
+{
+    if (ch_menaces.empty()) {
+        wr("No menaces available.");
+        return nullptr; // Si il n'y a pas de menace, on retourne nullptr
+    }
+    int positionPlusProche = 0;
+    menace *menaceProche = nullptr;
+    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
+    {
+        if ((*it)->get_m_presence() == false || !(*it)->get_m_vulnerable_roquette() || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
+        {
+            continue;
+        }
+        if (positionPlusProche == 0)
+        {
+            positionPlusProche = (*it)->get_m_position(); // La position la plus prochde de la ou les menaces
+            menaceProche = (*it); // La menace la plus proche
+        }
+        else if ((*it)->get_m_position() < positionPlusProche || ((*it)->get_m_position() == positionPlusProche && (*it)->get_m_tourDarrivee() < menaceProche->get_m_tourDarrivee())) // Si la menace est plus proche que la menace la plus proche
+        {
+            positionPlusProche = (*it)->get_m_position(); // On change la position de la menace la plus proche
+            menaceProche = (*it); // On change la menace la plus proche
+        }
+    }
+    return menaceProche; // On retourne la menace la plus proche
+}
+
 menace* chemin_menace::get_closest_menace() 
 {
     if (ch_menaces.empty()) {
@@ -21,7 +71,7 @@ menace* chemin_menace::get_closest_menace()
     menace *menaceProche = nullptr;
     for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
     {
-        if ((*it)->get_m_presence() == false) // Si la menace n'est pas presente, on passe a la suivante
+        if ((*it)->get_m_presence() == false || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
         {
             continue;
         }

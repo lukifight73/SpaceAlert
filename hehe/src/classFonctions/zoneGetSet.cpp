@@ -2,10 +2,12 @@
 
 zone::zone()
 {
+	z_degats_recu = 0;
 }
 
 zone::zone(int nb_zone)
 {
+	z_degats_recu = 0;
 	z_temps = 1;
 	z_zone = nb_zone;
 	z_ascenseur = true;
