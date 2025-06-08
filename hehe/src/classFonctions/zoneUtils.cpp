@@ -17,6 +17,54 @@ void zone::addz_joueurs_haut(joueur* input)
 	z_joueurs_haut.push_back(input);
 }
 
+void zone::assomerjoueursZoneHaut()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	{
+		(*it)->setcarteInactif(z_temps);
+	}
+}
+
+void zone::assomerjoueursZoneBas()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	{
+		(*it)->setcarteInactif(z_temps);
+	}
+}
+
+void zone::retarderactionZoneHaut()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	{
+		(*it)->passerTour(z_temps);
+	}
+}
+
+void zone::retarderactionZoneBas()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
+	{
+		(*it)->passerTour(z_temps);
+	}
+}
+
+void zone::assomerjoueursZone()
+{
+	assomerjoueursZoneHaut();
+	assomerjoueursZoneBas();
+}
+
+void zone::retarderactionZone()
+{
+	retarderactionZoneHaut();
+	retarderactionZoneBas();
+}
+
 void zone::etatdesdegats()
 {
 	z_degats_recu++;
