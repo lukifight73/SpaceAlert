@@ -125,6 +125,8 @@ class menace
 
         // autres fonctions
 
+        int checkNombreInputCrossed(char input) const;
+
         void checkIfCrossActionZone(int positionBefore, int positionAfter);
 
         void add_m_canon_immunity(int input) {

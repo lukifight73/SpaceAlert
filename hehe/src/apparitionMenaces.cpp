@@ -36,6 +36,7 @@ void mouvement_menaces(t_data &data)
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
                 (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
                 (*it)->setm_position((*it)->get_m_position() - (*it)->get_m_vitesse()); // update position
+                std::cout << (*it)->get_m_name() << " a croise X >>> " << (*it)->checkNombreInputCrossed('X') << std::endl;
             }
         }
         i++;
