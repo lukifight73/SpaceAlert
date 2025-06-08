@@ -26,6 +26,46 @@ menace::menace(std::string input, int tourDarrivee)
     m_degatsRecus = 0;
     m_presence = false;
     m_tourDarrivee = tourDarrivee;
+    if(input == "se1-01")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Fregate";
+        m_vie = 7;
+        m_vitesse = 2;
+    }
+    if(input == "se1-02")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Man of War";
+        m_vie = 9;
+        m_vitesse = 1;
+    }
+    if(input == "se1-03")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Ravitailleur Leviathan";
+        m_vie = 8;
+        m_vitesse = 2;
+    }
+    if(input == "se1-04")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="satellite a impulsion";
+        m_vie = 4;
+        m_vitesse = 3;
+    }
+    if(input == "se1-05")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Fregate a Cryoprotection";
+        m_vie = 7;
+        m_vitesse = 2;
+    }
     if(input == "se1-06")
     {
         m_bouclier = 1;
@@ -34,6 +74,38 @@ menace::menace(std::string input, int tourDarrivee)
         m_vie = 8;
         m_vitesse = 2;
     }
+    if(input == "se1-07")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Maelstrom";
+        m_vie = 8;
+        m_vitesse = 2;
+    }
+    if(input == "se1-08")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Pieuvre Interstellaire";
+        m_vie = 9;
+        m_vitesse = 3;
+    }
+    if(input == "se2-01")
+    {
+        m_bouclier = 4;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Behemoth";
+        m_vie = 7;
+        m_vitesse = 2;
+    }
+    if(input == "se2-02")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Juggernaut";
+        m_vie = 10;
+        m_vitesse = 1;
+    }
     if(input == "se2-03")
     {
         m_bouclier = 2;
@@ -41,6 +113,166 @@ menace::menace(std::string input, int tourDarrivee)
         m_name ="Satellite Psionique";
         m_vie = 5;
         m_vitesse = 2;
+    }
+    if(input == "se2-04")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Crabe nebula";
+        m_vie = 7;
+        m_vitesse = 2;
+    }
+    if(input == "se2-05")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Nemesis";
+        m_vie = 9;
+        m_vitesse = 3;
+    }
+    if(input == "se2-06")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Asteroide Majeur";
+        m_vie = 11;
+        m_vitesse = 2;
+    }
+    if(input == "e1-01")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Pulsar";
+        m_vie = 5;
+        m_vitesse = 2;
+    }
+    if(input == "e1-02")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Destroyer";
+        m_vie = 5;
+        m_vitesse = 2;
+    }
+    if(input == "e1-03")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Chasseur furtif";
+        m_vie = 4;
+        m_vitesse = 3;
+    }
+    if(input == "e1-04")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Nuage d'energie";
+        m_vie = 5;
+        m_vitesse = 2;
+    }
+    if(input == "e1-05")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Vaisseau de combat";
+        m_vie = 5;
+        m_vitesse = 2;
+    }
+    if(input == "e1-06")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Chasseur a cryoprotection";
+        m_vie = 4;
+        m_vitesse = 3;
+    }
+    if(input == "e1-07")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Chasseur";
+        m_vie = 4;
+        m_vitesse = 3;
+    }
+    if(input == "e1-08")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Constricteur Blinde";
+        m_vie = 4;
+        m_vitesse = 2;
+    }
+    if(input == "e1-09")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Amibe";
+        m_vie = 8;
+        m_vitesse = 2;
+    }
+    if(input == "e1-10")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Meteorite";
+        m_vie = 5;
+        m_vitesse = 5;
+    }
+    if(input == "e2-01")
+    {
+        m_bouclier = 2;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Kamikaze";
+        m_vie = 5;
+        m_vitesse = 4;
+    }
+    if(input == "e2-02")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Eclaireur";
+        m_vie = 3;
+        m_vitesse = 2;
+    }
+    if(input == "e2-03")
+    {
+        m_bouclier = 3;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Chasseur fantome";
+        m_vie = 3;
+        m_vitesse = 3;
+    }
+    if(input == "e2-04")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Nuee Insectoide";
+        m_vie = 3;
+        m_vitesse = 2;
+    }
+    if(input == "e2-05")
+    {
+        m_bouclier = -2;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Meduse";
+        m_vie = 13;
+        m_vitesse = 2;
+    }
+    if(input == "e2-06")
+    {
+        m_bouclier = 1;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Maraudeur";
+        m_vie = 6;
+        m_vitesse = 3;
+    }
+    if(input == "e2-07")
+    {
+        m_bouclier = 0;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Asteroide mineur";
+        m_vie = 7;
+        m_vitesse = 4;
     }
 }
 
