@@ -25,6 +25,7 @@ menace::menace(std::string input, int tourDarrivee)
 {
     m_attraction_roquette = false;
     m_vulnerable_roquette = true;
+    m_buff_attack = 0;
     // m_degatsRecus = 0;
     m_revele = true;
     m_presence = false;
@@ -386,17 +387,22 @@ void menace::draineEnergieBouclier(int input)
 
 void menace::makedegatsInZone(int input)
 {
-    m_zone->getdegats(input);
+    m_zone->getdegats(input + m_buff_attack);
+}
+
+void menace::makedegatsInZoneIgnoreBouclier(int input)
+{
+    m_zone->getdegatsIgnoreBouclier(input + m_buff_attack);
 }
 
 void menace::makedegatsLeft(int input)
 {
-    m_zone->getzone_left()->getdegats(input);
+    m_zone->getzone_left()->getdegats(input + m_buff_attack);
 }
 
 void menace::makedegatsRight(int input)
 {
-    m_zone->getzone_right()->getdegats(input);
+    m_zone->getzone_right()->getdegats(input + m_buff_attack);
 }
 
 void menace::regeneration(int input)

@@ -290,11 +290,15 @@ class menace_e2_01: public menace
 class menace_e2_02: public menace
 {
     private:
+        bool m_effetDebutTourOn;
 
     public:
         menace_e2_02() : menace() {};
-        menace_e2_02(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
+        menace_e2_02(bool effetDebutTourOn, std::string input, int tourDarrivee) : menace(input, tourDarrivee) 
+        {m_effetDebutTourOn = effetDebutTourOn;};
         virtual void effetDebutTour();
+        void menaceAvanceUneCaseInZone(zone *zone);
+        void augmenteAttackInZone(zone *zone);
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         ~menace_e2_02() {};
 };

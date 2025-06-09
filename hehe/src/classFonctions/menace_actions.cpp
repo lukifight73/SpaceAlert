@@ -614,14 +614,63 @@ void menace_e2_01::actionMenace(char input)
     }
 }
 
+void menace_e2_02::augmenteAttackInZone(zone *zone)
+{
+    std::vector<menace*> tmp = zone->getz_chemin_menace()->get_menaces();
+    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    {
+        if ((*it)->get_m_presence()) 
+        {
+            (*it)->increase_m_buff_attack(1); // update position
+            std::cout << (*it)->get_m_name() << " vient d'augmenter d'un de toutes les menaces!" << std::endl;
+        }
+    }
+}
+
+
 void menace_e2_02::effetDebutTour()
 {
-    
-} 
+    if(m_effetDebutTourOn)
+    {
+        augmenteAttackInZone(m_zone);
+        augmenteAttackInZone(m_zone->getzone_left());
+        augmenteAttackInZone(m_zone->getzone_right());
+    }
+}
+
+void menace_e2_02::menaceAvanceUneCaseInZone(zone *zone)
+{
+    std::vector<menace*> tmp = zone->getz_chemin_menace()->get_menaces();
+    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    {
+        if ((*it)->get_m_presence()) 
+        {
+            int positionBefore = (*it)->get_m_position();
+            int positionAfter = (*it)->get_m_position() - 1;
+            (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
+            (*it)->setm_position(positionAfter); // update position
+        }
+        if (!(*it)->get_m_revele())
+            revelerMenace(*it);
+    }
+}
 
 void menace_e2_02::actionMenace(char input)
 {
-
+    if (input == 'X') {
+        m_effetDebutTourOn = true;
+        std::cout << "[ " << m_name << " active son effet, les autres menaces externes ont +1 dattaque tant qu il est pas mort!]" << std::endl;
+    } else if (input == 'Y') {
+        menaceAvanceUneCaseInZone(m_zone);
+        menaceAvanceUneCaseInZone(m_zone->getzone_left());
+        menaceAvanceUneCaseInZone(m_zone->getzone_right());
+        std::cout << "[ " << m_name << " fait avancer toutes les menaces de un!]" << std::endl;
+    } else if (input == 'Z') {
+        makedegatsInZoneIgnoreBouclier(3);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 3 qui ignore le bouclier!]" << std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
 } 
 
 void menace_e2_03::actionMenace(char input) 
