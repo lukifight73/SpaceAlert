@@ -169,6 +169,24 @@ menace *getMenaceNonNull(menace* menace1, menace* menace2, menace* menace3)
     return nullptr;
 }
 
+void infligeDegatsRocket(menace *menace)
+{
+	// check imunity
+	if(3 > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
+	{
+		int degatsInfliges = 3 - menace->get_m_etat_bouclier();
+		menace->set_m_etat_bouclier(0); // Bouclier épuisé
+		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
+		std::cout << "[La  Rocket inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
+	}
+	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
+	{
+		int etatBouclierRestant = menace->get_m_etat_bouclier() - 3;
+		menace->set_m_etat_bouclier(etatBouclierRestant);
+		std::cout << "[La  Rocket inflige " << 3 << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
+	}
+}
+
 bool menace_attract_rocket(t_data &data, int rocketNumber)
 {
     menace *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_menace_that_attracts_rocket();
@@ -218,7 +236,7 @@ bool menace_attract_rocket(t_data &data, int rocketNumber)
     std::cout << "[La roquette " << rocketNumber << " a été attirée par " << menaceAttract->get_m_name() << " !]\n";
     if (menaceAttract->get_m_vulnerable_roquette())
     {
-        menaceAttract->recoitDegats(3);
+        infligeDegatsRocket(menaceAttract);
     }
     return (true);
 }
@@ -233,7 +251,7 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
     //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10) 
     {
-        menaceProche->recoitDegats(3);
+        infligeDegatsRocket(menaceProche);
         std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
     }

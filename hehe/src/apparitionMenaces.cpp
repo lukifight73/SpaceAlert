@@ -10,7 +10,7 @@ void remove_dead_or_outdated_menaces(t_data &data)
         std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end();) 
         {
-            if ((*it)->get_m_position() <= 0) 
+            if ((*it)->get_m_position() <= 0 || (*it)->get_m_vie() <= 0) 
             {
                 chemin->remove_menace(*it); // Suppression de la menace du chemin
             }
@@ -41,7 +41,7 @@ void mouvement_menaces(t_data &data)
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
                 (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
                 (*it)->setm_position((*it)->get_m_position() - (*it)->get_m_vitesse()); // update position
-                std::cout << (*it)->get_m_name() << " a croise X >>> " << (*it)->checkNombreInputCrossed('X') << std::endl;
+                //std::cout << (*it)->get_m_name() << " a croise X >>> " << (*it)->checkNombreInputCrossed('X') << std::endl;
             }
             if (!(*it)->get_m_revele())
                 revelerMenace(*it);

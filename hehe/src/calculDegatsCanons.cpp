@@ -38,7 +38,7 @@ void attaqueDesCanons(t_data &data)
     while (i < 4) // pour chaque zone
     {
         cannon* canon_haut = data.zones[i]->getz_cannon_haut();
-        cannon* canon_bas = data.zones[i]->getz_cannon_haut();
+        cannon* canon_bas = data.zones[i]->getz_cannon_bas();
         if (canon_haut->getcanon_used())
         {
             canon_haut->attaque_canon(data.zones[i]);

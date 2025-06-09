@@ -314,6 +314,7 @@ void menace::print_menace() const
     std::cout << "Vitesse : " << m_vitesse << std::endl;
     std::cout << "Vie : " << m_vie << std::endl;
     std::cout << "Bouclier : " << m_bouclier << std::endl;
+    std::cout << "Etat Bouclier : " << m_etat_bouclier << std::endl;
     std::cout << "Difficulté : " << m_difficulte << std::endl;
     // std::cout << "DegatsRecus : " << m_degatsRecus << std::endl;
     std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
@@ -427,7 +428,6 @@ void menace::recoitDegats(int input)
     }
     std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]" << std::endl;
     if (m_vie == 0) {
-        std::cout << "[La menace " << m_name << " a été détruite.]\n";
         actionQuandDetruit();
         m_presence = false; // La menace n'est plus présente
     }

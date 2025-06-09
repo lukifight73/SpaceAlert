@@ -88,13 +88,13 @@ void cannon::infligeDegats(menace *menace)
 		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
 		menace->set_m_etat_bouclier(0); // Bouclier épuisé
 		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
-		std::cout << "[Le canon " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
+		std::cout << "[Le " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
 	}
 	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
 	{
 		int etatBouclierRestant = menace->get_m_etat_bouclier() - puissance_cannon;
 		menace->set_m_etat_bouclier(etatBouclierRestant);
-		std::cout << "[Le canon " << nom_cannon << " inflige " << puissance_cannon << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
+		std::cout << "[Le " << nom_cannon << " inflige " << puissance_cannon << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
 	}
 	canon_used = true; // Le canon a été utilisé
 
@@ -121,12 +121,12 @@ void cannon::attaque_canon(zone *zone)
 	menace *menaceCible = get_closest_menace_in_vector(VecMenaceCible);
 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
 	{
-		std::cout << "[Pas de menace a portée du canon qui peut etre prise pour cible" << nom_cannon << ".]\n";
+		std::cout << "[Pas de menace a portée du " << nom_cannon << " en " << zone->getz_nom_zone() << ".]\n";
 		return;
 	}
 	if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
 	{
-		std::cout << "[La menace " << menaceCible->get_m_name() << " n'est pas dans la portée du canon " << nom_cannon << ".]\n";
+		std::cout << "[La menace " << menaceCible->get_m_name() << " en " <<  zone->getz_nom_zone() << " n'est pas dans la portée du " << nom_cannon << ".]\n";
 		return;
 	}
 	infligeDegats(menaceCible); // Inflige les dégâts à la menace
