@@ -82,6 +82,14 @@ void menace_se1_04::actionMenace(char input)
     }
 }
 
+bool menace_se1_04::vulnerability_check(cannon* input)
+{
+    input->getcanon_used(); // pour pas avoir de prob de compilation
+    if (m_revele)
+        return (true);
+    return (false);
+}
+
 void menace_se1_03::actionQuandDetruit() 
 {
     std::vector<menace *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menaces();
@@ -227,6 +235,13 @@ void menace_se2_03::actionMenace(char input)
     }
 }
 
+bool menace_se2_03::vulnerability_check(cannon* input)
+{
+    input->getcanon_used(); // pour pas avoir de prob de compilation
+    if (m_revele)
+        return (true);
+    return (false);
+}
 
 void menace_se2_04::actionMenace(char input) 
 {
