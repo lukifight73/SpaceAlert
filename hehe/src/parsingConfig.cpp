@@ -50,9 +50,9 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "se1-05") {
         return new menace_se1_05(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "se1-06") {
-    //     return new menace_se1_06(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "se1-06") {
+        return new menace_se1_06(typeMenace, tempsArrivee);
+    }
     // else if (typeMenace == "se1-07") {
     //     return new menace_se1_07(typeMenace, tempsArrivee);
     // }
@@ -107,9 +107,9 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "e1-10") {
         return new menace_e1_10(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "e2-01") {
-    //     return new menace_e2_01(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "e2-01") {
+        return new menace_e2_01(typeMenace, tempsArrivee);
+    }
     // else if (typeMenace == "e2-02") {
     //     return new menace_e2_02(typeMenace, tempsArrivee);
     // }

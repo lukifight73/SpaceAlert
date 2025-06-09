@@ -1,12 +1,12 @@
 MENACES EXTERNES SERIEUSES
 
-se1-06 Pieuvre interstellaire
+se1-06 Pieuvre interstellaire#done
 -> !roquettes
 X->si 1 degat ou plus, attaque 1 sur toutes les zones
-Y->si ! degats ou plus, attaque 2 sur toutes les zones
+Y->si 1 degat ou plus, attaque 2 sur toutes les zones
 Z->attaque 2 par point de vie restant
 
-se1-07 Maelstrom
+se1-07 Maelstrom#done
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 2 sur les deux autres zones
@@ -73,11 +73,11 @@ X->blindage = 4
 Y->vitesse +2 / blindage = 2
 Z->attaque 5 zone bleue et zone rouge
 
-se2-03 Satellite psionique
-->ne peut pas etre pris pour cible a une distance de 3##
+se2-03 Satellite psionique#done
+->ne peut pas etre pris pour cible a une distance de 3
 X->tous les joueurs de la zone sont retardes de 1 tour
 Y->tous les joueurs du vaisseau sont retardes de 1 tour
-Z->tous les joueurs du vaisseau sont assommes>#ca marche pas trop ca
+Z->tous les joueurs du vaisseau sont assommes>
 
 se2-02 Juggernaut #done
 ->les roquettes le cible toujours (quelque soit la distance)
@@ -160,7 +160,7 @@ X->se revele
 Y->attaque 2
 Z->attaque 3
 
-e2-01 Kamikaze
+e2-01 Kamikaze#done
 X->+1 vitesse / blindage =1
 Y->+1 vitesse / blindage =0
 Z->Attaque 6
@@ -172,7 +172,7 @@ X->attaque 1
 Y->attaque 2 / 1 sur les autres zones
 Z->attaque 3 / 2 sur les autres zones
 
-e2-05 Meduse
+e2-05 Meduse#done
 ->!roquettes
 X->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
 Y->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)

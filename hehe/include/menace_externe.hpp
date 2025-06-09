@@ -58,6 +58,7 @@ class menace_se1_05: public menace
         menace_se1_05() : menace() {};
         menace_se1_05(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void recoitDegats(int input);
         ~menace_se1_05() {};
 };
 
@@ -227,6 +228,7 @@ class menace_e1_06: public menace
         menace_e1_06() : menace() {};
         menace_e1_06(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void recoitDegats(int input);
         ~menace_e1_06() {};
 };
 
@@ -325,7 +327,7 @@ class menace_e2_05: public menace
     public:
         menace_e2_05() : menace() {};
         menace_e2_05(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
-        //virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         ~menace_e2_05() {};
 };
 
