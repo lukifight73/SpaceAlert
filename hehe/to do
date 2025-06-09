@@ -6,19 +6,19 @@ X->si 1 degat ou plus, attaque 1 sur toutes les zones
 Y->si ! degats ou plus, attaque 2 sur toutes les zones
 Z->attaque 2 par point de vie restant
 
-se1-07 Maelstrom
+se1-07 Maelstrom #done
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 2 sur les deux autres zones
 Z->Attaque 3 sur les deux autres zones
 
-se1-04 Satellite a impulsion#done
+se1-04 Satellite a impulsion #done
 ->ne peut etre pris pour cible a une distance de 3##
 X->attaque 1 sur toutes les zones
 Y->attaque 2 sur toutes les zones
 Z->attaque 3 sur toutes les zones
 
-se1-03 Ravitailleur Leviathan#done
+se1-03 Ravitailleur Leviathan #done
 -> auqnd il est detruit, inflige 1 degat a toutes les autres menaces externes
 X->attaque 2
 Y->attaque 2 / recupere 2 points de vie 
@@ -132,8 +132,8 @@ X->attaque 1 sur toutes les zones
 Y->attaque 1 sur toutes les zones
 Z->attaque 2 sur toutes les zones
 
-e1-04 Nuage d energie
-->valeur blindage a 0 si touche par cannon a impulsion//conplique
+e1-04 Nuage d energie #done
+->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 1 sur les deux autres zones
 Z->Attaque 2 sur les deux autres zones

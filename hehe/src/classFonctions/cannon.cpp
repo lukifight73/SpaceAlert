@@ -113,6 +113,20 @@ std::vector<menace*> cannon::getmenace_vulnerables(zone* zone)
 	return (menaces_vulnerables);
 }
 
+void casDuCanonImpulsion(menace *menaceCible)
+{
+	 // si le Maelstrom et Nuage d'energie prend des degats par le CANON_IMPULSION sont blindages vaut zero
+	if(menaceCible->get_m_bouclier() == menaceCible->get_m_etat_bouclier()) 
+		menaceCible->set_m_etat_bouclier(0); // si c etait son premier degats ca enleve juste le bouclier
+	else
+	{
+		int degatsAbsorbeAvant = menaceCible->get_m_bouclier() - menaceCible->get_m_etat_bouclier(); // sinon les degats absorbe avant sont fait
+		menaceCible->recoitDegats(degatsAbsorbeAvant);
+		menaceCible->set_m_etat_bouclier(0);
+	}
+	wr("[Le Maelstrom s'est fait absorber son bouclier par le canon a impulsion !]");
+}
+
 void cannon::attaque_canon(zone *zone)
 {
 	if(!canon_used) // Le canon n'a pas été utilisé
@@ -129,6 +143,8 @@ void cannon::attaque_canon(zone *zone)
 		std::cout << "[La menace " << menaceCible->get_m_name() << " en " <<  zone->getz_nom_zone() << " n'est pas dans la portée du " << nom_cannon << ".]\n";
 		return;
 	}
+	if((menaceCible->get_m_name() == "Maelstrom" || menaceCible->get_m_name() == "Nuage d'energie") && this->gettype_cannon() == CANON_IMPULSION)
+		casDuCanonImpulsion(menaceCible);
 	infligeDegats(menaceCible); // Inflige les dégâts à la menace
 }
 
