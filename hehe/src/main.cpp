@@ -108,6 +108,11 @@ void printInfoMenace(t_data &data)
 	}
 }
 
+void actionMenaceDebutTour(t_data &data)
+{
+
+}
+
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12	
@@ -119,6 +124,7 @@ void	play_game(t_data &data)
 		apparitionMenaces(data);
 		print_joueur_zone(data);
 		clear_actionUsage(data);
+		actionMenaceDebutTour(data);
 		while (num_joueur <= data.nb_joueur)
 		{
 			std::cout << "----------------------------------- JOUEUR n " << num_joueur << " playing : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
