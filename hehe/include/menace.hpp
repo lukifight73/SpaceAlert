@@ -177,6 +177,8 @@ class menace
         void makedegatsRight(int input);
 
         void regeneration(int input);
+
+        virtual void effetDebutTour() {};
         
         virtual ~menace();
 };

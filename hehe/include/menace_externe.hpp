@@ -294,6 +294,7 @@ class menace_e2_02: public menace
     public:
         menace_e2_02() : menace() {};
         menace_e2_02(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
+        virtual void effetDebutTour();
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         ~menace_e2_02() {};
 };

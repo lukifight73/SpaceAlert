@@ -614,6 +614,16 @@ void menace_e2_01::actionMenace(char input)
     }
 }
 
+void menace_e2_02::effetDebutTour()
+{
+    
+} 
+
+void menace_e2_02::actionMenace(char input)
+{
+
+} 
+
 void menace_e2_03::actionMenace(char input) 
 {
     if (input == 'X') {
