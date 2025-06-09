@@ -217,6 +217,26 @@ void menace_se1_08::actionQuandDetruit()
     std::cout << "[La menace " << m_name << " a été détruite. Elle inflige " << itemCrossed << " points de dégâts!]\n";
 }
 
+
+
+void menace_se1_07::actionMenace(char input)
+{
+    if (input == 'X') {
+        draineEnergieBouclier(200);
+    } else if (input == 'Y') {
+        makedegatsLeft(2);
+        makedegatsRight(2);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+    } else if (input == 'Z') {
+        makedegatsLeft(3);
+        makedegatsRight(3);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 3 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+
 //Actions des menaces externes serieuses avancees
 
 void menace_se2_01::actionMenace(char input) 
@@ -458,6 +478,23 @@ void menace_e1_03::actionMenace(char input)
     } else if (input == 'Z') {
         makedegatsInZone(2);
         std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_e1_04::actionMenace(char input)
+{
+    if (input == 'X') {
+        draineEnergieBouclier(200);
+    } else if (input == 'Y') {
+        makedegatsLeft(1);
+        makedegatsRight(1);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 1 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+    } else if (input == 'Z') {
+        makedegatsLeft(2);
+        makedegatsRight(2);
+        std::cout << "[ " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
