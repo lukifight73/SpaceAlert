@@ -420,6 +420,7 @@ int menace::checkNombreInputCrossed(char input) const
     return count;
 }
 
+// enleve les PV correspondant au degats (apres bouclier)
 void menace::recoitDegats(int input)
 {
     m_vie -= input;

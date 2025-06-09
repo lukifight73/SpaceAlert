@@ -50,7 +50,7 @@ Z-> attaque 4
 
 MENACES EXTERNES SERIEUSES
 
-se2-05 Nemesis #WIP
+se2-05 Nemesis #done
 ->attaque 1 sur toutes les zones des qu il subit un degat
 X -> attaque 1 / prends 1 degat
 Y -> attaque 2 / prends 2 degats

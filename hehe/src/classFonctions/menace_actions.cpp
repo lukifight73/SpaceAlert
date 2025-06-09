@@ -239,17 +239,21 @@ void menace_se2_04::actionMenace(char input)
     }
 }
 
+void menace_se2_05::recoitDegats(int input)
+{
+    menace::recoitDegats(input);
+    makedegatsInZone(1);
+    makedegatsLeft(1);
+    makedegatsRight(1);
+}
+
 void menace_se2_05::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(1);
         if(get_m_etat_bouclier() <= 0)
         {
-            set_m_vie(get_m_vie() - 1);
-            if (get_m_vie() <= 0) {
-                set_m_presence(false);
-                actionQuandDetruit();
-            }
+            recoitDegats(1);
             std::cout << "[ " << m_name << " s'inflige 1 point de dégâts!]" << std::endl;
         }
         std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
@@ -257,20 +261,18 @@ void menace_se2_05::actionMenace(char input)
         makedegatsInZone(2);
         if(get_m_etat_bouclier() <= 1)
         {
-            set_m_vie(get_m_vie() + get_m_etat_bouclier() - 2);
-            if (get_m_vie() <= 0) {
-                set_m_presence(false);
-                actionQuandDetruit();
-            }
+            recoitDegats(get_m_etat_bouclier() - 2);
             std::cout << "[ " << m_name << " s'inflige " << 2 - get_m_etat_bouclier() << " point de dégâts!]" << std::endl;
         }
         std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Z') {
-        std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!]" << std::endl;
+        std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
+
+
 
 void menace_se2_06::actionMenace(char input) 
 {
