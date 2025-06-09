@@ -135,7 +135,7 @@ class menace
 
         // autres fonctions
 
-        void recoitDegats(int input);
+        virtual void recoitDegats(int input);
 
         int checkNombreInputCrossed(char input) const;
 
