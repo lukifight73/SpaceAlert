@@ -21,7 +21,7 @@ class menace
     int m_etat_bouclier;
     bool m_immunity;
     int m_difficulte;
-    int m_degatsRecus;
+    // int m_degatsRecus;
     bool m_vulnerable_roquette;
     bool m_attraction_roquette;
     bool m_revele;
@@ -104,9 +104,9 @@ class menace
         bool get_m_presence() const {
             return m_presence;
         };
-        int get_m_degatsRecus() const {
-            return m_degatsRecus;
-        };
+        // int get_m_degatsRecus() const {
+        //     return m_degatsRecus;
+        // };
 
         int get_m_etat_bouclier() const {
             return m_etat_bouclier;
@@ -119,9 +119,9 @@ class menace
             m_etat_bouclier = input;
         };
 
-        void set_m_degatsRecus(int input) {
-            m_degatsRecus = input;
-        };
+        // void set_m_degatsRecus(int input) {
+        //     m_degatsRecus = input;
+        // };
         std::vector<int> get_m_canon_immunity() const {
             return m_canon_immunity;
         };
@@ -134,6 +134,8 @@ class menace
         };
 
         // autres fonctions
+
+        void recoitDegats(int input);
 
         int checkNombreInputCrossed(char input) const;
 
@@ -156,6 +158,11 @@ class menace
         virtual void actionMenace(char input);
 
         virtual void actionQuandDetruit();
+
+        virtual bool vulnerability_check(cannon* input) {
+            input->getcanon_used(); // pour pas avoir de prob de compilation
+            return (true);
+        }
 
         void augmenteBouclier(int input) {
             m_bouclier += input;

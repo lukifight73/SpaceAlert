@@ -45,7 +45,8 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/zoneActAct.cpp \
 				classFonctions/zoneUtils.cpp \
 				initialisation.cpp \
-				calculDesDegats.cpp \
+				calculDegatsCanons.cpp \
+				calculDegatsRockets.cpp \
 				apparitionMenaces.cpp \
 				parsingConfig.cpp \
 				actionsDesJoueurs.cpp \

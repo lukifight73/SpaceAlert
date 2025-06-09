@@ -4,6 +4,7 @@
 
 
 
+
 // dans quelle zone on est?
 // trouve montre le + proche sur chemin
 // quel est le type de canon?
@@ -13,74 +14,73 @@
 // On le met dans son vector
 
 // additionne tous les degats des canons utilisés contre la menace
-void analyseDesDegatsCanons(t_data &data)
-{
-    int numZone(1);
-    while (numZone < 4) 
-    {
-        std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
-        {
-            std::vector<cannon*> canon = (*it)->get_m_canon_used();
-            int degatsRecus(0);
-            for (std::vector<cannon*>::iterator it2 = canon.begin(); it2 != canon.end(); ++it2) 
-            {
-                degatsRecus += (*it2)->getpuissance_cannon();
-            }
-            (*it)->set_m_degatsRecus(degatsRecus);
-        }
-        numZone++;
-    }
-}
+// void analyseDesDegatsCanons(t_data &data)
+// {
+//     int numZone(1);
+//     while (numZone < 4) 
+//     {
+//         std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
+//         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+//         {
+//             std::vector<cannon*> canon = (*it)->get_m_canon_used();
+//             int degatsRecus(0);
+//             for (std::vector<cannon*>::iterator it2 = canon.begin(); it2 != canon.end(); ++it2) 
+//             {
+//                 degatsRecus += (*it2)->getpuissance_cannon();
+//             }
+//             (*it)->set_m_degatsRecus(degatsRecus);
+//         }
+//         numZone++;
+//     }
+// }
 
-bool MenaceIsinCannonRange(menace *menace, cannon *canon) 
-{
-    if (menace->get_m_position() <= canon->getportee_cannon() && menace->get_m_position() >= 0) 
-    {
-        return true;
-    }
-    return false;
-}
+// bool MenaceIsinCannonRange(menace *menace, cannon *canon) 
+// {
+//     if (menace->get_m_position() <= canon->getportee_cannon() && menace->get_m_position() >= 0) 
+//     {
+//         return true;
+//     }
+//     return false;
+// }
 
-void addCannonToMenaceinZone(t_data &data, cannon *canon, int zoneNumber) 
-{
-    menace *menaceProche = data.zones[zoneNumber]->getz_chemin_menace()->get_closest_menace();
-    if (!menaceProche) 
-    {
-        return;
-    }
-    std::vector<int>::const_iterator canon_possible = std::find(menaceProche->get_m_canon_immunity().begin(), menaceProche->get_m_canon_immunity().end(), canon->gettype_cannon());
-    if (canon_possible == menaceProche->get_m_canon_immunity().end() && MenaceIsinCannonRange(menaceProche, canon)) 
-    {
-        menaceProche->add_m_canon_used(canon);
-    }
-}
+// void addCannonToMenaceinZone(t_data &data, cannon *canon, int zoneNumber) 
+// {
+//     menace *menaceProche = data.zones[zoneNumber]->getz_chemin_menace()->get_closest_menace();
+//     if (!menaceProche) 
+//     {
+//         return;
+//     }
+//     std::vector<int>::const_iterator canon_possible = std::find(menaceProche->get_m_canon_immunity().begin(), menaceProche->get_m_canon_immunity().end(), canon->gettype_cannon());
+//     if (canon_possible == menaceProche->get_m_canon_immunity().end() && MenaceIsinCannonRange(menaceProche, canon)) 
+//     {
+//         menaceProche->add_m_canon_used(canon);
+//     }
+// }
 
-// fiare surcharge operator menaces + trouveer  trouver une clé à partir d’une valeur 
 
-void assignationCannons(t_data &data) 
-{
-	int i(1);
-    while (i < 4) 
-    {
-        std::vector<cannon*> canon = data.zones[i]->getz_cannon_used();
-        std::vector<cannon*>::iterator it;
-        for (it = canon.begin(); it != canon.end(); ++it) 
-        {
-            if ((*it)->gettype_cannon() == CANON_IMPULSION) // car touche toutes les zones
-            {
-                addCannonToMenaceinZone(data, *it, ZONE_BLUE);
-                addCannonToMenaceinZone(data, *it, ZONE_RED);
-                addCannonToMenaceinZone(data, *it, ZONE_WHITE);
-            }
-            else 
-            {
-                addCannonToMenaceinZone(data, *it, i);
-            }
-        }
-        i++;
-    }
-}
+// void assignationCannons(t_data &data) 
+// {
+// 	int i(1);
+//     while (i < 4) 
+//     {
+//         std::vector<cannon*> canon = data.zones[i]->getz_cannon_used();
+//         std::vector<cannon*>::iterator it;
+//         for (it = canon.begin(); it != canon.end(); ++it) 
+//         {
+//             if ((*it)->gettype_cannon() == CANON_IMPULSION) // car touche toutes les zones
+//             {
+//                 addCannonToMenaceinZone(data, *it, ZONE_BLUE);
+//                 addCannonToMenaceinZone(data, *it, ZONE_RED);
+//                 addCannonToMenaceinZone(data, *it, ZONE_WHITE);
+//             }
+//             else 
+//             {
+//                 addCannonToMenaceinZone(data, *it, i);
+//             }
+//         }
+//         i++;
+//     }
+// }
 
 
 menace *getMenaceLaPlusProcheTouteZones(t_data &data)
@@ -218,8 +218,7 @@ bool menace_attract_rocket(t_data &data, int rocketNumber)
     std::cout << "[La roquette " << rocketNumber << " a été attirée par " << menaceAttract->get_m_name() << " !]\n";
     if (menaceAttract->get_m_vulnerable_roquette())
     {
-        int degatsRecus = menaceAttract->get_m_degatsRecus();
-        menaceAttract->set_m_degatsRecus(degatsRecus + 3);
+        menaceAttract->recoitDegats(3);
     }
     return (true);
 }
@@ -234,8 +233,7 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
     //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10) 
     {
-        int degatsRecus = menaceProche->get_m_degatsRecus();
-        menaceProche->set_m_degatsRecus(degatsRecus + 3); // exemple de dégâts infligés par la roquette
+        menaceProche->recoitDegats(3);
         std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
     }
@@ -271,47 +269,47 @@ void rocketActions(t_data &data)
     }
 }
 
-void impactDegatsTotaux(t_data &data)
-{
-    int numZone(1);
-    while (numZone < 4) 
-    {
-        std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
-        {
-            int degatsRecus = (*it)->get_m_degatsRecus(); // tous les degats recu jusqu'ici
-            if (degatsRecus > 0) 
-            {
-                if ((*it)->get_m_immunity())
-                {
-                    (*it)->set_m_immunity(false);
-                    continue;
-                }
-                int newLife((*it)->get_m_vie());
-                if((*it)->get_m_bouclier() - degatsRecus >= 0)
-                {
-                    (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - degatsRecus);
-                    std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus << " points de dégâts, mais son bouclier a absorbé tous les dégâts.]\n";
-                }
-                else
-                {
-                    newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_etat_bouclier();
-                    (*it)->set_m_etat_bouclier(0); // Bouclier épuisé
-                    std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
-                }
-                if (newLife < 0) 
-                {
-                    newLife = 0; // Ensure life does not go below zero
-                }
-                (*it)->set_m_vie(newLife);
-                (*it)->set_m_degatsRecus(0); // Reset the damage received after applying it
-                if ((*it)->get_m_vie() <= 0) 
-                {
-                    (*it)->set_m_presence(false);
-                    (*it)->actionQuandDetruit();
-                }
-            }
-        }
-        numZone++;
-    }
-}
+// void impactDegatsTotaux(t_data &data)
+// {
+//     int numZone(1);
+//     while (numZone < 4) 
+//     {
+//         std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
+//         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+//         {
+//             int degatsRecus = (*it)->get_m_degatsRecus(); // tous les degats recu jusqu'ici
+//             if (degatsRecus > 0) 
+//             {
+//                 if ((*it)->get_m_immunity())
+//                 {
+//                     (*it)->set_m_immunity(false);
+//                     continue;
+//                 }
+//                 int newLife((*it)->get_m_vie());
+//                 if((*it)->get_m_bouclier() - degatsRecus >= 0)
+//                 {
+//                     (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - degatsRecus);
+//                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus << " points de dégâts, mais son bouclier a absorbé tous les dégâts.]\n";
+//                 }
+//                 else
+//                 {
+//                     newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_etat_bouclier();
+//                     (*it)->set_m_etat_bouclier(0); // Bouclier épuisé
+//                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
+//                 }
+//                 if (newLife < 0) 
+//                 {
+//                     newLife = 0; // Ensure life does not go below zero
+//                 }
+//                 (*it)->set_m_vie(newLife);
+//                 (*it)->set_m_degatsRecus(0); // Reset the damage received after applying it
+//                 if ((*it)->get_m_vie() <= 0) 
+//                 {
+//                     (*it)->set_m_presence(false);
+//                     (*it)->actionQuandDetruit();
+//                 }
+//             }
+//         }
+//         numZone++;
+//     }
+// }

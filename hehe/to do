@@ -178,7 +178,7 @@ X->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit
 Y->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
 Z->attaque 2 sur toutes les zones
 
-e2-07 Asteroide mineur
+e2-07 Asteroide mineur #done
 ->!roquettes
 ->quand il est detruit, attaque 1 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant

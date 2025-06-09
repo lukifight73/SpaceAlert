@@ -91,7 +91,7 @@ void menace_se1_03::actionQuandDetruit()
     {
         if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
         {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            (*it)->recoitDegats(1); // fait un degats si pas de bouclier
             if ((*it)->get_m_vie() <= 0) 
             {
                 (*it)->set_m_presence(false);
@@ -104,7 +104,7 @@ void menace_se1_03::actionQuandDetruit()
     {
         if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
         {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            (*it)->recoitDegats(1); // fait un degats si pas de bouclier
             if ((*it)->get_m_vie() <= 0) 
             {
                 (*it)->set_m_presence(false);
@@ -117,7 +117,7 @@ void menace_se1_03::actionQuandDetruit()
     {
         if ((*it)->get_m_presence() && (*it)->get_m_etat_bouclier() <= 0) 
         {
-            (*it)->set_m_degatsRecus(1); // fait un degats si pas de bouclier
+            (*it)->recoitDegats(1); // fait un degats si pas de bouclier
             if ((*it)->get_m_vie() <= 0) 
             {
                 (*it)->set_m_presence(false);
@@ -460,6 +460,26 @@ void menace_e2_03::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+
+void menace_e2_07::actionMenace(char input) 
+{
+    if (input == 'Z') {
+        int degats = get_m_vie();
+        makedegatsInZone(degats);
+        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+    } 
+    else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_e2_07::actionQuandDetruit() 
+{
+    int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')); // Dégâts infligés en fonction des actions croisées
+    makedegatsInZone(itemCrossed);
+    std::cout << "[La menace " << m_name << " a été détruite. Elle inflige " << itemCrossed << " points de dégâts!]\n";
 }
 
         

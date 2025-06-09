@@ -1,5 +1,6 @@
 #include "../include/cannon.hpp"
 #include "SA_Values.hpp"
+#include "menace.hpp"
 
 cannon::cannon()
 {
@@ -29,6 +30,11 @@ void cannon::setportee_cannon(int input)
 	portee_cannon = input;
 }
 
+void cannon::setnom_cannon(std::string input)
+{
+	nom_cannon = input;
+}
+
 int cannon::getpuissance_cannon() const
 {
 	return (puissance_cannon);
@@ -55,5 +61,123 @@ void cannon::debuf_portee_cannon(int debuf)
 	if (portee_cannon < 0)
 		portee_cannon = 0;
 }
+
+bool cannon::MenaceIsinCannonRange(menace *menace) const
+{
+	if (menace->get_m_position() <= getportee_cannon() && menace->get_m_position() >= 0) 
+    {
+        return true;
+    }
+    return false;
+}
+
+void cannon::setcanon_used(bool input)
+{
+	canon_used = input;
+}
+bool cannon::getcanon_used()
+{
+	return (canon_used);
+}
+
+void cannon::infligeDegats(menace *menace)
+{
+	// check imunity
+	if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
+	{
+		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
+		menace->set_m_etat_bouclier(0); // Bouclier épuisé
+		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
+		std::cout << "[Le canon " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
+	}
+	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
+	{
+		int etatBouclierRestant = menace->get_m_etat_bouclier() - puissance_cannon;
+		menace->set_m_etat_bouclier(etatBouclierRestant);
+		std::cout << "[Le canon " << nom_cannon << " inflige " << puissance_cannon << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
+	}
+	canon_used = true; // Le canon a été utilisé
+
+}
+
+std::vector<menace*> cannon::getmenace_vulnerables(zone* zone)
+{
+	std::vector<menace*> menace_zone = zone->getz_chemin_menace()->get_menaces();
+	std::vector<menace*> menaces_vulnerables;
+	std::vector<menace*>::iterator it;
+	for (it = menace_zone.begin(); it != menace_zone.end(); it++)
+	{
+		if ((*it)->vulnerability_check(this))
+			menaces_vulnerables.push_back(*it);
+	}
+	return (menaces_vulnerables);
+}
+
+void cannon::attaque_canon(zone *zone)
+{
+	if(!canon_used) // Le canon n'a pas été utilisé
+		return;
+	std::vector<menace*> VecMenaceCible = this->getmenace_vulnerables(zone);// cible potentielle ou la cible force!
+	menace *menaceCible = get_closest_menace_in_vector(VecMenaceCible);
+	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
+	{
+		std::cout << "[Pas de menace a portée du canon qui peut etre prise pour cible" << nom_cannon << ".]\n";
+		return;
+	}
+	if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
+	{
+		std::cout << "[La menace " << menaceCible->get_m_name() << " n'est pas dans la portée du canon " << nom_cannon << ".]\n";
+		return;
+	}
+	infligeDegats(menaceCible); // Inflige les dégâts à la menace
+}
+
+
+void canon_impulsion::attaque_canon(zone *zone)
+{
+	cannon::attaque_canon(zone);
+
+	cannon::attaque_canon(zone->getzone_left());
+
+	cannon::attaque_canon(zone->getzone_right());
+}
+
+
+// void canon_impulsion::attaque_canon()
+// {
+// 	if(!canon_used) // Le canon n'a pas été utilisé
+// 		return;
+// 	std::vector<menace*> VecMenaceCible = this->getmenace_vulnerables(zone_cannon);// cible potentielle ou la cible force!
+// 	menace *menaceCible = get_closest_menace_in_vector(VecMenaceCible);
+// 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[Pas de menace a portée du canon qui peut etre prise pour cible" << nom_cannon << ".]\n";
+// 	}
+// 	else if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[La menace " << menaceCible->get_m_name() << " n'est pas dans la portée du canon " << nom_cannon << ".]\n";
+// 	}
+// 	VecMenaceCible = this->getmenace_vulnerables(zone_cannon->getzone_left());// cible potentielle ou la cible force!
+// 	menaceCible = get_closest_menace_in_vector(VecMenaceCible);
+// 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[Pas de menace a portée du canon qui peut etre prise pour cible par le " << nom_cannon << ".]\n";
+// 	}
+// 	else if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[La menace " << menaceCible->get_m_name() << " n'est pas dans la portée du canon " << nom_cannon << ".]\n";
+// 	}
+// 	VecMenaceCible = this->getmenace_vulnerables(zone_cannon->getzone_right());// cible potentielle ou la cible force!
+// 	menaceCible = get_closest_menace_in_vector(VecMenaceCible);
+// 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[Pas de menace a portée du canon qui peut etre prise pour cible" << nom_cannon << ".]\n";
+// 	}
+// 	else if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
+// 	{
+// 		std::cout << "[La menace " << menaceCible->get_m_name() << " n'est pas dans la portée du canon " << nom_cannon << ".]\n";
+// 	}
+// 	infligeDegats(menaceCible); // Inflige les dégâts à la menace
+// }
 
 cannon::~cannon() {}

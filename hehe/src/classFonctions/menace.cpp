@@ -25,7 +25,7 @@ menace::menace(std::string input, int tourDarrivee)
 {
     m_attraction_roquette = false;
     m_vulnerable_roquette = true;
-    m_degatsRecus = 0;
+    // m_degatsRecus = 0;
     m_revele = true;
     m_presence = false;
     m_immunity = false;
@@ -315,7 +315,7 @@ void menace::print_menace() const
     std::cout << "Vie : " << m_vie << std::endl;
     std::cout << "Bouclier : " << m_bouclier << std::endl;
     std::cout << "Difficulté : " << m_difficulte << std::endl;
-    std::cout << "DegatsRecus : " << m_degatsRecus << std::endl;
+    // std::cout << "DegatsRecus : " << m_degatsRecus << std::endl;
     std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
     std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
     for (std::vector<cannon *>::const_iterator it = m_canon_used.begin(); it != m_canon_used.end(); ++it)
@@ -407,6 +407,7 @@ void menace::regeneration(int input)
     std::cout << "[La menace " << m_name << " se régénère de " << input << " points de vie. Vie actuelle : " << m_vie << "]" << std::endl;
 }
 
+// combien de X, Y, Z ont été jusqu'à présent traversés par la menace
 int menace::checkNombreInputCrossed(char input) const
 {
     int count = 0;
@@ -416,4 +417,18 @@ int menace::checkNombreInputCrossed(char input) const
         }
     }
     return count;
+}
+
+void menace::recoitDegats(int input)
+{
+    m_vie -= input;
+    if (m_vie < 0) {
+        m_vie = 0;
+    }
+    std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]" << std::endl;
+    if (m_vie == 0) {
+        std::cout << "[La menace " << m_name << " a été détruite.]\n";
+        actionQuandDetruit();
+        m_presence = false; // La menace n'est plus présente
+    }
 }

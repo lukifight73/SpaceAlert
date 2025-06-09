@@ -15,6 +15,7 @@ void zone::actionA()
 				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				this->addz_actions_used_ce_tour_haut(ACT_A);
 				addz_cannon_used(this->getz_cannon_haut());
+				this->getz_cannon_haut()->setcanon_used(true);
 			}
 			else
 			{
@@ -45,6 +46,7 @@ void zone::actionA()
 				}
 				this->addz_actions_used_ce_tour_bas(ACT_A);
 				addz_cannon_used(this->getz_cannon_bas());
+				this->getz_cannon_bas()->setcanon_used(true);
 			}
 			else
 			{
@@ -77,6 +79,7 @@ void zone::actionAHeros()
 				z_reacteur -= 1;
 				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				this->addz_actions_used_ce_tour_haut(ACT_AH);
+				this->getz_cannon_haut()->setcanon_used(true);
 			}
 			else
 			{
@@ -106,6 +109,7 @@ void zone::actionAHeros()
 					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 				}
 				this->addz_actions_used_ce_tour_bas(ACT_AH);
+				this->getz_cannon_bas()->setcanon_used(true);
 			}
 			else
 			{

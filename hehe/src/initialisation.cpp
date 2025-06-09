@@ -71,8 +71,8 @@ void init_carte_joueur_test(t_data& data)
 
 void init_zone_white(t_data& data)
 {
-	cannon *cannon_zone_white = new cannon("Cannon laser lourd central", 5, 16, CANON_LOURD);
-	cannon *cannon_impulsion_zone_white = new cannon("Cannon a impulsion central", 1, 10, CANON_IMPULSION);
+	cannon *cannon_zone_white = new canon_lourd("Cannon laser lourd Central", 5, data.zones[ZONE_WHITE]);
+	cannon *cannon_impulsion_zone_white = new canon_impulsion(data.zones[ZONE_WHITE]);
     data.zones[ZONE_WHITE]->setzone_white(data.zones[ZONE_WHITE]);
     data.zones[ZONE_WHITE]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_WHITE]->setzone_blue(data.zones[ZONE_BLUE]);
@@ -113,8 +113,8 @@ void init_zone_white(t_data& data)
 
 void init_zone_blue(t_data& data)
 {
-    cannon *cannon_zone_blue = new cannon("Cannon laser lourd lateral", 4, 16, CANON_LOURD);
-	cannon *cannon_leger_zone_blue = new cannon("Cannon laser leger lateral", 2, 16, CANON_LATERAUX);
+    cannon *cannon_zone_blue = new canon_lourd("Cannon laser lourd lateral", 4, data.zones[ZONE_BLUE]);
+	cannon *cannon_leger_zone_blue = new canon_lateral(data.zones[ZONE_BLUE]);
     data.zones[ZONE_BLUE]->setzone_white(data.zones[ZONE_WHITE]);
     data.zones[ZONE_BLUE]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_BLUE]->setzone_blue(data.zones[ZONE_BLUE]);
@@ -153,8 +153,8 @@ void init_zone_blue(t_data& data)
 
 void init_zone_red(t_data& data)
 {
-	cannon *cannon_zone_red = new cannon("Cannon laser lourd lateral", 4, 16, CANON_LOURD);
-	cannon *cannon_leger_zone_red = new cannon("Cannon laser leger lateral", 2, 16, CANON_LATERAUX);
+	cannon *cannon_zone_red = new canon_lourd("Cannon laser lourd lateral", 4, data.zones[ZONE_RED]);
+	cannon *cannon_leger_zone_red = new canon_lateral(data.zones[ZONE_RED]);
     data.zones[ZONE_RED]->setzone_white(data.zones[ZONE_WHITE]);
     data.zones[ZONE_RED]->setzone_red(data.zones[ZONE_RED]);
     data.zones[ZONE_RED]->setzone_blue(data.zones[ZONE_BLUE]);

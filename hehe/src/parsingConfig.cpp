@@ -74,9 +74,9 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     // else if (typeMenace == "se2-05") {
     //     return new menace_se2_05(typeMenace, tempsArrivee);
     // }
-    // else if (typeMenace == "se2-06") {
-    //     return new menace_se2_06(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "se2-06") {
+        return new menace_se2_06(typeMenace, tempsArrivee);
+    }
     else if (typeMenace == "e1-02") {
         return new menace_e1_02(typeMenace, tempsArrivee);
     }
@@ -107,27 +107,27 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "e1-10") {
         return new menace_e1_10(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "se2-01") {
-    //     return new menace_se2_01(typeMenace, tempsArrivee);
+    // else if (typeMenace == "e2-01") {
+    //     return new menace_e2_01(typeMenace, tempsArrivee);
     // }
-    // else if (typeMenace == "se2-02") {
-    //     return new menace_se2_02(typeMenace, tempsArrivee);
+    // else if (typeMenace == "e2-02") {
+    //     return new menace_e2_02(typeMenace, tempsArrivee);
     // }
-    else if (typeMenace == "se2-03") {
-        return new menace_se2_03(typeMenace, tempsArrivee);
+    else if (typeMenace == "e2-03") {
+        return new menace_e2_03(typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "se2-04") {
-    //     return new menace_se2_04(typeMenace, tempsArrivee);
+    // else if (typeMenace == "e2-04") {
+    //     return new menace_e2_04(typeMenace, tempsArrivee);
     // }
-    else if (typeMenace == "se2-05") {
-        return new menace_se2_05(typeMenace, tempsArrivee);
+    else if (typeMenace == "e2-05") {
+        return new menace_e2_05(typeMenace, tempsArrivee);
     }
-    else if (typeMenace == "se2-06") {
-        return new menace_se2_06(typeMenace, tempsArrivee);
-    }
-    // else if (typeMenace == "se2-07") {
-    //     return new menace_se2_07(typeMenace, tempsArrivee);
+    // else if (typeMenace == "e2-06") {
+    //     return new menace_e2_06(typeMenace, tempsArrivee);
     // }
+    else if (typeMenace == "e2-07") {
+        return new menace_e2_07(typeMenace, tempsArrivee);
+    }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
         return new menace(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur

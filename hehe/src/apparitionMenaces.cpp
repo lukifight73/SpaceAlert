@@ -22,7 +22,7 @@ void remove_dead_or_outdated_menaces(t_data &data)
 
 void revelerMenace(menace* menace)
 {
-    if (menace->get_m_name().find("Satellite") != std::string::npos && menace->get_m_position() <= 10)
+    if (menace->get_m_name().find("Satellite") != std::string::npos && menace->get_m_position() <= 10) // SURCHARGE
         menace->set_m_revele(true);
 }
 

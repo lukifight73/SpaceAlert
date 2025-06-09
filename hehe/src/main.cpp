@@ -61,11 +61,12 @@ void clear_actionUsage(t_data &data)
 		data.zones[i]->clearz_actions_used_ce_tour_bas();
 		data.zones[i]->clearz_actions_used_ce_tour_haut();
 		data.zones[i]->clearz_cannon_used();
+		data.zones[i]->getz_cannon_bas()->setcanon_used(false);
+		data.zones[i]->getz_cannon_haut()->setcanon_used(false);
 		std::vector<menace*> vecteur_menace = data.zones[i]->getz_chemin_menace()->get_menaces();
 		for (std::vector<menace*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
 		{
 			(*it)->clear_m_canon_used();
-			(*it)->set_m_degatsRecus(0);
 			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier());
 		}
 		i++;
@@ -126,16 +127,17 @@ void	play_game(t_data &data)
 			std::cout << "----------------------------------- fin tour joueur n " << num_joueur << " : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
 			num_joueur++;
 		}
-		assignationCannons(data);
-		analyseDesDegatsCanons(data);
+		attaqueDesCanons(data); // remplace les deux d apres
+		// assignationCannons(data);
+		// analyseDesDegatsCanons(data);
 		rocketActions(data);
-		impactDegatsTotaux(data);
-		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces
+		//impactDegatsTotaux(data);
+		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);
 		std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		mouvement_menaces(data);
-	    remove_dead_or_outdated_menaces(data);
+	    remove_dead_or_outdated_menaces(data); // doit etre fait apres le mouvement des menaces pour voir si elles sont parties ou non
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);
 		std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
