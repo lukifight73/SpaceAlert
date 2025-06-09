@@ -141,6 +141,16 @@ void zone::getdegats(int input)
 		
 }
 
+void zone::getdegatsIgnoreBouclier(int input)
+{
+	while (input > 0)
+	{
+		etatdesdegats();
+		input--;
+	}
+		
+}
+
 void zone::removez_joueurs_haut(std::string input)
 {
 	for (std::vector<joueur*>::iterator it = z_joueurs_haut.begin(); it != z_joueurs_haut.end();)

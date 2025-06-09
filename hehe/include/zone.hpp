@@ -114,6 +114,7 @@ class zone
         void calculateDegatsCanons();
         void etatdesdegats();
         void getdegats(int input);
+        void getdegatsIgnoreBouclier(int input);
 
         //autre
         joueur* getz_joueur_haut(std::string nom);

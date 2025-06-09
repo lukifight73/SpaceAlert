@@ -22,6 +22,7 @@ class menace
     bool m_immunity;
     int m_buff_blindage;
     int m_difficulte;
+    int m_buff_attack;
     // int m_degatsRecus;
     bool m_vulnerable_roquette;
     bool m_attraction_roquette;
@@ -41,6 +42,12 @@ class menace
         std::string get_m_name() const {
             return m_name;
         };
+
+        void increase_m_buff_attack(int input)
+        {
+            m_buff_attack += input;
+        }
+
         void set_m_bouclier(int input) {
             m_bouclier = input;
         }
@@ -177,6 +184,8 @@ class menace
         void draineEnergieBouclier(int input);
 
         void makedegatsInZone(int input);
+
+        void makedegatsInZoneIgnoreBouclier(int input);
 
         void makedegatsLeft(int input);
 
