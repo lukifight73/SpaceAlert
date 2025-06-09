@@ -56,7 +56,7 @@ X -> attaque 1 / prends 1 degat
 Y -> attaque 2 / prends 2 degats
 Z -> detruit le vaisseau en se detruisant
 
-se2-01 Behemoth
+se2-01 Behemoth#done (sauf la partie intercepteurs) -> a faire
 ->les intercepteurs font 9 degats contre lui (pas 3) mais le joueur est assomme
 X->sauf s il a >= 2 degat, attaque 2
 Y->sauf s il a >= 3 degat, attaque 3
