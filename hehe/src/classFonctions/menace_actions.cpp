@@ -187,7 +187,22 @@ void menace_se2_02::actionMenace(char input)
 
 void menace_se2_03::actionMenace(char input) 
 {
-    input += 1;
+    if (input == 'X') {
+        m_zone->retarderactionZone();
+        std::cout << "[ " << m_name << " attaque et retarde tous les joueurs de la " << m_zone->getz_nom_zone() << std::endl;
+    } else if (input == 'Y') {
+        m_zone->retarderactionZone();
+        m_zone->getzone_right()->retarderactionZone();
+        m_zone->getzone_left()->retarderactionZone();
+        std::cout << "[ " << m_name << " attaque et retarde tous les joueurs du vaisseau" << std::endl;
+    } else if (input == 'Z') {
+        m_zone->assomerjoueursZone();
+        m_zone->getzone_right()->assomerjoueursZone();
+        m_zone->getzone_left()->assomerjoueursZone();
+        std::cout << "[ " << m_name << " attaque et assome tous les joueurs du vaisseau!]" << std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
 }
 
 

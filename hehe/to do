@@ -77,7 +77,7 @@ se2-03 Satellite psionique
 ->ne peut pas etre pris pour cible a une distance de 3##
 X->tous les joueurs de la zone sont retardes de 1 tour
 Y->tous les joueurs du vaisseau sont retardes de 1 tour
-Z->tous les joueurs du vaisseau sont assommes
+Z->tous les joueurs du vaisseau sont assommes>#ca marche pas trop ca
 
 se2-02 Juggernaut #done
 ->les roquettes le cible toujours (quelque soit la distance)

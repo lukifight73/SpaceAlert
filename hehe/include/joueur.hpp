@@ -32,6 +32,7 @@ public:
     //autre
     void addcartes(int input, carte carte);
     void passerTour(int input);
+    void setcarteInactif(int input);
     void print();
 
     //getters

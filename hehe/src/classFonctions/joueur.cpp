@@ -82,6 +82,17 @@ void joueur::passerTour(int input)
     cartes[i].setc_action(INACTIF);
 }
 
+void joueur::setcarteInactif(int input)
+{
+    int i = 12;
+    while (i > input + 1)
+    {
+        cartes[i].setc_action(INACTIF);
+        i--;
+    }
+    cartes[i].setc_action(INACTIF);
+}
+
 //getters
 bool joueur::getj_state()const
 {

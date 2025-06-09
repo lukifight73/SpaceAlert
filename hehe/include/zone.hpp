@@ -143,6 +143,12 @@ class zone
         void actionBHeros();
         void actionC();
         void ascenseur();
+        void retarderactionZoneHaut();
+        void retarderactionZoneBas();
+        void assomerjoueursZoneHaut();
+        void assomerjoueursZoneBas();
+        void assomerjoueursZone();
+        void retarderactionZone();
 
         //Deplacement
         void flechesRouge();
