@@ -46,6 +46,7 @@ class menace_se1_04: public menace
         menace_se1_04() : menace() {};
         menace_se1_04(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual bool vulnerability_check(cannon* input);
         ~menace_se1_04() {};
 };
 
@@ -124,6 +125,7 @@ class menace_se2_03: public menace
         menace_se2_03() : menace() {};
         menace_se2_03(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual bool vulnerability_check(cannon* input);
         ~menace_se2_03() {};
 };
 
