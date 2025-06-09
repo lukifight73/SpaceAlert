@@ -67,7 +67,7 @@ void clear_actionUsage(t_data &data)
 		for (std::vector<menace*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
 		{
 			(*it)->clear_m_canon_used();
-			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier());
+			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier() + (*it)->getm_buff_blindage());
 		}
 		i++;
 	}
@@ -110,7 +110,14 @@ void printInfoMenace(t_data &data)
 
 void actionMenaceDebutTour(t_data &data)
 {
-
+	for (int i = 1; i < 4; i++) 
+	{
+		std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
+		for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		{
+			(*it)->effetDebutTour();
+		}
+	}
 }
 
 void	play_game(t_data &data)

@@ -165,7 +165,7 @@ X->+1 vitesse / blindage =1
 Y->+1 vitesse / blindage =0
 Z->Attaque 6
 
-e2-04 Nuee Insectoide
+e2-04 Nuee Insectoide#done
 ->!roquettes
 ->prends 1 degat par tour
 X->attaque 1
@@ -183,7 +183,7 @@ e2-07 Asteroide mineur #done
 ->quand il est detruit, attaque 1 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-e2-06 Maraudeur
+e2-06 Maraudeur#done
 X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort 
 Y->draine 1 energie de tous les boucliers
 Z->attaque 4 (le bonus persiste)
