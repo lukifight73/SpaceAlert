@@ -154,19 +154,19 @@ void zone_bas_blue::actionC()
 	{
 		if (roquete_position[1] == 0)
 		{
-			wr("[Lancement de la premiere requete !]");
+			wr("[Lancement de la premiere rocket !]");
 			roquete_position[1] = 1;
 			this->addz_actions_used_ce_tour(ACT_C);
 		}
 		else if (roquete_position[2] == 0)
 		{
-			wr("[Lancement de la premiere requete !]");
+			wr("[Lancement de la premiere rocket !]");
 			roquete_position[2] = 1;
 			this->addz_actions_used_ce_tour(ACT_C);
 		}
 		else if (roquete_position[3] == 0)
 		{
-			wr("[Lancement de la premiere requete !]");
+			wr("[Lancement de la premiere rocket !]");
 			roquete_position[3] = 1;
 			this->addz_actions_used_ce_tour(ACT_C);
 		}

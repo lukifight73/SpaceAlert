@@ -276,11 +276,6 @@ void rocketActions(t_data &data)
         }
         else if (rocketMap[rocketNum] == 2) 
         {
-            data.zones[ZONE_BLUE]->setz_roquete_position(rocketNum, 3);
-            std::cout << "[La roquette numero " << rocketNum << " est en vol !]\n";
-        }
-        else if (rocketMap[rocketNum] == 3) 
-        {
             checkMenaceHitByRocket(data, rocketNum);
         }
         rocketNum++;

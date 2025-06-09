@@ -340,19 +340,19 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			{
 				if (z_roquete_position[1] == 0)
 				{
-					wr("[Lancement de la premiere requete !]");
+					wr("[Lancement de la premiere rocket !]");
 					z_roquete_position[1] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
 				else if (z_roquete_position[2] == 0)
 				{
-					wr("[Lancement de la seconde requete !]");
+					wr("[Lancement de la seconde rocket !]");
 					z_roquete_position[2] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
 				else if (z_roquete_position[3] == 0)
 				{
-					wr("[Lancement de la troisieme requete !]");
+					wr("[Lancement de la troisieme rocket !]");
 					z_roquete_position[3] = 1;
 					this->addz_actions_used_ce_tour_bas(ACT_C);
 				}
