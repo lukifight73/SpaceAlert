@@ -638,6 +638,13 @@ void menace_e2_02::effetDebutTour()
     }
 }
 
+bool menace_e2_02::vulnerability_check(cannon* input)
+{
+    if (input->gettype_cannon() == m_imunity_canon)
+        return (false);
+    return (true);
+}
+
 void menace_e2_02::menaceAvanceUneCaseInZone(zone *zone)
 {
     std::vector<menace*> tmp = zone->getz_chemin_menace()->get_menaces();

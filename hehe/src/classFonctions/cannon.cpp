@@ -82,8 +82,10 @@ bool cannon::getcanon_used()
 
 void cannon::infligeDegats(menace *menace)
 {
+	if(menace->get_m_vie() <= 0)
+		std::cout << "[Le " << nom_cannon << "ne fait rien, " << menace->get_m_name() << " est deja morte.]\n";
 	// check imunity
-	if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
+	else if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
 	{
 		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
 		menace->set_m_etat_bouclier(0); // Bouclier épuisé

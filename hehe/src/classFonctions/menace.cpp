@@ -436,6 +436,6 @@ void menace::recoitDegats(int input)
     std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]" << std::endl;
     if (m_vie == 0) {
         actionQuandDetruit();
-        m_presence = false; // La menace n'est plus présente
+        // m_presence = false; // la presence n'est pas enleve car elle doit tjs etre cible si c est la plus proche
     }
 }

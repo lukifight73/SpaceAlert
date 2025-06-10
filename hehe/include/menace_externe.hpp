@@ -291,13 +291,16 @@ class menace_e2_02: public menace
 {
     private:
         bool m_effetDebutTourOn;
+        int m_imunity_canon;
 
     public:
         menace_e2_02() : menace() {};
-        menace_e2_02(bool effetDebutTourOn, std::string input, int tourDarrivee) : menace(input, tourDarrivee) 
-        {m_effetDebutTourOn = effetDebutTourOn;};
+        menace_e2_02(int imunity_canon, bool effetDebutTourOn, std::string input, int tourDarrivee) : menace(input, tourDarrivee) 
+        {m_imunity_canon = imunity_canon;
+        m_effetDebutTourOn = effetDebutTourOn;};
         virtual void effetDebutTour();
         void menaceAvanceUneCaseInZone(zone *zone);
+        virtual bool vulnerability_check(cannon* input);
         void augmenteAttackInZone(zone *zone);
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         ~menace_e2_02() {};

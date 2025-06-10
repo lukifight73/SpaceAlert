@@ -22,7 +22,6 @@ class menace
     bool m_immunity;
     int m_difficulte;
     int m_buff_attack;
-    // int m_degatsRecus;
     bool m_vulnerable_roquette;
     bool m_attraction_roquette;
     bool m_revele;

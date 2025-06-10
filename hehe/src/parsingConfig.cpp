@@ -111,7 +111,7 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
         return new menace_e2_01(typeMenace, tempsArrivee);
     }
     else if (typeMenace == "e2-02") {
-        return new menace_e2_02(false, typeMenace, tempsArrivee);
+        return new menace_e2_02(CANON_LOURD, false, typeMenace, tempsArrivee);
     }
     else if (typeMenace == "e2-03") {
         return new menace_e2_03(typeMenace, tempsArrivee);
