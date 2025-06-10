@@ -89,6 +89,9 @@ class menace
         void setm_buff_blindage(int input) {
             m_buff_blindage = input;
         };
+        void setm_buff_attack(int input) {
+            m_buff_blindage = input;
+        };
         int getm_buff_blindage() const {
             return m_buff_blindage;
         }
@@ -116,9 +119,6 @@ class menace
         bool get_m_presence() const {
             return m_presence;
         };
-        // int get_m_degatsRecus() const {
-        //     return m_degatsRecus;
-        // };
 
         int get_m_etat_bouclier() const {
             return m_etat_bouclier;
@@ -131,9 +131,7 @@ class menace
             m_etat_bouclier = input;
         };
 
-        // void set_m_degatsRecus(int input) {
-        //     m_degatsRecus = input;
-        // };
+
         std::vector<int> get_m_canon_immunity() const {
             return m_canon_immunity;
         };
@@ -196,6 +194,5 @@ class menace
         
         virtual ~menace();
 
-        void messageAttaqueMenace(int degats)
-}
+        void messageAttaqueMenace(int degats);
 };

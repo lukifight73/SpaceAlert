@@ -6,6 +6,7 @@
 #include "space_alerte.hpp"
 
 class menace;
+class menace_interne;
 class menace_se1_01; // Forward declaration pour éviter les dépendances circulaires
 
 class chemin_menace
@@ -20,6 +21,7 @@ class chemin_menace
         chemin_menace();
         chemin_menace(std::string input);
         void add_menace(menace *input);
+        void add_menaceInt(menace_interne *input);
         menace* get_menace_that_attracts_rocket();
         menace* get_closest_menace();
         menace* get_closest_menace_rocket_vulnerable();

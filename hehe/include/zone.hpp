@@ -66,6 +66,7 @@ class zone
         void setz_cannon_bas(cannon *input);
         void setz_nom_zone(std::string input);
         void setz_chemin(chemin_menace *input);
+        void setz_chemin_intern(chemin_menace *input);
         void setz_bots(bool input);
         void setz_temps(int input);
         void setz_capsule_energie(int input);

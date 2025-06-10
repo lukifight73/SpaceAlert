@@ -2,22 +2,41 @@
 
 #include "menace.hpp"
 
-class menace_interne: public menace
+class menace_interne :public menace
 {
     protected:
-    std::string m_name;
-    int m_tourDarrivee;
-    bool m_presence;
-    int m_vitesse;
-    int m_vie;
-    int m_max_vie; // vie maximale de la menace
-    int m_position; // position dans le chemin
-    int m_bouclier;
-    int m_etat_bouclier;
-    chemin_menace *m_chemin; // chemin de la menace
-    zone *m_zone; // zone de la menace
+    bool    m_position_haut;
 
     public:
         menace_interne();
+        menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee) {};
         ~menace_interne();
+};
+
+class menace_interne_i1_01 :public menace_interne
+{
+    protected:
+    bool    m_position_haut;
+
+    public:
+        menace_interne_i1_01() {};
+        menace_interne_i1_01(bool position_haut, std::string input, int tourDarrivee) : menace_interne(input, tourDarrivee) 
+        {
+            m_position_haut = position_haut;
+        };
+        ~menace_interne_i1_01() {};
+};
+
+class menace_interne_i1_02 :public menace_interne
+{
+    protected:
+    bool    m_position_haut;
+
+    public:
+        menace_interne_i1_02() {};
+        menace_interne_i1_02(bool position_haut, std::string input, int tourDarrivee) : menace_interne(input, tourDarrivee) 
+        {
+            m_position_haut = position_haut;
+        };
+        ~menace_interne_i1_02() {};
 };

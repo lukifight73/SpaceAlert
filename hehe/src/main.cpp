@@ -68,6 +68,8 @@ void clear_actionUsage(t_data &data)
 		{
 			(*it)->clear_m_canon_used();
 			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier() + (*it)->getm_buff_blindage());
+			(*it)->setm_buff_blindage(0);
+			(*it)->setm_buff_attack(0);
 		}
 		i++;
 	}

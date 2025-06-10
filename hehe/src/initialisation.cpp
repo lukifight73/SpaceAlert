@@ -195,6 +195,7 @@ void init_data(t_data& data)
 {
 	data.nb_joueur = 0;
 	data.tour = 1;
+    data.chemin_menace_interne = new chemin_menace;
 	data.zones[ZONE_WHITE] = new zone(ZONE_WHITE);
 	data.zones[ZONE_BLUE] = new zone(ZONE_BLUE);
 	data.zones[ZONE_RED] = new zone(ZONE_RED);

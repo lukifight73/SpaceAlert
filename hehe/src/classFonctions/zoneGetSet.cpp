@@ -57,6 +57,11 @@ void zone::setz_chemin(chemin_menace *input)
 	z_chemin_menace = input;
 }
 
+void zone::setz_chemin_intern(chemin_menace *input)
+{
+	z_chemin_menace_interne = input;
+}
+
 void zone::setz_bots(bool input)
 {
 	z_bots = input;
