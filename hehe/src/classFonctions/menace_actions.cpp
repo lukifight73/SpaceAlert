@@ -8,13 +8,13 @@ void menace_se1_01::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(4);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 4!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 4!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -24,17 +24,17 @@ void menace_se1_02::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
         m_vitesse++;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 1!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
         m_bouclier++;
-        std::cout << "[ " << m_name << " augmente son blindage de 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente son blindage de 1!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(5);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 5!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 5!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -44,17 +44,17 @@ void menace_se1_03::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
         m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 2!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
         m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(7);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 7!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 7!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -203,7 +203,7 @@ void menace_se1_08::actionMenace(char input)
     if (input == 'Z') {
         int degats = get_m_vie();
         makedegatsInZone(degats);
-        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
     } 
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
@@ -226,11 +226,11 @@ void menace_se1_07::actionMenace(char input)
     } else if (input == 'Y') {
         makedegatsLeft(2);
         makedegatsRight(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
     } else if (input == 'Z') {
         makedegatsLeft(3);
         makedegatsRight(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -242,18 +242,29 @@ void menace_se1_07::actionMenace(char input)
 void menace_se2_01::actionMenace(char input) 
 {
     if (input == 'X') {
-        makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
-        m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        if (m_vie >= m_max_vie - 2)
+        {
+            makedegatsInZone(2);
+            std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        }
+        else
+            std::cout << "[La menace " << m_name << " a subit 2 degats ou plus, elle ne fait donc rien!]" << std::endl;
     } else if (input == 'Y') {
-        makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
-        m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        if (m_vie >= m_max_vie - 3)
+        {
+            makedegatsInZone(3);
+            std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        }
+        else
+            std::cout << "[La menace " << m_name << " a subit 3 degats ou plus, elle ne fait donc rien!]" << std::endl;
     } else if (input == 'Z') {
-        makedegatsInZone(7);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 7!]" << std::endl;
+        if (m_vie >= m_max_vie - 6)
+        {
+            makedegatsInZone(6);
+            std::cout << "[La menace " << m_name << " lance une attaque de puissance 6!]" << std::endl;
+        }
+        else
+            std::cout << "[La menace " << m_name << " a subit 6 degats ou plus, elle ne fait donc rien!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -263,17 +274,17 @@ void menace_se2_02::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
         m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 2!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
         m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(7);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 7!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 7!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -283,17 +294,17 @@ void menace_se2_03::actionMenace(char input)
 {
     if (input == 'X') {
         m_zone->retarderactionZone();
-        std::cout << "[ " << m_name << " attaque et retarde tous les joueurs de la " << m_zone->getz_nom_zone() << std::endl;
+        std::cout << "[La menace " << m_name << " attaque et retarde tous les joueurs de la " << m_zone->getz_nom_zone() << std::endl;
     } else if (input == 'Y') {
         m_zone->retarderactionZone();
         m_zone->getzone_right()->retarderactionZone();
         m_zone->getzone_left()->retarderactionZone();
-        std::cout << "[ " << m_name << " attaque et retarde tous les joueurs du vaisseau" << std::endl;
+        std::cout << "[La menace " << m_name << " attaque et retarde tous les joueurs du vaisseau" << std::endl;
     } else if (input == 'Z') {
         m_zone->assomerjoueursZone();
         m_zone->getzone_right()->assomerjoueursZone();
         m_zone->getzone_left()->assomerjoueursZone();
-        std::cout << "[ " << m_name << " attaque et assome tous les joueurs du vaisseau!]" << std::endl;
+        std::cout << "[La menace " << m_name << " attaque et assome tous les joueurs du vaisseau!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -311,15 +322,15 @@ void menace_se2_04::actionMenace(char input)
 {
     if (input == 'X') {
         m_bouclier = 4;
-        std::cout << "[ " << m_name << " augmente son blindage a 4!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente son blindage a 4!]" << std::endl;
     } else if (input == 'Y') {
         m_bouclier = 2;
-        std::cout << "[ " << m_name << " augmente son blindage a 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente son blindage a 2!]" << std::endl;
         m_vitesse += 2;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(5);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 5!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 5!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -340,17 +351,17 @@ void menace_se2_05::actionMenace(char input)
         if(get_m_etat_bouclier() <= 0)
         {
             recoitDegats(1);
-            std::cout << "[ " << m_name << " s'inflige 1 point de dégâts!]" << std::endl;
+            std::cout << "[La menace " << m_name << " s'inflige 1 point de dégâts!]" << std::endl;
         }
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
         if(get_m_etat_bouclier() <= 1)
         {
             recoitDegats(get_m_etat_bouclier() - 2);
-            std::cout << "[ " << m_name << " s'inflige " << 2 - get_m_etat_bouclier() << " point de dégâts!]" << std::endl;
+            std::cout << "[La menace " << m_name << " s'inflige " << 2 - get_m_etat_bouclier() << " point de dégâts!]" << std::endl;
         }
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Z') {
         std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]" << std::endl;
     } else {
@@ -365,7 +376,7 @@ void menace_se2_06::actionMenace(char input)
     if (input == 'Z') {
         int degats = get_m_vie();
         makedegatsInZone(degats);
-        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
     } 
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
@@ -389,17 +400,17 @@ void menace_e1_01::actionMenace(char input)
         makedegatsInZone(1);
         makedegatsLeft(1);
         makedegatsRight(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(1);
         makedegatsLeft(1);
         makedegatsRight(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(2);
         makedegatsLeft(2);
         makedegatsRight(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 sur chaque zone!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -410,15 +421,15 @@ void menace_e1_02::actionMenace(char input)
     if (input == 'X') {
         if (m_zone->getz_bouclier() > 0) {
             makedegatsInZone(2);
-            std::cout << "[ " << m_name << " lance une attaque de puissance 1 (pas de bouclier, attaque x2)!]" << std::endl;
+            std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 (pas de bouclier, attaque x2)!]" << std::endl;
         }
         else {
         makedegatsInZone(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
         }
     }
     else if (input == 'Y') {
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
         if (m_zone->getz_bouclier() == 1) {
             std::cout << "[Le bouclier part un degat, l'autre degat est multiplie par deux!]" << std::endl;
             makedegatsInZone(3);
@@ -428,10 +439,10 @@ void menace_e1_02::actionMenace(char input)
             makedegatsInZone(4);
         }
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     }
     else if (input == 'Z') {
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
         if (m_zone->getz_bouclier() == 1) {
             std::cout << "[Le bouclier part un degat, l'autre degat est multiplie par deux!]" << std::endl;
             makedegatsInZone(3);
@@ -441,7 +452,7 @@ void menace_e1_02::actionMenace(char input)
             makedegatsInZone(4);
         }
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -451,13 +462,13 @@ void menace_e1_09::actionMenace(char input)
 {
     if (input == 'X') {
         regeneration(2);
-        std::cout << "[ " << m_name << " regagne 2 points de vie!]" << std::endl;
+        std::cout << "[La menace " << m_name << " regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Y') {
         regeneration(2);
-        std::cout << "[ " << m_name << " regagne 2 points de vie!]" << std::endl;
+        std::cout << "[La menace " << m_name << " regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(5);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 5!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 5!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -470,14 +481,14 @@ void menace_e1_03::actionMenace(char input)
         std::cout << "[La menace " << m_name << " se revele.]\n";
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
         regeneration(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2 et regagne 2 points de vie!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 et regagne 2 points de vie!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -490,11 +501,11 @@ void menace_e1_04::actionMenace(char input)
     } else if (input == 'Y') {
         makedegatsLeft(1);
         makedegatsRight(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
     } else if (input == 'Z') {
         makedegatsLeft(2);
         makedegatsRight(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 aux zones " << m_zone->getzone_left() << " et " <<  m_zone->getzone_right()<< std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -504,13 +515,13 @@ void menace_e1_05::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -520,13 +531,13 @@ void menace_e1_06::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -547,13 +558,13 @@ void menace_e1_07::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -563,15 +574,15 @@ void menace_e1_08::actionMenace(char input)
 {
     if (input == 'X') {
         makedegatsInZone(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
     }
     else if (input == 'Y') {
         regeneration(1);
-        std::cout << "[ " << m_name << " regagne 1 points de vie!]" << std::endl;
+        std::cout << "[La menace " << m_name << " regagne 1 points de vie!]" << std::endl;
     } 
     else if (input == 'Z') {
         makedegatsInZone(4);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 4!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 4!]" << std::endl;
     }
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
@@ -586,7 +597,7 @@ void menace_e1_10::actionMenace(char input)
 
     } else if (input == 'Z') {
         makedegatsInZone(m_vie);
-        std::cout << "[ " << m_name << " lance une attaque de puissance " << m_vie << "!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance " << m_vie << "!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -598,17 +609,17 @@ void menace_e2_01::actionMenace(char input)
 {
     if (input == 'X') {
         m_bouclier = 1;
-        std::cout << "[ " << m_name << " set son blindage a 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " set son blindage a 1!]" << std::endl;
         m_vitesse += 1;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 1!]" << std::endl;
     } else if (input == 'Y') {
         m_bouclier = 0;
-        std::cout << "[ " << m_name << " set son blindage a 0!]" << std::endl;
+        std::cout << "[La menace " << m_name << " set son blindage a 0!]" << std::endl;
         m_vitesse += 1;
-        std::cout << "[ " << m_name << " augmente sa vitesse de 1!]" << std::endl;
+        std::cout << "[La menace " << m_name << " augmente sa vitesse de 1!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(6);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 6!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 6!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -687,13 +698,38 @@ void menace_e2_03::actionMenace(char input)
         std::cout << "[La menace " << m_name << " se revele.]\n";
     } else if (input == 'Y') {
         makedegatsInZone(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else if (input == 'Z') {
         makedegatsInZone(3);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 3!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 3!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_e2_04::actionMenace(char input) 
+{
+    if (input == 'X') {
+        makedegatsInZone(1);
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1!]" << std::endl;
+    } else if (input == 'Y') {
+        makedegatsInZone(2);
+        makedegatsLeft(1);
+        makedegatsRight(1);
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 sur sa zone, 1 sur les autres!]" << std::endl;
+    } else if (input == 'Z') {
+        makedegatsInZone(3);
+        makedegatsLeft(2);
+        makedegatsRight(2);
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 sur sa zone, 1 sur les autres!]" << std::endl;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_e2_04::effetDebutTour()
+{
+    m_vie--;
 }
 
 void menace_e2_05::actionMenace(char input) 
@@ -702,23 +738,94 @@ void menace_e2_05::actionMenace(char input)
         makedegatsInZone(1);
         makedegatsLeft(1);
         makedegatsRight(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
-        std::cout << "[ " << m_name << " se regenere de la moitie de ses degats ! (" << (m_max_vie - m_vie) / 2 << " points de vie recuperes)]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " se regenere de la moitie de ses degats ! (" << (m_max_vie - m_vie) / 2 << " points de vie recuperes)]" << std::endl;
         regeneration((m_max_vie - m_vie) / 2);
     } else if (input == 'Y') {
         makedegatsInZone(1);
         makedegatsLeft(1);
         makedegatsRight(1);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
-        std::cout << "[ " << m_name << " se regenere de la moitie de ses degats ! (" << (m_max_vie - m_vie) / 2 << " points de vie recuperes)]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 1 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " se regenere de la moitie de ses degats ! (" << (m_max_vie - m_vie) / 2 << " points de vie recuperes)]" << std::endl;
         regeneration((m_max_vie - m_vie) / 2);
     } else if (input == 'Z') {
         makedegatsInZone(2);
         makedegatsLeft(2);
         makedegatsRight(2);
-        std::cout << "[ " << m_name << " lance une attaque de puissance 2 sur chaque zone!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 2 sur chaque zone!]" << std::endl;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void putBufferToPermanent(zone *zoneactuel)
+{
+    zone *zone1 = zoneactuel->getzone_right();
+    zone *zone2 = zoneactuel->getzone_left();
+    std::vector<menace*> tmp = zone1->getz_chemin_menace()->get_menaces();
+    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    {
+        (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
+        (*it)->setm_buff_blindage(0);
+    }
+    tmp = zone2->getz_chemin_menace()->get_menaces();
+    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    {
+        (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
+        (*it)->setm_buff_blindage(0);
+    }
+    tmp = zoneactuel->getz_chemin_menace()->get_menaces();
+    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    {
+        (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
+        (*it)->setm_buff_blindage(0);
+    }
+}
+
+void menace_e2_06::actionMenace(char input) 
+{
+    if (input == 'X') {
+        effetDebutTourOn = true;
+        std::cout << "[La menace " << m_name << " lance un buffer qui rajoute +1 de blindage aux autres menaces externes jusau'a sa mort!]" << std::endl;
+    } else if (input == 'Y') {
+        std::cout << "[La menace " << m_name << " draine 1 energie de chaque bouclier du vaisseau!]" << std::endl;
+        draineEnergieBouclier(1);
+    } else if (input == 'Z') {
+        makedegatsInZone(4);
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance 4!]" << std::endl;
+        std::cout << "[La menace " << m_name << " a rempli sa mission. Les menaces externes ont +1 de blindage de maniere permanente!]\n";
+        putBufferToPermanent(m_zone);
+        effetDebutTourOn = false;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_e2_06::effetDebutTour()
+{
+    if (effetDebutTourOn)
+    {
+        zone *zone1 = m_zone;
+        zone *zone2 = m_zone->getzone_right();
+        zone *zone3 = m_zone->getzone_left();
+        std::vector<menace*> tmp = zone1->getz_chemin_menace()->get_menaces();
+        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        {
+            if ((*it)->getm_buff_blindage() != 1)
+                (*it)->setm_buff_blindage(1);
+        }
+        tmp = zone2->getz_chemin_menace()->get_menaces();
+        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        {
+            if ((*it)->getm_buff_blindage() != 1)
+                (*it)->setm_buff_blindage(1);
+        }
+        tmp = zone3->getz_chemin_menace()->get_menaces();
+        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        {
+            if ((*it)->getm_buff_blindage() != 1)
+                (*it)->setm_buff_blindage(1);
+        }
     }
 }
 
@@ -728,7 +835,7 @@ void menace_e2_07::actionMenace(char input)
     if (input == 'Z') {
         int degats = get_m_vie();
         makedegatsInZone(degats);
-        std::cout << "[ " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
+        std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats << "!]" << std::endl;
     } 
     else {
         std::cerr << "Action inconnue: " << input << std::endl;

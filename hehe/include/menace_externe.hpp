@@ -325,6 +325,7 @@ class menace_e2_04: public menace
         menace_e2_04() : menace() {};
         menace_e2_04(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void effetDebutTour();
         ~menace_e2_04() {};
 };
 
@@ -342,11 +343,15 @@ class menace_e2_05: public menace
 class menace_e2_06: public menace
 {
     private:
+        bool effetDebutTourOn;
 
     public:
         menace_e2_06() : menace() {};
-        menace_e2_06(std::string input, int tourDarrivee) : menace(input, tourDarrivee) {};
+        menace_e2_06(bool effet, std::string input, int tourDarrivee) : menace(input, tourDarrivee) {
+            effetDebutTourOn = effet;
+        };
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void effetDebutTour();
         ~menace_e2_06() {};
 };
 

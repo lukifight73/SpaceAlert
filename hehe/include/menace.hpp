@@ -20,6 +20,7 @@ class menace
     int m_bouclier;
     int m_etat_bouclier;
     bool m_immunity;
+    int m_buff_blindage;
     int m_difficulte;
     int m_buff_attack;
     bool m_vulnerable_roquette;
@@ -85,7 +86,12 @@ class menace
         void set_m_chemin(chemin_menace *input) {
             m_chemin = input;
         };
-
+        void setm_buff_blindage(int input) {
+            m_buff_blindage = input;
+        };
+        int getm_buff_blindage() const {
+            return m_buff_blindage;
+        }
         void setm_position(int input) {
             m_position = input;
         };
@@ -189,4 +195,7 @@ class menace
         virtual void effetDebutTour() {};
         
         virtual ~menace();
+
+        void messageAttaqueMenace(int degats)
+}
 };
