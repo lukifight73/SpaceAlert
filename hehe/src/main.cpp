@@ -75,6 +75,11 @@ void clear_actionUsage(t_data &data)
 		}
 		i++;
 	}
+	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	{
+		(*it)->setm_buff_attack(0);
+	}
 }
 
 // clarifie quelle joueur est en action

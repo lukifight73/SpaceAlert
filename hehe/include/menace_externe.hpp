@@ -47,9 +47,6 @@ class menace_externe : public menace
         void setm_buff_blindage(int input) {
             m_buff_blindage = input;
         };
-        void setm_buff_attack(int input) {
-            m_buff_blindage = input;
-        };
         int getm_buff_blindage() const {
             return m_buff_blindage;
         };

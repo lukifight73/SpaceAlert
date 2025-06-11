@@ -58,6 +58,9 @@ class menace
         void set_m_chemin(chemin_menace *input) {
             m_chemin = input;
         };
+        void setm_buff_attack(int input) {
+            m_buff_attack = input;
+        };
         
         void setm_position(int input) {
             m_position = input;
