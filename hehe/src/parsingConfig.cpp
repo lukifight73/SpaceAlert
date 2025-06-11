@@ -2,7 +2,27 @@
 #include "space_alerte.hpp"
 #include "SA_Values.hpp"
 #include "menace.hpp"
-#include "menace_externe.hpp"   
+#include "menace_externe.hpp"
+#include "menace_interne.hpp"   
+
+void pars_chemin_menaceInt(t_data &data, std::string chemin_menace_str)
+{
+     std::istringstream iss(chemin_menace_str);
+        std::string chemin_menace_keyword;
+		iss >> chemin_menace_keyword; // Lire le mot-clé "chemin_menace"
+        std::string typeChemin;
+        
+        if (iss >> typeChemin) {
+            chemin_menace *new_chemin_menace = new chemin_menace(typeChemin);
+            data.chemin_menace_interne = new_chemin_menace;
+            data.zones[ZONE_RED]->setz_chemin_intern(new_chemin_menace);
+            data.zones[ZONE_WHITE]->setz_chemin_intern(new_chemin_menace);
+            data.zones[ZONE_BLUE]->setz_chemin_intern(new_chemin_menace);
+            }
+        else {
+            std::cerr << "Erreur: typeChemin inconnue " << typeChemin << std::endl;
+        }
+}
 
 void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
 {
@@ -33,7 +53,7 @@ void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
     }
 }
 
-menace *create_menace(std::string typeMenace, int tempsArrivee)
+menace_externe *create_menaceE(std::string typeMenace, int tempsArrivee)
 {
     if (typeMenace == "se1-01") {
         return new menace_se1_01(typeMenace, tempsArrivee);
@@ -111,7 +131,7 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
         return new menace_e2_01(typeMenace, tempsArrivee);
     }
     else if (typeMenace == "e2-02") {
-        return new menace_e2_02(false, typeMenace, tempsArrivee);
+        return new menace_e2_02(CANON_LOURD, false, typeMenace, tempsArrivee);
     }
     else if (typeMenace == "e2-03") {
         return new menace_e2_03(typeMenace, tempsArrivee);
@@ -130,11 +150,27 @@ menace *create_menace(std::string typeMenace, int tempsArrivee)
     }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
-        return new menace(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur
+        return new menace_externe(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur
     }
 }
 
-void pars_menace(t_data &data, std::string menace_str)
+menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
+{
+    
+    if (typeMenace == "i1-01") {
+        return new menace_interne_i1_01(true, typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "i1-02") {
+        return new menace_interne_i1_02(true, typeMenace, tempsArrivee);
+    }
+    else {
+        std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
+        return new menace_interne(typeMenace, tempsArrivee); // Retourne un pointeur nul en cas d'erreur
+    }
+}
+
+
+void parsMenace(t_data &data, std::string menace_str)
 {
     std::istringstream iss(menace_str);
     std::string menace_keyword;
@@ -142,34 +178,44 @@ void pars_menace(t_data &data, std::string menace_str)
     int tempsArrivee;
     std::string nomZone;
     std::string typeMenace;
+    menace_externe *new_menace(NULL);
+    menace_interne *new_menaceInt(NULL);
 
     if (iss >> typeMenace >> tempsArrivee >> nomZone) {
-        menace *new_menace = create_menace(typeMenace, tempsArrivee);
-        if(nomZone == "ZONE_RED")
+        if (menace_keyword == "menaceE")
         {
-            data.zones[ZONE_RED]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_RED]);
-            new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
-        }
-        else if(nomZone == "ZONE_WHITE")
-        {
-            data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_WHITE]);
-            new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
-        }
-        else if(nomZone == "ZONE_BLUE")
-        {
-            data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_BLUE]);
-            new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
-        }
-        else {
-            std::cerr << "Erreur: Zone inconnue " << nomZone << std::endl;
+            new_menace = create_menaceE(typeMenace, tempsArrivee);
+            if(nomZone == "ZONE_RED")
+            {
+                data.zones[ZONE_RED]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_RED]);
+                new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
+            }
+            else if(nomZone == "ZONE_WHITE")
+            {
+                data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_WHITE]);
+                new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
+            }
+            else if(nomZone == "ZONE_BLUE")
+            {
+                data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_BLUE]);
+                new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
+            }
+            else {
+            std::cerr << "Erreur: " << menace_str << std::endl;
             delete new_menace; // Nettoyage en cas d'erreur
+            }
         }
-        std::cout << new_menace->get_m_tourDarrivee() << std::endl;
+        else if(menace_keyword == "menaceI")
+        {
+            new_menaceInt = create_menaceI(typeMenace, tempsArrivee);
+            data.chemin_menace_interne->add_menaceInt(new_menaceInt);
+        }
     }
 }
+
 
 int get_nb_actions(std::string nomAction)
 {
@@ -238,13 +284,16 @@ void parsing_config(t_data &data, char* av)
 	std::string line;
 	while (std::getline(file, line))
 	{
-		if (line.find("chemin_menace") != std::string::npos) {
+		
+        if (line.find("chemin_menace_intern") != std::string::npos)
+            pars_chemin_menaceInt(data, line);
+         if (line.find("chemin_menace") != std::string::npos) {
             pars_chemin_menace(data, line);
 		}
-        if (line.find("menace") != std::string::npos) {
-            pars_menace(data, line);
+        else if (line.find("menaceE") != std::string::npos || line.find("menaceI") != std::string::npos) {
+            parsMenace(data, line);
 		}
-        if (line.find("joueur") != std::string::npos) {
+        else if (line.find("joueur") != std::string::npos) {
             pars_joueurs(data, line);
         }
     }

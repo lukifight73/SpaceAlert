@@ -61,11 +61,11 @@ void menace_se1_03::actionMenace(char input)
 
 void menace_se1_03::actionQuandDetruit() 
 {
-    std::vector<menace *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menaces();
+    std::vector<menace_externe *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menacesExte();
 
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]";
     messageBufferMenace(msg, -1);
-    std::vector<menace *>::iterator it;
+    std::vector<menace_externe *>::iterator it;
     for (it = menaces.begin(); it != menaces.end(); ++it) 
     {
         if ((*it) != this) 
@@ -78,7 +78,7 @@ void menace_se1_03::actionQuandDetruit()
             }
         }
     }
-    menaces = m_zone->getzone_right()->getz_chemin_menace()->get_menaces();
+    menaces = m_zone->getzone_right()->getz_chemin_menace()->get_menacesExte();
     for (it = menaces.begin(); it != menaces.end(); ++it) 
     {
         if ((*it) != this) 
@@ -91,7 +91,7 @@ void menace_se1_03::actionQuandDetruit()
             }
         }
     }
-    menaces = m_zone->getz_chemin_menace()->get_menaces();
+    menaces = m_zone->getz_chemin_menace()->get_menacesExte();
     for (it = menaces.begin(); it != menaces.end(); ++it) 
     {
         if ((*it) != this) 
@@ -689,8 +689,8 @@ void menace_e2_01::actionMenace(char input)
 
 void menace_e2_02::augmenteAttackInZone(zone *zone)
 {
-    std::vector<menace*> tmp = zone->getz_chemin_menace()->get_menaces();
-    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    std::vector<menace_externe*> tmp = zone->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
     {
         if ((*it)->get_m_presence()) 
         {
@@ -713,8 +713,8 @@ void menace_e2_02::effetDebutTour()
 
 void menace_e2_02::menaceAvanceUneCaseInZone(zone *zone)
 {
-    std::vector<menace*> tmp = zone->getz_chemin_menace()->get_menaces();
-    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    std::vector<menace_externe*> tmp = zone->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
     {
         if ((*it)->get_m_presence()) 
         {
@@ -747,7 +747,14 @@ void menace_e2_02::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
-} 
+}
+
+bool menace_e2_02::vulnerability_check(cannon* input)
+{
+    if (input->gettype_cannon() == m_imunity_canon)
+        return (false);
+    return (true);
+}
 
 void menace_e2_03::actionMenace(char input) 
 {
@@ -833,20 +840,20 @@ void putBufferToPermanent(zone *zoneactuel)
 {
     zone *zone1 = zoneactuel->getzone_right();
     zone *zone2 = zoneactuel->getzone_left();
-    std::vector<menace*> tmp = zone1->getz_chemin_menace()->get_menaces();
-    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    std::vector<menace_externe*> tmp = zone1->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
     }
-    tmp = zone2->getz_chemin_menace()->get_menaces();
-    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    tmp = zone2->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
     }
-    tmp = zoneactuel->getz_chemin_menace()->get_menaces();
-    for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    tmp = zoneactuel->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
@@ -882,20 +889,20 @@ void menace_e2_06::effetDebutTour()
         zone *zone1 = m_zone;
         zone *zone2 = m_zone->getzone_right();
         zone *zone3 = m_zone->getzone_left();
-        std::vector<menace*> tmp = zone1->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        std::vector<menace_externe*> tmp = zone1->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);
         }
-        tmp = zone2->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        tmp = zone2->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);
         }
-        tmp = zone3->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        tmp = zone3->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);

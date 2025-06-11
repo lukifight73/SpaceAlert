@@ -15,6 +15,7 @@
 
 class joueur;
 class zone;
+class chemin_menace;
 
 typedef struct s_data
 {
@@ -22,6 +23,7 @@ typedef struct s_data
 	std::map<int, joueur*> joueurs;
 	std::map<int, zone*> zones;
 	int tour;
+	chemin_menace *chemin_menace_interne;
 } t_data;
 
 void wr(std::string str);

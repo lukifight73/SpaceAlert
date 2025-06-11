@@ -1,6 +1,8 @@
 #include "space_alerte.hpp"
 #include "SA_Values.hpp"
 #include "menace.hpp"
+#include "menace_externe.hpp"
+#include "menace_interne.hpp"
 
 void erase_data(t_data& data)
 {
@@ -63,13 +65,20 @@ void clear_actionUsage(t_data &data)
 		data.zones[i]->clearz_cannon_used();
 		data.zones[i]->getz_cannon_bas()->setcanon_used(false);
 		data.zones[i]->getz_cannon_haut()->setcanon_used(false);
-		std::vector<menace*> vecteur_menace = data.zones[i]->getz_chemin_menace()->get_menaces();
-		for (std::vector<menace*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
+		std::vector<menace_externe*> vecteur_menace = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+		for (std::vector<menace_externe*>::iterator it = vecteur_menace.begin(); it != vecteur_menace.end(); ++it)
 		{
 			(*it)->clear_m_canon_used();
 			(*it)->set_m_etat_bouclier((*it)->get_m_bouclier() + (*it)->getm_buff_blindage());
+			(*it)->setm_buff_blindage(0);
+			(*it)->setm_buff_attack(0);
 		}
 		i++;
+	}
+	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	{
+		(*it)->setm_buff_attack(0);
 	}
 }
 
@@ -98,13 +107,20 @@ void printInfoMenace(t_data &data)
 {
 	for (int i = 1; i < 4; i++) 
 	{
-		std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
+		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
 		std::cout << "--------------------INFORMATION MENACE ZONE " << data.zones[i]->getz_nom_zone() << "----------------------" << std::endl;
-		for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
 		{
 			if((*it)->get_m_presence() == true)
 				(*it)->print_menace();
 		}
+	}
+	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	std::cout << "--------------------INFORMATION MENACE INTERNE ----------------------" << std::endl;
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	{
+		if((*it)->get_m_presence() == true)
+			(*it)->print_menace();
 	}
 }
 
@@ -112,8 +128,8 @@ void actionMenaceDebutTour(t_data &data)
 {
 	for (int i = 1; i < 4; i++) 
 	{
-		std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
-		for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
 		{
 			(*it)->effetDebutTour();
 		}
@@ -143,10 +159,7 @@ void	play_game(t_data &data)
 			num_joueur++;
 		}
 		attaqueDesCanons(data); // remplace les deux d apres
-		// assignationCannons(data);
-		// analyseDesDegatsCanons(data);
 		rocketActions(data);
-		//impactDegatsTotaux(data);
 		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);

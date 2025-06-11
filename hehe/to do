@@ -147,7 +147,7 @@ Z->attaque 2
 
 MENACES EXTERNES COMMUNES AVANCEES
 
-e2-02 Eclaireur
+e2-02 Eclaireur #DONE
 ->!canons lourds
 X->toutes les autres menaces externes ont +1 dattaque tant qu il est pas mort 
 Y->toutes les autres menaces externes avancent dune case

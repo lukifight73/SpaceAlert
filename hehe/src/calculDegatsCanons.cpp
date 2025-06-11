@@ -1,16 +1,17 @@
 #include "space_alerte.hpp"
 #include "menace.hpp"
+#include "menace_externe.hpp"
 #include "cannon.hpp"
 
 
-menace* get_closest_menace_in_vector(std::vector<menace*> menaces) 
+menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces) 
 {
     if (menaces.empty()) {
         wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
-    menace *menaceProche = nullptr;
+    menace_externe *menaceProche = nullptr;
     for (auto it = menaces.begin(); it != menaces.end(); it++)
     {
         if ((*it)->get_m_presence() == false || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante

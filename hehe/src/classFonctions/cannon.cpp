@@ -1,6 +1,7 @@
 #include "../include/cannon.hpp"
 #include "SA_Values.hpp"
 #include "menace.hpp"
+#include "menace_externe.hpp"
 
 cannon::cannon()
 {
@@ -62,7 +63,7 @@ void cannon::debuf_portee_cannon(int debuf)
 		portee_cannon = 0;
 }
 
-bool cannon::MenaceIsinCannonRange(menace *menace) const
+bool cannon::MenaceIsinCannonRange(menace_externe *menace) const
 {
 	if (menace->get_m_position() <= getportee_cannon() && menace->get_m_position() >= 0) 
     {
@@ -80,10 +81,12 @@ bool cannon::getcanon_used()
 	return (canon_used);
 }
 
-void cannon::infligeDegats(menace *menace)
+void cannon::infligeDegats(menace_externe *menace)
 {
+	if(menace->get_m_vie() <= 0)
+		std::cout << "[Le " << nom_cannon << "ne fait rien, " << menace->get_m_name() << " est deja morte.]\n";
 	// check imunity
-	if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
+	else if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
 	{
 		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
 		std::cout << "[Le " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
@@ -100,11 +103,11 @@ void cannon::infligeDegats(menace *menace)
 
 }
 
-std::vector<menace*> cannon::getmenace_vulnerables(zone* zone)
+std::vector<menace_externe*> cannon::getmenace_Exte_vulnerables(zone* zone)
 {
-	std::vector<menace*> menace_zone = zone->getz_chemin_menace()->get_menaces();
-	std::vector<menace*> menaces_vulnerables;
-	std::vector<menace*>::iterator it;
+	std::vector<menace_externe*> menace_zone = zone->getz_chemin_menace()->get_menacesExte();
+	std::vector<menace_externe*> menaces_vulnerables;
+	std::vector<menace_externe*>::iterator it;
 	for (it = menace_zone.begin(); it != menace_zone.end(); it++)
 	{
 		if ((*it)->vulnerability_check(this))
@@ -113,7 +116,7 @@ std::vector<menace*> cannon::getmenace_vulnerables(zone* zone)
 	return (menaces_vulnerables);
 }
 
-void casDuCanonImpulsion(menace *menaceCible)
+void casDuCanonImpulsion(menace_externe *menaceCible)
 {
 	 // si le Maelstrom et Nuage d'energie prend des degats par le CANON_IMPULSION sont blindages vaut zero
 	if(menaceCible->get_m_bouclier() == menaceCible->get_m_etat_bouclier()) 
@@ -131,8 +134,8 @@ void cannon::attaque_canon(zone *zone)
 {
 	if(!canon_used) // Le canon n'a pas été utilisé
 		return;
-	std::vector<menace*> VecMenaceCible = this->getmenace_vulnerables(zone);// cible potentielle ou la cible force!
-	menace *menaceCible = get_closest_menace_in_vector(VecMenaceCible);
+	std::vector<menace_externe*> VecMenaceCible = this->getmenace_Exte_vulnerables(zone);// cible potentielle ou la cible force!
+	menace_externe *menaceCible = get_closest_menace_in_vector(VecMenaceCible);
 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
 	{
 		std::cout << "[Pas de menace a portée du " << nom_cannon << " en " << zone->getz_nom_zone() << ".]\n";

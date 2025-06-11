@@ -25,7 +25,7 @@
 */
 
 class cannon;
-class menace;
+class menace_externe;
 class zone; // Forward declaration pour éviter les dépendances circulaires
 
 class cannon
@@ -49,7 +49,7 @@ class cannon
         void setnom_cannon(std::string input);
         void setcanon_used(bool input);
         bool getcanon_used();
-        std::vector<menace*> getmenace_vulnerables(zone* zone);
+        std::vector<menace_externe*> getmenace_Exte_vulnerables(zone* zone);
         int getpuissance_cannon() const;
         int getportee_cannon() const;
         int gettype_cannon() const;
@@ -57,8 +57,8 @@ class cannon
         void debuf_puissance_cannon(int debuf);
         void debuf_portee_cannon(int debuf);
         virtual void attaque_canon(zone *zone);
-        void infligeDegats(menace *menace); // inflige des dégâts à la menace
-        bool MenaceIsinCannonRange(menace *menace) const; 
+        void infligeDegats(menace_externe *menace); // inflige des dégâts à la menace
+        bool MenaceIsinCannonRange(menace_externe *menace) const; 
         ~cannon();
 };
 

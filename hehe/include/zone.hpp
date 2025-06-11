@@ -18,6 +18,7 @@ class zone
         cannon *z_cannon_bas;
         std::string z_nom_zone;
         chemin_menace *z_chemin_menace;
+        chemin_menace *z_chemin_menace_intern;
         bool z_bots;
         int z_zone;//NUMERO DE La ZONE
         int z_temps;//chelou ici
@@ -45,7 +46,6 @@ class zone
         std::vector<int>    z_actions_haut;
         std::vector<int>    z_actions_used_ce_tour_bas;
         std::vector<int>    z_actions_used_ce_tour_haut;
-        chemin_menace *z_chemin_menace_interne;
 
     public:
         //constr & destr
@@ -66,6 +66,7 @@ class zone
         void setz_cannon_bas(cannon *input);
         void setz_nom_zone(std::string input);
         void setz_chemin(chemin_menace *input);
+        void setz_chemin_intern(chemin_menace *input);
         void setz_bots(bool input);
         void setz_temps(int input);
         void setz_capsule_energie(int input);
@@ -90,7 +91,6 @@ class zone
         std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
-        chemin_menace *getz_chemin_menace_interne() const;
         cannon *getz_cannon_haut() const;
         cannon *getz_cannon_bas() const;
         std::string getz_joueur_playing() const;

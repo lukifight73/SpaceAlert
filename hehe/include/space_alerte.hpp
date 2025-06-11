@@ -13,6 +13,7 @@
 #include "SA_Struct.hpp"
 #include "SA_Class.hpp"
 class menace;
+class menace_externe;
 
 void wr(std::string str);
 std::string generateRandomString(int length);
@@ -33,3 +34,5 @@ menace* get_closest_menace_in_vector(std::vector<menace*> menaces);
 void revelerMenace(menace* menace);
 void end_color(zone *zone);
 void start_color(zone *zone);
+menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces);
+void revelerMenace(menace_externe* menace);

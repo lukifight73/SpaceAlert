@@ -1,5 +1,6 @@
 #include "space_alerte.hpp"
 #include "menace.hpp"
+#include "menace_externe.hpp"
 
 
 
@@ -83,11 +84,11 @@
 // }
 
 
-menace *getMenaceLaPlusProcheTouteZones(t_data &data)
+menace_externe *getMenaceLaPlusProcheTouteZones(t_data &data)
 {
-    menace *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
-    menace *menaceProcheR = data.zones[ZONE_RED]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
-    menace *menaceProcheW = data.zones[ZONE_WHITE]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
+    menace_externe *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
+    menace_externe *menaceProcheR = data.zones[ZONE_RED]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
+    menace_externe *menaceProcheW = data.zones[ZONE_WHITE]->getz_chemin_menace()->get_closest_menace_rocket_vulnerable();
 
     if (!menaceProcheB && !menaceProcheR && !menaceProcheW) 
         return nullptr; // Si aucune menace n'est trouvée, retourner nullptr
@@ -157,7 +158,7 @@ menace *getMenaceLaPlusProcheTouteZones(t_data &data)
         return nullptr; // Si aucune menace n'est trouvée, retourner nullptr
 }
 
-menace *getMenaceNonNull(menace* menace1, menace* menace2, menace* menace3)
+menace_externe *getMenaceNonNull(menace_externe* menace1, menace_externe* menace2, menace_externe* menace3)
 {
     if (!menace1 && !menace2 && menace3) 
         return menace3; // Si seulement menace3 est trouvée
@@ -169,7 +170,7 @@ menace *getMenaceNonNull(menace* menace1, menace* menace2, menace* menace3)
     return nullptr;
 }
 
-void infligeDegatsRocket(menace *menace)
+void infligeDegatsRocket(menace_externe *menace)
 {
 	// check imunity
 	if(3 > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
@@ -189,10 +190,10 @@ void infligeDegatsRocket(menace *menace)
 
 bool menace_attract_rocket(t_data &data, int rocketNumber)
 {
-    menace *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_menace_that_attracts_rocket();
-    menace *menaceProcheR = data.zones[ZONE_RED]->getz_chemin_menace()->get_menace_that_attracts_rocket();
-    menace *menaceProcheW = data.zones[ZONE_WHITE]->getz_chemin_menace()->get_menace_that_attracts_rocket();
-    menace *menaceAttract = nullptr;
+    menace_externe *menaceProcheB = data.zones[ZONE_BLUE]->getz_chemin_menace()->get_menace_that_attracts_rocket();
+    menace_externe *menaceProcheR = data.zones[ZONE_RED]->getz_chemin_menace()->get_menace_that_attracts_rocket();
+    menace_externe *menaceProcheW = data.zones[ZONE_WHITE]->getz_chemin_menace()->get_menace_that_attracts_rocket();
+    menace_externe *menaceAttract = nullptr;
     if (!menaceProcheB && !menaceProcheR && !menaceProcheW) 
         return false; // Si aucune menace n'est trouvée, retourner false
     if (getMenaceNonNull(menaceProcheB, menaceProcheR, menaceProcheW)) // une seule menace attire la roquette
@@ -247,7 +248,7 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
 
     if (menace_attract_rocket(data, rocketNumber))
         return ;
-    menace *menaceProche = getMenaceLaPlusProcheTouteZones(data);
+    menace_externe *menaceProche = getMenaceLaPlusProcheTouteZones(data);
     //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10) 
     {
