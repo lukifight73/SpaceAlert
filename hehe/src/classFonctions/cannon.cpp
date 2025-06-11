@@ -86,15 +86,15 @@ void cannon::infligeDegats(menace *menace)
 	if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
 	{
 		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
+		std::cout << "[Le " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
 		menace->set_m_etat_bouclier(0); // Bouclier épuisé
 		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
-		std::cout << "[Le " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
 	}
 	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
 	{
 		int etatBouclierRestant = menace->get_m_etat_bouclier() - puissance_cannon;
-		menace->set_m_etat_bouclier(etatBouclierRestant);
 		std::cout << "[Le " << nom_cannon << " inflige " << puissance_cannon << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
+		menace->set_m_etat_bouclier(etatBouclierRestant);
 	}
 	canon_used = true; // Le canon a été utilisé
 

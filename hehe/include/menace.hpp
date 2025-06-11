@@ -197,6 +197,7 @@ class menace
         
         virtual ~menace();
 
-        void messageAttaqueMenace(int degats)
-}
+        void messageAttaqueMenace(int degats);
+        void messageBufferMenace(std::string &string, int degats);
+        void messageMenaceZone(int degats, zone *zone);
 };

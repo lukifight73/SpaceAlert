@@ -175,15 +175,15 @@ void infligeDegatsRocket(menace *menace)
 	if(3 > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
 	{
 		int degatsInfliges = 3 - menace->get_m_etat_bouclier();
-		menace->set_m_etat_bouclier(0); // Bouclier épuisé
-		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
 		std::cout << "[La  Rocket inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
+        menace->set_m_etat_bouclier(0); // Bouclier épuisé
+		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
 	}
 	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
 	{
+        std::cout << "[La  Rocket inflige " << 3 << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
 		int etatBouclierRestant = menace->get_m_etat_bouclier() - 3;
 		menace->set_m_etat_bouclier(etatBouclierRestant);
-		std::cout << "[La  Rocket inflige " << 3 << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
 	}
 }
 
@@ -251,8 +251,8 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
     //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10) 
     {
-        infligeDegatsRocket(menaceProche);
         std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
+        infligeDegatsRocket(menaceProche);
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
     }
     else

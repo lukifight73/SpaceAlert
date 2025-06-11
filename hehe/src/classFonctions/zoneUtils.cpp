@@ -67,19 +67,28 @@ void zone::retarderactionZone()
 
 void zone::etatdesdegats()
 {
+
+	if (z_zone == 1)
+        std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
+    else if (z_zone == 2)
+        std::cout << "\033[1;37m[DEGATS ZONE BLANCHE]\n";
+    else if (z_zone == 3)
+	{
+        std::cout << "\033[1;36m[DEGATS ZONE BLEUE]\n";
+	}
 	z_degats_recu++;
 	if(z_degats_recu > 6)
 	{
-		wr("[///////!!!!!\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]");
+		std::cout << "[///////!!!!!\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]";
 	}
 	int degat = z_ordre_degats[z_degats_recu];
 	if (degat == 1)
 	{
-		wr("[Le vaisseau a recu des degats mais ils sont negligeables!]");
+		std::cout << "[Le vaisseau a recu des degats mais ils sont negligeables!]";
 	}
 	else if (degat == 2)
 	{
-		std::cout << "[Le vaisseau a recu des degats et l'ascenseur de la " << z_nom_zone << " est endommage !]\n";
+		std::cout << "[Le vaisseau a recu des degats et l'ascenseur de la " << z_nom_zone << " est endommage !]";
 		this->removez_actions_bas(DIR_A);
 		this->removez_actions_haut(DIR_A);
 	}
@@ -87,7 +96,7 @@ void zone::etatdesdegats()
 	{
 		std::cout << "[Le vaisseau a recu des degats et le canon lazer lourd de la " << z_nom_zone << " est endommage !]\n";
 		z_cannon_haut->setpuissance_cannon(z_cannon_haut->getpuissance_cannon() - 1);
-		std::cout << "[Ce canon lourd a desormais une puissance de " << z_cannon_haut->getpuissance_cannon() << " !]\n";
+		std::cout << "------> [Ce canon lourd a desormais une puissance de " << z_cannon_haut->getpuissance_cannon() << " !]";
 	}
 	else if (degat == 4)
 	{
@@ -97,7 +106,7 @@ void zone::etatdesdegats()
 		{
 			z_reacteur = z_max_reacteur;
 		}
-		std::cout << "[Ce reacteur a desormais une capacite de " << z_max_reacteur << " !]\n";
+		std::cout << "------> [Ce reacteur a desormais une capacite de " << z_max_reacteur << " !]";
 	}
 	else if (degat == 5)
 	{
@@ -107,7 +116,7 @@ void zone::etatdesdegats()
 		{
 			z_bouclier = z_max_energie_bouclier;
 		}
-		std::cout << "[Ce bouclier a desormais une capacite de " << z_max_reacteur << " !]\n";
+		std::cout << "------> [Ce bouclier a desormais une capacite de " << z_max_energie_bouclier << " !]";
 	}
 	else
 	{
@@ -115,15 +124,16 @@ void zone::etatdesdegats()
 		{
 			std::cout << "[Le vaisseau a recu des degats et le canon a impulsion de la " << z_nom_zone << " est endommage !]\n";
 			z_cannon_bas->setportee_cannon(z_cannon_bas->getportee_cannon() - 5);
-			std::cout << "[Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]\n";
+			std::cout << "------> [Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]";
 		}
 		else
 		{
 			std::cout << "[Le vaisseau a recu des degats et le canon laser leger de la " << z_nom_zone << " est endommage !]\n";
 			z_cannon_bas->setpuissance_cannon(z_cannon_bas->getpuissance_cannon() - 1);
-			std::cout << "[Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]\n";
+			std::cout << "------> [Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]";
 		}
 	}
+	std::cout << "\033[0m\n";
 }
 
 void zone::getdegats(int input)

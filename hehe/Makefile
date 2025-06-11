@@ -38,6 +38,7 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/jeux.cpp \
 				classFonctions/joueur.cpp \
 				classFonctions/menace.cpp \
+				classFonctions/menace_msg.cpp \
 				classFonctions/menace_actions.cpp \
 				classFonctions/menace_interne.cpp \
 				classFonctions/zoneGetSet.cpp \

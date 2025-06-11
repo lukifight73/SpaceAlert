@@ -134,10 +134,12 @@ void	play_game(t_data &data)
 		actionMenaceDebutTour(data);
 		while (num_joueur <= data.nb_joueur)
 		{
+			start_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
 			std::cout << "----------------------------------- JOUEUR n " << num_joueur << " playing : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
 			setPlayerEngaged(data, data.joueurs[num_joueur]->getj_nom());
 			action_joueur(data, num_joueur);
 			std::cout << "----------------------------------- fin tour joueur n " << num_joueur << " : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
+			end_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
 			num_joueur++;
 		}
 		attaqueDesCanons(data); // remplace les deux d apres

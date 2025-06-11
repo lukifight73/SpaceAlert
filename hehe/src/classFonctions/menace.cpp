@@ -303,12 +303,15 @@ menace::menace(std::string input, int tourDarrivee)
 
 void menace::send_announcement_message() const
 {
+    start_color(m_zone);
     std::cout << "[Attention, la menace " << m_name << " vient d'arriver !]\n";
     std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << ", Bouclier : " << m_bouclier << "]" << std::endl;
+    end_color(m_zone);
 }
 
 void menace::print_menace() const
 {
+    start_color(m_zone);
     std::cout << "Menace : " << m_name << std::endl;
     std::cout << "Tour d'arrivée : " << m_tourDarrivee << std::endl;
     std::cout << "Position : " << m_position << std::endl;
@@ -324,6 +327,7 @@ void menace::print_menace() const
     {
         std::cout << "Canon utilisé contre elle : " << (*it)->getnom_cannon() << std::endl;
     }
+    end_color(m_zone);
 }
 
 void menace::actionMenace(char input)
@@ -332,7 +336,14 @@ void menace::actionMenace(char input)
 }
 
 void menace::actionQuandDetruit() {
-    std::cout << "[La menace " << m_name << " a été détruite.]\n";
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    if (m_zone->getz_zone() == 1)
+        std::cout << "\033[1;31m";
+    else if (m_zone->getz_zone() == 2)
+        std::cout << "\033[1;37m";
+    else if (m_zone->getz_zone() == 3)
+        std::cout << "\033[1;36m";
+    std::cout << "[La menace " << m_name << " en " << m_zone << " a été détruite.]\033[0m\n";
 }
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
@@ -411,7 +422,8 @@ void menace::regeneration(int input)
     if (m_vie > m_max_vie) {
         m_vie = m_max_vie; // Ne pas dépasser la vie maximale
     }
-    std::cout << "[La menace " << m_name << " se régénère de " << input << " points de vie. Vie actuelle : " << m_vie << "]" << std::endl;
+    std::string msg = "[La menace " + m_name + " se régénère de " + std::to_string(input) + " points de vie. Vie actuelle : " + std::to_string(m_vie) + "!]";
+    messageBufferMenace(msg, -1);
 }
 
 // combien de X, Y, Z ont été jusqu'à présent traversés par la menace
@@ -433,7 +445,13 @@ void menace::recoitDegats(int input)
     if (m_vie < 0) {
         m_vie = 0;
     }
-    std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]" << std::endl;
+    if (m_zone->getz_zone() == 1)
+        std::cout << "\033[1;31m";
+    else if (m_zone->getz_zone() == 2)
+        std::cout << "\033[1;37m";
+    else if (m_zone->getz_zone() == 3)
+        std::cout << "\033[1;36m";
+    std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]\033[0m" << std::endl;
     if (m_vie == 0) {
         actionQuandDetruit();
         m_presence = false; // La menace n'est plus présente

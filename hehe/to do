@@ -1,40 +1,40 @@
 MENACES EXTERNES SERIEUSES #done
 
-se1-06 Pieuvre interstellaire#done
+se1-06 Pieuvre interstellaire#done#toutmarche
 -> !roquettes
 X->si 1 degat ou plus, attaque 1 sur toutes les zones
 Y->si 1 degat ou plus, attaque 2 sur toutes les zones
 Z->attaque 2 par point de vie restant
 
-se1-07 Maelstrom#done
+se1-07 Maelstrom#done#toutmarche
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 2 sur les deux autres zones
 Z->Attaque 3 sur les deux autres zones
 
-se1-04 Satellite a impulsion #done
+se1-04 Satellite a impulsion #done#toutmarche
 ->ne peut etre pris pour cible a une distance de 3##
 X->attaque 1 sur toutes les zones
 Y->attaque 2 sur toutes les zones
 Z->attaque 3 sur toutes les zones
 
-se1-03 Ravitailleur Leviathan #done
+se1-03 Ravitailleur Leviathan #done#toutmarche
 -> auqnd il est detruit, inflige 1 degat a toutes les autres menaces externes
 X->attaque 2
 Y->attaque 2 / recupere 2 points de vie 
 Z->attaque 2
 
-se1-02 Man of War #done
+se1-02 Man of War #done#toutmarche
 X -> Attaque 1 / vitesse +1
 Y -> Attaque 3 / bouclier +1
 Z -> Attaque 5
 
-se1-08 Asteroide #done
+se1-08 Asteroide #done#toutmarche
 ->!roquettes
 ->quand il est detruit, attaque 2 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-se1-05 Fregate a Cryoprotection#done
+se1-05 Fregate a Cryoprotection#done--> il faut calculer les degats et les envoyer d'un seul coup sur la menace, juste rajouter cette variable dans menace.
 -> lorsqu elle est touchee pour la premiere fois, elle ne subit pas de degats
 X-> attaque 2
 Y-> attaque 3
@@ -90,28 +90,28 @@ Z->attaque 7
 
 MENACES EXTERNES COMMUNES #done
 
-e1-08 Constricteur Blinde#done
+e1-08 Constricteur Blinde#done 
 X->attaque 1
 Y->Repare 1 point de vie
 Z->attaque 4
 
-e1-02 Destroyer#done
+e1-02 Destroyer#done V2 D2 V5
 ->double les degats qui transpercent le bouclier
 X->attaque 1
 Y->attaque 2
 Z->attaque 2
 
-e1-07 Chasseur#done
+e1-07 Chasseur#done V3 D2 V4
 X->attaque 1
 Y->attaque 2
 Z->attaque 3
 
-e1-05 Vaisseau de combat#done
+e1-05 Vaisseau de combat#done V2 D2 V5
 X->attaque 2
 Y->attaque 2
 Z->attaque 3
 
-e1-10 Meteorite#done
+e1-10 Meteorite#done V5 D0 V5
 ->!roquettes
 Z->attaque egale au nombre de ses points de vie restants
 

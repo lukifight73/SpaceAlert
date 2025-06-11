@@ -31,3 +31,5 @@ void check_maintenance(t_data &data);
 void attaqueDesCanons(t_data &data);
 menace* get_closest_menace_in_vector(std::vector<menace*> menaces);
 void revelerMenace(menace* menace);
+void end_color(zone *zone);
+void start_color(zone *zone);
