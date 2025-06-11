@@ -1,25 +1,33 @@
 #include "chemin_menace.hpp"
-#include "menace.hpp"  
+#include "menace.hpp"
+#include "menace_externe.hpp"
+#include "menace_interne.hpp"     
 
 chemin_menace::chemin_menace()
 {
 }
 
+void chemin_menace::add_menaceInt(menace_interne *input)
+{
+    input->setm_position(get_ch_chemin_size()); // On place la menace a la fin du chemin
+    ch_menacesInte.push_back(input);
+}
+
 // arrive a la fin du chemin
-void chemin_menace::add_menace(menace *input) {
+void chemin_menace::add_menaceExte(menace_externe *input) {
     input->setm_position(get_ch_chemin_size()); // On place la menace a la fin du chemin
     if (input->get_m_position() == 10 && input->get_m_name().find("Satellite") != std::string::npos)
         input->set_m_revele(true);
-    ch_menaces.push_back(input);
+    ch_menacesExte.push_back(input);
 }
 
-menace* chemin_menace::get_menace_that_attracts_rocket()
+menace_externe* chemin_menace::get_menace_that_attracts_rocket()
 {
-    if (ch_menaces.empty()) {
+    if (ch_menacesExte.empty()) {
         wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
-    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); it++)
     {
         if ((*it)->get_m_presence() == false || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
         {
@@ -36,15 +44,15 @@ menace* chemin_menace::get_menace_that_attracts_rocket()
     return (nullptr);
 }
 
-menace* chemin_menace::get_closest_menace_rocket_vulnerable() 
+menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable() 
 {
-    if (ch_menaces.empty()) {
+    if (ch_menacesExte.empty()) {
         wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
-    menace *menaceProche = nullptr;
-    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
+    menace_externe *menaceProche = nullptr;
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); it++)
     {
         if ((*it)->get_m_presence() == false || !(*it)->get_m_vulnerable_roquette() || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
         {
@@ -66,13 +74,13 @@ menace* chemin_menace::get_closest_menace_rocket_vulnerable()
 
 menace* chemin_menace::get_closest_menace() 
 {
-    if (ch_menaces.empty()) {
+    if (ch_menacesExte.empty()) {
         wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
     menace *menaceProche = nullptr;
-    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); it++)
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); it++)
     {
         if ((*it)->get_m_presence() == false || (*it)->get_m_revele() == false) // Si la menace n'est pas presente, on passe a la suivante
         {
@@ -93,10 +101,10 @@ menace* chemin_menace::get_closest_menace()
 }
 
 void chemin_menace::remove_menace(menace *input) {
-    for (auto it = ch_menaces.begin(); it != ch_menaces.end(); ++it) {
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); ++it) {
         if (*it == input) {
             delete (*it); // Libération de la mémoire
-            ch_menaces.erase(it); // Suppression de l'élément du vecteur
+            ch_menacesExte.erase(it); // Suppression de l'élément du vecteur
             return;
         }
     }

@@ -1,5 +1,7 @@
 #include "space_alerte.hpp"
 #include "menace.hpp"
+#include "menace_externe.hpp"
+#include "menace_interne.hpp"
 
 void remove_dead_or_outdated_menaces(t_data &data)
 {
@@ -7,8 +9,8 @@ void remove_dead_or_outdated_menaces(t_data &data)
     while (i < 4) 
     {
         chemin_menace *chemin = data.zones[i]->getz_chemin_menace();
-        std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end();) 
+        std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end();) 
         {
             if ((*it)->get_m_position() <= 0 || (*it)->get_m_vie() <= 0) 
             {
@@ -20,7 +22,7 @@ void remove_dead_or_outdated_menaces(t_data &data)
     }
 }
 
-void revelerMenace(menace* menace)
+void revelerMenace(menace_externe* menace)
 {
     if (menace->get_m_name().find("Satellite") != std::string::npos && menace->get_m_position() <= 10) // SURCHARGE
         menace->set_m_revele(true);
@@ -32,8 +34,8 @@ void mouvement_menaces(t_data &data)
     int i = 1;
     while (i < 4) 
     {
-        std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->get_m_presence()) 
             {
@@ -55,8 +57,8 @@ void apparitionMenaces(t_data &data)
     int i = 1;
     while (i < 4) 
     {
-        std::vector<menace*> tmp = data.zones[i]->getz_chemin_menace()->get_menaces();
-        for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
         {
             if ((*it)->get_m_tourDarrivee() == data.tour)
             {
@@ -68,4 +70,11 @@ void apparitionMenaces(t_data &data)
         }
         i++;
     }
+    std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	{
+		std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+        (*it)->set_m_presence(true);
+        (*it)->send_announcement_message();
+	}
 }

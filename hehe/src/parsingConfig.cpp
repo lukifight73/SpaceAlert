@@ -15,7 +15,6 @@ void pars_chemin_menaceInt(t_data &data, std::string chemin_menace_str)
         if (iss >> typeChemin) {
             chemin_menace *new_chemin_menace = new chemin_menace(typeChemin);
             data.chemin_menace_interne = new_chemin_menace;
-            
             data.zones[ZONE_RED]->setz_chemin_intern(new_chemin_menace);
             data.zones[ZONE_WHITE]->setz_chemin_intern(new_chemin_menace);
             data.zones[ZONE_BLUE]->setz_chemin_intern(new_chemin_menace);
@@ -54,7 +53,7 @@ void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
     }
 }
 
-menace *create_menaceE(std::string typeMenace, int tempsArrivee)
+menace_externe *create_menaceE(std::string typeMenace, int tempsArrivee)
 {
     if (typeMenace == "se1-01") {
         return new menace_se1_01(typeMenace, tempsArrivee);
@@ -151,7 +150,7 @@ menace *create_menaceE(std::string typeMenace, int tempsArrivee)
     }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
-        return new menace(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur
+        return new menace_externe(typeMenace, tempsArrivee);; // Retourne un pointeur nul en cas d'erreur
     }
 }
 
@@ -179,41 +178,44 @@ void parsMenace(t_data &data, std::string menace_str)
     int tempsArrivee;
     std::string nomZone;
     std::string typeMenace;
-    menace *new_menace(NULL);
+    menace_externe *new_menace(NULL);
+    menace_interne *new_menaceInt(NULL);
 
     if (iss >> typeMenace >> tempsArrivee >> nomZone) {
         if (menace_keyword == "menaceE")
         {
             new_menace = create_menaceE(typeMenace, tempsArrivee);
+            if(nomZone == "ZONE_RED")
+            {
+                data.zones[ZONE_RED]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_RED]);
+                new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
+            }
+            else if(nomZone == "ZONE_WHITE")
+            {
+                data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_WHITE]);
+                new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
+            }
+            else if(nomZone == "ZONE_BLUE")
+            {
+                data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menaceExte(new_menace);
+                new_menace->set_m_zone(data.zones[ZONE_BLUE]);
+                new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
+            }
+            else {
+            std::cerr << "Erreur: " << menace_str << std::endl;
+            delete new_menace; // Nettoyage en cas d'erreur
+            }
         }
         else if(menace_keyword == "menaceI")
         {
-            new_menace = create_menaceI(typeMenace, tempsArrivee);
-        }
-        if(nomZone == "ZONE_RED")
-        {
-            data.zones[ZONE_RED]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_RED]);
-            new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
-        }
-        else if(nomZone == "ZONE_WHITE")
-        {
-            data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_WHITE]);
-            new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
-        }
-        else if(nomZone == "ZONE_BLUE")
-        {
-            data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menace(new_menace);
-            new_menace->set_m_zone(data.zones[ZONE_BLUE]);
-            new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
-        }
-        else {
-            std::cerr << "Erreur: Zone inconnue " << nomZone << std::endl;
-            delete new_menace; // Nettoyage en cas d'erreur
+            new_menaceInt = create_menaceI(typeMenace, tempsArrivee);
+            data.chemin_menace_interne->add_menaceInt(new_menaceInt);
         }
     }
 }
+
 
 int get_nb_actions(std::string nomAction)
 {

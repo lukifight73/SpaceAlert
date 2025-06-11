@@ -1,6 +1,7 @@
 #include "zone.hpp"
 #include "chemin_menace.hpp"
 #include "menace.hpp" 
+#include "menace_externe.hpp" 
 
 void zone::addtemps()
 {
@@ -303,6 +304,6 @@ void zone::printZone()
 	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
 	wr("Joueur en jeu : " + z_joueur_playing);
 	wr("chemin_menace : " + z_chemin_menace->get_ch_nom());
-	wr("Menaces : " + z_chemin_menace->get_menaces()[0]->get_m_name());
+	wr("Menaces : " + z_chemin_menace->get_menacesExte()[0]->get_m_name());
 	wr("--------- ZONE END---------");
 }

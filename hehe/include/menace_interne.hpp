@@ -9,8 +9,9 @@ class menace_interne :public menace
 
     public:
         menace_interne();
-        menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee) {};
-        ~menace_interne();
+        menace_interne(std::string input, int tourDarrivee);
+        virtual void print_menace() const;
+        virtual ~menace_interne();
 };
 
 class menace_interne_i1_01 :public menace_interne

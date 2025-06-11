@@ -40,6 +40,7 @@ SRC_FILES	=	classFonctions/cannon.cpp \
 				classFonctions/menace.cpp \
 				classFonctions/menace_actions.cpp \
 				classFonctions/menace_interne.cpp \
+				classFonctions/menace_externe.cpp \
 				classFonctions/zoneGetSet.cpp \
 				classFonctions/zoneActDir.cpp \
 				classFonctions/zoneActAct.cpp \

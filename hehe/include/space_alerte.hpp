@@ -13,6 +13,7 @@
 #include "SA_Struct.hpp"
 #include "SA_Class.hpp"
 class menace;
+class menace_externe;
 
 void wr(std::string str);
 std::string generateRandomString(int length);
@@ -29,5 +30,5 @@ void rocketActions(t_data &data);
 void impactDegatsTotaux(t_data &data);
 void check_maintenance(t_data &data);
 void attaqueDesCanons(t_data &data);
-menace* get_closest_menace_in_vector(std::vector<menace*> menaces);
-void revelerMenace(menace* menace);
+menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces);
+void revelerMenace(menace_externe* menace);

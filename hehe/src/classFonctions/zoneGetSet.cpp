@@ -59,7 +59,7 @@ void zone::setz_chemin(chemin_menace *input)
 
 void zone::setz_chemin_intern(chemin_menace *input)
 {
-	z_chemin_menace_interne = input;
+	z_chemin_menace_intern = input;
 }
 
 void zone::setz_bots(bool input)
@@ -215,10 +215,6 @@ std::vector<int>    zone::getz_actions_used_ce_tour_haut() const
 
 chemin_menace* zone::getz_chemin_menace() const {
 	return (z_chemin_menace);
-}
-
-chemin_menace *zone::getz_chemin_menace_interne() const {
-	return (z_chemin_menace_interne);
 }
 
 bool zone::getz_ascenseur() const
