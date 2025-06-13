@@ -20,7 +20,7 @@ bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const
 
 void menace_interne::getDamage(joueur *joueur)
 {
-    joueur->setj_bots(joueur->getj_bots());
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
     m_vie--;
     if(m_vie <= 0)
     {
@@ -31,7 +31,8 @@ void menace_interne::getDamage(joueur *joueur)
 
 menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
-
+    // m_position_haut = true;
+    // m_killAction = ACT_R;
     if(input == "i1-01")
     {
         m_position_haut = true;

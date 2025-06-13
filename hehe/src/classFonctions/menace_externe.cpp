@@ -5,6 +5,7 @@
 menace_externe::menace_externe(std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
     m_attraction_roquette = false;
+    m_degats = 0;
     m_vulnerable_roquette = true;
     m_buff_blindage = 0;
     m_revele = true;
