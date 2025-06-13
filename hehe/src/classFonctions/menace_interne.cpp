@@ -10,7 +10,7 @@ void menace_interne::print_menace() const {
     std::cout << "La menace interne est en haut? : " << m_position_haut << std::endl;
 }
 
-bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const 
+bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const
 {
     if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
         return true;
@@ -20,6 +20,7 @@ bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const
 
 void menace_interne::getDamage(joueur *joueur)
 {
+    joueur->setj_bots(joueur->getj_bots());
     m_vie--;
     if(m_vie <= 0)
     {
@@ -50,9 +51,9 @@ void menace_interne_i1_02::getDamage(joueur *joueur)
     }
 }
 
-menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee) 
+menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
-    
+
     if(input == "i1-01")
     {
         m_position_haut = true;
