@@ -81,21 +81,21 @@ void menace_interne_i1_01::getDamage(joueur *joueur)
     }
 }
 
-void menace_interne_i1_01::actionMenace(char input) 
+void menace_interne_i1_01::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->set_m_zone(this->get_m_zone()->getzone_right());
         this->set_m_zoneInt(ZONE_WHITE);
         std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
         this->setPositionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(3);
         std::string msg = "[La menace " + m_name + " inflige 3 degats a la " + m_zone->getz_nom_zone() + " .]\n";
@@ -116,21 +116,21 @@ void menace_interne_i1_02::getDamage(joueur *joueur)
     }
 }
 
-void menace_interne_i1_02::actionMenace(char input) 
+void menace_interne_i1_02::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
         this->set_m_zoneInt(ZONE_WHITE);
         std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
         this->setPositionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(3);
         std::string msg = "[La menace " + m_name + " inflige 3 degats a la " + m_zone->getz_nom_zone() + " .]\n";
@@ -140,18 +140,18 @@ void menace_interne_i1_02::actionMenace(char input)
     }
 }
 
-void menace_interne_i1_03::actionMenace(char input) 
+void menace_interne_i1_03::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->set_m_zone(this->get_m_zone()->getzone_right());
         this->set_m_zoneInt(ZONE_BLUE);
         std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
-        std::string msg = ""; 
+        std::string msg = "";
         if(m_zone->getz_reacteur() > 0)
         {
             m_zone->setz_reacteur(m_zone->getz_reacteur() -1);
@@ -163,7 +163,7 @@ void menace_interne_i1_03::actionMenace(char input)
             msg = "[La menace " + m_name + " inflige 1 degats a la " + m_zone->getz_nom_zone() + " .]\n";
         }
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
         std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
@@ -173,18 +173,18 @@ void menace_interne_i1_03::actionMenace(char input)
     }
 }
 
-void menace_interne_i1_04::actionMenace(char input) 
+void menace_interne_i1_04::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
         this->set_m_zoneInt(ZONE_RED);
         std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
-        std::string msg = ""; 
+        std::string msg = "";
         if(m_zone->getz_reacteur() > 0)
         {
             m_zone->setz_reacteur(m_zone->getz_reacteur() -1);
@@ -196,7 +196,7 @@ void menace_interne_i1_04::actionMenace(char input)
             msg = "[La menace " + m_name + " inflige 1 degats a la " + m_zone->getz_nom_zone() + " .]\n";
         }
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
         std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";

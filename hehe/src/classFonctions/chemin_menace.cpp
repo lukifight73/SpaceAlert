@@ -108,6 +108,13 @@ void chemin_menace::remove_menace(menace *input) {
             return;
         }
     }
+    for (auto it = ch_menacesInte.begin(); it != ch_menacesInte.end(); ++it) {
+        if (*it == input) {
+            delete (*it); // Libération de la mémoire
+            ch_menacesInte.erase(it); // Suppression de l'élément du vecteur
+            return;
+        }
+    }
 }
 
 chemin_menace::chemin_menace(std::string input)

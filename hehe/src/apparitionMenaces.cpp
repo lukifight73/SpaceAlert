@@ -15,19 +15,25 @@ void remove_dead_or_outdated_menaces(t_data &data)
             if ((*it)->get_m_position() <= 1 || (*it)->get_m_vie() <= 0)
             {
                 chemin->remove_menace(*it); // Suppression de la menace du chemin
+                it = tmp.erase(it);
             }
-            ++it; // Avance l'itérateur si l'élément n'est pas supprimé
+            else
+                ++it; // Avance l'itérateur si l'élément n'est pas supprimé
         }
         i++;
     }
     chemin_menace *chemin_interne = data.chemin_menace_interne;
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end();)
 	{
 		if ((*it)->get_m_position() <= 1 || (*it)->get_m_vie() <= 0)
         {
+            std::cout << "iccccccccccccccccccccccccccccccc" << std::endl;
             chemin_interne->remove_menace(*it); // Suppression de la menace du chemin
+            it = tmp.erase(it);
         }
+        else
+            ++it;
 	}
 }
 
@@ -94,8 +100,11 @@ void apparitionMenaces(t_data &data)
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
-        (*it)->set_m_presence(true);
-        (*it)->send_announcement_message();
+        if ((*it)->get_m_tourDarrivee() == data.tour)
+        {
+		    std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+            (*it)->set_m_presence(true);
+            (*it)->send_announcement_message();
+        }
 	}
 }
