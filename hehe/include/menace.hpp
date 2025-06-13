@@ -23,6 +23,7 @@ class menace
     
     chemin_menace *m_chemin; // chemin de la menace
     zone *m_zone; // zone de la menace
+    int m_zoneInt;
     
 
     public:
@@ -51,6 +52,14 @@ class menace
         };
         zone *get_m_zone() const {
             return m_zone;
+        };
+
+        void set_m_zoneInt(int input) {
+            m_zoneInt = input;
+        };
+        
+        int get_m_zoneInt() const {
+            return m_zoneInt;
         };
         chemin_menace *get_m_chemin() const {
             return m_chemin;

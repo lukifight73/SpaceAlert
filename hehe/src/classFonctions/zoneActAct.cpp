@@ -1,4 +1,5 @@
 #include "zone.hpp"
+#include "menace_interne.hpp"
 
 void zone::actionA()
 {
@@ -277,56 +278,98 @@ void zone::actionBHeros()
 	}
 }
 
+menace_interne* zone::checkIfMenaceInternAttrackAction(int joueurAction, int Zone, bool haut)
+{
+	std::vector<menace_interne*> tmp = this->getz_chemin_menace_Int()->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	{
+		if((*it)->AttractAction(joueurAction, Zone, haut))
+			return (*it); // si on veut optimiser il faut checker s il y en a plusieur!!
+	}
+	return NULL;
+}
+
 void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois du tour 1 a 3, puis une fois du tour 4 a 6  et une fois du tour 7 a 9 -> a actualiser dans getz_actions_haut donc fin tour 3, 6 et 9 il faudra la reset des actions possibles.
 {
+	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
 		if (z_zone == ZONE_WHITE)
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_C);
-			if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_WHITE, 1);
+			if(menaceInt)
 			{
-				z_maintenance_ordinateur.push_back(this->getz_temps());
-				wr("[Bravo! Vous avez fait la maintenance! (elle genere toujours autant d'enthousiasme celle la)]");
-				this->addz_actions_used_ce_tour_haut(ACT_C);
-				//this->removez_actions_haut(ACT_C);
+				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
 			}
-			else if (action_possible == this->getz_actions_haut().end())
-				wr("[Impossible de faire la maintenance maintenant!]");
 			else
-				wr("[Vous etes deux a faire la maintenance.......]");
+			{
+				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
+				const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_C);
+				if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+				{
+					z_maintenance_ordinateur.push_back(this->getz_temps());
+					wr("[Bravo! Vous avez fait la maintenance! (elle genere toujours autant d'enthousiasme celle la)]");
+					this->addz_actions_used_ce_tour_haut(ACT_C);
+					//this->removez_actions_haut(ACT_C);
+				}
+				else if (action_possible == this->getz_actions_haut().end())
+					wr("[Impossible de faire la maintenance maintenant!]");
+				else
+					wr("[Vous etes deux a faire la maintenance.......]");
+			}
 		}
 		if (z_zone == ZONE_BLUE)//a finaliser il faut ajouter les robots au joueur
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-			if (action_possible != this->getz_actions_haut().end())
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_BLUE, 1);
+			if(menaceInt)
 			{
-				if (z_bots)
-				{
-					wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
-					z_bots = false;
-				}
-				else
-				{
-					wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
-				}
+				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
 			}
 			else
 			{
-				wr("[Impossible de prendre les robots a ce tour, dommage!]");
+				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
+				if (action_possible != this->getz_actions_haut().end())
+				{
+					if (z_bots && this->getz_joueur_haut(z_joueur_playing)->getj_bots() == 0)
+					{
+						wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
+						z_bots = false;
+						this->getz_joueur_haut(z_joueur_playing)->setj_bots(1);
+					}
+					else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == 2)
+					{
+						wr("[Vous reactivez les robots qui vous accompagnent!]");
+						this->getz_joueur_haut(z_joueur_playing)->setj_bots(1);
+					}
+					else
+					{
+						wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
+					}
+				}
+				else
+				{
+					wr("[Impossible de prendre les robots a ce tour, dommage!]");
+				}
 			}
 		}
 		if (z_zone == ZONE_RED)//a finaliser
 		{
-			const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-			if (action_possible != this->getz_actions_haut().end())
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_RED, 1);
+			if(menaceInt)
 			{
-				wr("[Vous vous envolez avec les robots dans l'espace!!]");
+				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
 			}
 			else
 			{
-				wr("[Impossible de prendre les vaisseaux a ce tour, dommage!]");
+				const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
+				if (action_possible != this->getz_actions_haut().end())
+				{
+					wr("[Vous vous envolez avec les robots dans l'espace!!]");
+				}
+				else
+				{
+					wr("[Impossible de prendre les vaisseaux a ce tour, dommage!]");
+				}
 			}
 		}
 	}
@@ -334,65 +377,95 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 	{
 		if (z_zone == ZONE_BLUE)
 		{
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_C);
-			const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
-			if (action_ce_tour == this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end())
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_BLUE, 0);
+			if(menaceInt)
 			{
-				if (z_roquete_position[1] == 0)
-				{
-					wr("[Lancement de la premiere rocket !]");
-					z_roquete_position[1] = 1;
-					this->addz_actions_used_ce_tour_bas(ACT_C);
-				}
-				else if (z_roquete_position[2] == 0)
-				{
-					wr("[Lancement de la seconde rocket !]");
-					z_roquete_position[2] = 1;
-					this->addz_actions_used_ce_tour_bas(ACT_C);
-				}
-				else if (z_roquete_position[3] == 0)
-				{
-					wr("[Lancement de la troisieme rocket !]");
-					z_roquete_position[3] = 1;
-					this->addz_actions_used_ce_tour_bas(ACT_C);
-				}
-				else
-				{
-					wr("[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]");
-				}
+				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
 			}
-			else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end())
+			else
 			{
-				wr("[Mais coordonnez vous bordel]");
-			}
-			else if (action_possible == this->getz_actions_bas().end())
-			{
-				wr("[Impossible de lancer les roquettes]");
+				const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_C);
+				const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
+				if (action_ce_tour == this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end())
+				{
+					if (z_roquete_position[1] == 0)
+					{
+						wr("[Lancement de la premiere rocket !]");
+						z_roquete_position[1] = 1;
+						this->addz_actions_used_ce_tour_bas(ACT_C);
+					}
+					else if (z_roquete_position[2] == 0)
+					{
+						wr("[Lancement de la seconde rocket !]");
+						z_roquete_position[2] = 1;
+						this->addz_actions_used_ce_tour_bas(ACT_C);
+					}
+					else if (z_roquete_position[3] == 0)
+					{
+						wr("[Lancement de la troisieme rocket !]");
+						z_roquete_position[3] = 1;
+						this->addz_actions_used_ce_tour_bas(ACT_C);
+					}
+					else
+					{
+						wr("[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]");
+					}
+				}
+				else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end())
+				{
+					wr("[Mais coordonnez vous bordel]");
+				}
+				else if (action_possible == this->getz_actions_bas().end())
+				{
+					wr("[Impossible de lancer les roquettes]");
+				}
 			}
 		}
 		if (z_zone == ZONE_RED)//a finaliser il faut ajouter les robots au joueur
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_RED, 0);
+			if(menaceInt)
+			{
+				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+			}
+			else
+			{
+				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
 			if (action_possible != this->getz_actions_bas().end())
 			{
-				if (z_bots)
+				if (z_bots && this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 0)
 				{
 					wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
 					z_bots = false;
+					this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
+				}
+				else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 2)
+				{
+					wr("[Vous reactivez les robots qui vous accompagnent!]");
+					this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
 				}
 				else
 				{
 					wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
 				}
-			}
-			else
-			{
-				wr("[Impossible de prendre les robots a ce tour, dommage!]");
+				}
+				else
+				{
+					wr("[Impossible de prendre les robots a ce tour, dommage!]");
+				}
 			}
 		}
 		if (z_zone == ZONE_WHITE)
 		{
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_RED, 0);
+			if(menaceInt)
+			{
+				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+			}
+			else
+			{
 			//a faire
+			}
 		}
 	}
 }
