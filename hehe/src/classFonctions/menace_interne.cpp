@@ -28,28 +28,6 @@ void menace_interne::getDamage(joueur *joueur)
     }
 }
 
-void menace_interne_i1_01::getDamage(joueur *joueur)
-{
-    m_vie--;
-    if(m_vie <= 0)
-    {
-        m_vie = 0;
-        joueur->setj_bots(BOTS_INACTIF);
-        actionQuandDetruit();
-    }
-}
-
-void menace_interne_i1_02::getDamage(joueur *joueur)
-{
-    m_vie--;
-    if(m_vie <= 0)
-    {
-        m_vie = 0;
-        joueur->setj_bots(BOTS_INACTIF);
-        actionQuandDetruit();
-    }
-}
-
 menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee) 
 {
     
@@ -72,5 +50,51 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
         m_killAction = ACT_R;
     }
 };
+
+
+void menace_interne_i1_01::getDamage(joueur *joueur)
+{
+    m_vie--;
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        joueur->setj_bots(BOTS_INACTIF);
+        actionQuandDetruit();
+    }
+}
+
+void menace_interne_i1_01::actionMenace(char input) 
+{
+    if (input == 'X') 
+    {
+        this->set_m_zone(this->get_m_zone()->getzone_right());
+        this->set_m_zoneInt(ZONE_WHITE);
+        std::string msg = "[La menace " + m_name + " va en ZONE_WHITE.]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Y') 
+    {
+        this->setPositionhaut(0);
+        std::string msg = "[La menace " + m_name + " descand en ZONE_WHITE.]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Z') {
+        messageAttaqueMenace(3);
+        makedegatsInZone(3);
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i1_02::getDamage(joueur *joueur)
+{
+    m_vie--;
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        joueur->setj_bots(BOTS_INACTIF);
+        actionQuandDetruit();
+    }
+}
 
 menace_interne::~menace_interne() {}
