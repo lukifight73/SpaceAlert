@@ -211,6 +211,25 @@ void parsMenace(t_data &data, std::string menace_str)
         else if(menace_keyword == "menaceI")
         {
             new_menaceInt = create_menaceI(typeMenace, tempsArrivee);
+            if(nomZone == "ZONE_RED")
+            {
+                new_menaceInt->set_m_zone(data.zones[ZONE_RED]);
+                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
+            }
+            else if(nomZone == "ZONE_WHITE")
+            {
+                new_menaceInt->set_m_zone(data.zones[ZONE_WHITE]);
+                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
+            }
+            else if(nomZone == "ZONE_BLUE")
+            {
+                new_menaceInt->set_m_zone(data.zones[ZONE_BLUE]);
+                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
+            }
+            else {
+            std::cerr << "Erreur: " << menace_str << std::endl;
+            delete new_menaceInt; // Nettoyage en cas d'erreur
+            }
             data.chemin_menace_interne->add_menaceInt(new_menaceInt);
         }
     }

@@ -6,11 +6,13 @@ class menace_interne :public menace
 {
     protected:
     bool    m_position_haut;
+    //int     m_killAction;
 
     public:
         menace_interne();
         menace_interne(std::string input, int tourDarrivee);
         virtual void print_menace() const;
+        virtual void actionToAttackIt() const;
         virtual ~menace_interne();
 };
 
@@ -25,6 +27,7 @@ class menace_interne_i1_01 :public menace_interne
         {
             m_position_haut = position_haut;
         };
+        //virtual void actionToAttackIt() const;
         ~menace_interne_i1_01() {};
 };
 

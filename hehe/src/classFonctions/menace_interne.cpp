@@ -10,6 +10,8 @@ void menace_interne::print_menace() const {
     std::cout << "La menace interne est en haut? : " << m_position_haut << std::endl;
 }
 
+void menace_interne::actionToAttackIt() const {};
+
 menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee) 
 {
     
