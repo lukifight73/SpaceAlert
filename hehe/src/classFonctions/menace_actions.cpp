@@ -4,7 +4,7 @@
 //Actions des menaces externes serieuses
 
 
-void menace_se1_01::actionMenace(char input) 
+void menace_se1_01::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(2);
@@ -20,7 +20,7 @@ void menace_se1_01::actionMenace(char input)
     }
 }
 
-void menace_se1_02::actionMenace(char input) 
+void menace_se1_02::actionMenace(char input)
 {
     if (input == 'X') {
         std::string msg = "[La menace " + m_name + " augmente sa vitesse de 1!]";
@@ -42,7 +42,7 @@ void menace_se1_02::actionMenace(char input)
     }
 }
 
-void menace_se1_03::actionMenace(char input) 
+void menace_se1_03::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(2);
@@ -59,19 +59,19 @@ void menace_se1_03::actionMenace(char input)
     }
 }
 
-void menace_se1_03::actionQuandDetruit() 
+void menace_se1_03::actionQuandDetruit()
 {
     std::vector<menace_externe *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menacesExte();
-
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]";
     messageBufferMenace(msg, -1);
     std::vector<menace_externe *>::iterator it;
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    for (it = menaces.begin(); it != menaces.end(); ++it)
     {
-        if ((*it) != this) 
+        if ((*it) != this)
         {
             (*it)->recoitDegats(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
+            if ((*it)->get_m_vie() <= 0)
             {
                 (*it)->set_m_presence(false);
                 (*it)->actionQuandDetruit();
@@ -79,12 +79,12 @@ void menace_se1_03::actionQuandDetruit()
         }
     }
     menaces = m_zone->getzone_right()->getz_chemin_menace()->get_menacesExte();
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    for (it = menaces.begin(); it != menaces.end(); ++it)
     {
-        if ((*it) != this) 
+        if ((*it) != this)
         {
             (*it)->recoitDegats(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
+            if ((*it)->get_m_vie() <= 0)
             {
                 (*it)->set_m_presence(false);
                 (*it)->actionQuandDetruit();
@@ -92,12 +92,12 @@ void menace_se1_03::actionQuandDetruit()
         }
     }
     menaces = m_zone->getz_chemin_menace()->get_menacesExte();
-    for (it = menaces.begin(); it != menaces.end(); ++it) 
+    for (it = menaces.begin(); it != menaces.end(); ++it)
     {
-        if ((*it) != this) 
+        if ((*it) != this)
         {
             (*it)->recoitDegats(1); // fait un degats si pas de bouclier
-            if ((*it)->get_m_vie() <= 0) 
+            if ((*it)->get_m_vie() <= 0)
             {
                 (*it)->set_m_presence(false);
                 (*it)->actionQuandDetruit();
@@ -106,7 +106,7 @@ void menace_se1_03::actionQuandDetruit()
     }
 }
 
-void menace_se1_04::actionMenace(char input) 
+void menace_se1_04::actionMenace(char input)
 {
     if (input == 'X') {
         messageMenaceZone(1, m_zone);
@@ -142,7 +142,7 @@ bool menace_se1_04::vulnerability_check(cannon* input)
     return (false);
 }
 
-void menace_se1_05::actionMenace(char input) 
+void menace_se1_05::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(2);
@@ -158,19 +158,27 @@ void menace_se1_05::actionMenace(char input)
     }
 }
 
+void menace_se1_05::effetDebutTour()
+{
+    if(!m_immunity)
+    {
+        m_immunity2 = false;
+    }
+}
+
 void menace_se1_05::recoitDegats(int input)
 {
-    if (m_immunity)
+    if (m_immunity || m_immunity2)
     {
         m_immunity = false;
         std::string msg = "[La menace " + m_name + " ne prend pas de degat lorsqu'elle est touchee pour la premiere fois.]";
         messageBufferMenace(msg, -1);
     }
-    else
+    else if (!m_immunity2)
         menace::recoitDegats(input);
 }
 
-void menace_se1_06::actionMenace(char input) 
+void menace_se1_06::actionMenace(char input)
 {
     if (input == 'X') {
         if (m_vie < m_max_vie)
@@ -211,24 +219,25 @@ void menace_se1_06::actionMenace(char input)
 }
 
 
-void menace_se1_08::actionMenace(char input) 
+void menace_se1_08::actionMenace(char input)
 {
     if (input == 'Z') {
         int degats = get_m_vie();
         messageAttaqueMenace(degats);
         makedegatsInZone(degats);
-    } 
+    }
     else if (input != 'X' && input != 'Y') {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
 
-void menace_se1_08::actionQuandDetruit() 
+void menace_se1_08::actionQuandDetruit()
 {
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 2; // Dégâts infligés en fonction des actions croisées
-    makedegatsInZone(itemCrossed);
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
+    makedegatsInZone(itemCrossed);
 }
 
 
@@ -257,10 +266,10 @@ void menace_se1_07::actionMenace(char input)
 
 //Actions des menaces externes serieuses avancees
 
-void menace_se2_01::actionMenace(char input) 
+void menace_se2_01::actionMenace(char input)
 {
     if (input == 'X') {
-        if (m_vie >= m_max_vie - 2)
+        if (m_vie > m_max_vie - 2)
         {
             messageAttaqueMenace(2);
             makedegatsInZone(2);
@@ -270,7 +279,7 @@ void menace_se2_01::actionMenace(char input)
             messageBufferMenace(msg, -1);
         }
     } else if (input == 'Y') {
-        if (m_vie >= m_max_vie - 3)
+        if (m_vie > m_max_vie - 3)
         {
             messageAttaqueMenace(3);
             makedegatsInZone(3);
@@ -280,7 +289,7 @@ void menace_se2_01::actionMenace(char input)
             messageBufferMenace(msg, -1);
         }
     } else if (input == 'Z') {
-        if (m_vie >= m_max_vie - 6)
+        if (m_vie > m_max_vie - 6)
         {
             messageAttaqueMenace(6);
             makedegatsInZone(6);
@@ -294,7 +303,7 @@ void menace_se2_01::actionMenace(char input)
     }
 }
 
-void menace_se2_02::actionMenace(char input) 
+void menace_se2_02::actionMenace(char input)
 {
     if (input == 'X') {
         std::string msg = "[La menace " + m_name + " augmente sa vitesse de 2!]";
@@ -316,7 +325,7 @@ void menace_se2_02::actionMenace(char input)
     }
 }
 
-void menace_se2_03::actionMenace(char input) 
+void menace_se2_03::actionMenace(char input)
 {
     if (input == 'X') {
         std::string msg = "[La menace " + m_name + " attaque et retarde tous les joueurs de la " + m_zone->getz_nom_zone();
@@ -347,7 +356,7 @@ bool menace_se2_03::vulnerability_check(cannon* input)
     return (false);
 }
 
-void menace_se2_04::actionMenace(char input) 
+void menace_se2_04::actionMenace(char input)
 {
     std::string msg;
     if (input == 'X') {
@@ -362,8 +371,23 @@ void menace_se2_04::actionMenace(char input)
         msg = "[La menace " + m_name + " augmente sa vitesse de 2!]";
         messageBufferMenace(msg, -1);
     } else if (input == 'Z') {
-        messageAttaqueMenace(5);
-        makedegatsInZone(5);
+        messageMenaceZone(5, m_zone->getzone_red());
+        messageMenaceZone(5, m_zone->getzone_blue());
+        if (m_zone->getz_zone() == ZONE_WHITE)
+        {
+            makedegatsLeft(5);
+            makedegatsRight(5);
+        }
+        else if (m_zone->getz_zone() == ZONE_BLUE)
+        {
+            makedegatsInZone(5);
+            makedegatsRight(5);
+        }
+        else
+        {
+            makedegatsInZone(5);
+            makedegatsLeft(5);
+        }
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -372,12 +396,15 @@ void menace_se2_04::actionMenace(char input)
 void menace_se2_05::recoitDegats(int input)
 {
     menace::recoitDegats(input);
-    messageMenaceZone(1, m_zone);
-    makedegatsInZone(1);
-    messageMenaceZone(1, m_zone->getzone_left());
-    makedegatsLeft(1);
-    messageMenaceZone(1, m_zone->getzone_right());
-    makedegatsRight(1);
+    if (m_degats != 0 && m_vie > 0)
+    {
+        messageMenaceZone(1, m_zone);
+        makedegatsInZone(1);
+        messageMenaceZone(1, m_zone->getzone_left());
+        makedegatsLeft(1);
+        messageMenaceZone(1, m_zone->getzone_right());
+        makedegatsRight(1);
+    }
 }
 
 void menace_se2_05::actionMenace(char input)
@@ -385,21 +412,15 @@ void menace_se2_05::actionMenace(char input)
     if (input == 'X') {
         messageAttaqueMenace(1);
         makedegatsInZone(1);
-        if(get_m_etat_bouclier() <= 0)
-        {
-            recoitDegats(1);
-            std::string msg = "[La menace " + m_name + " s'inflige 1 point de dégâts!]";
-            messageBufferMenace(msg, -1);
-        }
+        std::string msg = "[La menace " + m_name + " s'inflige 1 point de dégâts!]";
+        messageBufferMenace(msg, -1);
+        menace::recoitDegats(1);
     } else if (input == 'Y') {
-        makedegatsInZone(2);
-        if(get_m_etat_bouclier() <= 1)
-        {
-            recoitDegats(get_m_etat_bouclier() - 2);
-            std::string msg = "[La menace " + m_name + " s'inflige " + std::to_string(2 - get_m_etat_bouclier()) + " point de dégâts!]";
-            messageBufferMenace(msg, -1);
-        }
         messageAttaqueMenace(2);
+        makedegatsInZone(2);
+        std::string msg = "[La menace " + m_name + " s'inflige 2 point de dégâts!]";
+        messageBufferMenace(msg, -1);
+        menace::recoitDegats(2);
     } else if (input == 'Z') {
         std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]" << std::endl;
     } else {
@@ -409,20 +430,21 @@ void menace_se2_05::actionMenace(char input)
 
 
 
-void menace_se2_06::actionMenace(char input) 
+void menace_se2_06::actionMenace(char input)
 {
     if (input == 'Z') {
         int degats = get_m_vie();
         messageAttaqueMenace(degats);
         makedegatsInZone(degats);
-    } 
+    }
     else if (input != 'X' && input != 'Y') {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
 
-void menace_se2_06::actionQuandDetruit() 
+void menace_se2_06::actionQuandDetruit()
 {
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 3; // Dégâts infligés en fonction des actions croisées
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
@@ -433,7 +455,7 @@ void menace_se2_06::actionQuandDetruit()
 
 //Actions des menaces externes communes
 
-void menace_e1_01::actionMenace(char input) 
+void menace_e1_01::actionMenace(char input)
 {
     if (input == 'X') {
         messageMenaceZone(1, m_zone);
@@ -461,7 +483,7 @@ void menace_e1_01::actionMenace(char input)
     }
 }
 
-void menace_e1_02::actionMenace(char input) 
+void menace_e1_02::actionMenace(char input)
 {
     if (input == 'X') {
         if (m_zone->getz_bouclier() == 0) {
@@ -510,7 +532,7 @@ void menace_e1_02::actionMenace(char input)
     }
 }
 
-void menace_e1_09::actionMenace(char input) 
+void menace_e1_09::actionMenace(char input)
 {
     if (input == 'X') {
         regeneration(2);
@@ -528,7 +550,7 @@ void menace_e1_09::actionMenace(char input)
     }
 }
 
-void menace_e1_03::actionMenace(char input) 
+void menace_e1_03::actionMenace(char input)
 {
     if (input == 'X') {
         set_m_revele(true);
@@ -566,7 +588,7 @@ void menace_e1_04::actionMenace(char input)
     }
 }
 
-void menace_e1_05::actionMenace(char input) 
+void menace_e1_05::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(2);
@@ -582,7 +604,7 @@ void menace_e1_05::actionMenace(char input)
     }
 }
 
-void menace_e1_06::actionMenace(char input) 
+void menace_e1_06::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(1);
@@ -610,7 +632,7 @@ void menace_e1_06::recoitDegats(int input)
         menace::recoitDegats(input);
 }
 
-void menace_e1_07::actionMenace(char input) 
+void menace_e1_07::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(1);
@@ -626,7 +648,7 @@ void menace_e1_07::actionMenace(char input)
     }
 }
 
-void menace_e1_08::actionMenace(char input) 
+void menace_e1_08::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(1);
@@ -636,7 +658,7 @@ void menace_e1_08::actionMenace(char input)
         regeneration(1);
         std::string msg = "[La menace " + m_name + " regagne 1 points de vie!]";
         messageBufferMenace(msg, -1);
-    } 
+    }
     else if (input == 'Z') {
         messageAttaqueMenace(4);
         makedegatsInZone(4);
@@ -646,7 +668,7 @@ void menace_e1_08::actionMenace(char input)
     }
 }
 
-void menace_e1_10::actionMenace(char input) 
+void menace_e1_10::actionMenace(char input)
 {
     if (input == 'X') {
 
@@ -662,7 +684,7 @@ void menace_e1_10::actionMenace(char input)
 
 //Actions des menaces externes communes avancees
 
-void menace_e2_01::actionMenace(char input) 
+void menace_e2_01::actionMenace(char input)
 {
     std::string msg;
     if (input == 'X') {
@@ -690,9 +712,9 @@ void menace_e2_01::actionMenace(char input)
 void menace_e2_02::augmenteAttackInZone(zone *zone)
 {
     std::vector<menace_externe*> tmp = zone->getz_chemin_menace()->get_menacesExte();
-    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
-        if ((*it)->get_m_presence()) 
+        if ((*it)->get_m_presence())
         {
             (*it)->increase_m_buff_attack(1); // update position
         }
@@ -714,9 +736,9 @@ void menace_e2_02::effetDebutTour()
 void menace_e2_02::menaceAvanceUneCaseInZone(zone *zone)
 {
     std::vector<menace_externe*> tmp = zone->getz_chemin_menace()->get_menacesExte();
-    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
-        if ((*it)->get_m_presence()) 
+        if ((*it)->get_m_presence())
         {
             int positionBefore = (*it)->get_m_position();
             int positionAfter = (*it)->get_m_position() - 1;
@@ -756,14 +778,21 @@ bool menace_e2_02::vulnerability_check(cannon* input)
     return (true);
 }
 
-void menace_e2_03::actionMenace(char input) 
+void menace_e2_02::actionQuandDetruit()
+{
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus.]\n";
+    messageBufferMenace(msg, -1);
+}
+
+void menace_e2_03::actionMenace(char input)
 {
     if (input == 'X') {
         set_m_revele(true);
         std::string msg = "[La menace " + m_name + " se revele.]";
         messageBufferMenace(msg, -1);
     } else if (input == 'Y') {
-        messageAttaqueMenace(3);
+        messageAttaqueMenace(2);
         makedegatsInZone(2);
     } else if (input == 'Z') {
         messageAttaqueMenace(3);
@@ -773,7 +802,7 @@ void menace_e2_03::actionMenace(char input)
     }
 }
 
-void menace_e2_04::actionMenace(char input) 
+void menace_e2_04::actionMenace(char input)
 {
     if (input == 'X') {
         messageAttaqueMenace(1);
@@ -802,7 +831,7 @@ void menace_e2_04::effetDebutTour()
     m_vie--;
 }
 
-void menace_e2_05::actionMenace(char input) 
+void menace_e2_05::actionMenace(char input)
 {
     if (input == 'X') {
         messageMenaceZone(1, m_zone);
@@ -841,26 +870,26 @@ void putBufferToPermanent(zone *zoneactuel)
     zone *zone1 = zoneactuel->getzone_right();
     zone *zone2 = zoneactuel->getzone_left();
     std::vector<menace_externe*> tmp = zone1->getz_chemin_menace()->get_menacesExte();
-    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
     }
     tmp = zone2->getz_chemin_menace()->get_menacesExte();
-    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
     }
     tmp = zoneactuel->getz_chemin_menace()->get_menacesExte();
-    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
         (*it)->set_m_bouclier((*it)->get_m_bouclier() + 1);
         (*it)->setm_buff_blindage(0);
     }
 }
 
-void menace_e2_06::actionMenace(char input) 
+void menace_e2_06::actionMenace(char input)
 {
     if (input == 'X') {
         effetDebutTourOn = true;
@@ -890,19 +919,19 @@ void menace_e2_06::effetDebutTour()
         zone *zone2 = m_zone->getzone_right();
         zone *zone3 = m_zone->getzone_left();
         std::vector<menace_externe*> tmp = zone1->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);
         }
         tmp = zone2->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);
         }
         tmp = zone3->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
         {
             if ((*it)->getm_buff_blindage() != 1)
                 (*it)->setm_buff_blindage(1);
@@ -911,24 +940,25 @@ void menace_e2_06::effetDebutTour()
 }
 
 
-void menace_e2_07::actionMenace(char input) 
+void menace_e2_07::actionMenace(char input)
 {
     if (input == 'Z') {
         int degats = get_m_vie();
         messageAttaqueMenace(degats);
         makedegatsInZone(degats);
-    } 
+    }
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
 
-void menace_e2_07::actionQuandDetruit() 
+void menace_e2_07::actionQuandDetruit()
 {
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')); // Dégâts infligés en fonction des actions croisées
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
 }
 
-        
+

@@ -15,7 +15,7 @@ void menace::messageMenaceZone(int degats, zone *zone)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats << "\033[0m";
+    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats + m_buff_attack << "\033[0m";
     if (zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (zone->getz_zone() == 2)
@@ -34,7 +34,7 @@ void menace::messageAttaqueMenace(int degats)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats << "!]\033[0m" << std::endl;
+    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats + m_buff_attack << "!]\033[0m" << std::endl;
 }
 
 void menace::messageBufferMenace(std::string &string, int degats)

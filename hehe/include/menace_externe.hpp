@@ -13,10 +13,12 @@ class menace_externe : public menace
     bool m_vulnerable_roquette;
     bool m_attraction_roquette;
     bool m_revele;
+    std::string m_degats_str;
+    int m_degats;
 
     std::vector<cannon *> m_canon_used; // pour les menaces qui utilisent des canons
     std::vector<int>    m_canon_immunity; // pour les menaces qui sont immunisées contre certains canons
-        
+
 
     public:
         menace_externe();
@@ -32,6 +34,24 @@ class menace_externe : public menace
         void set_m_revele(bool input) {
             m_revele = input;
         };
+        void set_m_degats(int input) {
+            m_degats = input;
+        };
+        void add_m_degats(int input) {
+            m_degats += input;
+        };
+        int get_m_degats() {
+            return (m_degats);
+        }
+        std::string get_m_degats_str() {
+            return (m_degats_str);
+        }
+        void set_m_degats_str(std::string input) {
+            m_degats_str = input;
+        }
+        void add_m_degats_str(std::string input) {
+            m_degats_str += input;
+        }
         bool get_m_attraction_roquette() const {
             return m_attraction_roquette;
         };
@@ -82,7 +102,6 @@ class menace_externe : public menace
         };
 
         void send_announcement_message_externe() const;
-
         virtual ~menace_externe() {};
 };
 
@@ -135,12 +154,16 @@ class menace_se1_04: public menace_externe
 class menace_se1_05: public menace_externe
 {
     private:
+        int m_immunity2;
 
     public:
         menace_se1_05() : menace_externe() {};
-        menace_se1_05(std::string input, int tourDarrivee) : menace_externe(input, tourDarrivee) {};
+        menace_se1_05(std::string input, int tourDarrivee) : menace_externe(input, tourDarrivee) {
+            m_immunity2 = true;
+        };
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         virtual void recoitDegats(int input);
+        virtual void effetDebutTour();
         ~menace_se1_05() {};
 };
 
@@ -377,7 +400,7 @@ class menace_e2_02: public menace_externe
 
     public:
         menace_e2_02() : menace_externe() {};
-        menace_e2_02(int imunity_canon, bool effetDebutTourOn, std::string input, int tourDarrivee) : menace_externe(input, tourDarrivee) 
+        menace_e2_02(int imunity_canon, bool effetDebutTourOn, std::string input, int tourDarrivee) : menace_externe(input, tourDarrivee)
         {m_imunity_canon = imunity_canon;
         m_effetDebutTourOn = effetDebutTourOn;};
         virtual void effetDebutTour();
@@ -385,6 +408,7 @@ class menace_e2_02: public menace_externe
         virtual bool vulnerability_check(cannon* input);
         void augmenteAttackInZone(zone *zone);
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
+        virtual void actionQuandDetruit();
         ~menace_e2_02() {};
 };
 

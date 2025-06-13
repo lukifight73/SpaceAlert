@@ -1,7 +1,7 @@
 #include "zone.hpp"
 #include "chemin_menace.hpp"
-#include "menace.hpp" 
-#include "menace_externe.hpp" 
+#include "menace.hpp"
+#include "menace_externe.hpp"
 
 void zone::addtemps()
 {
@@ -30,7 +30,7 @@ void zone::assomerjoueursZoneHaut()
 void zone::assomerjoueursZoneBas()
 {
 	std::vector<joueur*>::iterator it;
-	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
 		(*it)->setcarteInactif(z_temps);
 	}
@@ -149,7 +149,7 @@ void zone::getdegats(int input)
 		etatdesdegats();
 		input--;
 	}
-		
+
 }
 
 void zone::getdegatsIgnoreBouclier(int input)
@@ -159,7 +159,7 @@ void zone::getdegatsIgnoreBouclier(int input)
 		etatdesdegats();
 		input--;
 	}
-		
+
 }
 
 void zone::removez_joueurs_haut(std::string input)
@@ -279,7 +279,7 @@ void zone::addz_observations(int input)
 	z_observations.push_back(input);
 }
 
-void zone::clearz_cannon_used() 
+void zone::clearz_cannon_used()
 {
 	z_cannon_used.clear();
 }
@@ -304,7 +304,7 @@ void zone::clearz_actions_used_ce_tour_bas()
 	z_actions_used_ce_tour_bas.clear();
 }
 
-void zone::printZone() 
+void zone::printZone()
 {
 	wr("--------- ZONE START---------");
 	wr("Zone : " + z_nom_zone);

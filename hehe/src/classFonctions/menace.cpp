@@ -24,6 +24,7 @@ menace::menace(std::string input, int tourDarrivee)
     m_immunity = false;
     m_tourDarrivee = tourDarrivee;
     m_max_vie = m_vie; // Initialiser la vie maximale à la vie actuelle
+    std::cout << "m_max_vie : " << m_max_vie << "\n";
     m_buff_attack = 0;
 }
 
@@ -69,14 +70,14 @@ void menace::actionQuandDetruit() {
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
 {
-    while(positionBefore != positionAfter) 
+    while(positionBefore != positionAfter)
     {
         positionBefore--;
-        if(m_chemin->get_ch_chemin()[positionBefore] == 'X') 
+        if(m_chemin->get_ch_chemin()[positionBefore] == 'X')
         {
             actionMenace('X');
         }
-        else if (m_chemin->get_ch_chemin()[positionBefore] == 'Y') 
+        else if (m_chemin->get_ch_chemin()[positionBefore] == 'Y')
         {
             actionMenace('Y');
         }
@@ -94,7 +95,7 @@ menace::~menace() {}
 /// Action des menaces
 
 // draine l'energie du bouclier de toutes les zones
-void menace::draineEnergieBouclier(int input) 
+void menace::draineEnergieBouclier(int input)
 {
     m_zone->setz_bouclier(m_zone->getz_bouclier() - input);
     if (m_zone->getz_bouclier() < 0) {
@@ -124,7 +125,7 @@ void menace::makedegatsInZone(int input)
 
 void menace::makedegatsInZoneIgnoreBouclier(int input)
 {
-    m_zone->getdegatsIgnoreBouclier(input + m_buff_attack);
+    m_zone->getdegatsIgnoreBouclier(input);//on ne rajoute pas buff_attack car c'est la menace qui fait augmenter ce buffer qui fait cette attaque (ne se buff pas elle meme).
 }
 
 void menace::makedegatsLeft(int input)
@@ -162,6 +163,13 @@ int menace::checkNombreInputCrossed(char input) const
 // enleve les PV correspondant au degats (apres bouclier)
 void menace::recoitDegats(int input)
 {
+    if (m_vie == 0)
+    {
+        start_color(m_zone);
+        std::cout << "[La menace " << m_name << " est deja detruite.]\n";
+        end_color(m_zone);
+        return ;
+    }
     m_vie -= input;
     if (m_vie < 0) {
         m_vie = 0;

@@ -65,7 +65,7 @@ void cannon::debuf_portee_cannon(int debuf)
 
 bool cannon::MenaceIsinCannonRange(menace_externe *menace) const
 {
-	if (menace->get_m_position() <= getportee_cannon() && menace->get_m_position() >= 0) 
+	if (menace->get_m_position() <= getportee_cannon() && menace->get_m_position() >= 0)
     {
         return true;
     }
@@ -81,26 +81,14 @@ bool cannon::getcanon_used()
 	return (canon_used);
 }
 
-void cannon::infligeDegats(menace_externe *menace)
+void cannon::cumuleDegats(menace_externe *menace)
 {
 	if(menace->get_m_vie() <= 0)
 		std::cout << "[Le " << nom_cannon << "ne fait rien, " << menace->get_m_name() << " est deja morte.]\n";
-	// check imunity
-	else if(puissance_cannon > menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
-	{
-		int degatsInfliges = puissance_cannon - menace->get_m_etat_bouclier();
-		std::cout << "[Le " << nom_cannon << " inflige " << degatsInfliges << " points de dégâts à la menace " << menace->get_m_name() << ".]\n";
-		menace->set_m_etat_bouclier(0); // Bouclier épuisé
-		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
-	}
-	else // Si la puissance du canon est inférieure ou égale à l'état du bouclier de la menace
-	{
-		int etatBouclierRestant = menace->get_m_etat_bouclier() - puissance_cannon;
-		std::cout << "[Le " << nom_cannon << " inflige " << puissance_cannon << " points de dégâts au bouclier de la menace " << menace->get_m_name() << ".]\n";
-		menace->set_m_etat_bouclier(etatBouclierRestant);
-	}
+	std::string degats_str ="[Le " + nom_cannon + " inflige " + std::to_string(puissance_cannon) + " points de dégâts à la menace " + menace->get_m_name() + ".]\n";
+	menace->add_m_degats_str(degats_str);
+	menace->add_m_degats(puissance_cannon);
 	canon_used = true; // Le canon a été utilisé
-
 }
 
 std::vector<menace_externe*> cannon::getmenace_Exte_vulnerables(zone* zone)
@@ -119,7 +107,7 @@ std::vector<menace_externe*> cannon::getmenace_Exte_vulnerables(zone* zone)
 void casDuCanonImpulsion(menace_externe *menaceCible)
 {
 	 // si le Maelstrom et Nuage d'energie prend des degats par le CANON_IMPULSION sont blindages vaut zero
-	if(menaceCible->get_m_bouclier() == menaceCible->get_m_etat_bouclier()) 
+	if(menaceCible->get_m_bouclier() == menaceCible->get_m_etat_bouclier())
 		menaceCible->set_m_etat_bouclier(0); // si c etait son premier degats ca enleve juste le bouclier
 	else
 	{
@@ -148,7 +136,7 @@ void cannon::attaque_canon(zone *zone)
 	}
 	if((menaceCible->get_m_name() == "Maelstrom" || menaceCible->get_m_name() == "Nuage d'energie") && this->gettype_cannon() == CANON_IMPULSION)
 		casDuCanonImpulsion(menaceCible);
-	infligeDegats(menaceCible); // Inflige les dégâts à la menace
+	cumuleDegats(menaceCible); // Inflige les dégâts à la menace
 }
 
 
