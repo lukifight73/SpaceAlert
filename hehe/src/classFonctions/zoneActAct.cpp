@@ -280,8 +280,9 @@ void zone::actionBHeros()
 
 menace_interne* zone::checkIfMenaceInternAttrackAction(int joueurAction, int Zone, bool haut)
 {
+	return (NULL);
 	std::vector<menace_interne*> tmp = this->getz_chemin_menace_Int()->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		if((*it)->AttractAction(joueurAction, Zone, haut))
 			return (*it); // si on veut optimiser il faut checker s il y en a plusieur!!

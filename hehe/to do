@@ -115,24 +115,24 @@ e1-10 Meteorite#done V5 D0 V5#toutmarche
 ->!roquettes
 Z->attaque egale au nombre de ses points de vie restants
 
-e1-06 Chasseur a cryoprotection#done
+e1-06 Chasseur a cryoprotection#done#toutmarche
 -> lorsqu il est touchee pour la premiere fois, elle ne subit pas de degats
 X->attaque 1
 Y->attaque 2
 Z->attaque 2
 
-e1-09 Amibe #done
+e1-09 Amibe #done#toutmarche
 ->!roquettes
 X->guerit 2 degats
 Y->guerit 2 degats
 Z->Attaque 5
 
-e1-01 Pulsar#done
+e1-01 Pulsar#done#toutmarche
 X->attaque 1 sur toutes les zones
 Y->attaque 1 sur toutes les zones
 Z->attaque 2 sur toutes les zones
 
-e1-04 Nuage d energie #done
+e1-04 Nuage d energie #done#toutmarche
 ->valeur blindage a 0 si touche par cannon a impulsion
 X->draine toute energie de tous les boucliers
 Y->Attaque 1 sur les deux autres zones
@@ -147,7 +147,7 @@ Z->attaque 2
 
 MENACES EXTERNES COMMUNES AVANCEES
 
-e2-02 Eclaireur #DONE
+e2-02 Eclaireur #DONE#toutmarche
 ->!canons lourds
 X->toutes les autres menaces externes ont +1 dattaque tant qu il est pas mort
 Y->toutes les autres menaces externes avancent dune case
@@ -160,19 +160,19 @@ X->se revele
 Y->attaque 2
 Z->attaque 3
 
-e2-01 Kamikaze#done
+e2-01 Kamikaze#done#toutmarche
 X->+1 vitesse / blindage =1
 Y->+1 vitesse / blindage =0
 Z->Attaque 6
 
-e2-04 Nuee Insectoide#done
+e2-04 Nuee Insectoide#done#toutmarche
 ->!roquettes
 ->prends 1 degat par tour
 X->attaque 1
 Y->attaque 2 / 1 sur les autres zones
 Z->attaque 3 / 2 sur les autres zones
 
-e2-05 Meduse#done
+e2-05 Meduse#done#toutmarche
 ->!roquettes
 X->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
 Y->attaque 1 sur toutes les zones / guerit de la moitier de ses degats (arrondit inferieur)
@@ -183,7 +183,7 @@ e2-07 Asteroide mineur #done#toutmarche
 ->quand il est detruit, attaque 1 pour chaque X et Y atteint
 Z -> Attaque egale a son nombre de points de vie restant
 
-e2-06 Maraudeur#done
+e2-06 Maraudeur#done#toutmarche
 X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort
 Y->draine 1 energie de tous les boucliers
 Z->attaque 4 (le bonus persiste)

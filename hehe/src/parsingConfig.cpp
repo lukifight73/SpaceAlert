@@ -3,7 +3,7 @@
 #include "SA_Values.hpp"
 #include "menace.hpp"
 #include "menace_externe.hpp"
-#include "menace_interne.hpp"   
+#include "menace_interne.hpp"
 
 void pars_chemin_menaceInt(t_data &data, std::string chemin_menace_str)
 {
@@ -11,7 +11,7 @@ void pars_chemin_menaceInt(t_data &data, std::string chemin_menace_str)
         std::string chemin_menace_keyword;
 		iss >> chemin_menace_keyword; // Lire le mot-clé "chemin_menace"
         std::string typeChemin;
-        
+
         if (iss >> typeChemin) {
             chemin_menace *new_chemin_menace = new chemin_menace(typeChemin);
             data.chemin_menace_interne = new_chemin_menace;
@@ -31,7 +31,7 @@ void pars_chemin_menace(t_data &data, std::string chemin_menace_str)
 		iss >> chemin_menace_keyword; // Lire le mot-clé "chemin_menace"
         std::string nomZone;
         std::string typeChemin;
-        
+
         if (iss >> nomZone >> typeChemin) {
             chemin_menace *new_menace = new chemin_menace(typeChemin);
             if(nomZone == "ZONE_RED")
@@ -97,8 +97,8 @@ menace_externe *create_menaceE(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "se2-06") {
         return new menace_se2_06(typeMenace, tempsArrivee);
     }
-    else if (typeMenace == "e1-02") {
-        return new menace_e1_02(typeMenace, tempsArrivee);
+    else if (typeMenace == "e1-01") {
+        return new menace_e1_01(typeMenace, tempsArrivee);
     }
     else if (typeMenace == "e1-02") {
         return new menace_e1_02(typeMenace, tempsArrivee);
@@ -156,7 +156,7 @@ menace_externe *create_menaceE(std::string typeMenace, int tempsArrivee)
 
 menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
 {
-    
+
     if (typeMenace == "i1-01") {
         return new menace_interne_i1_01(true, typeMenace, tempsArrivee);
     }
@@ -309,7 +309,7 @@ void parsing_config(t_data &data, char* av)
 	std::string line;
 	while (std::getline(file, line))
 	{
-		
+
         if (line.find("chemin_menace_intern") != std::string::npos)
             pars_chemin_menaceInt(data, line);
          if (line.find("chemin_menace") != std::string::npos) {

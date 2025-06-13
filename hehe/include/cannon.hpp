@@ -90,7 +90,7 @@ class canon_lateral: public cannon
         {
             setzone_cannon(zone);
             setpuissance_cannon(2);
-            setportee_cannon(10);
+            setportee_cannon(16);
             nom_cannon = "Canon Lateral";
             type_cannon = CANON_LATERAUX;
             canon_used = false;

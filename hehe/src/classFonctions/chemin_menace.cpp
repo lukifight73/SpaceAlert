@@ -203,7 +203,7 @@ chemin_menace::chemin_menace(std::string input)
         ch_chemin_size = 15;
         ch_chemin[15] = 'R';
         ch_chemin[14] = 'R';
-        ch_chemin[13] = 'R';
+        ch_chemin[13] = 'X';
         ch_chemin[12] = 'R';
         ch_chemin[11] = 'R';
         ch_chemin[10] = 'X';
