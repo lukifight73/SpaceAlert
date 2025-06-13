@@ -149,7 +149,6 @@ void zone::getdegats(int input)
 		etatdesdegats();
 		input--;
 	}
-
 }
 
 void zone::getdegatsIgnoreBouclier(int input)

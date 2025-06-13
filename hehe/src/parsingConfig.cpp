@@ -158,10 +158,16 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
 {
 
     if (typeMenace == "i1-01") {
-        return new menace_interne_i1_01(true, typeMenace, tempsArrivee);
+        return new menace_interne_i1_01(typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-02") {
-        return new menace_interne_i1_02(true, typeMenace, tempsArrivee);
+        return new menace_interne_i1_02(typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "i1-03") {
+        return new menace_interne_i1_03(typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "i1-04") {
+        return new menace_interne_i1_04(typeMenace, tempsArrivee);
     }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
@@ -217,19 +223,19 @@ void parsMenace(t_data &data, std::string menace_str)
             if(nomZone == "ZONE_RED")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_RED]);
-                new_menace->set_m_zoneInt(ZONE_RED);
+                new_menaceInt->set_m_zoneInt(ZONE_RED);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else if(nomZone == "ZONE_WHITE")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_WHITE]);
-                new_menace->set_m_zoneInt(ZONE_WHITE);
+                new_menaceInt->set_m_zoneInt(ZONE_WHITE);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else if(nomZone == "ZONE_BLUE")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_BLUE]);
-                new_menace->set_m_zoneInt(ZONE_BLUE);
+                new_menaceInt->set_m_zoneInt(ZONE_BLUE);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else {

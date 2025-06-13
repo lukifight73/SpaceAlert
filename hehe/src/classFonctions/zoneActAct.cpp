@@ -458,7 +458,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 		}
 		if (z_zone == ZONE_WHITE)
 		{
-			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_RED, 0);
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_C, ZONE_WHITE, 0);
 			if(menaceInt)
 			{
 				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
@@ -472,4 +472,25 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 }
 
 zone::~zone() {}
+
+void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois du tour 1 a 3, puis une fois du tour 4 a 6  et une fois du tour 7 a 9 -> a actualiser dans getz_actions_haut donc fin tour 3, 6 et 9 il faudra la reset des actions possibles.
+{
+	menace_interne* menaceInt = NULL;
+	if (this->getz_joueur_haut(z_joueur_playing))
+	{
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 1);
+		if(menaceInt)
+		{
+			menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
+		}
+	}
+	else
+	{
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 0);
+		if(menaceInt)
+		{
+			menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+		}
+	}
+}
 

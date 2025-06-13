@@ -24,7 +24,6 @@ menace::menace(std::string input, int tourDarrivee)
     m_immunity = false;
     m_tourDarrivee = tourDarrivee;
     m_max_vie = m_vie; // Initialiser la vie maximale à la vie actuelle
-    std::cout << "m_max_vie : " << m_max_vie << "\n";
     m_buff_attack = 0;
 }
 

@@ -143,6 +143,7 @@ class zone
         void clearz_actions_used_ce_tour_haut();
         void actionA();
         void actionB();
+        void actionR();
         void actionAHeros();
         void actionBHeros();
         void actionC();
