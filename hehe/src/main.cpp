@@ -76,7 +76,7 @@ void clear_actionUsage(t_data &data)
 		i++;
 	}
 	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		(*it)->setm_buff_attack(0);
 	}
@@ -101,15 +101,15 @@ void setTemps(t_data &data)
 		data.zones[i]->addtemps();
 		i++;
 	}
-} 
+}
 
 void printInfoMenace(t_data &data)
 {
-	for (int i = 1; i < 4; i++) 
+	for (int i = 1; i < 4; i++)
 	{
 		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
 		std::cout << "--------------------INFORMATION MENACE ZONE " << data.zones[i]->getz_nom_zone() << "----------------------" << std::endl;
-		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 		{
 			if((*it)->get_m_presence() == true)
 				(*it)->print_menace();
@@ -117,7 +117,7 @@ void printInfoMenace(t_data &data)
 	}
 	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	std::cout << "--------------------INFORMATION MENACE INTERNE ----------------------" << std::endl;
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		if((*it)->get_m_presence() == true)
 			(*it)->print_menace();
@@ -126,19 +126,57 @@ void printInfoMenace(t_data &data)
 
 void actionMenaceDebutTour(t_data &data)
 {
-	for (int i = 1; i < 4; i++) 
+	for (int i = 1; i < 4; i++)
 	{
 		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
-		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 		{
 			(*it)->effetDebutTour();
 		}
 	}
 }
 
+void infligeDegats(menace_externe *menace)
+{
+	if(menace->get_m_vie() <= 0)
+		std::cout << "[La " << menace->get_m_name() << " est deja morte.]\n";
+	// check imunity
+	else if (menace->get_m_degats() > menace->get_m_etat_bouclier())
+	{
+		int degatsInfliges = menace->get_m_degats() - menace->get_m_etat_bouclier();
+		start_color(menace->get_m_zone());
+		std::cout << menace->get_m_degats_str();
+		std::cout << "[La menace " << menace->get_m_name() << " absorbe " << menace->get_m_etat_bouclier() << " degats et recois " << degatsInfliges << " degats.]\n";
+		menace->set_m_etat_bouclier(0); // Bouclier épuisé
+		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
+		end_color(menace->get_m_zone());
+	}
+	else if(menace->get_m_degats() != 0 && menace->get_m_degats() <= menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
+	{
+		start_color(menace->get_m_zone());
+		std::cout << menace->get_m_degats_str();
+		std::cout << "[La menace " << menace->get_m_name() << " absorbe " << menace->get_m_etat_bouclier() << " degats.]\n";
+		end_color(menace->get_m_zone());
+	}
+	menace->set_m_degats(0);
+	menace->set_m_degats_str("");
+}
+
+void putDegatsIntoAction(t_data &data)
+{
+	for (int i = 1; i < 4; i++)
+	{
+		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+		{
+			infligeDegats(*it);
+		}
+	}
+}
+
 void	play_game(t_data &data)
 {
-	while (data.tour < 13)//commence a 1 et finit a 12	
+	while (data.tour < 13)//commence a 1 et finit a 12
 	{
 		int num_joueur(1);
 		std::cout << "\n\n\n\n\n------------------------------------------------------------------------------" << std::endl;
@@ -160,6 +198,7 @@ void	play_game(t_data &data)
 		}
 		attaqueDesCanons(data); // remplace les deux d apres
 		rocketActions(data);
+		putDegatsIntoAction(data);
 		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);

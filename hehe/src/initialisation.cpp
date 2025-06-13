@@ -169,7 +169,7 @@ void init_zone_red(t_data& data)
     data.zones[ZONE_RED]->setz_max_energie_reservoir(3);
     data.zones[ZONE_RED]->setz_bouclier(1);
     data.zones[ZONE_RED]->setz_max_energie_bouclier(2);
-    data.zones[ZONE_RED]->setz_cannon_haut(cannon_zone_red); 
+    data.zones[ZONE_RED]->setz_cannon_haut(cannon_zone_red);
     data.zones[ZONE_RED]->setz_cannon_bas(cannon_leger_zone_red);
     data.zones[ZONE_RED]->setz_chemin(new chemin_menace());
     data.zones[ZONE_RED]->addz_actions_bas(ACT_A);

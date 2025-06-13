@@ -9,7 +9,7 @@ menace_externe::menace_externe(std::string input, int tourDarrivee): menace(inpu
     m_buff_blindage = 0;
     m_revele = true;
     m_etat_bouclier = m_bouclier; // L'état du bouclier est initialisé à la valeur de m_bouclier
-    
+
     if(input == "se1-01")
     {
         m_bouclier = 2;
@@ -276,11 +276,13 @@ menace_externe::menace_externe(std::string input, int tourDarrivee): menace(inpu
         m_vie = 7;
         m_vitesse = 4;
     }
+    m_max_vie = m_vie;
 };
 
 void menace_externe::print_menace() const
 {
     menace::print_menace();
+    start_color(m_zone);
     std::cout << "Bouclier : " << m_bouclier << std::endl;
     std::cout << "Etat Bouclier : " << m_etat_bouclier << std::endl;
     std::cout << "Buff Bouclier : " << m_buff_blindage << std::endl;
@@ -291,6 +293,7 @@ void menace_externe::print_menace() const
     }
     std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
     std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
+    end_color(m_zone);
 };
 
 void menace_externe::send_announcement_message_externe() const

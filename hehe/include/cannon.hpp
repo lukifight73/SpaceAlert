@@ -58,7 +58,8 @@ class cannon
         void debuf_portee_cannon(int debuf);
         virtual void attaque_canon(zone *zone);
         void infligeDegats(menace_externe *menace); // inflige des dégâts à la menace
-        bool MenaceIsinCannonRange(menace_externe *menace) const; 
+        void cumuleDegats(menace_externe *menace);
+        bool MenaceIsinCannonRange(menace_externe *menace) const;
         ~cannon();
 };
 
@@ -68,7 +69,7 @@ class canon_lourd: public cannon
 
     public:
         canon_lourd() {};
-        canon_lourd(std::string nom, int puissance_cannon, zone *zone) 
+        canon_lourd(std::string nom, int puissance_cannon, zone *zone)
         {
             setzone_cannon(zone);
             setpuissance_cannon(puissance_cannon);
@@ -85,7 +86,7 @@ class canon_lateral: public cannon
     private:
 
     public:
-        canon_lateral(zone *zone) 
+        canon_lateral(zone *zone)
         {
             setzone_cannon(zone);
             setpuissance_cannon(2);
@@ -102,7 +103,7 @@ class canon_impulsion: public cannon
     private:
 
     public:
-        canon_impulsion(zone *zone) 
+        canon_impulsion(zone *zone)
         {
             setzone_cannon(zone);
             setpuissance_cannon(1);

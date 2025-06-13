@@ -1,7 +1,7 @@
 #include "chemin_menace.hpp"
 #include "menace.hpp"
 #include "menace_externe.hpp"
-#include "menace_interne.hpp"     
+#include "menace_interne.hpp"
 
 chemin_menace::chemin_menace()
 {
@@ -44,7 +44,7 @@ menace_externe* chemin_menace::get_menace_that_attracts_rocket()
     return (nullptr);
 }
 
-menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable() 
+menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable()
 {
     if (ch_menacesExte.empty()) {
         wr("No menaces available.");
@@ -72,7 +72,7 @@ menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable()
     return menaceProche; // On retourne la menace la plus proche
 }
 
-menace* chemin_menace::get_closest_menace() 
+menace* chemin_menace::get_closest_menace()
 {
     if (ch_menacesExte.empty()) {
         wr("No menaces available.");
@@ -117,7 +117,7 @@ chemin_menace::chemin_menace(std::string input)
         ch_nom = "t1";
         ch_chemin_size = 10;
         ch_chemin[10] = 'R';
-        ch_chemin[9] = 'R'; 
+        ch_chemin[9] = 'R';
         ch_chemin[8] = 'R';
         ch_chemin[7] = 'R';
         ch_chemin[6] = 'R';
@@ -137,7 +137,7 @@ chemin_menace::chemin_menace(std::string input)
         ch_chemin[8] = 'X';
         ch_chemin[7] = 'R';
         ch_chemin[6] = 'R';
-        ch_chemin[5] = 'R'; 
+        ch_chemin[5] = 'R';
         ch_chemin[4] = 'R';
         ch_chemin[3] = 'R';
         ch_chemin[2] = 'R';
