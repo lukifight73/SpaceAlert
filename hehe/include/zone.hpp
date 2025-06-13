@@ -9,6 +9,7 @@
 #include <random>
 
 class joueur;
+class menace_interne;
 class chemin_menace;
 
 class zone
@@ -91,6 +92,7 @@ class zone
         std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
+        chemin_menace* getz_chemin_menace_Int() const; 
         cannon *getz_cannon_haut() const;
         cannon *getz_cannon_bas() const;
         std::string getz_joueur_playing() const;
@@ -117,6 +119,7 @@ class zone
         void getdegatsIgnoreBouclier(int input);
 
         //autre
+        menace_interne* checkIfMenaceInternAttrackAction(int joueurAction, int Zone, bool haut);
         joueur* getz_joueur_haut(std::string nom);
         joueur* getz_joueur_bas(std::string nom);
         void addz_maintenance_ordinateur(int input);

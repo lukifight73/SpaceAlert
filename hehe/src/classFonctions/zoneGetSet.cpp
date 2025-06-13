@@ -217,6 +217,10 @@ chemin_menace* zone::getz_chemin_menace() const {
 	return (z_chemin_menace);
 }
 
+chemin_menace* zone::getz_chemin_menace_Int() const {
+	return (z_chemin_menace_intern);
+}
+
 bool zone::getz_ascenseur() const
 {
 	return (z_ascenseur);

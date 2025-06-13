@@ -189,18 +189,21 @@ void parsMenace(t_data &data, std::string menace_str)
             {
                 data.zones[ZONE_RED]->getz_chemin_menace()->add_menaceExte(new_menace);
                 new_menace->set_m_zone(data.zones[ZONE_RED]);
+                new_menace->set_m_zoneInt(ZONE_RED);
                 new_menace->set_m_chemin(data.zones[ZONE_RED]->getz_chemin_menace());
             }
             else if(nomZone == "ZONE_WHITE")
             {
                 data.zones[ZONE_WHITE]->getz_chemin_menace()->add_menaceExte(new_menace);
                 new_menace->set_m_zone(data.zones[ZONE_WHITE]);
+                new_menace->set_m_zoneInt(ZONE_WHITE);
                 new_menace->set_m_chemin(data.zones[ZONE_WHITE]->getz_chemin_menace());
             }
             else if(nomZone == "ZONE_BLUE")
             {
                 data.zones[ZONE_BLUE]->getz_chemin_menace()->add_menaceExte(new_menace);
                 new_menace->set_m_zone(data.zones[ZONE_BLUE]);
+                new_menace->set_m_zoneInt(ZONE_BLUE);
                 new_menace->set_m_chemin(data.zones[ZONE_BLUE]->getz_chemin_menace());
             }
             else {
@@ -214,16 +217,19 @@ void parsMenace(t_data &data, std::string menace_str)
             if(nomZone == "ZONE_RED")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_RED]);
+                new_menace->set_m_zoneInt(ZONE_RED);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else if(nomZone == "ZONE_WHITE")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_WHITE]);
+                new_menace->set_m_zoneInt(ZONE_WHITE);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else if(nomZone == "ZONE_BLUE")
             {
                 new_menaceInt->set_m_zone(data.zones[ZONE_BLUE]);
+                new_menace->set_m_zoneInt(ZONE_BLUE);
                 new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             }
             else {
