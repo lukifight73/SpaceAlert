@@ -163,6 +163,12 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "i1-02") {
         return new menace_interne_i1_02(typeMenace, tempsArrivee);
     }
+    else if (typeMenace == "i1-03") {
+        return new menace_interne_i1_03(typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "i1-04") {
+        return new menace_interne_i1_04(typeMenace, tempsArrivee);
+    }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
         return new menace_interne(typeMenace, tempsArrivee); // Retourne un pointeur nul en cas d'erreur
