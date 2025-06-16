@@ -67,6 +67,33 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
         m_vitesse = 4;
         m_killAction = ACT_R;
     }
+    else if(input == "i1-05")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Piratage des boucliers";
+        m_vie = 3;
+        m_vitesse = 2;
+        m_killAction = ACT_B;
+    }
+    else if(input == "i1-06")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Piratage des boucliers";
+        m_vie = 3;
+        m_vitesse = 2;
+        m_killAction = ACT_B;
+    }
+    else if(input == "i1-07")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE;
+        m_name ="Tetes nucleaires instables";
+        m_vie = 100; // va etre set plus tard
+        m_vitesse = 2;
+        m_killAction = ACT_C;
+    }
 };
 
 
@@ -203,6 +230,81 @@ void menace_interne_i1_04::actionMenace(char input)
         std::cout << msg;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i1_05::actionMenace(char input) 
+{
+    if (input == 'X') 
+    {
+        this->m_zone->setz_bouclier(0);
+        std::string msg = "[La menace " + m_name + " draine toute l'energie du bouclier de la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Y') 
+    {
+        this->m_zone->setz_reacteur(0);
+        std::string msg = "[La menace " + m_name + " draine toute l'energie du reacteur de la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(2);
+        std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i1_06::actionMenace(char input) 
+{
+    if (input == 'X') 
+    {
+        this->m_zone->setz_bouclier(0);
+        std::string msg = "[La menace " + m_name + " draine toute l'energie du bouclier de la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Y') 
+    {
+        this->m_zone->setz_reacteur(0);
+        std::string msg = "[La menace " + m_name + " draine toute l'energie du reacteur de la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } 
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(2);
+        std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i1_07::actionMenace(char input) 
+{
+    if (input == 'Z') {
+        int degats = this->get_m_vie()*3;
+        m_zone->getdegatsIgnoreBouclier(degats);
+        std::cout <<  "[La menace " + m_name + " inflige " << degats << " degats a la " + m_zone->getz_nom_zone() + " .]\n";
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i1_07::effetDebutTour()
+{
+    if(!m_life_set)
+    {
+        std::map<int, int> mapRocket = get_m_zone()->getzone_left()->getz_roquete_position();
+        int rocketNum(1);
+        int life(0);
+        while (rocketNum < 4)
+        {
+            if (mapRocket[rocketNum] == 0) // rocket non lancee
+                life++;
+            rocketNum++;
+        }
+        this->set_m_vie(life);
+        m_life_set = true;
     }
 }
 

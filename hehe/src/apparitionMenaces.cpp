@@ -22,11 +22,11 @@ void remove_dead_or_outdated_menaces(t_data &data)
     }
     chemin_menace *chemin_interne = data.chemin_menace_interne;
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2) 
 	{
-		if ((*it)->get_m_position() <= 0 || (*it)->get_m_vie() <= 0) 
+		if ((*it2)->get_m_position() <= 0 || (*it2)->get_m_vie() <= 0) 
         {
-            chemin_interne->remove_menace(*it); // Suppression de la menace du chemin
+            chemin_interne->remove_menace(*it2); // Suppression de la menace du chemin
         }
 	}
 }
@@ -64,12 +64,12 @@ void mouvement_menaces(t_data &data)
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
 	{
 		if ((*it)->get_m_presence()) 
-            {
-                int positionBefore = (*it)->get_m_position();
-                int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
-                (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
-                (*it)->setm_position(positionAfter); // update position
-            }
+        {
+            int positionBefore = (*it)->get_m_position();
+            int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
+            (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
+            (*it)->setm_position(positionAfter); // update position
+        }
 	}
 }
 
@@ -94,8 +94,11 @@ void apparitionMenaces(t_data &data)
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
 	{
-		std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
-        (*it)->set_m_presence(true);
-        (*it)->send_announcement_message();
+		if ((*it)->get_m_tourDarrivee() == data.tour)
+        {
+            std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+            (*it)->set_m_presence(true);
+            (*it)->send_announcement_message();
+        }
 	}
 }

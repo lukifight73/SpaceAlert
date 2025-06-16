@@ -79,6 +79,7 @@ void clear_actionUsage(t_data &data)
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		(*it)->setm_buff_attack(0);
+		i++;
 	}
 }
 
@@ -133,6 +134,11 @@ void actionMenaceDebutTour(t_data &data)
 		{
 			(*it)->effetDebutTour();
 		}
+	}
+	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+	{
+		(*it)->effetDebutTour();
 	}
 }
 

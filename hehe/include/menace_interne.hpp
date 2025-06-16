@@ -64,5 +64,41 @@ class menace_interne_i1_04 :public menace_interne
         menace_interne_i1_04() {};
         menace_interne_i1_04(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
         virtual void actionMenace(char input);
-        ~menace_interne_i1_04() {};
+        virtual ~menace_interne_i1_04() {};
+};
+
+class menace_interne_i1_05 :public menace_interne
+{
+    protected:
+
+    public:
+        menace_interne_i1_05() {};
+        menace_interne_i1_05(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+        virtual void actionMenace(char input);
+        virtual ~menace_interne_i1_05() {};
+};
+
+class menace_interne_i1_06 :public menace_interne
+{
+    protected:
+
+    public:
+        menace_interne_i1_06() {};
+        menace_interne_i1_06(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+        virtual void actionMenace(char input);
+        virtual ~menace_interne_i1_06() {};
+};
+
+class menace_interne_i1_07 :public menace_interne
+{
+    protected:
+    bool m_life_set; 
+
+    public:
+        menace_interne_i1_07() {};
+        menace_interne_i1_07(bool life_set, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) 
+        {m_life_set = life_set;};
+        virtual void actionMenace(char input);
+        virtual void effetDebutTour();
+        virtual ~menace_interne_i1_07() {};
 };

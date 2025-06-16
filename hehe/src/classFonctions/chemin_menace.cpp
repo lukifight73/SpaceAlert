@@ -101,10 +101,10 @@ menace* chemin_menace::get_closest_menace()
 }
 
 void chemin_menace::remove_menace(menace *input) {
-    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); ++it) {
+    for (auto it = ch_menacesInte.begin(); it != ch_menacesInte.end(); ++it) {
         if (*it == input) {
             delete (*it); // Libération de la mémoire
-            ch_menacesExte.erase(it); // Suppression de l'élément du vecteur
+            ch_menacesInte.erase(it); // Suppression de l'élément du vecteur
             return;
         }
     }
