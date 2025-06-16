@@ -147,7 +147,7 @@ void infligeDegats(menace_externe *menace)
 	if(menace->get_m_vie() <= 0)
 		std::cout << "[La " << menace->get_m_name() << " est deja morte.]\n";
 	// check imunity
-	else if (menace->get_m_degats() > menace->get_m_etat_bouclier())
+	else if (menace->get_m_degats() > menace->get_m_etat_bouclier() && menace->get_m_degats() > 0)
 	{
 		int degatsInfliges = menace->get_m_degats() - menace->get_m_etat_bouclier();
 		start_color(menace->get_m_zone());

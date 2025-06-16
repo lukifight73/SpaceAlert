@@ -281,7 +281,7 @@ void zone::actionBHeros()
 menace_interne* zone::checkIfMenaceInternAttrackAction(int joueurAction, int Zone, bool haut)
 {
 	std::vector<menace_interne*> tmp = this->getz_chemin_menace_Int()->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		if((*it)->AttractAction(joueurAction, Zone, haut))
 			return (*it); // si on veut optimiser il faut checker s il y en a plusieur!!
@@ -477,19 +477,39 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 1);
-		if(menaceInt)
+		if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
+			wr("[Vous effectuez l'action Robot !]");
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 1);
+			if(menaceInt)
+			{
+				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
+			}
+			else
+				wr("[Il n'y a aucun ennemi a proximite... flute.]");
 		}
+		else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
+			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		else
+			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
 	}
-	else
+	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
-		menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 0);
-		if(menaceInt)
+		if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+			wr("[Vous effectuez l'action Robot !]");
+			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 0);
+			if(menaceInt)
+			{
+				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+			}
+			else
+				wr("[Il n'y a aucun ennemi a proximite... flute.]");
 		}
+		else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
+			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		else
+			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
 	}
 }
 

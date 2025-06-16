@@ -431,7 +431,7 @@ class menace_e2_04: public menace_externe
         menace_e2_04() : menace_externe() {};
         menace_e2_04(std::string input, int tourDarrivee) : menace_externe(input, tourDarrivee) {};
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
-        virtual void effetDebutTour();
+        virtual void recoitDegats(int input);
         ~menace_e2_04() {};
 };
 
@@ -458,6 +458,7 @@ class menace_e2_06: public menace_externe
         };
         virtual void actionMenace(char input); // Action de la menace, peut être redéfinie dans les classes dérivées
         virtual void effetDebutTour();
+        void actionQuandDetruit();
         ~menace_e2_06() {};
 };
 

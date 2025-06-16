@@ -107,15 +107,8 @@ std::vector<menace_externe*> cannon::getmenace_Exte_vulnerables(zone* zone)
 void casDuCanonImpulsion(menace_externe *menaceCible)
 {
 	 // si le Maelstrom et Nuage d'energie prend des degats par le CANON_IMPULSION sont blindages vaut zero
-	if(menaceCible->get_m_bouclier() == menaceCible->get_m_etat_bouclier())
-		menaceCible->set_m_etat_bouclier(0); // si c etait son premier degats ca enleve juste le bouclier
-	else
-	{
-		int degatsAbsorbeAvant = menaceCible->get_m_bouclier() - menaceCible->get_m_etat_bouclier(); // sinon les degats absorbe avant sont fait
-		menaceCible->recoitDegats(degatsAbsorbeAvant);
-		menaceCible->set_m_etat_bouclier(0);
-	}
-	wr("[Le Maelstrom s'est fait absorber son bouclier par le canon a impulsion !]");
+	menaceCible->set_m_etat_bouclier(0); // si c etait son premier degats ca enleve juste le bouclier
+	wr("[La menace " +menaceCible->get_m_name() + " s'est fait absorber son bouclier par le canon a impulsion !]");
 }
 
 void cannon::attaque_canon(zone *zone)

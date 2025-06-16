@@ -781,7 +781,22 @@ bool menace_e2_02::vulnerability_check(cannon* input)
 void menace_e2_02::actionQuandDetruit()
 {
     std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
-    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus.]\n";
+    std::vector<menace_externe*> tmp = m_zone->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->setm_buff_attack(0);
+    }
+    tmp = m_zone->getzone_left()->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->setm_buff_attack(0);
+    }
+    tmp = m_zone->getzone_right()->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->setm_buff_attack(0);
+    }
+    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus!]";
     messageBufferMenace(msg, -1);
 }
 
@@ -800,6 +815,14 @@ void menace_e2_03::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_e2_04::recoitDegats(int input)
+{
+    start_color(m_zone);
+    if (input > 1)
+        std::cout << "[La menace " << m_name << "ne peut prendre plus de 1 degat par tour.]\n";
+    menace::recoitDegats(1);
 }
 
 void menace_e2_04::actionMenace(char input)
@@ -824,11 +847,6 @@ void menace_e2_04::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
-}
-
-void menace_e2_04::effetDebutTour()
-{
-    m_vie--;
 }
 
 void menace_e2_05::actionMenace(char input)
@@ -909,6 +927,28 @@ void menace_e2_06::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_e2_06::actionQuandDetruit()
+{
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::vector<menace_externe*> tmp = m_zone->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - 1);
+    }
+    tmp = m_zone->getzone_left()->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - 1);
+    }
+    tmp = m_zone->getzone_right()->getz_chemin_menace()->get_menacesExte();
+    for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+    {
+        (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - 1);
+    }
+    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 blindage) n'est plus!]";
+    messageBufferMenace(msg, -1);
 }
 
 void menace_e2_06::effetDebutTour()

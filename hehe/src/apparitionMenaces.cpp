@@ -6,17 +6,19 @@
 void remove_dead_or_outdated_menaces(t_data &data)
 {
     int i = 1;
-    while (i < 4) 
+    while (i < 4)
     {
         chemin_menace *chemin = data.zones[i]->getz_chemin_menace();
         std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end();) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end();)
         {
-            if ((*it)->get_m_position() <= 0 || (*it)->get_m_vie() <= 0) 
+            if ((*it)->get_m_position() <= 1 || (*it)->get_m_vie() <= 0)
             {
                 chemin->remove_menace(*it); // Suppression de la menace du chemin
+                it = tmp.erase(it);
             }
-            ++it; // Avance l'itérateur si l'élément n'est pas supprimé
+            else
+                ++it; // Avance l'itérateur si l'élément n'est pas supprimé
         }
         i++;
     }
@@ -28,6 +30,8 @@ void remove_dead_or_outdated_menaces(t_data &data)
         {
             chemin_interne->remove_menace(*it2); // Suppression de la menace du chemin
         }
+        else
+            ++it;
 	}
 }
 
@@ -41,12 +45,12 @@ void revelerMenace(menace_externe* menace)
 void mouvement_menaces(t_data &data)
 {
     int i = 1;
-    while (i < 4) 
+    while (i < 4)
     {
         std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
         {
-            if ((*it)->get_m_presence()) 
+            if ((*it)->get_m_presence())
             {
                 int positionBefore = (*it)->get_m_position();
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
@@ -61,7 +65,7 @@ void mouvement_menaces(t_data &data)
     }
     chemin_menace *chemin_interne = data.chemin_menace_interne;
     std::vector<menace_interne*> tmp = chemin_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		if ((*it)->get_m_presence()) 
         {
@@ -73,13 +77,13 @@ void mouvement_menaces(t_data &data)
 	}
 }
 
-void apparitionMenaces(t_data &data) 
+void apparitionMenaces(t_data &data)
 {
     int i = 1;
-    while (i < 4) 
+    while (i < 4)
     {
         std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
-        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+        for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
         {
             if ((*it)->get_m_tourDarrivee() == data.tour)
             {
