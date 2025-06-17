@@ -138,9 +138,29 @@ void zone::setz_roquete_position(int key, int value)
 	z_roquete_position[key] = value;
 }
 
+void zone::setz_jump_tour_upon_entry_bas(bool input)
+{
+	z_jump_tour_upon_entry_bas = input;
+}
+
+void zone::setz_jump_tour_upon_entry_haut(bool input)
+{
+	z_jump_tour_upon_entry_haut = input;
+}
+
 int zone::getz_temps() const
 {
 	return (z_temps);
+}
+
+bool zone::getz_jump_tour_upon_entry_bas() const
+{
+	return (z_jump_tour_upon_entry_bas);
+}
+
+bool zone::getz_jump_tour_upon_entry_haut() const
+{
+	return (z_jump_tour_upon_entry_haut);
 }
 
 int zone::getz_reacteur() const

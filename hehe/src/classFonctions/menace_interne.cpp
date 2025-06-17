@@ -1,6 +1,8 @@
 #include "menace.hpp"
 #include "menace_interne.hpp"
 
+menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee);
+
 menace_interne::menace_interne()
 {
 }
@@ -94,8 +96,75 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
         m_vitesse = 2;
         m_killAction = ACT_C;
     }
+    else if(input == "i2-01")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Slime";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "i2-015")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Bebe Slime";
+        m_vie = 1;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "i2-02")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Slime";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "i2-03")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Troupe d'assaut";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "i2-04")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Troupe d'assaut";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "i2-05")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Virus";
+        m_vie = 3;
+        m_vitesse = 3;
+        m_killAction = ACT_C;
+    }
+    else if(input == "i2-06")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_COMMUNE_AVANCEE;
+        m_name ="Reacteur en fusion";
+        m_vie = 3;
+        m_vitesse = 2;
+        m_killAction = ACT_B;
+    }
 };
 
+
+
+
+//MENACE COMMUNES
 
 void menace_interne_i1_01::getDamage(joueur *joueur)
 {
@@ -233,20 +302,20 @@ void menace_interne_i1_04::actionMenace(char input)
     }
 }
 
-void menace_interne_i1_05::actionMenace(char input) 
+void menace_interne_i1_05::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->m_zone->setz_bouclier(0);
         std::string msg = "[La menace " + m_name + " draine toute l'energie du bouclier de la " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
         this->m_zone->setz_reacteur(0);
         std::string msg = "[La menace " + m_name + " draine toute l'energie du reacteur de la " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
         std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
@@ -256,20 +325,20 @@ void menace_interne_i1_05::actionMenace(char input)
     }
 }
 
-void menace_interne_i1_06::actionMenace(char input) 
+void menace_interne_i1_06::actionMenace(char input)
 {
-    if (input == 'X') 
+    if (input == 'X')
     {
         this->m_zone->setz_bouclier(0);
         std::string msg = "[La menace " + m_name + " draine toute l'energie du bouclier de la " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
-    else if (input == 'Y') 
+    }
+    else if (input == 'Y')
     {
         this->m_zone->setz_reacteur(0);
         std::string msg = "[La menace " + m_name + " draine toute l'energie du reacteur de la " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
-    } 
+    }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
         std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
@@ -279,7 +348,7 @@ void menace_interne_i1_06::actionMenace(char input)
     }
 }
 
-void menace_interne_i1_07::actionMenace(char input) 
+void menace_interne_i1_07::actionMenace(char input)
 {
     if (input == 'Z') {
         int degats = this->get_m_vie()*3;
@@ -309,3 +378,179 @@ void menace_interne_i1_07::effetDebutTour()
 }
 
 menace_interne::~menace_interne() {}
+
+
+//MENACES COMMUNES AVANCEES
+
+void menace_interne_i2_01::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        std::string msg = "[La menace " + m_name + " tente de detruire une roquette, mais il n'y en a aucune au vaisseau.]\n";
+        std::map<int, int> roquette_position = this->m_zone->getz_roquete_position();
+        if (roquette_position[1] == 0)
+        {
+            this->m_zone->setz_roquete_position(1, 2);
+            msg = "[La menace " + m_name + " detruit la roquette 1 du vaisseau.]\n";
+        }
+        else if (roquette_position[2] == 0)
+        {
+            this->m_zone->setz_roquete_position(2, 2);
+            msg = "[La menace " + m_name + " detruit la roquette 2 du vaisseau.]\n";
+        }
+        else if (roquette_position[3] == 0)
+        {
+            this->m_zone->setz_roquete_position(3, 2);
+            msg = "[La menace " + m_name + " detruit la roquette 3 du vaisseau.]\n";
+        }
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        std::vector<menace_interne *> menaceInte = this->get_m_chemin()->get_menacesInte();
+        for (std::vector<menace_interne *>::iterator it = menaceInte.begin(); it != menaceInte.end(); it++)
+        {
+            if ((*it)->get_m_name() == "Bebe Slime")
+            {
+                std::string msg = "[La menace " + m_name + " ne s'etend pas car la " + m_zone->getz_nom_zone() + " contient deja un Bebe Slime.]\n";
+                std::cout << msg;
+                return ;
+            }
+        }
+        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
+        new_menace->set_m_zone(this->get_m_zone()->getzone_white());
+        new_menace->set_m_zoneInt(ZONE_WHITE);
+        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace());
+        std::string msg = "[La menace " + m_name + " s'etend dans la " + new_menace->get_m_zone()->getz_nom_zone() + " avec un point de vie.]\n";
+        std::cout << msg;
+        std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+        new_menace->set_m_presence(true);
+        new_menace->send_announcement_message();
+        new_menace->effetDebutTour();
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(2);
+        std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_01::effetDebutTour()
+{
+    if(!m_zone_delay_set)
+    {
+        m_zone->setz_jump_tour_upon_entry_bas(true);
+        m_zone_delay_set = true;
+    }
+}
+
+void menace_interne_i2_01::actionQuandDetruit()
+{
+    m_zone->setz_jump_tour_upon_entry_bas(false);
+    menace_interne::actionQuandDetruit();
+}
+
+
+void menace_interne_i2_015::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+    }
+    else if (input == 'Y')
+    {
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(2);
+        std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_015::effetDebutTour()
+{
+    if(!m_zone_delay_set)
+    {
+        m_zone->setz_jump_tour_upon_entry_bas(true);
+        m_zone_delay_set = true;
+    }
+}
+
+void menace_interne_i2_015::actionQuandDetruit()
+{
+    m_zone->setz_jump_tour_upon_entry_bas(false);
+    menace_interne::actionQuandDetruit();
+}
+
+void menace_interne_i2_02::effetDebutTour()
+{
+    if(!m_zone_delay_set)
+    {
+        m_zone->setz_jump_tour_upon_entry_bas(true);
+        m_zone_delay_set = true;
+    }
+}
+
+void menace_interne_i2_02::actionQuandDetruit()
+{
+    m_zone->setz_jump_tour_upon_entry_bas(false);
+    menace_interne::actionQuandDetruit();
+}
+
+void menace_interne_i2_02::actionMenace(char input)
+{
+    // if (input == 'X')
+    // {
+    //     std::string msg = "[La menace " + m_name + " tente de detruire une roquette, mais il n'y en a aucune au vaisseau.]\n";
+    //     std::map<int, int> roquette_position = this->m_zone->getz_roquete_position();
+    //     if (roquette_position[1] == 0)
+    //     {
+    //         this->m_zone->setz_roquete_position(1, 2);
+    //         msg = "[La menace " + m_name + " detruit la roquette 1 du vaisseau.]\n";
+    //     }
+    //     else if (roquette_position[2] == 0)
+    //     {
+    //         this->m_zone->setz_roquete_position(2, 2);
+    //         msg = "[La menace " + m_name + " detruit la roquette 2 du vaisseau.]\n";
+    //     }
+    //     else if (roquette_position[3] == 0)
+    //     {
+    //         this->m_zone->setz_roquete_position(3, 2);
+    //         msg = "[La menace " + m_name + " detruit la roquette 3 du vaisseau.]\n";
+    //     }
+    //     std::cout << msg;
+    // }
+    if (input == 'Y')
+    {
+        std::vector<menace_interne *> menaceInte = this->get_m_chemin()->get_menacesInte();
+        for (std::vector<menace_interne *>::iterator it = menaceInte.begin(); it != menaceInte.end(); it++)
+        {
+            if ((*it)->get_m_name() == "Bebe Slime")
+            {
+                std::string msg = "[La menace " + m_name + " ne s'etend pas car la " + m_zone->getz_nom_zone() + " contient deja un Bebe Slime.]\n";
+                std::cout << msg;
+                return ;
+            }
+        }
+        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
+        new_menace->set_m_zone(this->get_m_zone()->getzone_white());
+        new_menace->set_m_zoneInt(ZONE_WHITE);
+        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace());
+        std::string msg = "[La menace " + m_name + " s'etend dans la " + new_menace->get_m_zone()->getz_nom_zone() + " avec un point de vie.]\n";
+        std::cout << msg;
+        std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+        new_menace->set_m_presence(true);
+        new_menace->send_announcement_message();
+        new_menace->effetDebutTour();
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(2);
+        std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}

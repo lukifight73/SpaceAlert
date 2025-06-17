@@ -214,8 +214,9 @@ void	play_game(t_data &data)
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);
 		std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
-		//check_maintenance(data);
+		check_maintenance(data);
 		//print_data(data);
+		retarder_joueurs(data);
 		setTemps(data);
 		data.tour++;
 	}

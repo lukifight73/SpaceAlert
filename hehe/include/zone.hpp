@@ -28,6 +28,8 @@ class zone
         int z_reacteur;
         int z_max_reacteur;
         int z_bouclier;
+        bool z_jump_tour_upon_entry_haut;
+        bool z_jump_tour_upon_entry_bas;
         int z_max_energie_bouclier;
         int z_degats_recu;
         std::map<int, int> z_ordre_degats; // 0 = degats recu, 1 = degats infliges, 2 = degats infliges aux menaces, 3 = degats infliges aux canons, 4 = degats infliges aux joueurs, 5 = degats infliges aux robots
@@ -77,10 +79,14 @@ class zone
         void setz_bouclier(int input);
         void setz_max_energie_bouclier(int input);
         void setz_roquete_position(int, int);
+        void setz_jump_tour_upon_entry_bas(bool input);
+        void setz_jump_tour_upon_entry_haut(bool input);
         void setz_ordre_degats();
 
         //getters
         std::map<int, int> getz_roquete_position();
+        bool getz_jump_tour_upon_entry_bas() const;
+        bool getz_jump_tour_upon_entry_haut() const;
         int getz_reacteur() const;
         int getz_degats_recu() const;
         int getz_max_energie_reservoir() const;
@@ -92,7 +98,7 @@ class zone
         std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
-        chemin_menace* getz_chemin_menace_Int() const; 
+        chemin_menace* getz_chemin_menace_Int() const;
         cannon *getz_cannon_haut() const;
         cannon *getz_cannon_bas() const;
         std::string getz_joueur_playing() const;

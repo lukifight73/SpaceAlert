@@ -2,7 +2,7 @@
 
 void check_maintenance(t_data &data)
 {
-	
+
 	if (data.tour == 3 || data.tour == 6 || data.tour == 9)
 	{
 		std::vector<int> maintenance = data.zones[ZONE_WHITE]->getz_maintenance_ordinateur();
@@ -28,7 +28,19 @@ void check_maintenance(t_data &data)
 		std::cout << "tous les joueurs voient leurs actions decalees d'un tour." << std::endl;
 		for (int i = 1; i <= data.nb_joueur; i++)
 		{
+			data.joueurs[i]->setj_jump_tour(true);
+		}
+	}
+}
+
+void retarder_joueurs(t_data &data)
+{
+	for (int i = 1; i <= data.nb_joueur; i++)
+	{
+		if (data.joueurs[i]->getj_jump_tour())
+		{
 			data.joueurs[i]->passerTour(data.tour);
+			data.joueurs[i]->setj_jump_tour(false);
 		}
 	}
 }
