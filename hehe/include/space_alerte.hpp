@@ -36,3 +36,4 @@ void end_color(zone *zone);
 void start_color(zone *zone);
 menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces);
 void revelerMenace(menace_externe* menace);
+void retarder_joueurs(t_data &data);

@@ -24,14 +24,12 @@ void remove_dead_or_outdated_menaces(t_data &data)
     }
     chemin_menace *chemin_interne = data.chemin_menace_interne;
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2) 
+	for (std::vector<menace_interne*>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2)
 	{
-		if ((*it2)->get_m_position() <= 0 || (*it2)->get_m_vie() <= 0) 
+		if ((*it2)->get_m_position() <= 0 || (*it2)->get_m_vie() <= 0)
         {
             chemin_interne->remove_menace(*it2); // Suppression de la menace du chemin
         }
-        else
-            ++it;
 	}
 }
 
@@ -67,7 +65,7 @@ void mouvement_menaces(t_data &data)
     std::vector<menace_interne*> tmp = chemin_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		if ((*it)->get_m_presence()) 
+		if ((*it)->get_m_presence())
         {
             int positionBefore = (*it)->get_m_position();
             int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
@@ -96,7 +94,7 @@ void apparitionMenaces(t_data &data)
         i++;
     }
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it) 
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		if ((*it)->get_m_tourDarrivee() == data.tour)
         {

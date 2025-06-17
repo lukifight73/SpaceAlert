@@ -93,6 +93,16 @@ void joueur::setcarteInactif(int input)
     cartes[i].setc_action(INACTIF);
 }
 
+void joueur::setj_jump_tour(int input)
+{
+    j_jump_tour = input;
+}
+
+int joueur::getj_jump_tour() const
+{
+    return (j_jump_tour);
+}
+
 //getters
 bool joueur::getj_state()const
 {

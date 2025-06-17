@@ -106,34 +106,34 @@ Z->chaque roquette non reparee inflige 3 degats
 
 MENACES INTERNES COMMUNES AVANCEES
 
-i1-01 Slime zone bleu bas / ACT_R / V2 V2
+i2-01 Slime zone bleu bas / ACT_R / V2 V2
 --> tant qu il n est pas detruit, les joueurs entrant dans sa station sont retardes.
 X->detruit 1 roquette
 Y->s etend a gauche (avec un point de vie)
 Z->inflie 2 degats (les effets de retard persistent)
 
-i1-02 Slime zone rouge bas / ACT_R / V2 V2
+i2-02 Slime zone rouge bas / ACT_R / V2 V2
 --> tant qu il n est pas detruit, les joueurs entrant dans sa station sont retardes.
-X->detruit 1 roquette
+X-> empeche l activation des robots de combat (s il ne sont pas deja actives)
 Y->s etend a droite (avec un point de vie)
 Z->inflie 2 degats (les effets de retard persistent)
 
-i1-03 troupe d assaut rouge haut / ACT_R / riposte / V2 V2
+i2-03 troupe d assaut rouge haut / ACT_R / riposte / V2 V2
 X->change de niveau de pont
 Y->se deplace a droite
 Z->inflie 4 degats
 
-i1-04 troupe d assaut bleu bas / ACT_R / riposte / V2 V2
+i2-04 troupe d assaut bleu bas / ACT_R / riposte / V2 V2
 X->change de niveau de pont
 Y->se deplace a gauche
 Z->inflie 4 degats
 
-i1-05 virus blanche haut / ACT_C / V3 V3
+i2-05 virus blanche haut / ACT_C / V3 V3
 X->draine 1 energie de chaque reacteur
 Y->tous les joueurs sur le vaisseau sont retardes
 Z->inflie 1 degats sur chaque zone
 
-i1-05 virus blanche bas / ACT_B / V2 V3
+i2-05 virus blanche bas / ACT_B / V2 V3
 --> la derniere action B de reparation assomme tous les joueurs presents pres des autres reacteurs
 X->inflige 1 degats par bloc energie dans cette station
 Y->consume 1 capsule de carburant

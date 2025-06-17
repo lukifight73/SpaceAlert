@@ -10,12 +10,20 @@ void zone::addtemps()
 
 void zone::addz_joueurs_bas(joueur* input)
 {
-	z_joueurs_bas.push_back(input);
+	if (z_jump_tour_upon_entry_bas)
+	{
+		input->setj_jump_tour(true);
+		z_joueurs_bas.push_back(input);
+	}
 }
 
 void zone::addz_joueurs_haut(joueur* input)
 {
-	z_joueurs_haut.push_back(input);
+	if (z_jump_tour_upon_entry_haut)
+	{
+		input->setj_jump_tour(true);
+		z_joueurs_haut.push_back(input);
+	}
 }
 
 void zone::assomerjoueursZoneHaut()
@@ -41,7 +49,7 @@ void zone::retarderactionZoneHaut()
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
 	{
-		(*it)->passerTour(z_temps);
+		(*it)->setj_jump_tour(true);
 	}
 }
 
@@ -50,7 +58,7 @@ void zone::retarderactionZoneBas()
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
-		(*it)->passerTour(z_temps);
+		(*it)->setj_jump_tour(true);
 	}
 }
 
