@@ -554,3 +554,54 @@ void menace_interne_i2_02::actionMenace(char input)
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
+
+void menace_interne_i2_03::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        this->setPositionhaut(0);
+        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        this->set_m_zone(this->get_m_zone()->getzone_right());
+        this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(4);
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_04::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        this->setPositionhaut(1);
+        std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        this->set_m_zone(this->get_m_zone()->getzone_left());
+        this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(4);
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+
+
