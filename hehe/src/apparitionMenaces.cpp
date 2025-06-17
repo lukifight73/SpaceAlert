@@ -30,8 +30,6 @@ void remove_dead_or_outdated_menaces(t_data &data)
         {
             chemin_interne->remove_menace(*it2); // Suppression de la menace du chemin
         }
-        else
-            ++it;
 	}
 }
 
