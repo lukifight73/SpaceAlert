@@ -33,6 +33,7 @@ void menace_interne::getDamage(joueur *joueur)
 
 menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
+    m_ripost = false;
     if(input == "i1-01")
     {
         m_position_haut = true;
@@ -161,6 +162,7 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
     }
     else if(input == "si1-01")
     {
+        m_ripost = true;
         m_position_haut = false;
         m_difficulte = MENACE_SERIEUSE;
         m_name ="Commandos";
@@ -170,6 +172,7 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
     }
     else if(input == "si1-02")
     {
+        m_ripost = true;
         m_position_haut = true;
         m_difficulte = MENACE_SERIEUSE;
         m_name ="Commandos";
@@ -242,7 +245,7 @@ void menace_interne_i1_01::actionMenace(char input)
     }
     else if (input == 'Y')
     {
-        this->setPositionhaut(0);
+        this->set_m_Positionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -277,7 +280,7 @@ void menace_interne_i1_02::actionMenace(char input)
     }
     else if (input == 'Y')
     {
-        this->setPositionhaut(0);
+        this->set_m_Positionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -613,7 +616,7 @@ void menace_interne_i2_03::actionMenace(char input)
 {
     if (input == 'X')
     {
-        this->setPositionhaut(0);
+        this->set_m_Positionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -637,7 +640,7 @@ void menace_interne_i2_04::actionMenace(char input)
 {
     if (input == 'X')
     {
-        this->setPositionhaut(1);
+        this->set_m_Positionhaut(1);
         std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -734,7 +737,7 @@ void menace_interne_si1_01::actionMenace(char input)
 {
     if (input == 'X')
     {
-        this->setPositionhaut(1);
+        this->set_m_Positionhaut(1);
         std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -769,7 +772,7 @@ void menace_interne_si1_02::actionMenace(char input)
 {
     if (input == 'X')
     {
-        this->setPositionhaut(0);
+        this->set_m_Positionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
@@ -804,13 +807,14 @@ void menace_interne_si1_03::actionMenace(char input)
 {
     if (input == 'X')
     {
-        m_grandit = true;
+        m_grandit = true; // sert a rien!
+        m_ripost = true;
         std::string msg = "[La menace " + m_name + " grandit !]\n";
         std::cout << msg;
     }
     else if (input == 'Y')
     {
-        this->setPositionhaut(1);
+        this->set_m_Positionhaut(1);
         int joueurCount(0);
         std::vector<joueur*>::iterator it;
         for (it = m_zone->getz_joueurs_haut().begin(); it != m_zone->getz_joueurs_haut().end(); it++)

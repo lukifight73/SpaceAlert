@@ -473,10 +473,10 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 					z_bots = false;
 					this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
 				}
-				else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 2)
+				else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
 				{
 					wr("[Vous reactivez les robots qui vous accompagnent!]");
-					this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
+					this->getz_joueur_bas(z_joueur_playing)->setj_bots(BOTS_EVEILLE);
 				}
 				else
 				{
@@ -518,6 +518,8 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 			if(menaceInt)
 			{
 				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
+				if(menaceInt->get_m_Ripost())
+					this->getz_joueur_haut(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
 				wr("[Il n'y a aucun ennemi a proximite... flute.]");
@@ -536,6 +538,8 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 			if(menaceInt)
 			{
 				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+				if(menaceInt->get_m_Ripost())
+					this->getz_joueur_bas(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
 				wr("[Il n'y a aucun ennemi a proximite... flute.]");

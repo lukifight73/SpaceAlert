@@ -7,14 +7,19 @@ class menace_interne :public menace
     protected:
     bool    m_position_haut;
     int     m_killAction;
+    bool m_ripost;
 
     public:
         menace_interne();
         menace_interne(std::string input, int tourDarrivee);
-        void setPositionhaut(bool position)
+        void set_m_Positionhaut(bool position)
         { m_position_haut = position;};
-        bool getPositionhaut()
+        bool get_m_Positionhaut()
         { return m_position_haut;};
+        void set_m_Ripost(bool ripost)
+        { m_ripost = ripost;};
+        bool get_m_Ripost()
+        { return m_ripost;};
         virtual void print_menace() const;
         virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
         virtual void getDamage(joueur *joueur);
