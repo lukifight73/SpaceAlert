@@ -126,6 +126,7 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
     }
     else if(input == "i2-03")
     {
+        m_ripost = true;
         m_position_haut = true;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Troupe d'assaut";
@@ -135,6 +136,7 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
     }
     else if(input == "i2-04")
     {
+        m_ripost = true;
         m_position_haut = false;
         m_difficulte = MENACE_COMMUNE_AVANCEE;
         m_name ="Troupe d'assaut";
