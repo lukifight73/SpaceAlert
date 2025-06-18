@@ -159,6 +159,60 @@ menace_interne::menace_interne(std::string input, int tourDarrivee): menace(inpu
         m_vitesse = 2;
         m_killAction = ACT_B;
     }
+    else if(input == "si1-01")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Commandos";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "si1-02")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Commandos";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "si1-03")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Alien";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "si1-04")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Fissure";
+        m_vie = 2;
+        m_vitesse = 2;
+        m_killAction = ACT_R;
+    }
+    else if(input == "si1-05")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Courts-Circuits";
+        m_vie = 4;
+        m_vitesse = 3;
+        m_killAction = ACT_B;
+    }
+    else if(input == "si1-06")
+    {
+        m_position_haut = true;
+        m_difficulte = MENACE_SERIEUSE;
+        m_name ="Revolte des robots de combat";
+        m_vie = 4;
+        m_vitesse = 2;
+        m_killAction = ACT_C;
+    }
 };
 
 
@@ -597,6 +651,178 @@ void menace_interne_i2_04::actionMenace(char input)
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(4);
         std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_05::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        int energie = this->m_zone->getz_reacteur() - 1;
+        if(energie < 0)
+            energie = 0;
+        this->m_zone->setz_reacteur(energie);
+        // LEFT
+        energie = this->m_zone->getzone_left()->getz_reacteur() - 1;
+        if(energie < 0)
+            energie = 0;
+        this->m_zone->getzone_left()->setz_reacteur(energie);
+        // RIGHT
+        energie = this->m_zone->getzone_right()->getz_reacteur() - 1;
+        if(energie < 0)
+            energie = 0;
+        this->m_zone->getzone_right()->setz_reacteur(energie);
+        std::string msg = "[La menace " + m_name + " draine un d'energie a chaque reacteur.]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        m_zone->retarderactionZone();
+        m_zone->getzone_right()->retarderactionZone();
+        m_zone->getzone_left()->retarderactionZone();
+        std::string msg = "[La menace " + m_name + " retard tous les joueurs.]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(1);
+        m_zone->getzone_right()->getdegatsIgnoreBouclier(1);
+        m_zone->getzone_left()->getdegatsIgnoreBouclier(1);
+        std::string msg = "[La menace " + m_name + " inflige 1 degats sur toutes les zones...]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_06::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        int degats = this->m_zone->getz_reacteur();
+        m_zone->getdegatsIgnoreBouclier(degats);
+        std::cout << "[La menace " + m_name + "inflige " << degats << " degats sur " + m_zone->getz_nom_zone() + ".]\n";
+    }
+    else if (input == 'Y')
+    {
+        int energie = this->m_zone->getz_capsule_energie() - 1;
+        if(energie < 0)
+            energie = 0;
+        this->m_zone->setz_capsule_energie(energie);
+        std::string msg = "[La menace " + m_name + " consume 1 capsule de carburant.]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(3);
+        std::cout << "[La menace " + m_name + "inflige 3 degats sur " + m_zone->getz_nom_zone() + ".]\n";
+    } 
+    else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_i2_06::actionQuandDetruit()
+{
+   m_zone->getzone_right()->assomerjoueursZoneBas();
+   m_zone->getzone_left()->assomerjoueursZoneBas();
+   std::cout << "[Les joueurs en bas des Zones Bleu et Rouge sont assomes par " << m_name << ".]\n";
+}
+
+void menace_interne_si1_01::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        this->setPositionhaut(1);
+        std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        if(get_m_vie() < get_m_max_vie())
+        {
+            this->set_m_zone(this->get_m_zone()->getzone_right());
+            this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+            std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+            std::cout << msg;
+        }
+        else
+        {
+             m_zone->getdegatsIgnoreBouclier(2);
+            std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+            std::cout << msg;
+        }
+        
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(4);
+        m_zone->assomerjoueursZoneHaut();
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents a son niveau .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si1_02::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        this->setPositionhaut(0);
+        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        if(get_m_vie() < get_m_max_vie())
+        {
+            this->set_m_zone(this->get_m_zone()->getzone_left());
+            this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+            std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+            std::cout << msg;
+        }
+        else
+        {
+             m_zone->getdegatsIgnoreBouclier(2);
+            std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+            std::cout << msg;
+        }
+        
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(4);
+        m_zone->assomerjoueursZoneBas();
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents a son niveau.]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si1_03::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        m_grandit = true;
+        std::string msg = "[La menace " + m_name + " grandit !]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        this->setPositionhaut(1);
+        int joueurCount(0);
+        std::vector<joueur*>::iterator it;
+        for (it = m_zone->getz_joueurs_haut().begin(); it != m_zone->getz_joueurs_haut().end(); it++)
+        {
+            joueurCount++;
+        }
+        m_zone->getdegatsIgnoreBouclier(joueurCount);
+        std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone();
+        std::cout << msg << " et inflige " << joueurCount << " degats.]\n";
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " s empare du vaisseau !!!! YOU LOSE !!!!!]\n";
         std::cout << msg;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
