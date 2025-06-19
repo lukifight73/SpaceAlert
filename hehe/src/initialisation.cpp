@@ -108,6 +108,7 @@ void init_zone_white(t_data& data)
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_WHITE]->setz_data(data);
     data.zones[ZONE_WHITE]->setz_ordre_degats();
     data.zones[ZONE_WHITE]->setz_jump_tour_upon_entry_haut(false);
     data.zones[ZONE_WHITE]->setz_jump_tour_upon_entry_bas(false);
@@ -150,6 +151,7 @@ void init_zone_blue(t_data& data)
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_BLUE]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_BLUE]->setz_data(data);
     data.zones[ZONE_BLUE]->setz_ordre_degats();
     data.zones[ZONE_BLUE]->setz_jump_tour_upon_entry_haut(false);
     data.zones[ZONE_BLUE]->setz_jump_tour_upon_entry_bas(false);
@@ -157,6 +159,7 @@ void init_zone_blue(t_data& data)
 
 void init_zone_red(t_data& data)
 {
+    data.zones[ZONE_RED]->setz_data(data);
 	cannon *cannon_zone_red = new canon_lourd("Cannon laser lourd lateral", 4, data.zones[ZONE_RED]);
 	cannon *cannon_leger_zone_red = new canon_lateral(data.zones[ZONE_RED]);
     data.zones[ZONE_RED]->setzone_white(data.zones[ZONE_WHITE]);

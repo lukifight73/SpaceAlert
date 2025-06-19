@@ -158,6 +158,16 @@ int zone::getz_temps() const
 	return (z_temps);
 }
 
+void zone::setz_data(t_data &data)
+{
+	z_data = &data;
+}
+
+t_data *zone::getz_data()
+{
+	return (z_data);
+}
+
 bool zone::getz_bots_englues() const
 {
 	return (z_bots_englues);

@@ -59,12 +59,38 @@ void zone::assomerjoueursZoneHaut()
 	}
 }
 
+void zone::assomerjoueursZoneHautRobotsActifs()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	{
+		if ((*it)->getj_bots() == 1)
+		{
+			(*it)->setcarteInactif(z_temps);
+			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+		}
+	}
+}
+
 void zone::assomerjoueursZoneBas()
 {
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
 		(*it)->setcarteInactif(z_temps);
+	}
+}
+
+void zone::assomerjoueursZoneBasRobotsActifs()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
+	{
+		if ((*it)->getj_bots() == 1)
+		{
+			(*it)->setcarteInactif(z_temps);
+			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+		}
 	}
 }
 
@@ -90,6 +116,12 @@ void zone::assomerjoueursZone()
 {
 	assomerjoueursZoneHaut();
 	assomerjoueursZoneBas();
+}
+
+void zone::assomerjoueursZoneRobotsActifs()
+{
+	assomerjoueursZoneHautRobotsActifs();
+	assomerjoueursZoneBasRobotsActifs();
 }
 
 void zone::retarderactionZone()
