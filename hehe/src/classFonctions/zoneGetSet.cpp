@@ -223,7 +223,7 @@ std::string zone::getz_joueur_playing() const
 	return (z_joueur_playing);
 }
 
-std::vector<joueur*> zone::getz_joueurs_bas() const
+std::vector<joueur*> zone::getz_joueurs_bas_vec() const
 {
 	return (z_joueurs_bas);
 }
@@ -238,7 +238,7 @@ std::vector<int>    zone::getz_actions_used_ce_tour_bas() const
 	return (z_actions_used_ce_tour_bas);
 }
 
-std::vector<joueur*> zone::getz_joueurs_haut() const
+std::vector<joueur*> zone::getz_joueurs_haut_vec() const
 {
 	return (z_joueurs_haut);
 }

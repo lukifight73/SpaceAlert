@@ -1,5 +1,6 @@
 #include "menace.hpp"
 #include "menace_interne.hpp"
+#include "zone.hpp"
 
 menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data &data);
 
@@ -220,7 +221,7 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
         m_vitesse = 2;
         m_killAction = ACT_C;
     }
-        else if(input == "si2-01")
+    else if(input == "si2-01")
     {
         m_ripost = true;
         m_position_haut = true;
@@ -232,10 +233,9 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
     }
     else if(input == "si2-02")
     {
-        m_ripost = false;
         m_position_haut = true;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
-        m_name ="Droide Fureteur";
+        m_name ="Droide fureteur";
         m_vie = 2;
         m_vitesse = 2;
         m_killAction = ACT_R;
@@ -852,7 +852,7 @@ void menace_interne_si1_03::actionMenace(char input)
         this->set_m_Positionhaut(1);
         int joueurCount(0);
         std::vector<joueur*>::iterator it;
-        for (it = m_zone->getz_joueurs_haut().begin(); it != m_zone->getz_joueurs_haut().end(); it++)
+        for (it = m_zone->getz_joueurs_haut_vec().begin(); it != m_zone->getz_joueurs_haut_vec().end(); it++)
         {
             joueurCount++;
         }
@@ -984,27 +984,93 @@ void menace_interne_si1_06::effetDebutTour()
 
 void menace_interne_si2_01::actionMenace(char input)
 {
-    if (input == 'X')
+   if (input == 'X')
     {
-        m_ripost = true;
-        std::string msg = "[La menace " + m_name + " grandit !]\n";
+        this->set_m_zone(this->get_m_zone()->getzone_left());
+        this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
         std::cout << msg;
     }
     else if (input == 'Y')
     {
-        this->set_m_Positionhaut(1);
-        int joueurCount(0);
-        std::vector<joueur*>::iterator it;
-        for (it = m_zone->getz_joueurs_haut().begin(); it != m_zone->getz_joueurs_haut().end(); it++)
-        {
-            joueurCount++;
-        }
-        m_zone->getdegatsIgnoreBouclier(joueurCount);
-        std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone();
-        std::cout << msg << " et inflige " << joueurCount << " degats.]\n";
+        this->set_m_Positionhaut(0);
+        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
     }
     else if (input == 'Z') {
-        std::string msg = "[La menace " + m_name + " s empare du vaisseau !!!! YOU LOSE !!!!!]\n";
+        m_zone->getdegatsIgnoreBouclier(3);
+        std::string msg = "[La menace " + m_name + " inflige 3 degats a la " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si2_01::effetApresMvt()
+{
+    if(m_position_haut)
+         m_zone->assomerjoueursZoneHaut_IfNoActifRobot();
+    else
+        m_zone->assomerjoueursZoneBas_IfNoActifRobot();
+
+}
+
+void menace_interne::manaceMoveInZone(std::string string)
+{
+    if(string == "Left")
+    {
+        this->set_m_zone(this->get_m_zone()->getzone_left());
+        if(get_m_zoneInt() == ZONE_BLUE)
+            this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+        else if(get_m_zoneInt() == ZONE_WHITE)
+            this->set_m_zoneInt(ZONE_RED); // le Int qui correspond a la zone
+        else
+            wr("Chelou, je peux pas bouger plus a gauche\n");
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if(string == "Right")
+    {
+        this->set_m_zone(this->get_m_zone()->getzone_right());
+        if(get_m_zoneInt() == ZONE_RED)
+            this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
+        else if(get_m_zoneInt() == ZONE_WHITE)
+            this->set_m_zoneInt(ZONE_BLUE); // le Int qui correspond a la zone
+        else
+            wr("Chelou, je peux pas bouger plus a gauche\n");
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::cout << msg;
+    }
+    else if(string == "Up/Down")
+    {
+        this->set_m_Positionhaut(!m_position_haut);
+        std::string msg = "[La menace " + m_name + " chagne de niveau .]\n";
+        std::cout << msg;
+    }
+
+}
+
+
+void menace_interne_si2_02::actionMenace(char input)
+{
+    // std::cout << "Le move est :!!!!!\n";
+    std::string move = m_zone->stationWithMostPlayer(m_position_haut, m_zoneInt);
+    // std::cout << "Le move est :" << move << "!!!!!\n";
+    if (input == 'X')
+    {
+        manaceMoveInZone(move);
+    }
+    else if (input == 'Y')
+    {
+        manaceMoveInZone(move);
+    }
+    else if (input == 'Z') {
+        m_zone->getdegatsIgnoreBouclier(5);
+        if(m_position_haut)
+            m_zone->assomerjoueursZoneHaut();
+        else
+            m_zone->assomerjoueursZoneBas();
+        std::string msg = "[La menace " + m_name + " inflige 5 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs de sa station .]\n";
         std::cout << msg;
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;

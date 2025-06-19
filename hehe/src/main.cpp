@@ -40,8 +40,8 @@ void print_joueur_zone(t_data &data)
 	int i(1);
 	while (i < 4)
 	{
-		std::vector <joueur*> joueurs_haut = data.zones[i]->getz_joueurs_haut();
-		std::vector <joueur*> joueurs_bas = data.zones[i]->getz_joueurs_bas();
+		std::vector <joueur*> joueurs_haut = data.zones[i]->getz_joueurs_haut_vec();
+		std::vector <joueur*> joueurs_bas = data.zones[i]->getz_joueurs_bas_vec();
 		for (std::vector<joueur*>::iterator it = joueurs_haut.begin(); it != joueurs_haut.end(); ++it)
 		{
 			std::cout << "Joueur " << (*it)->getj_number() << " en haut de la " << data.zones[i]->getz_nom_zone() << " : " << (*it)->getj_nom() << std::endl;
@@ -142,6 +142,24 @@ void actionMenaceDebutTour(t_data &data)
 	}
 }
 
+void effetMenaceApresMvt(t_data &data)
+{
+	for (int i = 1; i < 4; i++)
+	{
+		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
+		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+		{
+			(*it)->effetApresMvt();
+		}
+	}
+	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
+	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+	{
+		(*it)->effetApresMvt();
+	}
+}
+
+
 void infligeDegats(menace_externe *menace)
 {
 	if(menace->get_m_vie() <= 0)
@@ -202,6 +220,7 @@ void	play_game(t_data &data)
 			end_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
 			num_joueur++;
 		}
+		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)
 		attaqueDesCanons(data); // remplace les deux d apres
 		rocketActions(data);
 		putDegatsIntoAction(data);
@@ -210,6 +229,7 @@ void	play_game(t_data &data)
 		printInfoMenace(data);
 		std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		mouvement_menaces(data);
+		effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
 	    remove_dead_or_outdated_menaces(data); // doit etre fait apres le mouvement des menaces pour voir si elles sont parties ou non
 		std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		printInfoMenace(data);

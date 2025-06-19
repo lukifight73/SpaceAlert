@@ -185,3 +185,5 @@ void menace::recoitDegats(int input)
         // m_presence = false; // la presence n'est pas enleve car elle doit tjs etre cible si c est la plus proche
     }
 }
+
+

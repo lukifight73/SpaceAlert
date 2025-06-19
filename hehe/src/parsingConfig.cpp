@@ -220,9 +220,9 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data 
     else if (typeMenace == "si2-01") {
         return new menace_interne_si2_01(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "si2-02") {
-    //     return new menace_interne_si2_02(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "si2-02") {
+        return new menace_interne_si2_02(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
+    }
     else if (typeMenace == "si2-03") {
         return new menace_interne_si2_03(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
