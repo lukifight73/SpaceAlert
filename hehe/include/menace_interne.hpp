@@ -265,7 +265,6 @@ class menace_interne_si1_05 :public menace_interne
     public:
         menace_interne_si1_05() {};
         menace_interne_si1_05(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input , input, tourDarrivee) {};
-        virtual void getDamage(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_si1_05() {};
 };
@@ -287,3 +286,66 @@ class menace_interne_si1_06 :public menace_interne
         virtual void effetDebutTour();
         virtual ~menace_interne_si1_06() {};
 };
+
+
+class menace_interne_si2_01 :public menace_interne
+{
+    protected:
+
+    public:
+        menace_interne_si2_01() {};
+        menace_interne_si2_01(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee) {};
+        virtual void actionMenace(char input);
+        virtual ~menace_interne_si2_01() {};
+};
+
+// class menace_interne_si2_02 :public menace_interne
+// {
+//     protected:
+
+//     public:
+//         menace_interne_si2_02() {};
+//         menace_interne_si2_02(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+//         virtual void actionMenace(char input);
+//         virtual ~menace_interne_si2_02() {};
+// };
+
+// class menace_interne_si2_03 :public menace_interne
+// {
+//     protected:
+//     bool m_grandit;
+
+//     public:
+//         menace_interne_si2_03() {};
+//         menace_interne_si2_03(bool grandit, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee)
+//         {m_grandit = grandit;};
+//         virtual void actionMenace(char input);
+//         virtual ~menace_interne_si2_03() {};
+// };
+
+// class menace_interne_si2_04 :public menace_interne
+// {
+//     protected:
+
+//     public:
+//         menace_interne_si2_04() {};
+//         menace_interne_si2_04(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+//         virtual void actionMenace(char input);
+//         virtual ~menace_interne_si1_04() {};
+// };
+
+
+// class menace_interne_si2_05 :public menace_interne
+// {
+//     protected:
+
+//     public:
+//         menace_interne_si2_05() {};
+//         menace_interne_si2_05(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+//         virtual void actionMenace(char input);
+//         virtual ~menace_interne_si2_05() {};
+// };
+
+
+
+

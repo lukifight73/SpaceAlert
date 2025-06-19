@@ -901,6 +901,35 @@ void menace_interne_si1_06::actionMenace(char input)
     }
 }
 
+void menace_interne_si2_01::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        m_ripost = true;
+        std::string msg = "[La menace " + m_name + " grandit !]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        this->set_m_Positionhaut(1);
+        int joueurCount(0);
+        std::vector<joueur*>::iterator it;
+        for (it = m_zone->getz_joueurs_haut().begin(); it != m_zone->getz_joueurs_haut().end(); it++)
+        {
+            joueurCount++;
+        }
+        m_zone->getdegatsIgnoreBouclier(joueurCount);
+        std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone();
+        std::cout << msg << " et inflige " << joueurCount << " degats.]\n";
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " s empare du vaisseau !!!! YOU LOSE !!!!!]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
 void menace_interne_si1_06::getDamage(joueur *joueur)
 {
     joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
