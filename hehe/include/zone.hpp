@@ -21,6 +21,7 @@ class zone
         chemin_menace *z_chemin_menace;
         chemin_menace *z_chemin_menace_intern;
         bool z_bots;
+        bool z_bots_englues;
         int z_zone;//NUMERO DE La ZONE
         int z_temps;//chelou ici
         int z_capsule_energie;
@@ -71,6 +72,7 @@ class zone
         void setz_chemin(chemin_menace *input);
         void setz_chemin_intern(chemin_menace *input);
         void setz_bots(bool input);
+        void setz_bots_englues(bool input);
         void setz_temps(int input);
         void setz_capsule_energie(int input);
         void setz_ascenseur(bool input);
@@ -92,6 +94,7 @@ class zone
         int getz_max_energie_reacteur() const;
         int getz_capsule_energie() const;
         bool getz_bots() const;
+        bool getz_bots_englues() const;
         int getz_bouclier() const;
         int getz_max_energie_bouclier() const;
         int getz_zone() const;

@@ -479,13 +479,9 @@ void menace_interne_i2_01::actionMenace(char input)
         menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
         new_menace->set_m_zone(this->get_m_zone()->getzone_white());
         new_menace->set_m_zoneInt(ZONE_WHITE);
-        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace());
+        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace_Int());
         std::string msg = "[La menace " + m_name + " s'etend dans la " + new_menace->get_m_zone()->getz_nom_zone() + " avec un point de vie.]\n";
         std::cout << msg;
-        std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
-        new_menace->set_m_presence(true);
-        new_menace->send_announcement_message();
-        new_menace->effetDebutTour();
     }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
@@ -561,27 +557,15 @@ void menace_interne_i2_02::actionQuandDetruit()
 
 void menace_interne_i2_02::actionMenace(char input)
 {
-    // if (input == 'X')
-    // {
-    //     std::string msg = "[La menace " + m_name + " tente de detruire une roquette, mais il n'y en a aucune au vaisseau.]\n";
-    //     std::map<int, int> roquette_position = this->m_zone->getz_roquete_position();
-    //     if (roquette_position[1] == 0)
-    //     {
-    //         this->m_zone->setz_roquete_position(1, 2);
-    //         msg = "[La menace " + m_name + " detruit la roquette 1 du vaisseau.]\n";
-    //     }
-    //     else if (roquette_position[2] == 0)
-    //     {
-    //         this->m_zone->setz_roquete_position(2, 2);
-    //         msg = "[La menace " + m_name + " detruit la roquette 2 du vaisseau.]\n";
-    //     }
-    //     else if (roquette_position[3] == 0)
-    //     {
-    //         this->m_zone->setz_roquete_position(3, 2);
-    //         msg = "[La menace " + m_name + " detruit la roquette 3 du vaisseau.]\n";
-    //     }
-    //     std::cout << msg;
-    // }
+    if (input == 'X')
+    {
+        if (this->m_zone->getz_bots())
+        {
+            this->m_zone->setz_bots_englues(true);
+            std::string msg = "[La menace " + m_name + " englue les robots de combats. Ils doivent etre actives deux fois pour pouvoir etre utilises.]\n";
+            std::cout << msg;
+        }
+    }
     if (input == 'Y')
     {
         std::vector<menace_interne *> menaceInte = this->get_m_chemin()->get_menacesInte();
@@ -597,13 +581,10 @@ void menace_interne_i2_02::actionMenace(char input)
         menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
         new_menace->set_m_zone(this->get_m_zone()->getzone_white());
         new_menace->set_m_zoneInt(ZONE_WHITE);
-        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace());
+        new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace_Int());
+        this->get_m_zone()->getzone_white()->getz_chemin_menace_Int()->add_menaceInt(new_menace);
         std::string msg = "[La menace " + m_name + " s'etend dans la " + new_menace->get_m_zone()->getz_nom_zone() + " avec un point de vie.]\n";
         std::cout << msg;
-        std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
-        new_menace->set_m_presence(true);
-        new_menace->send_announcement_message();
-        new_menace->effetDebutTour();
     }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(2);
@@ -722,7 +703,7 @@ void menace_interne_i2_06::actionMenace(char input)
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(3);
         std::cout << "[La menace " + m_name + "inflige 3 degats sur " + m_zone->getz_nom_zone() + ".]\n";
-    } 
+    }
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -758,7 +739,7 @@ void menace_interne_si1_01::actionMenace(char input)
             std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
             std::cout << msg;
         }
-        
+
     }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(4);
@@ -793,7 +774,7 @@ void menace_interne_si1_02::actionMenace(char input)
             std::string msg = "[La menace " + m_name + " inflige 2 degats a la " + m_zone->getz_nom_zone() + " .]\n";
             std::cout << msg;
         }
-        
+
     }
     else if (input == 'Z') {
         m_zone->getdegatsIgnoreBouclier(4);
@@ -857,7 +838,7 @@ void menace_interne_si1_05::actionMenace(char input)
             std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier sans causer de degats.]\n ";
             std::cout << msg;
         }
-        
+
     }
     else if (input == 'Y')
     {

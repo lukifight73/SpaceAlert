@@ -465,23 +465,31 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			else
 			{
 				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
-			if (action_possible != this->getz_actions_bas().end())
-			{
-				if (z_bots && this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 0)
+				if (action_possible != this->getz_actions_bas().end())
 				{
-					wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
-					z_bots = false;
-					this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
-				}
-				else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
-				{
-					wr("[Vous reactivez les robots qui vous accompagnent!]");
-					this->getz_joueur_bas(z_joueur_playing)->setj_bots(BOTS_EVEILLE);
-				}
-				else
-				{
-					wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
-				}
+					if (z_bots && this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 0)
+					{
+						if (this->getz_bots_englues())
+						{
+							this->getz_joueur_bas(z_joueur_playing)->setj_bots(2);
+							wr("[Vous prenez les robots avec vous! Ils sont englues, il faut donc les activer une seconde fois!]");
+						}
+						else
+						{
+							this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
+							wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
+						}
+						z_bots = false;
+					}
+					else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 2)
+					{
+						wr("[Vous reactivez les robots qui vous accompagnent!]");
+						this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
+					}
+					else
+					{
+						wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
+					}
 				}
 				else
 				{

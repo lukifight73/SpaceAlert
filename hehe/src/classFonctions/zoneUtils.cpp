@@ -15,6 +15,8 @@ void zone::addz_joueurs_bas(joueur* input)
 		input->setj_jump_tour(true);
 		z_joueurs_bas.push_back(input);
 	}
+	else
+		z_joueurs_bas.push_back(input);
 }
 
 void zone::addz_joueurs_haut(joueur* input)
@@ -24,6 +26,8 @@ void zone::addz_joueurs_haut(joueur* input)
 		input->setj_jump_tour(true);
 		z_joueurs_haut.push_back(input);
 	}
+	else
+		z_joueurs_haut.push_back(input);
 }
 
 void zone::assomerjoueursZoneHaut()
@@ -228,7 +232,6 @@ joueur* zone::getz_joueur_bas(std::string nom)
 joueur* zone::getz_joueur_haut(std::string nom)
 {
 	std::vector<joueur*>::iterator it;
-
 	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end();)
 	{
         if ((*it)->getj_nom() == nom)

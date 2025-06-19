@@ -148,9 +148,19 @@ void zone::setz_jump_tour_upon_entry_haut(bool input)
 	z_jump_tour_upon_entry_haut = input;
 }
 
+void zone::setz_bots_englues(bool input)
+{
+	z_bots_englues = input;
+}
+
 int zone::getz_temps() const
 {
 	return (z_temps);
+}
+
+bool zone::getz_bots_englues() const
+{
+	return (z_bots_englues);
 }
 
 bool zone::getz_jump_tour_upon_entry_bas() const

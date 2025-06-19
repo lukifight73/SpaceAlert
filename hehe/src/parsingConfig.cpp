@@ -181,6 +181,9 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
     else if (typeMenace == "i2-01") {
         return new menace_interne_i2_01(false, typeMenace, tempsArrivee);
     }
+    else if (typeMenace == "i2-015") {
+        return new menace_interne_i2_015(false, typeMenace, tempsArrivee);
+    }
     else if (typeMenace == "i2-02") {
         return new menace_interne_i2_02(false, typeMenace, tempsArrivee);
     }
