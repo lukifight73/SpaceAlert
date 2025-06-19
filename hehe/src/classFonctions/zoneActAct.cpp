@@ -3,64 +3,81 @@
 
 void zone::actionA()
 {
+	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_A);
-		if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_A, z_zone, 1);
+		if(menaceInt)
 		{
-			if (z_reacteur)
-			{
-				wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
-				z_reacteur -= 1;
-				std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
-				this->addz_actions_used_ce_tour_haut(ACT_A);
-				addz_cannon_used(this->getz_cannon_haut());
-				this->getz_cannon_haut()->setcanon_used(true);
-			}
-			else
-			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
-				this->addz_actions_used_ce_tour_haut(ACT_A);
-			}
-		}
-		else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
-		{
-			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
 		}
 		else
-			wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+		{
+			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_A);
+			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_A);
+			if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+			{
+				if (z_reacteur)
+				{
+					wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
+					z_reacteur -= 1;
+					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+					this->addz_actions_used_ce_tour_haut(ACT_A);
+					addz_cannon_used(this->getz_cannon_haut());
+					this->getz_cannon_haut()->setcanon_used(true);
+				}
+				else
+				{
+					wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+					this->addz_actions_used_ce_tour_haut(ACT_A);
+				}
+			}
+			else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
+			{
+				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			}
+			else
+				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+		}
 	}
 	else
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_A);
-		if (action_possible != this->getz_actions_bas().end() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_A, z_zone, 0);
+		if(menaceInt)
 		{
-			if (z_reacteur)
-			{
-				wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
-				if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
-				{
-					z_reacteur -= 1;
-					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
-				}
-				this->addz_actions_used_ce_tour_bas(ACT_A);
-				addz_cannon_used(this->getz_cannon_bas());
-				this->getz_cannon_bas()->setcanon_used(true);
-			}
-			else
-			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
-				this->addz_actions_used_ce_tour_bas(ACT_A);
-			}
-		}
-		else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
-		{
-			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
 		}
 		else
-			wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+		{
+			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_A);
+			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_A);
+			if (action_possible != this->getz_actions_bas().end() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
+			{
+				if (z_reacteur)
+				{
+					wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
+					if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
+					{
+						z_reacteur -= 1;
+						std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+					}
+					this->addz_actions_used_ce_tour_bas(ACT_A);
+					addz_cannon_used(this->getz_cannon_bas());
+					this->getz_cannon_bas()->setcanon_used(true);
+				}
+				else
+				{
+					wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+					this->addz_actions_used_ce_tour_bas(ACT_A);
+				}
+			}
+			else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
+			{
+				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+			}
+			else
+				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+		}
 	}
 }
 
@@ -129,74 +146,91 @@ void zone::actionAHeros()
 
 void zone::actionB()
 {
+	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_B);
-		if (action_possible != this->getz_actions_haut().end())
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_B, z_zone, 1);
+		if(menaceInt)
 		{
-			if (z_reacteur)
-			{
-				wr("[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]");
-				while (z_reacteur && z_bouclier < z_max_energie_bouclier)
-				{
-					z_reacteur--;
-					z_bouclier++;
-				}
-				std::cout << "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " << z_bouclier << "]\n";
-				std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
-			}
-			else
-			{
-				wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]");
-			}
+			menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
 		}
 		else
 		{
-			wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]");
+			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_B);
+			if (action_possible != this->getz_actions_haut().end())
+			{
+				if (z_reacteur)
+				{
+					wr("[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]");
+					while (z_reacteur && z_bouclier < z_max_energie_bouclier)
+					{
+						z_reacteur--;
+						z_bouclier++;
+					}
+					std::cout << "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " << z_bouclier << "]\n";
+					std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
+				}
+				else
+				{
+					wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]");
+				}
+			}
+			else
+			{
+				wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]");
+			}
 		}
 	}
 	else
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_B);
-		if (action_possible != this->getz_actions_bas().end())
+		menaceInt = checkIfMenaceInternAttrackAction(ACT_B, z_zone, 0);
+		if(menaceInt)
 		{
-			if (z_zone == ZONE_WHITE)
-			{
-				if (z_capsule_energie)
-				{
-					wr("[Activation d'une capsule de carburant - Carburant disponible : 5]");
-					z_reacteur = 5;
-					z_capsule_energie -= 1;
-					std::cout << "[Capsule de carburant restante : " << z_capsule_energie << "]\n";
-				}
-				else
-				{
-					wr("[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]");
-				}
-
-			}
-			else
-			{
-				if (zone_white->getz_reacteur())
-				{
-					wr("[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]");
-					while (zone_white->getz_reacteur() && z_reacteur < z_max_reacteur)
-					{
-						z_reacteur++;
-						zone_white->setz_reacteur(zone_white->getz_reacteur() - 1);
-					}
-					std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
-					std::cout << "[Energie disponible dans le reacteur central : " << zone_white->getz_reacteur() << "]\n";
-				}
-				else
-				{
-					wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]");
-				}
-			}
+			menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
 		}
 		else
 		{
-			wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]");
+			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_B);
+			if (action_possible != this->getz_actions_bas().end())
+			{
+				if (z_zone == ZONE_WHITE)
+				{
+					if (z_capsule_energie)
+					{
+						wr("[Activation d'une capsule de carburant - Carburant disponible : 5]");
+						z_reacteur = 5;
+						z_capsule_energie -= 1;
+						std::cout << "[Capsule de carburant restante : " << z_capsule_energie << "]\n";
+					}
+					else
+					{
+						wr("[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]");
+					}
+
+				}
+				else
+				{
+					if (zone_white->getz_reacteur())
+					{
+						wr("[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]");
+						while (zone_white->getz_reacteur() && z_reacteur < z_max_reacteur)
+						{
+							z_reacteur++;
+							zone_white->setz_reacteur(zone_white->getz_reacteur() - 1);
+						}
+						std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
+						std::cout << "[Energie disponible dans le reacteur central : " << zone_white->getz_reacteur() << "]\n";
+					}
+					else
+					{
+						wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]");
+					}
+				}
+			}
+			else
+			{
+				wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]");
+			}
 		}
 	}
 }
@@ -492,6 +526,8 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 			if(menaceInt)
 			{
 				menaceInt->getDamage(this->getz_joueur_haut(z_joueur_playing));
+				if(menaceInt->get_m_Ripost())
+					this->getz_joueur_haut(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
 				wr("[Il n'y a aucun ennemi a proximite... flute.]");
@@ -510,6 +546,8 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 			if(menaceInt)
 			{
 				menaceInt->getDamage(this->getz_joueur_bas(z_joueur_playing));
+				if(menaceInt->get_m_Ripost())
+					this->getz_joueur_bas(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
 				wr("[Il n'y a aucun ennemi a proximite... flute.]");

@@ -86,6 +86,9 @@ class menace
         int get_m_vie() const {
             return m_vie;
         };
+        int get_m_max_vie() const {
+            return m_max_vie;
+        };
         
         int get_m_difficulte() const {
             return m_difficulte;

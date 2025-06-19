@@ -178,7 +178,7 @@ int zone::getz_reacteur() const
 	return (z_reacteur);
 }
 
-int zone::getz_max_energie_reservoir() const
+int zone::getz_max_energie_reacteur() const
 {
 	return (z_max_reacteur);
 }
