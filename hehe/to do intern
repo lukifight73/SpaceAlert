@@ -24,9 +24,10 @@ X-> tant que fissure, degat sur la zone double
 Y-> tant que fissure, degat sur le vaisseau double
 Z-> le vaisseau part en piece detachee
 
+#DONE
 si1-05 Courts-Circuits -> arrive zone blanche haut  / ACT_B / V3 V4
 X-> l energie du reacteur central est transferee au bouclier, le sruplus se volatilise (1 degat par surplu)
-Y-> l energie du reacteur se volatilise (1 degat par surplu)
+Y-> l energie du reacteur se volatilise (1 degat par energie qui se volatilise)
 Z-> l energie de tous les reacteurs se volatilise (1 degat par surplu) (respectivement par zone).
 
 si1-06 revolte des robots de combat -> arrive zone bleu haut & rouge bas / ACT_C / V2 V4

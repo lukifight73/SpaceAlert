@@ -837,3 +837,55 @@ void menace_interne_si1_03::actionMenace(char input)
 
 
 
+void menace_interne_si1_05::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        int EnergieReacteur = m_zone->getz_reacteur();
+        m_zone->setz_reacteur(0);
+        int EnergieBouclier = m_zone->getz_bouclier() + EnergieReacteur;
+        if(EnergieBouclier > m_zone->getz_max_energie_bouclier())
+        {
+            m_zone->setz_bouclier(m_zone->getz_max_energie_bouclier());
+            m_zone->getdegatsIgnoreBouclier(EnergieBouclier - m_zone->getz_max_energie_bouclier());
+            std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier, le sruplus se volatilise et cause ";
+            std::cout << msg << EnergieBouclier - m_zone->getz_max_energie_bouclier() << " degats.]\n";
+        }
+        else
+        {
+            m_zone->setz_bouclier(EnergieBouclier);
+            std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier sans causer de degats.]\n ";
+            std::cout << msg;
+        }
+        
+    }
+    else if (input == 'Y')
+    {
+        int EnergieReacteur = m_zone->getz_reacteur();
+        m_zone->setz_reacteur(0);
+        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
+        std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie du reacteur, causant ";
+        std::cout << msg << EnergieReacteur << " degats.]\n";
+    }
+    else if (input == 'Z') {
+        int EnergieReacteur = m_zone->getz_reacteur();
+        m_zone->setz_reacteur(0);
+        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
+        int EnergieReacteurR = m_zone->getzone_right()->getz_reacteur();
+        m_zone->getzone_right()->setz_reacteur(0);
+        m_zone->getzone_right()->getdegatsIgnoreBouclier(EnergieReacteurR);
+        int EnergieReacteurL = m_zone->getzone_left()->getz_reacteur();
+        m_zone->getzone_left()->setz_reacteur(0);
+        m_zone->getzone_left()->getdegatsIgnoreBouclier(EnergieReacteurL);
+        std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie du reacteur, causant ";
+        std::cout << msg << EnergieReacteur << " degats a la " << m_zone->getz_nom_zone() << ", " <<
+        EnergieReacteurR << " degats a la " << m_zone->getzone_right()->getz_nom_zone() << ", " <<
+        EnergieReacteurL << " degats a la " << m_zone->getzone_left()->getz_nom_zone() <<
+        ".]\n";
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+
+

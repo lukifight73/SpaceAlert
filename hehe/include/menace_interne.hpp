@@ -256,17 +256,17 @@ class menace_interne_si1_03 :public menace_interne
 // };
 
 
-// class menace_interne_si1_05 :public menace_interne
-// {
-//     protected:
+class menace_interne_si1_05 :public menace_interne
+{
+    protected:
 
-//     public:
-//         menace_interne_si1_05() {};
-//         menace_interne_si1_05(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-//         virtual void getDamage(joueur *joueur);
-//         virtual void actionMenace(char input);
-//         virtual ~menace_interne_si1_05() {};
-// };
+    public:
+        menace_interne_si1_05() {};
+        menace_interne_si1_05(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+        virtual void getDamage(joueur *joueur);
+        virtual void actionMenace(char input);
+        virtual ~menace_interne_si1_05() {};
+};
 
 
 // class menace_interne_si1_06 :public menace_interne

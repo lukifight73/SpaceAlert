@@ -27,9 +27,9 @@ class zone
         bool z_ascenseur;
         int z_reacteur;
         int z_max_reacteur;
-        int z_bouclier;
         bool z_jump_tour_upon_entry_haut;
         bool z_jump_tour_upon_entry_bas;
+        int z_bouclier;
         int z_max_energie_bouclier;
         int z_degats_recu;
         std::map<int, int> z_ordre_degats; // 0 = degats recu, 1 = degats infliges, 2 = degats infliges aux menaces, 3 = degats infliges aux canons, 4 = degats infliges aux joueurs, 5 = degats infliges aux robots
@@ -89,7 +89,7 @@ class zone
         bool getz_jump_tour_upon_entry_haut() const;
         int getz_reacteur() const;
         int getz_degats_recu() const;
-        int getz_max_energie_reservoir() const;
+        int getz_max_energie_reacteur() const;
         int getz_capsule_energie() const;
         bool getz_bots() const;
         int getz_bouclier() const;
