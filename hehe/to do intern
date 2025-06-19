@@ -39,13 +39,14 @@ Z-> tous les joueurs qui ne sont pas sur la passerelle sont assommes
 
 MENACES INTERNES SERIEUSES
 
+#DONE
 si2-01 EXECUTEUR Arrive en bleu haut / ACT_R / riposte / V2 V2
 ->assomme tous les joueurs qu il croise s ils ne dirigent pas des robots de combat actifs.
 X->se deplace a gauche
 Y->change de niveau de pont
 Z->inflige 3 degats
 
-si2-02 DROITE FURETEUR Arrive en blanche haut / ACT_R / V2 V2
+si2-02 Droide FURETEUR Arrive en blanche haut / ACT_R / V2 V2
 ->Le joueur qui le detruit est assomme
 X->se deplace vers la station adjacente avec le plus de joueurs (ne bouge pas si egalite);
 Y->se deplace vers la station adjacente avec le plus de joueurs (ne bouge pas si egalite);
@@ -57,20 +58,20 @@ X->consume 2 blocs d energie du reacteur central
 Y->consume 1 blocs d energie de chaque reacteur
 Z->inflige 3 degats a chaque zone
 
-si2-04 surcharge des generateurs Arrive en rouge haut rouge bas bleu bas bleu haut / ACT_R / V2 V3
+si2-04 Contamination Arrive en rouge haut rouge bas bleu bas bleu haut / ACT_R / V2 V3
 ->la decontamination doit etre effectuee dans 3 des 4 stations
 X->les joueurs sont retardes dans chaque station non decontaminees
 Y->inflige 1 degats a chaque station non decontaminees
 Z->les joueurs dans les zones non decontaminees sont assommes
 
-si2-05 surcharge des generateurs Arrive en blanche bas / ACT_C / V4 V1
+si2-05 Engin nucleaires Arrive en blanche bas / ACT_C / V4 V1
 ->3 joueurs doivent effectuer l action C en meme temps
 X-> +1 vitesse
 Y-> +1 vitesse
 Z-> detruit le vaisseau
 
 
-MENACES INTERNES COMMUNES #done
+MENACES INTERNES COMMUNES #donec
 
 i1-01 Eclaireurs zone rouge bas / ACT_R / riposte / V1 V3
 X->se deplace a droite

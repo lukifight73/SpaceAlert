@@ -118,6 +118,10 @@ class menace
 
         virtual void actionQuandDetruit();
 
+        virtual void effetApresMvt() {};
+
+        void manaceMoveInZone(std::string string);
+
         virtual bool vulnerability_check(cannon* input) {
             input->getcanon_used(); // pour pas avoir de prob de compilation
             return (true);

@@ -106,8 +106,8 @@ class zone
         cannon *getz_cannon_bas() const;
         std::string getz_joueur_playing() const;
         int getz_temps() const;
-        std::vector<joueur*> getz_joueurs_bas() const;
-        std::vector<joueur*> getz_joueurs_haut() const;
+        std::vector<joueur*> getz_joueurs_bas_vec() const;
+        std::vector<joueur*> getz_joueurs_haut_vec() const;
         std::vector<cannon*> getz_cannon_used() const;
         std::vector<int>    getz_actions_bas() const;
         std::vector<int>    getz_actions_haut() const;
@@ -159,6 +159,10 @@ class zone
         void ascenseur();
         void retarderactionZoneHaut();
         void retarderactionZoneBas();
+        void assomerjoueursZoneHaut_IfNoActifRobot();
+        void assomerjoueursZoneBas_IfNoActifRobot();
+        int countPlayerInStation(bool m_position_haut);
+        std::string stationWithMostPlayer(bool m_position_haut, int zone);
         void assomerjoueursZoneHaut();
         void assomerjoueursZoneBas();
         void assomerjoueursZone();

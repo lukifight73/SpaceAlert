@@ -30,6 +30,26 @@ void zone::addz_joueurs_haut(joueur* input)
 		z_joueurs_haut.push_back(input);
 }
 
+void zone::assomerjoueursZoneHaut_IfNoActifRobot()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
+	{
+		if((*it)->getj_bots() != BOTS_EVEILLE)
+			(*it)->setcarteInactif(z_temps);
+	}
+}
+
+void zone::assomerjoueursZoneBas_IfNoActifRobot()
+{
+	std::vector<joueur*>::iterator it;
+	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
+	{
+		if((*it)->getj_bots() != BOTS_EVEILLE)
+			(*it)->setcarteInactif(z_temps);
+	}
+}
+
 void zone::assomerjoueursZoneHaut()
 {
 	std::vector<joueur*>::iterator it;
@@ -325,4 +345,64 @@ void zone::printZone()
 	wr("Joueur en jeu : " + z_joueur_playing);
 	wr("chemin_menace : " + z_chemin_menace->get_ch_nom());
 	wr("--------- ZONE END---------");
+}
+
+int zone::countPlayerInStation(bool m_position_haut)
+{
+	std::vector<joueur*>::iterator it;
+	int count(0);
+	if(m_position_haut)
+	{
+		for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end();it++)
+		{
+			count++;
+		}
+	}
+	else
+	{
+		for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end();it++)
+		{
+			count++;
+		}
+	}
+	return(count);
+}
+
+std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
+{
+	int upDownCount(0);
+	upDownCount = countPlayerInStation(!m_position_haut);
+	int leftCount = getzone_left()->countPlayerInStation(m_position_haut);
+	int rightCount = getzone_right()->countPlayerInStation(m_position_haut);
+	if(zone == ZONE_BLUE)
+	{
+		if(upDownCount == leftCount)
+			return("No movement");
+		else if(leftCount > upDownCount)
+			return("Left");
+		else
+			return("Up/Down");
+	}
+	else if(zone == ZONE_RED)
+	{
+		if(upDownCount == rightCount)
+			return("No movement");
+		else if(rightCount > upDownCount)
+			return("Right");
+		else
+			return("Up/Down");
+	}
+	else if(zone == ZONE_WHITE)
+	{
+		if(upDownCount == rightCount == leftCount)
+			return("No movement");
+		else if(rightCount > upDownCount && rightCount > upDownCount)
+			return("Right");
+		else if(rightCount > upDownCount && rightCount > upDownCount)
+			return("Left");
+		else
+			return("Up/Down");
+	}
+	wr("huum something went wrong I think\n");
+	return("FUCK");
 }
