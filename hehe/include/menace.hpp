@@ -20,11 +20,11 @@ class menace
     bool m_immunity;
     int m_difficulte;
     int m_buff_attack;
-    
+
     chemin_menace *m_chemin; // chemin de la menace
     zone *m_zone; // zone de la menace
     int m_zoneInt;
-    
+
 
     public:
         menace();
@@ -46,7 +46,7 @@ class menace
         bool get_m_immunity() const {
             return m_immunity;
         };
-        
+
         void set_m_zone(zone *input) {
             m_zone = input;
         };
@@ -57,7 +57,7 @@ class menace
         void set_m_zoneInt(int input) {
             m_zoneInt = input;
         };
-        
+
         int get_m_zoneInt() const {
             return m_zoneInt;
         };
@@ -70,7 +70,7 @@ class menace
         void setm_buff_attack(int input) {
             m_buff_attack = input;
         };
-        
+
         void setm_position(int input) {
             m_position = input;
         };
@@ -89,7 +89,7 @@ class menace
         int get_m_max_vie() const {
             return m_max_vie;
         };
-        
+
         int get_m_difficulte() const {
             return m_difficulte;
         };
@@ -136,11 +136,11 @@ class menace
         void regeneration(int input);
 
         virtual void effetDebutTour() {};
-        
+
         virtual ~menace();
 
         void messageAttaqueMenace(int degats);
-        
+
         void messageBufferMenace(std::string &string, int degats);
         void messageMenaceZone(int degats, zone *zone);
 };

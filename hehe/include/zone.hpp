@@ -10,6 +10,7 @@
 
 class joueur;
 class menace_interne;
+struct s_data;
 class chemin_menace;
 
 class zone
@@ -43,6 +44,7 @@ class zone
         zone *zone_white;
         zone *zone_right;
         zone *zone_left;
+        s_data *z_data;
         std::string z_joueur_playing;//chelou ici
         std::vector<joueur*> z_joueurs_haut;
         std::vector<joueur*> z_joueurs_bas;
@@ -58,6 +60,7 @@ class zone
         virtual ~zone();
 
         //setters
+        void setz_data(s_data &data);
         void setz_zone(int input);
         void setz_joueur_playing(std::string input);
         void setzone_white(zone* zone);
@@ -98,6 +101,7 @@ class zone
         int getz_bouclier() const;
         int getz_max_energie_bouclier() const;
         int getz_zone() const;
+        s_data *getz_data();
         std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
@@ -161,6 +165,9 @@ class zone
         void retarderactionZoneBas();
         void assomerjoueursZoneHaut();
         void assomerjoueursZoneBas();
+        void assomerjoueursZoneHautRobotsActifs();
+        void assomerjoueursZoneBasRobotsActifs();
+        void assomerjoueursZoneRobotsActifs();
         void assomerjoueursZone();
         void retarderactionZone();
 

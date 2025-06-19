@@ -154,72 +154,72 @@ menace_externe *create_menaceE(std::string typeMenace, int tempsArrivee)
     }
 }
 
-menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee)
+menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data &data)
 {
 
     if (typeMenace == "i1-01") {
-        return new menace_interne_i1_01(typeMenace, tempsArrivee);
+        return new menace_interne_i1_01(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-02") {
-        return new menace_interne_i1_02(typeMenace, tempsArrivee);
+        return new menace_interne_i1_02(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-03") {
-        return new menace_interne_i1_03(typeMenace, tempsArrivee);
+        return new menace_interne_i1_03(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-04") {
-        return new menace_interne_i1_04(typeMenace, tempsArrivee);
+        return new menace_interne_i1_04(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-05") {
-        return new menace_interne_i1_05(typeMenace, tempsArrivee);
+        return new menace_interne_i1_05(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-06") {
-        return new menace_interne_i1_06(typeMenace, tempsArrivee);
+        return new menace_interne_i1_06(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i1-07") {
-        return new menace_interne_i1_07(false, typeMenace, tempsArrivee);
+        return new menace_interne_i1_07(false, data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-01") {
-        return new menace_interne_i2_01(false, typeMenace, tempsArrivee);
+        return new menace_interne_i2_01(false, data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-015") {
-        return new menace_interne_i2_015(false, typeMenace, tempsArrivee);
+        return new menace_interne_i2_015(false, data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-02") {
-        return new menace_interne_i2_02(false, typeMenace, tempsArrivee);
+        return new menace_interne_i2_02(false, data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-03") {
-        return new menace_interne_i2_03(typeMenace, tempsArrivee);
+        return new menace_interne_i2_03(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-04") {
-        return new menace_interne_i2_04(typeMenace, tempsArrivee);
+        return new menace_interne_i2_04(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-05") {
-        return new menace_interne_i2_05(typeMenace, tempsArrivee);
+        return new menace_interne_i2_05(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "i2-06") {
-        return new menace_interne_i2_06(typeMenace, tempsArrivee);
+        return new menace_interne_i2_06(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "si1-01") {
-        return new menace_interne_si1_01(typeMenace, tempsArrivee);
+        return new menace_interne_si1_01(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "si1-02") {
-        return new menace_interne_si1_02(typeMenace, tempsArrivee);
+        return new menace_interne_si1_02(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "si1-03") {
-        return new menace_interne_si1_03(false, typeMenace, tempsArrivee);
+        return new menace_interne_si1_03(false, data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
     // else if (typeMenace == "si1-04") {
-    //     return new menace_interne_si1_04(typeMenace, tempsArrivee);
+    //     return new menace_interne_si1_04(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     // }
     // else if (typeMenace == "si1-05") {
-    //     return new menace_interne_si1_05(typeMenace, tempsArrivee);
+    //     return new menace_interne_si1_05(data.zones[ZONE_RED], typeMenace, tempsArrivee);
     // }
-    // else if (typeMenace == "si1-06") {
-    //     return new menace_interne_si1_06(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "si1-06") {
+        return new menace_interne_si1_06(data.zones[ZONE_RED], typeMenace, tempsArrivee);
+    }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
-        return new menace_interne(typeMenace, tempsArrivee); // Retourne un pointeur nul en cas d'erreur
+        return new menace_interne(data.zones[ZONE_RED], typeMenace, tempsArrivee); // Retourne un pointeur nul en cas d'erreur
     }
 }
 
@@ -235,9 +235,10 @@ void parsMenace(t_data &data, std::string menace_str)
     menace_externe *new_menace(NULL);
     menace_interne *new_menaceInt(NULL);
 
-    if (iss >> typeMenace >> tempsArrivee >> nomZone) {
+    if (iss >> typeMenace >> tempsArrivee) {
         if (menace_keyword == "menaceE")
         {
+            iss >> nomZone;
             new_menace = create_menaceE(typeMenace, tempsArrivee);
             if(nomZone == "ZONE_RED")
             {
@@ -267,29 +268,8 @@ void parsMenace(t_data &data, std::string menace_str)
         }
         else if(menace_keyword == "menaceI")
         {
-            new_menaceInt = create_menaceI(typeMenace, tempsArrivee);
-            if(nomZone == "ZONE_RED")
-            {
-                new_menaceInt->set_m_zone(data.zones[ZONE_RED]);
-                new_menaceInt->set_m_zoneInt(ZONE_RED);
-                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
-            }
-            else if(nomZone == "ZONE_WHITE")
-            {
-                new_menaceInt->set_m_zone(data.zones[ZONE_WHITE]);
-                new_menaceInt->set_m_zoneInt(ZONE_WHITE);
-                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
-            }
-            else if(nomZone == "ZONE_BLUE")
-            {
-                new_menaceInt->set_m_zone(data.zones[ZONE_BLUE]);
-                new_menaceInt->set_m_zoneInt(ZONE_BLUE);
-                new_menaceInt->set_m_chemin(data.chemin_menace_interne);
-            }
-            else {
-            std::cerr << "Erreur: " << menace_str << std::endl;
-            delete new_menaceInt; // Nettoyage en cas d'erreur
-            }
+            new_menaceInt = create_menaceI(typeMenace, tempsArrivee, data);
+            new_menaceInt->set_m_chemin(data.chemin_menace_interne);
             data.chemin_menace_interne->add_menaceInt(new_menaceInt);
         }
     }

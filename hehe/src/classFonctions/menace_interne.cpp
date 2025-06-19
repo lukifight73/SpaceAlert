@@ -1,7 +1,7 @@
 #include "menace.hpp"
 #include "menace_interne.hpp"
 
-menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee);
+menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data &data);
 
 menace_interne::menace_interne()
 {
@@ -31,9 +31,11 @@ void menace_interne::getDamage(joueur *joueur)
     }
 }
 
-menace_interne::menace_interne(std::string input, int tourDarrivee): menace(input, tourDarrivee)
+menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
     m_ripost = false;
+    m_zone = zone;
+    m_zoneInt = zone->getz_zone();
     if(input == "i1-01")
     {
         m_position_haut = true;
@@ -476,7 +478,7 @@ void menace_interne_i2_01::actionMenace(char input)
                 return ;
             }
         }
-        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
+        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1, *this->get_m_zone()->getz_data());
         new_menace->set_m_zone(this->get_m_zone()->getzone_white());
         new_menace->set_m_zoneInt(ZONE_WHITE);
         new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace_Int());
@@ -494,10 +496,13 @@ void menace_interne_i2_01::actionMenace(char input)
 
 void menace_interne_i2_01::effetDebutTour()
 {
-    if(!m_zone_delay_set)
+    if (m_presence)
     {
-        m_zone->setz_jump_tour_upon_entry_bas(true);
-        m_zone_delay_set = true;
+        if(!m_zone_delay_set)
+        {
+            m_zone->setz_jump_tour_upon_entry_bas(true);
+            m_zone_delay_set = true;
+        }
     }
 }
 
@@ -578,7 +583,7 @@ void menace_interne_i2_02::actionMenace(char input)
                 return ;
             }
         }
-        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1);
+        menace_interne *new_menace = create_menaceI("i2-015", this->get_m_zone()->getz_temps() + 1, *this->get_m_zone()->getz_data());
         new_menace->set_m_zone(this->get_m_zone()->getzone_white());
         new_menace->set_m_zoneInt(ZONE_WHITE);
         new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace_Int());
@@ -868,5 +873,55 @@ void menace_interne_si1_05::actionMenace(char input)
     }
 }
 
+void menace_interne_si1_06::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        std::string msg = "[La menace " + m_name + " assome tous les joueurs ayant des robots actifs.\n";
+        std::cout << msg;
+        m_zone->getzone_right()->assomerjoueursZoneRobotsActifs();
+        m_zone->getzone_left()->assomerjoueursZoneRobotsActifs();
+        m_zone->assomerjoueursZoneRobotsActifs();
+    }
+    else if (input == 'Y')
+    {
+        std::string msg = "[La menace " + m_name + " assome tous les joueurs present en zone bleu haute et en zone basse rouge.]\n";
+        std::cout << msg;
+        m_zone->assomerjoueursZoneBas();
+        m_zone_bis->assomerjoueursZoneHaut();
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " assome tous les joueurs qui ne sont pas sur la passerelle (zone blanche haute).]\n";
+        std::cout << msg;
+        m_zone->assomerjoueursZone();
+        m_zone_bis->assomerjoueursZone();
+        m_zone->getzone_white()->assomerjoueursZoneBas();
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si1_06::getDamage(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_vie--;
+    if (m_degats_tour_zone != joueur->getj_zone() && m_degats_tour_zone != 0)
+    {
+        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        std::cout << msg << "[+1 degats!!!]";
+        m_vie--;
+    }
+    m_degats_tour_zone = joueur->getj_zone();
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        actionQuandDetruit();
+    }
+}
+
+void menace_interne_si1_06::effetDebutTour()
+{
+    m_degats_tour_zone = 0;
+}
 
 
