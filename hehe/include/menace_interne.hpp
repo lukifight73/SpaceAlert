@@ -116,7 +116,6 @@ class menace_interne_i2_01 :public menace_interne
         menace_interne_i2_01() {};
         menace_interne_i2_01(bool zone_delay_set, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee)
         {m_zone_delay_set = zone_delay_set;};
-        virtual void getDamage(joueur *joueur);
         virtual void effetDebutTour();
         virtual void actionQuandDetruit();
         virtual void actionMenace(char input);
@@ -132,7 +131,6 @@ class menace_interne_i2_015 :public menace_interne
         menace_interne_i2_015() {};
         menace_interne_i2_015(bool zone_delay_set, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee)
         {m_zone_delay_set = zone_delay_set;};
-        virtual void getDamage(joueur *joueur);
         virtual void effetDebutTour();
         virtual void actionQuandDetruit();
         virtual void actionMenace(char input);
@@ -148,7 +146,6 @@ class menace_interne_i2_02 :public menace_interne
         menace_interne_i2_02() {};
         menace_interne_i2_02(bool zone_delay_set, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee)
         {m_zone_delay_set = zone_delay_set;};
-        virtual void getDamage(joueur *joueur);
         virtual void effetDebutTour();
         virtual void actionQuandDetruit();
         virtual void actionMenace(char input);
@@ -162,7 +159,7 @@ class menace_interne_i2_03 :public menace_interne
     public:
         menace_interne_i2_03() {};
         menace_interne_i2_03(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-        virtual void actionMenace(char input);
+        //virtual void actionMenace(char input);
         ~menace_interne_i2_03() {};
 };
 
@@ -173,7 +170,7 @@ class menace_interne_i2_04 :public menace_interne
     public:
         menace_interne_i2_04() {};
         menace_interne_i2_04(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-        virtual void actionMenace(char input);
+        //virtual void actionMenace(char input);
         virtual ~menace_interne_i2_04() {};
 };
 
@@ -184,7 +181,7 @@ class menace_interne_i2_05 :public menace_interne
     public:
         menace_interne_i2_05() {};
         menace_interne_i2_05(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-        virtual void actionMenace(char input);
+        //virtual void actionMenace(char input);
         virtual ~menace_interne_i2_05() {};
 };
 
@@ -195,7 +192,7 @@ class menace_interne_i2_06 :public menace_interne
     public:
         menace_interne_i2_06() {};
         menace_interne_i2_06(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-        virtual void actionMenace(char input);
+        //virtual void actionMenace(char input);
         virtual ~menace_interne_i2_06() {};
 };
 
