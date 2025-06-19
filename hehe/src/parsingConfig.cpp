@@ -223,15 +223,15 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data 
     // else if (typeMenace == "si2-02") {
     //     return new menace_interne_si2_02(typeMenace, tempsArrivee);
     // }
-    // else if (typeMenace == "si2-03") {
-    //     return new menace_interne_si2_03(false, typeMenace, tempsArrivee);
-    // }
-    // else if (typeMenace == "si2-04") {
-    //     return new menace_interne_si2_04(typeMenace, tempsArrivee);
-    // }
-    // else if (typeMenace == "si2-05") {
-    //     return new menace_interne_si2_05(typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "si2-03") {
+        return new menace_interne_si2_03(data.zones[ZONE_RED], typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "si2-04") {
+        return new menace_interne_si2_04(data.zones[ZONE_RED], typeMenace, tempsArrivee);
+    }
+    else if (typeMenace == "si2-05") {
+        return new menace_interne_si2_05(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
+    }
     else {
         std::cerr << "Erreur: Type de menace inconnu " << typeMenace << std::endl;
         return new menace_interne(data.zones[ZONE_RED], typeMenace, tempsArrivee); // Retourne un pointeur nul en cas d'erreur
