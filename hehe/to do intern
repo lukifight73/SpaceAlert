@@ -32,6 +32,7 @@ X-> l energie du reacteur central est transferee au bouclier, le sruplus se vola
 Y-> l energie du reacteur se volatilise (1 degat par energie qui se volatilise)
 Z-> l energie de tous les reacteurs se volatilise (1 degat par surplu) (respectivement par zone).
 
+#DONE
 si1-06 revolte des robots de combat -> arrive zone bleu haut & rouge bas / ACT_C / V2 V4
 -->si les actions C sont realises dans le meme tour dans les 2 stations elles infligent 1 degat de plus a cette menace.
 X-> tous les joueurs dirigeants des robots de combats actifs sont assommes
@@ -54,6 +55,7 @@ X->se deplace vers la station adjacente avec le plus de joueurs (ne bouge pas si
 Y->se deplace vers la station adjacente avec le plus de joueurs (ne bouge pas si egalite);
 Z->inflige 5 degats / assomme tous les joueurs dans sa station
 
+#DONE
 si2-03 surcharge des generateurs Arrive en blanche bas rouge bas bleu bas / ACT_B / V3 V7
 ->si actions B dans le meme tour sur les trois reacteurs -> +2 degats
 X->consume 2 blocs d energie du reacteur central
@@ -66,6 +68,10 @@ X->les joueurs sont retardes dans chaque station non decontaminees
 Y->inflige 1 degats a chaque station non decontaminees
 Z->les joueurs dans les zones non decontaminees sont assommes
 
+<<<<<<< HEAD
+#DONE
+=======
+>>>>>>> c85232f8452bc2dfc11cffeb75bc6af15b2f832d
 si2-05 Engin nucleaires Arrive en blanche bas / ACT_C / V4 V1
 ->3 joueurs doivent effectuer l action C en meme temps
 X-> +1 vitesse

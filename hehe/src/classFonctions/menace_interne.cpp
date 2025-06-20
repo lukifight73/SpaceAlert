@@ -214,7 +214,7 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
     }
     else if(input == "si1-06")
     {
-        m_position_haut = true;
+        m_position_haut = false;
         m_difficulte = MENACE_SERIEUSE;
         m_name ="Revolte des robots de combat";
         m_vie = 4;
@@ -240,33 +240,33 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
         m_vitesse = 2;
         m_killAction = ACT_R;
     }
-    // else if(input == "si2-03")
-    // {
-    //     m_position_haut = false;
-    //     m_difficulte = MENACE_SERIEUSE_AVANCEE;
-    //     m_name ="Surcharge des generateurs";
-    //     m_vie = 2;
-    //     m_vitesse = 2;
-    //     m_killAction = ACT_R;
-    // }
-    // else if(input == "si2-04")
-    // {
-    //     m_position_haut = true;
-    //     m_difficulte = MENACE_SERIEUSE_AVANCEE;
-    //     m_name ="Contamination";
-    //     m_vie = 2;
-    //     m_vitesse = 2;
-    //     m_killAction = ACT_R;
-    // }
-    // else if(input == "si2-05")
-    // {
-    //     m_position_haut = true;
-    //     m_difficulte = MENACE_SERIEUSE_AVANCEE;
-    //     m_name ="Engin nucleaires";
-    //     m_vie = 1;
-    //     m_vitesse = 4;
-    //     m_killAction = ACT_B;
-    // }
+    else if(input == "si2-03")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Surcharge des generateurs";
+        m_vie = 3;
+        m_vitesse = 7;
+        m_killAction = ACT_B;
+    }
+    else if(input == "si2-04")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Contamination";
+        m_vie = 2;
+        m_vitesse = 3;
+        m_killAction = ACT_R;
+    }
+    else if(input == "si2-05")
+    {
+        m_position_haut = false;
+        m_difficulte = MENACE_SERIEUSE_AVANCEE;
+        m_name ="Engin nucleaire";
+        m_vie = 1;
+        m_vitesse = 4;
+        m_killAction = ACT_C;
+    }
 };
 
 
@@ -948,6 +948,40 @@ void menace_interne_si1_06::actionMenace(char input)
     }
 }
 
+bool menace_interne_si1_06::AttractAction(int joueurAction, int Zone, bool haut) const
+{
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+        return true;
+    else if (m_position_haut_bis == haut && joueurAction == m_killAction && m_zoneInt_bis == Zone)
+        return true;
+    else
+        return false;
+};
+
+void menace_interne_si1_06::getDamage(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_vie--;
+    if (m_degats_tour_zone != joueur->getj_zone() && m_degats_tour_zone != 0)
+    {
+        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        std::cout << msg << "[+1 degats!!!]";
+        m_vie--;
+    }
+    m_degats_tour_zone = joueur->getj_zone();
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        actionQuandDetruit();
+    }
+}
+
+void menace_interne_si1_06::effetDebutTour()
+{
+    m_degats_tour_zone = 0;
+}
+
+
 void menace_interne_si2_01::actionMenace(char input)
 {
    if (input == 'X')
@@ -1014,7 +1048,7 @@ void menace_interne::manaceMoveInZone(std::string string)
         std::string msg = "[La menace " + m_name + " chagne de niveau .]\n";
         std::cout << msg;
     }
-    
+
 }
 
 
@@ -1044,17 +1078,74 @@ void menace_interne_si2_02::actionMenace(char input)
     }
 }
 
-void menace_interne_si1_06::getDamage(joueur *joueur)
+
+void menace_interne_si2_03::actionMenace(char input)
 {
-    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
-    m_vie--;
-    if (m_degats_tour_zone != joueur->getj_zone() && m_degats_tour_zone != 0)
+    int z_reacteur = 0;
+    if (input == 'X')
+    {
+        std::string msg = "[La menace " + m_name + " consume 2 blocs d'energie du reacteur central.]\n";
+        std::cout << msg;
+        z_reacteur = m_zone->getzone_white()->getz_reacteur() - 2;
+        if (z_reacteur < 0)
+            z_reacteur = 0;
+        m_zone->getzone_white()->setz_reacteur(z_reacteur);
+    }
+    else if (input == 'Y')
+    {
+        std::string msg = "[La menace " + m_name + " consume 1 blocs d'energie de chaque reacteur.]\n";
+        std::cout << msg;
+        z_reacteur = m_zone->getzone_white()->getz_reacteur() - 1;
+        if (z_reacteur < 0)
+            z_reacteur = 0;
+        m_zone->getzone_white()->setz_reacteur(z_reacteur);
+        z_reacteur = m_zone->getzone_red()->getz_reacteur() - 1;
+        if (z_reacteur < 0)
+            z_reacteur = 0;
+        m_zone->getzone_red()->setz_reacteur(z_reacteur);
+                z_reacteur = m_zone->getzone_blue()->getz_reacteur() - 1;
+        if (z_reacteur < 0)
+            z_reacteur = 0;
+        m_zone->getzone_blue()->setz_reacteur(z_reacteur);
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " inflige 3 degats a chaque zones.]\n";
+        std::cout << msg;
+        m_zone->getzone_blue()->getdegatsIgnoreBouclier(3);
+        m_zone->getzone_white()->getdegatsIgnoreBouclier(3);
+        m_zone->getzone_red()->getdegatsIgnoreBouclier(3);
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+bool menace_interne_si2_03::AttractAction(int joueurAction, int Zone, bool haut) const
+{
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+        return true;
+    else if (m_position_haut_bis1 == haut && joueurAction == m_killAction && m_zoneInt_bis1 == Zone)
+        return true;
+    else if (m_position_haut_bis2 == haut && joueurAction == m_killAction && m_zoneInt_bis2 == Zone)
+        return true;
+    else
+        return false;
+};
+
+void menace_interne_si2_03::getDamage(joueur *joueur)
+{
+    if (joueur->getj_zone() == ZONE_BLUE)
+        m_degats_zone_blue = 1;
+    else if (joueur->getj_zone() == ZONE_RED)
+        m_degats_zone_red = 1;
+    else if (joueur->getj_zone() == ZONE_WHITE)
+        m_degats_zone_white = 1;
+    if (m_degats_zone_blue + m_degats_zone_red + m_degats_zone_white == 3)
     {
         std::string msg = "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
-        std::cout << msg << "[+1 degats!!!]";
-        m_vie--;
+        std::cout << msg << "[+2 degats!!!]";
+        m_vie -= 2;
     }
-    m_degats_tour_zone = joueur->getj_zone();
+    m_vie--;
     if(m_vie <= 0)
     {
         m_vie = 0;
@@ -1062,9 +1153,200 @@ void menace_interne_si1_06::getDamage(joueur *joueur)
     }
 }
 
-void menace_interne_si1_06::effetDebutTour()
+void menace_interne_si2_03::effetDebutTour()
 {
-    m_degats_tour_zone = 0;
+    m_degats_zone_blue = 0;
+    m_degats_zone_red = 0;
+    m_degats_zone_white = 0;
 }
 
+void menace_interne_si2_04::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        std::string msg = "[La menace " + m_name + " retarde tous les joueurs dans les zones contaminees.]\n";
+        std::cout << msg;
+        if (m_contamination_blue_haut)
+        {
+            msg = "[Les joueurs en zone bleu haut sont retardes.]\n";
+            std::cout << msg;
+            m_zone->getzone_blue()->retarderactionZoneHaut();
+        }
+        if (m_contamination_blue_bas)
+        {
+            msg = "[Les joueurs en zone bleu bas sont retardes.]\n";
+            std::cout << msg;
+            m_zone->getzone_blue()->retarderactionZoneBas();
+        }
+        if (m_contamination_red_haut)
+        {
+            msg = "[Les joueurs en zone rouge haut sont retardes.]\n";
+            std::cout << msg;
+            m_zone->getzone_red()->retarderactionZoneHaut();
+        }
+        if (m_contamination_red_bas)
+        {
+            msg = "[Les joueurs en zone rouge bas sont retardes.]\n";
+            std::cout << msg;
+            m_zone->getzone_red()->retarderactionZoneBas();
+        }
+    }
+    else if (input == 'Y')
+    {
+        std::string msg = "[La menace " + m_name + " inflige 1 degat dans chaque zone contaminee.]\n";
+        std::cout << msg;
+        if (m_contamination_blue_haut)
+        {
+            m_zone->getzone_blue()->getdegatsIgnoreBouclier(1);
+        }
+        if (m_contamination_blue_bas)
+        {
+            m_zone->getzone_blue()->getdegatsIgnoreBouclier(1);
+        }
+        if (m_contamination_red_haut)
+        {
+            m_zone->getzone_red()->getdegatsIgnoreBouclier(1);
+        }
+        if (m_contamination_red_bas)
+        {
+            m_zone->getzone_red()->getdegatsIgnoreBouclier(1);
+        }
+    }
+    else if (input == 'Z')
+    {
+        std::string msg = "[La menace " + m_name + " assome tous les joueurs dans les zones contaminees.]\n";
+        std::cout << msg;
+        if (m_contamination_blue_haut)
+        {
+            msg = "[Les joueurs en zone bleu haut sont assomes.]\n";
+            std::cout << msg;
+            m_zone->getzone_blue()->assomerjoueursZoneHaut();
+        }
+        if (m_contamination_blue_bas)
+        {
+            msg = "[Les joueurs en zone bleu bas sont assomes.]\n";
+            std::cout << msg;
+            m_zone->getzone_blue()->assomerjoueursZoneBas();
+        }
+        if (m_contamination_red_haut)
+        {
+            msg = "[Les joueurs en zone rouge haut sont assomes.]\n";
+            std::cout << msg;
+            m_zone->getzone_red()->assomerjoueursZoneHaut();
+        }
+        if (m_contamination_red_bas)
+        {
+            msg = "[Les joueurs en zone rouge bas sont assomes.]\n";
+            std::cout << msg;
+            m_zone->getzone_red()->assomerjoueursZoneBas();
+        }
+    }
+    else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
 
+bool menace_interne_si2_04::AttractAction(int joueurAction, int Zone, bool haut) const
+{
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+        return true;
+    else if (m_position_haut_bis1 == haut && joueurAction == m_killAction && m_zoneInt_bis1 == Zone)
+        return true;
+    else if (m_position_haut_bis2 == haut && joueurAction == m_killAction && m_zoneInt_bis2 == Zone)
+        return true;
+    else if (m_position_haut_bis3 == haut && joueurAction == m_killAction && m_zoneInt_bis3 == Zone)
+        return true;
+    else
+        return false;
+};
+
+void menace_interne_si2_04::getDamage(joueur *joueur)
+{
+    if (m_zone->getzone_blue()->getz_joueur_haut(joueur->getj_nom()))
+    {
+        if (m_contamination_blue_haut)
+        {
+            m_vie--;
+            m_contamination_blue_haut = false;
+        }
+    }
+    else if (m_zone->getzone_blue()->getz_joueur_bas(joueur->getj_nom()))
+    {
+        if (m_contamination_blue_bas)
+        {
+            m_vie--;
+            m_contamination_blue_bas = false;
+        }
+    }
+    else if (m_zone->getzone_red()->getz_joueur_haut(joueur->getj_nom()))
+    {
+        if (m_contamination_red_haut)
+        {
+            m_vie--;
+            m_contamination_red_haut = false;
+        }
+    }
+    else if (m_zone->getzone_red()->getz_joueur_bas(joueur->getj_nom()))
+    {
+        if (m_contamination_red_bas)
+        {
+            m_vie--;
+            m_contamination_red_bas = false;
+        }
+    }
+    if(m_vie <= 1)
+    {
+        m_vie = 0;
+        actionQuandDetruit();
+    }
+}
+
+void menace_interne_si2_05::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        std::string msg = "[La menace " + m_name + " augmente sa vitesse de 1!]\n";
+        m_vitesse++;
+    }
+    else if (input == 'Y')
+    {
+        std::string msg = "[La menace " + m_name + " augmente sa vitesse de 1!]\n";
+        m_vitesse++;
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " detruit le vaisseaux.]\n";
+        std::cout << msg;
+        m_zone->getzone_blue()->getdegatsIgnoreBouclier(6);
+        m_zone->getzone_white()->getdegatsIgnoreBouclier(6);
+        m_zone->getzone_red()->getdegatsIgnoreBouclier(6);
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si2_05::getDamage(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_par_tour++;
+    if (m_degats_par_tour == 3)
+    {
+        std::string msg = "[Vous avez infliges 3 degat a la menace " + m_name + " pendant le meme tour!!.]\n";
+        std::cout << msg;
+        m_vie -= 1;
+    }
+    else
+    {
+        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + "!.]\n";
+        std::cout << msg << "[Si vous lui infligez " << 3 - m_degats_par_tour << " degat(s) de plus pendant ce tour, elle mourra!]\n";
+    }
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        actionQuandDetruit();
+    }
+}
+
+void menace_interne_si2_05::effetDebutTour()
+{
+    m_degats_par_tour = 0;
+}

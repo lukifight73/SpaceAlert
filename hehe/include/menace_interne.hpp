@@ -285,9 +285,9 @@ class menace_interne_si1_06 :public menace_interne
         virtual void getDamage(joueur *joueur);
         virtual void actionMenace(char input);
         virtual void effetDebutTour();
+        virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
         virtual ~menace_interne_si1_06() {};
 };
-
 
 class menace_interne_si2_01 :public menace_interne
 {
@@ -307,35 +307,71 @@ class menace_interne_si2_02 :public menace_interne
 
     public:
         menace_interne_si2_02() {};
-        menace_interne_si2_02(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
+        menace_interne_si2_02(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee) {};
         virtual void actionMenace(char input);
         virtual ~menace_interne_si2_02() {};
 };
 
-// class menace_interne_si2_03 :public menace_interne
-// {
-//     protected:
-//     bool m_grandit;
+class menace_interne_si2_03 :public menace_interne
+{
+    protected:
+    int m_degats_zone_red;
+    int m_degats_zone_blue;
+    int m_degats_zone_white;
+    int m_zoneInt_bis1;
+    bool m_position_haut_bis1;
+    int m_zoneInt_bis2;
+    bool m_position_haut_bis2;
 
-//     public:
-//         menace_interne_si2_03() {};
-//         menace_interne_si2_03(bool grandit, std::string input, int tourDarrivee): menace_interne(input, tourDarrivee)
-//         {m_grandit = grandit;};
-//         virtual void actionMenace(char input);
-//         virtual ~menace_interne_si2_03() {};
-// };
+    public:
+        menace_interne_si2_03() {};
+        menace_interne_si2_03(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee)
+        {m_degats_zone_red = 0; m_degats_zone_blue = 0; m_degats_zone_white = 0; m_zoneInt_bis1 = ZONE_WHITE; m_position_haut_bis1 = false; m_zoneInt_bis2 = ZONE_BLUE; m_position_haut_bis2 = false;};
+        virtual void getDamage(joueur *joueur);
+        virtual void actionMenace(char input);
+        virtual void effetDebutTour();
+        virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
+        virtual ~menace_interne_si2_03() {};
+};
 
-// class menace_interne_si2_04 :public menace_interne
-// {
-//     protected:
+class menace_interne_si2_04 :public menace_interne
+{
+    protected:
+    bool m_contamination_blue_bas;
+    bool m_contamination_blue_haut;
+    bool m_contamination_red_bas;
+    bool m_contamination_red_haut;
+    int m_zoneInt_bis1;
+    bool m_position_haut_bis1;
+    int m_zoneInt_bis2;
+    bool m_position_haut_bis2;
+    int m_zoneInt_bis3;
+    bool m_position_haut_bis3;
 
-//     public:
-//         menace_interne_si2_04() {};
-//         menace_interne_si2_04(std::string input, int tourDarrivee): menace_interne(input, tourDarrivee) {};
-//         virtual void actionMenace(char input);
-//         virtual ~menace_interne_si1_04() {};
-// };
+    public:
+        menace_interne_si2_04() {};
+        menace_interne_si2_04(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee)
+        {m_contamination_blue_bas = true; m_contamination_blue_haut = true; m_contamination_red_bas = true; m_contamination_red_haut = true ; m_zoneInt_bis1 = ZONE_RED; m_position_haut_bis1 = true; m_zoneInt_bis2 = ZONE_BLUE; m_position_haut_bis2 = false; m_zoneInt_bis3 = ZONE_BLUE; m_position_haut_bis3 = true;};
+        virtual void getDamage(joueur *joueur);
+        virtual void actionMenace(char input);
+        virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
+        virtual ~menace_interne_si2_04() {};
+};
 
+class menace_interne_si2_05 :public menace_interne
+{
+    protected:
+    int m_degats_par_tour;
+
+    public:
+        menace_interne_si2_05() {};
+        menace_interne_si2_05(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee)
+        {m_degats_par_tour = 0;};
+        virtual void getDamage(joueur *joueur);
+        virtual void actionMenace(char input);
+        virtual void effetDebutTour();
+        virtual ~menace_interne_si2_05() {};
+};
 
 // class menace_interne_si2_05 :public menace_interne
 // {
