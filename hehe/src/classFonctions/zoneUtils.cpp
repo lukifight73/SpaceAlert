@@ -379,7 +379,7 @@ void zone::printZone()
 	wr("--------- ZONE END---------");
 }
 
-int zone::countPlayerInStation(bool m_position_haut)
+int zone::countPlayerInStation(bool m_position_haut) // count nbr joueur dans station de la zone
 {
 	std::vector<joueur*>::iterator it;
 	int count(0);
@@ -400,7 +400,8 @@ int zone::countPlayerInStation(bool m_position_haut)
 	return(count);
 }
 
-std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
+// en fonction d ou tu es regarde vers ou il y a le plus de joueur
+std::string zone::stationWithMostPlayer(bool m_position_haut, int zone) 
 {
 	int upDownCount(0);
 	upDownCount = countPlayerInStation(!m_position_haut);
