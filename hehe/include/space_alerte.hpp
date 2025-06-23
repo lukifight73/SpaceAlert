@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <cstdlib> // Pour rand() et srand()
 #include <ctime>   // Pour time()
+#include <chrono>
+#include <thread>
 
 #include "SA_Struct.hpp"
 #include "SA_Class.hpp"
@@ -32,8 +34,13 @@ void check_maintenance(t_data &data);
 void attaqueDesCanons(t_data &data);
 menace* get_closest_menace_in_vector(std::vector<menace*> menaces);
 void revelerMenace(menace* menace);
-void end_color(zone *zone);
+void end_color();
 void start_color(zone *zone);
 menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces);
 void revelerMenace(menace_externe* menace);
 void retarder_joueurs(t_data &data);
+int get_nb_actions(std::string nomAction);
+void printSlowly(const std::string& text, int delayMs = 50);
+void start_color_interne();
+void start_color_titre();
+void print_title(std::string msg);

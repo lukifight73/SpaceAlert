@@ -72,6 +72,19 @@ menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable()
     return menaceProche; // On retourne la menace la plus proche
 }
 
+std::vector<menace_externe*> chemin_menace::targeted_intercepteur_menace()
+{
+    std::vector<menace_externe*> menace_incepteur_vulnerable;
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); it++)
+    {
+        if ((*it)->get_m_position() <= 5)
+        {
+            menace_incepteur_vulnerable.push_back(*it);
+        }
+    }
+    return (menace_incepteur_vulnerable);
+}
+
 menace* chemin_menace::get_closest_menace()
 {
     if (ch_menacesExte.empty()) {
@@ -101,10 +114,10 @@ menace* chemin_menace::get_closest_menace()
 }
 
 void chemin_menace::remove_menace(menace *input) {
-    for (auto it = ch_menacesInte.begin(); it != ch_menacesInte.end(); ++it) {
+    for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); ++it) {
         if (*it == input) {
             delete (*it); // Libération de la mémoire
-            ch_menacesInte.erase(it); // Suppression de l'élément du vecteur
+            ch_menacesExte.erase(it); // Suppression de l'élément du vecteur
             return;
         }
     }

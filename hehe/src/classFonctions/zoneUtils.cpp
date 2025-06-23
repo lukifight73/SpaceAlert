@@ -2,6 +2,7 @@
 #include "chemin_menace.hpp"
 #include "menace.hpp"
 #include "menace_externe.hpp"
+#include "menace_interne.hpp"
 
 void zone::addtemps()
 {
@@ -46,7 +47,7 @@ void zone::assomerjoueursZoneBas_IfNoActifRobot()
 	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
 		if((*it)->getj_bots() != BOTS_EVEILLE)
-			(*it)->setcarteInactif(z_temps);
+			(*it)->setcarteAssome(z_temps);
 	}
 }
 
@@ -55,7 +56,7 @@ void zone::assomerjoueursZoneHaut()
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
 	{
-		(*it)->setcarteInactif(z_temps);
+		(*it)->setcarteAssome(z_temps);
 	}
 }
 
@@ -66,7 +67,15 @@ void zone::assomerjoueursZoneHautRobotsActifs()
 	{
 		if ((*it)->getj_bots() == 1)
 		{
-			(*it)->setcarteInactif(z_temps);
+			(*it)->setcarteAssome(z_temps);
+			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+		}
+	}
+	if (z_zone == ZONE_RED)
+	{
+		if (z_joueur_intercepteurs)
+		{
+			z_joueur_intercepteurs->setcarteAssome(z_temps);
 			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
 		}
 	}
@@ -77,7 +86,7 @@ void zone::assomerjoueursZoneBas()
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
-		(*it)->setcarteInactif(z_temps);
+		(*it)->setcarteAssome(z_temps);
 	}
 }
 
@@ -88,7 +97,7 @@ void zone::assomerjoueursZoneBasRobotsActifs()
 	{
 		if ((*it)->getj_bots() == 1)
 		{
-			(*it)->setcarteInactif(z_temps);
+			(*it)->setcarteAssome(z_temps);
 			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
 		}
 	}
@@ -110,6 +119,12 @@ void zone::retarderactionZoneBas()
 	{
 		(*it)->setj_jump_tour(true);
 	}
+}
+
+void zone::removez_joueur_intercepteurs()
+{
+	this->addz_joueurs_haut(z_joueur_intercepteurs);
+	z_joueur_intercepteurs = nullptr;
 }
 
 void zone::assomerjoueursZone()
@@ -208,6 +223,12 @@ void zone::getdegats(int input)
 		z_bouclier --;
 		input--;
 	}
+	if (z_degats_doubles)
+	{
+		std::string msg = "[Attention, les degats recus sont doubles!]\n";
+		printSlowly(msg);
+		input = input * 2;
+	}
 	while (input > 0)
 	{
 		etatdesdegats();
@@ -222,7 +243,19 @@ void zone::getdegatsIgnoreBouclier(int input)
 		etatdesdegats();
 		input--;
 	}
+}
 
+menace_interne* zone::is_menace_fissure()
+{
+	std::vector<menace_interne *> menaces_interne = this->getz_chemin_menace_Int()->get_menacesInte();
+
+	std::vector<menace_interne *>::iterator it;
+	for (it = menaces_interne.begin(); it != menaces_interne.end(); it++)
+	{
+		if ((*it)->get_m_name() == "Fissure")
+			return ((*it));
+	}
+	return (nullptr);
 }
 
 void zone::removez_joueurs_haut(std::string input)
@@ -437,4 +470,16 @@ std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
 	}
 	wr("huum something went wrong I think\n");
 	return("FUCK");
+}
+
+// le joueur est dans les vaisseaux et une autre action que Robot est faite
+void zone::wrongActionInSpace()
+{
+	if(z_zone == ZONE_RED)
+	{
+		wr("[Vous revenez dans le vaisseau et vos attaques sont decalees!!]");
+		this->addz_joueurs_haut(z_joueur_intercepteurs);
+		this->removez_joueur_intercepteurs();
+		this->getz_joueur_haut(z_joueur_playing)->passerTour(this->getz_temps() - 1);
+	}
 }

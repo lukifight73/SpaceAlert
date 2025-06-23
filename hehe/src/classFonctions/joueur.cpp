@@ -1,5 +1,7 @@
 #include "joueur.hpp"
 #include "SA_Values.hpp"
+#include "menace_externe.hpp"
+#include "menace_interne.hpp"
 
 joueur::joueur()
 {
@@ -93,6 +95,17 @@ void joueur::setcarteInactif(int input)
     cartes[i].setc_action(INACTIF);
 }
 
+void joueur::setcarteAssome(int input)
+{
+    int i = 12;
+    while (i > input + 1)
+    {
+        cartes[i].setc_action(ASSOME);
+        i--;
+    }
+    cartes[i].setc_action(ASSOME);
+}
+
 void joueur::setj_jump_tour(int input)
 {
     j_jump_tour = input;
@@ -132,6 +145,125 @@ std::string joueur::getj_nom() const
 std::map<int, carte> joueur::getcartes() const
 {
     return (cartes);
+}
+
+void joueur::attaqueIntercepteur(t_data &data)
+{
+    menace_interne *menace_fissure = data.zones[ZONE_RED]->is_menace_fissure();
+    if (menace_fissure)
+    {
+        std::string degats_str = "[Les intercepteurs attaquent la menace interne " + menace_fissure->get_m_name() + " .]\n";
+        std::cout << degats_str;
+        menace_fissure->getDamage(this);
+        std::cout << "fdfdfd\n";
+        return ;
+    }
+    std::vector<menace_externe *> menace_intercepteur_blue = data.zones[ZONE_BLUE]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur_red = data.zones[ZONE_RED]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur_white = data.zones[ZONE_WHITE]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur = menace_intercepteur_blue;
+    menace_intercepteur.insert(menace_intercepteur.end(), menace_intercepteur_red.begin(), menace_intercepteur_red.end());
+    menace_intercepteur.insert(menace_intercepteur.end(), menace_intercepteur_white.begin(), menace_intercepteur_white.end());
+    int nb_menace = menace_intercepteur.size();
+    int degats = 3;
+    if (nb_menace > 1)
+        degats = 1;
+    std::string degats_str;
+    if (!nb_menace)
+    {
+        degats_str = "[Les intercepteurs font pas de degats, il n'y a pas de menaces a distance.]\n";
+        std::cout << degats_str;
+        return ;
+    }
+    if (degats == 3 && menace_intercepteur[0]->get_m_name() == "Behemoth")
+    {
+        menace_intercepteur[0]->add_m_degats(9);
+		degats_str = "[Les intercepteurs font 9 degat(s) a la menace " + menace_intercepteur[0]->get_m_name() + " .]\n";
+	    menace_intercepteur[0]->add_m_degats_str(degats_str);
+        degats_str = "[Les intercepteurs attaquent uniquement la menace " + menace_intercepteur[0]->get_m_name() + " qui assome le pilote et desactive ses robots.]\n";
+        this->setcarteAssome(data.tour);
+        std::cout << degats_str;
+        return ;
+    }
+    std::vector<menace_externe *>::iterator it;
+    for (it = menace_intercepteur.begin(); it != menace_intercepteur.end(); it++)
+    {
+        (*it)->add_m_degats(degats);
+		degats_str = "[Les intercepteurs font " + std::to_string(degats) + " degat(s) a la menace " + (*it)->get_m_name() + " .]\n";
+	    (*it)->add_m_degats_str(degats_str);
+    }
+}
+
+void joueur::getcarteTour(int tour)
+{
+    int i = -1;
+    if (cartes[tour].getc_action() == ASSOME || cartes[tour].getc_action() == INACTIF)
+    {
+        printSlowly("Vous ne pouvez pas jouer ce tour...");
+        std::string input;
+        std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
+    }
+    else
+    {
+        printSlowly("Quelle carte avez vous joue ce tour ?");
+        std::string input;
+        std::getline(std::cin, input);
+        i = get_nb_actions(input);
+        while (i == -1)
+        {
+            std::cout << "Je n'ai pas compris...";
+            std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
+            i = get_nb_actions(input);
+        }
+        cartes[tour].setc_action(i);
+    }
+}
+
+void joueur::attaqueIntercepteurHero(t_data &data)
+{
+    menace_interne *menace_fissure = data.zones[ZONE_RED]->is_menace_fissure();
+    if (menace_fissure)
+    {
+        std::string degats_str = "[Les intercepteurs attaquent la menace interne " + menace_fissure->get_m_name() + " .]\n";
+        std::cout << degats_str;
+        menace_fissure->getDamageHero(this);
+        std::cout << "fdfdfd\n";
+        return ;
+    }
+    std::vector<menace_externe *> menace_intercepteur_blue = data.zones[ZONE_BLUE]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur_red = data.zones[ZONE_RED]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur_white = data.zones[ZONE_WHITE]->getz_chemin_menace()->targeted_intercepteur_menace();
+    std::vector<menace_externe *> menace_intercepteur = menace_intercepteur_blue;
+    menace_intercepteur.insert(menace_intercepteur.end(), menace_intercepteur_red.begin(), menace_intercepteur_red.end());
+    menace_intercepteur.insert(menace_intercepteur.end(), menace_intercepteur_white.begin(), menace_intercepteur_white.end());
+    int nb_menace = menace_intercepteur.size();
+    int degats = 4;
+    if (nb_menace > 1)
+        degats = 2;
+    std::string degats_str;
+    if (!nb_menace)
+    {
+        degats_str = "[Les intercepteurs font pas de degats, il n'y a pas de menaces a distance.]\n";
+        std::cout << degats_str;
+        return ;
+    }
+    if (degats == 4 && menace_intercepteur[0]->get_m_name() == "Behemoth")
+    {
+        menace_intercepteur[0]->add_m_degats(10);
+		degats_str = "[Les intercepteurs font 10 degat(s) a la menace " + menace_intercepteur[0]->get_m_name() + " .]\n";
+	    menace_intercepteur[0]->add_m_degats_str(degats_str);
+        degats_str = "[Les intercepteurs attaquent uniquement la menace " + menace_intercepteur[0]->get_m_name() + " qui assome le pilote et desactive ses robots.]\n";
+        this->setcarteAssome(data.tour);
+        std::cout << degats_str;
+        return ;
+    }
+    std::vector<menace_externe *>::iterator it;
+    for (it = menace_intercepteur.begin(); it != menace_intercepteur.end(); it++)
+    {
+        (*it)->add_m_degats(degats);
+		degats_str = "[Les intercepteurs font " + std::to_string(degats) + " degat(s) a la menace " + (*it)->get_m_name() + " .]\n";
+	    (*it)->add_m_degats_str(degats_str);
+    }
 }
 
 joueur::~joueur() {}

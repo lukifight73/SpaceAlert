@@ -26,7 +26,7 @@ void remove_dead_or_outdated_menaces(t_data &data)
     std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2)
 	{
-		if ((*it2)->get_m_position() <= 0 || (*it2)->get_m_vie() <= 0)
+		if ((*it2)->get_m_position() <= 1 || (*it2)->get_m_vie() <= 0)
         {
             chemin_interne->remove_menace(*it2); // Suppression de la menace du chemin
         }
@@ -42,7 +42,9 @@ void revelerMenace(menace_externe* menace)
 
 void mouvement_menaces(t_data &data)
 {
+    int j = 0;
     int i = 1;
+    print_title("MENACES");
     while (i < 4)
     {
         std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
@@ -50,11 +52,18 @@ void mouvement_menaces(t_data &data)
         {
             if ((*it)->get_m_presence())
             {
+                start_color((*it)->get_m_zone());
                 int positionBefore = (*it)->get_m_position();
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
+                std::string msg;
+                msg = "[La menace " + (*it)->get_m_name() + " avance de " + std::to_string((*it)->get_m_vitesse()) + " cases et se trouve desormais en position " + std::to_string(positionAfter) + ".]\n";
+                printSlowly(msg);
                 (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
                 (*it)->setm_position(positionAfter); // update position
+                std::cout << std::endl;
+                end_color();
                 //std::cout << (*it)->get_m_name() << " a croise X >>> " << (*it)->checkNombreInputCrossed('X') << std::endl;
+                j = 1;
             }
             if (!(*it)->get_m_revele())
                 revelerMenace(*it);
@@ -67,12 +76,28 @@ void mouvement_menaces(t_data &data)
 	{
 		if ((*it)->get_m_presence())
         {
+            start_color_interne();
             int positionBefore = (*it)->get_m_position();
             int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
+            std::string msg;
+            msg = "[La menace interne " + (*it)->get_m_name() + " avance de " + std::to_string((*it)->get_m_vitesse()) + " cases et se trouve desormais en position " + std::to_string(positionAfter) + ".]\n";
+            printSlowly(msg);
             (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
             (*it)->setm_position(positionAfter); // update position
+            std::cout << std::endl;
+            end_color();
+            j = 1;
         }
 	}
+    start_color_titre();
+    if (!j)
+    {
+        std::string msg_mouvement_menace = "[Aucune menace n'est presente a proximite!]\n";
+        printSlowly(msg_mouvement_menace);
+    }
+    std::cout << std::endl;
+    end_color();
+
 }
 
 void apparitionMenaces(t_data &data)

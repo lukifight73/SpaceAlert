@@ -1,16 +1,7 @@
 
 #pragma once
 
-//carte_deplacement_hero
-#define DIR_RB 1// Red Bas
-#define DIR_RH 2// Red Haut
-#define DIR_WB 3// White Bas
-#define DIR_WH 4// White Haut
-#define DIR_BB 5// Blue Bas
-#define DIR_BH 6// Blue Haut
-
 //carte_action
-#define INACTIF 0
 #define ACT_A 1
 #define ACT_B 2
 #define ACT_C 3
@@ -25,6 +16,18 @@
 #define DIR_R 8
 #define DIR_B 9
 #define DIR_A 10       //ascenseur
+
+//carte_etat
+#define ASSOME 11
+#define INACTIF 0
+
+//carte_deplacement_hero
+#define DIR_RB 12// Red Bas
+#define DIR_RH 13// Red Haut
+#define DIR_WB 14// White Bas
+#define DIR_WH 15// White Haut
+#define DIR_BB 16// Blue Bas
+#define DIR_BH 17// Blue Haut
 
 // //carte_zone
 #define ZONE_BAS_RED 1// Red Bas

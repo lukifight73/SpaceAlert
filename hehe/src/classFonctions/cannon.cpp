@@ -83,11 +83,17 @@ bool cannon::getcanon_used()
 
 void cannon::cumuleDegats(menace_externe *menace)
 {
+	std::string degats_str;
+	int degats = puissance_cannon;
+	if (actionHeroique)
+		degats = puissance_cannon + 1;
 	if(menace->get_m_vie() <= 0)
-		std::cout << "[Le " << nom_cannon << "ne fait rien, " << menace->get_m_name() << " est deja morte.]\n";
-	std::string degats_str ="[Le " + nom_cannon + " inflige " + std::to_string(puissance_cannon) + " points de dégâts à la menace " + menace->get_m_name() + ".]\n";
+		degats_str = "[Le " + nom_cannon   + "ne fait rien, la menace " + menace->get_m_name() + " est deja morte.]\n";
+	else
+		degats_str ="[Le " + nom_cannon + " inflige " + std::to_string(degats) + " points de dégâts à la menace " + menace->get_m_name() + ".]\n";
 	menace->add_m_degats_str(degats_str);
-	menace->add_m_degats(puissance_cannon);
+	menace->add_m_degats(degats);
+	actionHeroique = false;
 	canon_used = true; // Le canon a été utilisé
 }
 

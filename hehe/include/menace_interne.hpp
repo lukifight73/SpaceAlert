@@ -25,6 +25,7 @@ class menace_interne :public menace
         virtual void print_menace() const;
         virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
         virtual void getDamage(joueur *joueur);
+        void getDamageHero(joueur *joueur);
         void manaceMoveInZone(std::string string);
         virtual ~menace_interne();
 };
@@ -246,17 +247,17 @@ class menace_interne_si1_03 :public menace_interne
         virtual ~menace_interne_si1_03() {};
 };
 
-// class menace_interne_si1_04 :public menace_interne
-// {
-//     protected:
+class menace_interne_si1_04 :public menace_interne
+{
+    protected:
 
-//     public:
-//         menace_interne_si1_04() {};
-//         menace_interne_si1_04(zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee) {};
-//         virtual void getDamage(joueur *joueur);
-//         virtual void actionMenace(char input);
-//         virtual ~menace_interne_si1_04() {};
-// };
+    public:
+        menace_interne_si1_04() {};
+        menace_interne_si1_04(zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee) {};
+        virtual void actionMenace(char input);
+        virtual void actionQuandDetruit();
+        virtual ~menace_interne_si1_04() {};
+};
 
 
 class menace_interne_si1_05 :public menace_interne

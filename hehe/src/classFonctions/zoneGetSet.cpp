@@ -128,6 +128,11 @@ void zone::setz_ascenseur(bool input)
 	z_ascenseur = input;
 }
 
+void zone::setz_degats_doubles(bool input)
+{
+	z_degats_doubles = input;
+}
+
 void zone::setz_joueur_playing(std::string input)
 {
 	z_joueur_playing = input;
@@ -153,6 +158,16 @@ void zone::setz_bots_englues(bool input)
 	z_bots_englues = input;
 }
 
+void zone::setz_joueur_intercepteurs(joueur *input)
+{
+	z_joueur_intercepteurs = input;
+}
+
+joueur *zone::getz_joueur_intercepteurs() const
+{
+	return (z_joueur_intercepteurs);
+}
+
 int zone::getz_temps() const
 {
 	return (z_temps);
@@ -166,6 +181,11 @@ void zone::setz_data(t_data &data)
 t_data *zone::getz_data()
 {
 	return (z_data);
+}
+
+bool zone::getz_degats_doubles() const
+{
+	return (z_degats_doubles);
 }
 
 bool zone::getz_bots_englues() const

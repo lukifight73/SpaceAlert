@@ -32,6 +32,20 @@ void menace_interne::getDamage(joueur *joueur)
     }
 }
 
+void menace_interne::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_vie--;
+    m_vie--;
+    if(m_vie <= 0)
+    {
+        m_vie = 0;
+        actionQuandDetruit();
+    }
+}
+
+
+
 menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee): menace(input, tourDarrivee)
 {
     m_ripost = false;
@@ -866,6 +880,38 @@ void menace_interne_si1_03::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_interne_si1_04::actionMenace(char input)
+{
+    if (input == 'X')
+    {
+        m_zone->setz_degats_doubles(true);
+        std::string msg = "[Tant que la menace " + m_name + " est presente, les degats en zone rouge sont doubles!]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Y')
+    {
+        m_zone->getzone_blue()->setz_degats_doubles(true);
+        m_zone->getzone_white()->setz_degats_doubles(true);
+        std::string msg = "[Tant que la menace " + m_name + " est presente, les degats sur tout le vaisseau sont doubles!]\n";
+        std::cout << msg;
+    }
+    else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " emporte et detruit le vaisseau en piece detachees... YOU LOSE !!!!!]\n";
+        std::cout << msg;
+    } else {
+        std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si1_04::actionQuandDetruit()
+{
+    m_zone->getzone_blue()->setz_degats_doubles(false);
+    m_zone->getzone_white()->setz_degats_doubles(false);
+    m_zone->setz_degats_doubles(false);
+    std::string msg = "[La menace " + m_name + " est elimine! Les degats recu par le vaisseau ne sont plus doubles!]\n";
+    std::cout << msg;
 }
 
 

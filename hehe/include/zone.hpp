@@ -7,10 +7,10 @@
 #include "chemin_menace.hpp"
 #include "cannon.hpp"
 #include <random>
+#include "SA_Struct.hpp"
 
 class joueur;
 class menace_interne;
-struct s_data;
 class chemin_menace;
 
 class zone
@@ -27,6 +27,7 @@ class zone
         int z_temps;//chelou ici
         int z_capsule_energie;
         bool z_ascenseur;
+        bool z_degats_doubles;
         int z_reacteur;
         int z_max_reacteur;
         bool z_jump_tour_upon_entry_haut;
@@ -44,10 +45,11 @@ class zone
         zone *zone_white;
         zone *zone_right;
         zone *zone_left;
-        s_data *z_data;
+        t_data *z_data;
         std::string z_joueur_playing;//chelou ici
         std::vector<joueur*> z_joueurs_haut;
         std::vector<joueur*> z_joueurs_bas;
+        joueur *z_joueur_intercepteurs;
         std::vector<int>    z_actions_bas;
         std::vector<int>    z_actions_haut;
         std::vector<int>    z_actions_used_ce_tour_bas;
@@ -60,7 +62,7 @@ class zone
         virtual ~zone();
 
         //setters
-        void setz_data(s_data &data);
+        void setz_data(t_data &data);
         void setz_zone(int input);
         void setz_joueur_playing(std::string input);
         void setzone_white(zone* zone);
@@ -79,6 +81,7 @@ class zone
         void setz_temps(int input);
         void setz_capsule_energie(int input);
         void setz_ascenseur(bool input);
+        void setz_degats_doubles(bool input);
         void setz_reacteur(int input);
         void setz_max_energie_reservoir(int input);
         void setz_bouclier(int input);
@@ -87,21 +90,24 @@ class zone
         void setz_jump_tour_upon_entry_bas(bool input);
         void setz_jump_tour_upon_entry_haut(bool input);
         void setz_ordre_degats();
+        void setz_joueur_intercepteurs(joueur *input);
 
         //getters
         std::map<int, int> getz_roquete_position();
         bool getz_jump_tour_upon_entry_bas() const;
+        bool getz_degats_doubles() const;
         bool getz_jump_tour_upon_entry_haut() const;
         int getz_reacteur() const;
         int getz_degats_recu() const;
         int getz_max_energie_reacteur() const;
         int getz_capsule_energie() const;
         bool getz_bots() const;
+        joueur *getz_joueur_intercepteurs() const;
         bool getz_bots_englues() const;
         int getz_bouclier() const;
         int getz_max_energie_bouclier() const;
         int getz_zone() const;
-        s_data *getz_data();
+        t_data *getz_data();
         std::string getz_nom_zone() const;
         bool getz_ascenseur() const;
         chemin_menace *getz_chemin_menace() const;
@@ -132,9 +138,12 @@ class zone
         void getdegatsIgnoreBouclier(int input);
 
         //autre
+        void wrongActionInSpace();
+        menace_interne* is_menace_fissure();
         menace_interne* checkIfMenaceInternAttrackAction(int joueurAction, int Zone, bool haut);
         joueur* getz_joueur_haut(std::string nom);
         joueur* getz_joueur_bas(std::string nom);
+        void removez_joueur_intercepteurs();
         void addz_maintenance_ordinateur(int input);
         void addz_observations(int input);
         void print();
@@ -159,8 +168,12 @@ class zone
         void actionR();
         void actionAHeros();
         void actionBHeros();
+        void actionRHeros();
         void actionC();
+        void dirHeroique(int action_heroique);
+        void moveplayerzone(zone *zone_to_move, bool direction_haut);
         void ascenseur();
+        void inactif();
         void retarderactionZoneHaut();
         void retarderactionZoneBas();
         void assomerjoueursZoneHaut_IfNoActifRobot();

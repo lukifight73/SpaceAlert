@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include "space_alerte.hpp"
 #include "carte.hpp"
+#include "SA_Struct.hpp"
+
 
 class carte;
 
@@ -32,10 +34,14 @@ public:
     void setj_zone(int input);
 
     //autre
+    void attaqueIntercepteur(t_data &data);
+    void attaqueIntercepteurHero(t_data &data);
     void addcartes(int input, carte carte);
     void passerTour(int input);
     void setcarteInactif(int input);
+    void setcarteAssome(int input);
     void print();
+    void getcarteTour(int tour);
 
     //getters
     int getj_number() const;

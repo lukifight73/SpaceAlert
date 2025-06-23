@@ -35,6 +35,7 @@ class cannon
     int puissance_cannon;
     int portee_cannon;
     int type_cannon;
+    bool actionHeroique;
     bool canon_used;
     zone *zone_cannon;  // zone dans laquelle le canon est utilisé
 
@@ -44,6 +45,12 @@ class cannon
         void setpuissance_cannon(int input);
         void setzone_cannon(zone *input) {
             zone_cannon = input;
+        }
+        void setactionHeroique(bool input) {
+            actionHeroique = input;
+        }
+        bool getactionHeroique() const {
+            return (actionHeroique);
         }
         void setportee_cannon(int input);
         void setnom_cannon(std::string input);

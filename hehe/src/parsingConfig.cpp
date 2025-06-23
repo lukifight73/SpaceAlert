@@ -208,9 +208,9 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data 
     else if (typeMenace == "si1-03") {
         return new menace_interne_si1_03(false, data.zones[ZONE_RED], typeMenace, tempsArrivee);
     }
-    // else if (typeMenace == "si1-04") {
-    //     return new menace_interne_si1_04(data.zones[ZONE_RED], typeMenace, tempsArrivee);
-    // }
+    else if (typeMenace == "si1-04") {
+        return new menace_interne_si1_04(data.zones[ZONE_RED], typeMenace, tempsArrivee);
+    }
     else if (typeMenace == "si1-05") {
         return new menace_interne_si1_05(data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
@@ -311,8 +311,24 @@ int get_nb_actions(std::string nomAction)
         return DIR_B;
     else if (nomAction == "DIR_A")
         return DIR_A;
-    else
+    else if (nomAction == "DIR_RB")
+        return DIR_RH;
+    else if (nomAction == "DIR_RB")
+        return DIR_RB;
+    else if (nomAction == "DIR_RH")
+        return DIR_RH;
+    else if (nomAction == "DIR_WH")
+        return DIR_WH;
+    else if (nomAction == "DIR_WB")
+        return DIR_WB;
+    else if (nomAction == "DIR_BH")
+        return DIR_BH;
+    else if (nomAction == "DIR_BB")
+        return DIR_BB;
+    else if (nomAction == "INACTIF")
         return INACTIF; // Action inactive
+    else
+        return (-1);
 }
 
 void pars_joueurs(t_data &data, std::string line_joueur)
@@ -373,8 +389,5 @@ void parsing_config(t_data &data, char* av)
     }
 	file.close();
     place_joueurs(data);
-    data.zones[ZONE_RED]->printZone();
-    data.zones[ZONE_WHITE]->printZone();
-    data.zones[ZONE_BLUE]->printZone();
     std::cout << "Configuration parsing complete." << std::endl;
 }

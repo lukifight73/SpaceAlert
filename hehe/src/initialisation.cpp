@@ -90,6 +90,7 @@ void init_zone_white(t_data& data)
     data.zones[ZONE_WHITE]->setz_cannon_haut(cannon_zone_white);
     data.zones[ZONE_WHITE]->setz_cannon_bas(cannon_impulsion_zone_white);
     data.zones[ZONE_WHITE]->setz_chemin(new chemin_menace());
+    data.zones[ZONE_WHITE]->setz_joueur_intercepteurs(nullptr);
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_A);
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_B);
     data.zones[ZONE_WHITE]->addz_actions_bas(ACT_C);
@@ -108,6 +109,7 @@ void init_zone_white(t_data& data)
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_AH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_BH);
     data.zones[ZONE_WHITE]->addz_actions_haut(ACT_R);
+    data.zones[ZONE_WHITE]->setz_degats_doubles(false);
     data.zones[ZONE_WHITE]->setz_data(data);
     data.zones[ZONE_WHITE]->setz_ordre_degats();
     data.zones[ZONE_WHITE]->setz_jump_tour_upon_entry_haut(false);
@@ -129,12 +131,14 @@ void init_zone_blue(t_data& data)
     data.zones[ZONE_BLUE]->setz_capsule_energie(0);
     data.zones[ZONE_BLUE]->setz_ascenseur(true);
     data.zones[ZONE_BLUE]->setz_reacteur(2);
+    data.zones[ZONE_BLUE]->setz_degats_doubles(false);
     data.zones[ZONE_BLUE]->setz_max_energie_reservoir(3);
     data.zones[ZONE_BLUE]->setz_bouclier(1);
     data.zones[ZONE_BLUE]->setz_max_energie_bouclier(2);
     data.zones[ZONE_BLUE]->setz_cannon_haut(cannon_zone_blue);
     data.zones[ZONE_BLUE]->setz_cannon_bas(cannon_leger_zone_blue);
     data.zones[ZONE_BLUE]->setz_chemin(new chemin_menace());
+    data.zones[ZONE_BLUE]->setz_joueur_intercepteurs(nullptr);
     data.zones[ZONE_BLUE]->addz_actions_bas(ACT_A);
     data.zones[ZONE_BLUE]->addz_actions_bas(ACT_B);
     data.zones[ZONE_BLUE]->addz_actions_bas(ACT_C);
@@ -167,6 +171,7 @@ void init_zone_red(t_data& data)
     data.zones[ZONE_RED]->setzone_blue(data.zones[ZONE_BLUE]);
     data.zones[ZONE_RED]->setzone_right(data.zones[ZONE_WHITE]);
     data.zones[ZONE_RED]->setzone_left(data.zones[ZONE_BLUE]);
+    data.zones[ZONE_RED]->setz_degats_doubles(false);
     data.zones[ZONE_RED]->setz_nom_zone("zone rouge");
     data.zones[ZONE_RED]->setz_bots_englues(false);
     data.zones[ZONE_RED]->setz_bots(true);
@@ -180,6 +185,7 @@ void init_zone_red(t_data& data)
     data.zones[ZONE_RED]->setz_cannon_haut(cannon_zone_red);
     data.zones[ZONE_RED]->setz_cannon_bas(cannon_leger_zone_red);
     data.zones[ZONE_RED]->setz_chemin(new chemin_menace());
+    data.zones[ZONE_RED]->setz_joueur_intercepteurs(nullptr);
     data.zones[ZONE_RED]->addz_actions_bas(ACT_A);
     data.zones[ZONE_RED]->addz_actions_bas(ACT_B);
     data.zones[ZONE_RED]->addz_actions_bas(ACT_C);

@@ -8,38 +8,44 @@ void messageAttaque(std::string nom)
 
 void menace::messageMenaceZone(int degats, zone *zone)
 {
-    messageAttaque(m_name);
+    //messageAttaque(m_name);
     if (m_zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (m_zone->getz_zone() == 2)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats + m_buff_attack << "\033[0m";
+    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack);
+    printSlowly(msg);
     if (zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (zone->getz_zone() == 2)
         std::cout << "\033[1;37m";
     else if (zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << " sur la " << zone->getz_nom_zone() << "!]\033[0m]" << std::endl;
+    msg = " sur la " + zone->getz_nom_zone() + "!]\n";
+    printSlowly(msg);
+    end_color();
 }
 
 void menace::messageAttaqueMenace(int degats)
 {
-    messageAttaque(m_name);
+    //messageAttaque(m_name);
     if (m_zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (m_zone->getz_zone() == 2)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " lance une attaque de puissance " << degats + m_buff_attack << "!]\033[0m" << std::endl;
+    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack);
+    printSlowly(msg);
+    end_color();
 }
 
 void menace::messageBufferMenace(std::string &string, int degats)
 {
-    messageAttaque(m_name);
+    //messageAttaque(m_name);
+    std::string msg;
     if (m_zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (m_zone->getz_zone() == 2)
@@ -47,7 +53,9 @@ void menace::messageBufferMenace(std::string &string, int degats)
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
     if (degats < 0)
-        std::cout << "[" << string << "!]\033[0m" << std::endl;
+        msg = "[" + string + "!]\n";
     else
-        std::cout << string << degats << "\033[0m" << std::endl;
+        msg = string + std::to_string(degats) + "\n";
+    printSlowly(msg);
+    end_color();
 }

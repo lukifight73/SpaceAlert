@@ -173,14 +173,14 @@ void infligeDegats(menace_externe *menace)
 		std::cout << "[La menace " << menace->get_m_name() << " absorbe " << menace->get_m_etat_bouclier() << " degats et recois " << degatsInfliges << " degats.]\n";
 		menace->set_m_etat_bouclier(0); // Bouclier épuisé
 		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
-		end_color(menace->get_m_zone());
+		end_color();
 	}
 	else if(menace->get_m_degats() != 0 && menace->get_m_degats() <= menace->get_m_etat_bouclier()) // Si la puissance du canon est supérieure à l'état du bouclier de la menace
 	{
 		start_color(menace->get_m_zone());
 		std::cout << menace->get_m_degats_str();
 		std::cout << "[La menace " << menace->get_m_name() << " absorbe " << menace->get_m_etat_bouclier() << " degats.]\n";
-		end_color(menace->get_m_zone());
+		end_color();
 	}
 	menace->set_m_degats(0);
 	menace->set_m_degats_str("");
@@ -198,6 +198,11 @@ void putDegatsIntoAction(t_data &data)
 	}
 }
 
+void getPlayerCard(t_data &data, int num_joueur)
+{
+	data.joueurs[num_joueur]->getcarteTour(data.tour);
+}
+
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12
@@ -210,14 +215,15 @@ void	play_game(t_data &data)
 		print_joueur_zone(data);
 		clear_actionUsage(data);
 		actionMenaceDebutTour(data);
+		print_title("JOUEURS");
 		while (num_joueur <= data.nb_joueur)
 		{
 			start_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
-			std::cout << "----------------------------------- JOUEUR n " << num_joueur << " playing : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
+			std::cout << "----------------------------------- joueur playing : " << data.joueurs[num_joueur]->getj_nom() << " -----------------------------------" << std::endl;
 			setPlayerEngaged(data, data.joueurs[num_joueur]->getj_nom());
+			getPlayerCard(data, num_joueur);
 			action_joueur(data, num_joueur);
-			std::cout << "----------------------------------- fin tour joueur n " << num_joueur << " : " << data.joueurs[num_joueur]->getj_nom() << "----------------------------" << std::endl;
-			end_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
+			end_color();
 			num_joueur++;
 		}
 		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)

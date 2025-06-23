@@ -32,7 +32,7 @@ void menace::send_announcement_message() const
     start_color(m_zone);
     std::cout << "[Attention, la menace " << m_name << " vient d'arriver !]\n";
     std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << "]" << std::endl;
-    end_color(m_zone);
+    end_color();
 }
 
 void menace::print_menace() const
@@ -48,7 +48,7 @@ void menace::print_menace() const
     std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
     std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
     std::cout << "Buff Attack : " << m_buff_attack << std::endl;
-    end_color(m_zone);
+    end_color();
 }
 
 void menace::actionMenace(char input)
@@ -69,21 +69,40 @@ void menace::actionQuandDetruit() {
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
 {
+    int i = 0;
     while(positionBefore != positionAfter)
     {
         positionBefore--;
         if(m_chemin->get_ch_chemin()[positionBefore] == 'X')
         {
+            std::string msg;
+            msg = "[La menace " + m_name + " effectue son action X.]\n";
+            printSlowly(msg);
             actionMenace('X');
+            i = 1;
         }
         else if (m_chemin->get_ch_chemin()[positionBefore] == 'Y')
         {
+            std::string msg;
+            msg = "[La menace " + m_name + " effectue son action Y.]\n";
+            printSlowly(msg);
             actionMenace('Y');
+            i = 1;
         }
         else if (m_chemin->get_ch_chemin()[positionBefore] == 'Z')
         {
+            std::string msg;
+            msg = "[La menace " + m_name + " effectue son action Z.]\n";
+            printSlowly(msg);
             actionMenace('Z');
+            i = 1;
         }
+    }
+    if (!i)
+    {
+        std::string msg;
+        msg = "[Elle n'effectue pas d'action ce tour.]\n";
+        printSlowly(msg);
     }
 }
 
@@ -166,7 +185,7 @@ void menace::recoitDegats(int input)
     {
         start_color(m_zone);
         std::cout << "[La menace " << m_name << " est deja detruite.]\n";
-        end_color(m_zone);
+        end_color();
         return ;
     }
     m_vie -= input;

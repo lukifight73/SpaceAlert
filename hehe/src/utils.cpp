@@ -2,7 +2,8 @@
 
 void wr(std::string str)
 {
-	std::cout << str << std::endl;
+    printSlowly(str);
+	std::cout << std::endl;
 }
 
 std::string generateRandomString(int length) {
@@ -17,6 +18,13 @@ std::string generateRandomString(int length) {
     return result;
 }
 
+void printSlowly(const std::string& text, int delayMs) {
+    for (char c : text) {
+        std::cout << c << std::flush;  // afficher sans attendre le buffer
+        std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+    }
+}
+
 void start_color(zone *zone)
 {
     if (zone->getz_zone() == 1)
@@ -27,12 +35,28 @@ void start_color(zone *zone)
         std::cout << "\033[1;36m";
 }
 
-void end_color(zone *zone)
+void start_color_interne()
 {
-    if (zone->getz_zone() == 1)
-        std::cout << "\033[0m";
-    else if (zone->getz_zone() == 2)
-        std::cout << "\033[0m";
-    else if (zone->getz_zone() == 3)
-        std::cout << "\033[0m";
+    std::cout << "\033[32m";
+}
+
+void print_title(std::string msg)
+{
+    std::string msg_tour_joueur = "-----------------------------------------------------------------------------------------------------------------------------------------------\n";
+    msg_tour_joueur += "                  ****            ****            ****          [TOUR " + msg + "]          ****            ****            ****                   \n";
+    msg_tour_joueur += "-----------------------------------------------------------------------------------------------------------------------------------------------\n\n";
+
+	start_color_titre();
+	std::cout << msg_tour_joueur;
+    end_color();
+}
+
+void start_color_titre()
+{
+    std::cout << "\033[1;33m";
+}
+
+void end_color()
+{
+    std::cout << "\033[0m";
 }

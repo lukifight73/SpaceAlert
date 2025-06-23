@@ -10,9 +10,6 @@
 #include <cstdlib> // Pour rand() et srand()
 #include <ctime>   // Pour time()
 
-#include "joueur.hpp"
-#include "zone.hpp"
-
 class joueur;
 class zone;
 class chemin_menace;

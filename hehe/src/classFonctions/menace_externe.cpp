@@ -294,7 +294,7 @@ void menace_externe::print_menace() const
     }
     std::cout << "Zone : " << m_zone->getz_nom_zone() << std::endl;
     std::cout << "Chemin : " << m_chemin->get_ch_nom() << std::endl;
-    end_color(m_zone);
+    end_color();
 };
 
 void menace_externe::send_announcement_message_externe() const
@@ -302,5 +302,5 @@ void menace_externe::send_announcement_message_externe() const
     start_color(m_zone);
     std::cout << "[Attention, la menace " << m_name << " vient d'arriver !]\n";
     std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << ", Bouclier : " << m_bouclier << "]" << std::endl;
-    end_color(m_zone);
+    end_color();
 };

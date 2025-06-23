@@ -188,3 +188,23 @@ X->toutes les menaces externes ont +1 de blindage tant qu il est pas mort
 Y->draine 1 energie de tous les boucliers
 Z->attaque 4 (le bonus persiste)
 
+
+
+
+
+
+
+
+--> intercepteurs de combat
+-> C pour decoller dans l espace si robots actif
+-> R pour continuer a etre dans l espace
+-> retour si pas d action robot ou tout autre action (action decallee d un tour)
+-> un seul mec dans l espace a la fois
+
+->degats 1 pour chaque menace a portee de 1
+->degats 3 si une seule menace a portee de 1
+
+-> retard / assomer joueurs zone inaffectee (mais oui pour revolte des robots)
+
+void removez_joueur_intercepteurs();
+

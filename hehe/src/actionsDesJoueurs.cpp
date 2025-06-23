@@ -20,6 +20,8 @@ std::string get_action(int action)
 		return "DIR_B";
 	else if (action == DIR_A)
 		return "DIR_A";
+	else if (action == ASSOME)
+		return "ASSOME";
 	else
 		return "INACTIF";
 }
@@ -67,4 +69,19 @@ void	action_joueur(t_data &data, int num_joueur)
 	{
 		data.zones[zone]->ascenseur();
 	}
+	else if (carte.getc_action() == INACTIF)
+	{
+		data.zones[zone]->inactif();
+	}
+	else if (carte.getc_action() == ASSOME)
+	{
+		wr("[Vous etes assome.]\n");
+	}
+	else if (carte.getc_action() >= 12 && carte.getc_action() <= 17)
+	{
+		data.zones[zone]->dirHeroique(carte.getc_action());
+	}
+	else
+		wr("JE RECONNAIS PAS LA CARTE!!!\n");
 }
+

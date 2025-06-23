@@ -49,6 +49,11 @@
 		"istream": "cpp",
 		"ctime": "cpp",
 		"fstream": "cpp",
-		"sstream": "cpp"
+		"sstream": "cpp",
+		"chrono": "cpp",
+		"ratio": "cpp",
+		"stop_token": "cpp",
+		"thread": "cpp",
+		"semaphore": "cpp"
 	}
 }

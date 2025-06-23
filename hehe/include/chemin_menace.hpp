@@ -22,6 +22,7 @@ class chemin_menace
     public:
         chemin_menace();
         chemin_menace(std::string input);
+        std::vector<menace_externe*> targeted_intercepteur_menace();
         void add_menaceExte(menace_externe *input);
         void add_menaceInt(menace_interne *input);
         menace_externe* get_menace_that_attracts_rocket();
