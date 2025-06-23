@@ -1061,6 +1061,7 @@ void menace_interne_si2_01::effetApresMvt()
 
 }
 
+// deplace le menace vers la bonne direction
 void menace_interne::manaceMoveInZone(std::string string)
 {
     if(string == "Left")
