@@ -3,6 +3,7 @@
 #include "menace.hpp"
 #include "menace_externe.hpp"
 #include "menace_interne.hpp"
+#include "GameNarrator.hpp"
 
 void erase_data(t_data& data)
 {
@@ -234,10 +235,22 @@ void wait()
     std::getline(std::cin, input);
 }
 
+void create_card(t_data &data)
+{
+	int i(1);
+	while(i <= data.nb_joueur)
+    {
+		carte carte(TODO);
+		data.joueurs[i]->addcartes(data.tour, carte);
+		i++;
+	}
+}
+
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12
 	{
+		create_card(data);
 		int num_joueur(1);
 		print_tour("TOUR " + std::to_string(data.tour));
 		apparitionMenaces(data);
@@ -279,6 +292,19 @@ void	play_game(t_data &data)
 	}
 }
 
+void chose_ton_blase(t_data &data)
+{
+	int i(1);
+	std::string nom;
+    while(i <= data.nb_joueur)
+    {
+		std::cout << "Joueur " << i << " choisi ton blaaazze:\n";
+        std::cin >> nom;
+		std::cout << "All right  " << nom << " bienvenu dans le vaisseau!!\n";
+		data.joueurs[i]->setj_nom(nom); // Créer un nouveau joueur
+        i++;
+    }
+}
 
 int main(int ac, char* *av)
 {
@@ -288,11 +314,16 @@ int main(int ac, char* *av)
 		return 1;
 	}
 	t_data data;
-
 	init_data(data);
 	parsing_config(data, av[1]);
+	chose_ton_blase(data);
 	//init_carte_joueur_test(data);
 	print_data(data);
+	data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
+	data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");
+	//data.VoixRobot2->announce("et moi je suis le test pour la voix des Menace");
+	// data.VoixRobot1->announceUrgent("Je suis le test pour la voix des Joueurs");
+	// data.VoixRobot2->announceUrgent("et moi je suis le test pour la voix des Menace");
 	play_game(data);
 	erase_data(data);
 }

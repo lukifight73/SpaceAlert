@@ -68,6 +68,11 @@ void joueur::setj_zone(int input)
     j_zone = input;
 }
 
+void joueur::setj_nom(std::string input)
+{
+    j_nom = input;
+}
+
 //autre
 void joueur::addcartes(int input, carte carte)
 {
@@ -205,13 +210,13 @@ void joueur::getcarteTour(int tour)
     }
     else
     {
-        printSlowly("Quelle carte avez vous joue ce tour ?");
+        printSlowly("Quelle carte avez vous joue ce tour ?\n");
         std::string input;
         std::getline(std::cin, input);
         i = get_nb_actions(input);
         while (i == -1)
         {
-            std::cout << "Je n'ai pas compris...";
+            std::cout << "Je n'ai pas compris...\n";
             std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
             i = get_nb_actions(input);
         }

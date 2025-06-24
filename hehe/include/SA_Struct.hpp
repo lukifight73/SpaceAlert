@@ -13,6 +13,7 @@
 class joueur;
 class zone;
 class chemin_menace;
+class GameNarrator;
 
 typedef struct s_data
 {
@@ -21,6 +22,9 @@ typedef struct s_data
 	std::map<int, zone*> zones;
 	int tour;
 	chemin_menace *chemin_menace_interne;
+	GameNarrator *VoixRobot1;
+	GameNarrator *VoixRobot2;
+	GameNarrator *VoixAlert;
 } t_data;
 
 void wr(std::string str);

@@ -17,6 +17,7 @@
 class menace;
 class menace_externe;
 
+
 void wr(std::string str);
 std::string generateRandomString(int length);
 void init_carte_joueur_test(t_data& data);

@@ -27,6 +27,7 @@ class menace_interne :public menace
         virtual void getDamage(joueur *joueur);
         virtual void getDamageHero(joueur *joueur);
         void manaceMoveInZone(std::string string);
+        void printfaitdegats(int degats);
         virtual ~menace_interne();
         void getDamaged();
 };
