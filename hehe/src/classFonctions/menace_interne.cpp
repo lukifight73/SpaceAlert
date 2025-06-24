@@ -1187,16 +1187,11 @@ void menace_interne_si2_03::getDamage(joueur *joueur)
         m_degats_zone_white = 1;
     if (m_degats_zone_blue + m_degats_zone_red + m_degats_zone_white == 3)
     {
-        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
-        std::cout << msg << "[+2 degats!!!]";
-        m_vie -= 2;
+        m_degats_str += "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        m_degats_str += "[--> +2 degats!!!]\n";
+        m_degats += 2;
     }
-    m_vie--;
-    if(m_vie <= 0)
-    {
-        m_vie = 0;
-        actionQuandDetruit();
-    }
+    m_degats++;
 }
 
 void menace_interne_si2_03::effetDebutTour()

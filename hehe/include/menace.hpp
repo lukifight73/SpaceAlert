@@ -20,6 +20,8 @@ class menace
     bool m_immunity;
     int m_difficulte;
     int m_buff_attack;
+    std::string m_degats_str;
+    int m_degats;
 
     chemin_menace *m_chemin; // chemin de la menace
     zone *m_zone; // zone de la menace
@@ -67,10 +69,27 @@ class menace
         void set_m_chemin(chemin_menace *input) {
             m_chemin = input;
         };
+        void set_m_degats(int input) {
+            m_degats = input;
+        };
+        void add_m_degats(int input) {
+            m_degats += input;
+        };
+        int get_m_degats() {
+            return (m_degats);
+        }
+        std::string get_m_degats_str() {
+            return (m_degats_str);
+        }
+        void set_m_degats_str(std::string input) {
+            m_degats_str = input;
+        }
+        void add_m_degats_str(std::string input) {
+            m_degats_str += input;
+        }
         void setm_buff_attack(int input) {
             m_buff_attack = input;
         };
-
         void setm_position(int input) {
             m_position = input;
         };

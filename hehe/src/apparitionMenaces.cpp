@@ -102,6 +102,7 @@ void mouvement_menaces(t_data &data)
 
 void apparitionMenaces(t_data &data)
 {
+    print_title("APPARITION DES MENACES");
     int i = 1;
     while (i < 4)
     {
@@ -110,10 +111,10 @@ void apparitionMenaces(t_data &data)
         {
             if ((*it)->get_m_tourDarrivee() == data.tour)
             {
-                std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention, en " << data.zones[i]->getz_nom_zone();
-                std::cout << " une menace vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+                start_color((*it)->get_m_zone());
                 (*it)->set_m_presence(true);
                 (*it)->send_announcement_message();
+                end_color();
             }
         }
         i++;
@@ -123,9 +124,10 @@ void apparitionMenaces(t_data &data)
 	{
 		if ((*it)->get_m_tourDarrivee() == data.tour)
         {
-            std::cout << "\n\n/!\\/!\\/!\\/!\\/!\\/!\\ Attention une menace interne vient d'apparaître ! /!\\/!\\/!\\/!\\/!\\/!\\" << std::endl;
+            start_color_interne();
             (*it)->set_m_presence(true);
             (*it)->send_announcement_message();
+            end_color();
         }
 	}
 }

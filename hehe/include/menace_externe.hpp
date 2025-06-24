@@ -13,8 +13,6 @@ class menace_externe : public menace
     bool m_vulnerable_roquette;
     bool m_attraction_roquette;
     bool m_revele;
-    std::string m_degats_str;
-    int m_degats;
 
     std::vector<cannon *> m_canon_used; // pour les menaces qui utilisent des canons
     std::vector<int>    m_canon_immunity; // pour les menaces qui sont immunisées contre certains canons
@@ -34,24 +32,6 @@ class menace_externe : public menace
         void set_m_revele(bool input) {
             m_revele = input;
         };
-        void set_m_degats(int input) {
-            m_degats = input;
-        };
-        void add_m_degats(int input) {
-            m_degats += input;
-        };
-        int get_m_degats() {
-            return (m_degats);
-        }
-        std::string get_m_degats_str() {
-            return (m_degats_str);
-        }
-        void set_m_degats_str(std::string input) {
-            m_degats_str = input;
-        }
-        void add_m_degats_str(std::string input) {
-            m_degats_str += input;
-        }
         bool get_m_attraction_roquette() const {
             return m_attraction_roquette;
         };

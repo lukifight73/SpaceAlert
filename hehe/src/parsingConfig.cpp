@@ -312,8 +312,6 @@ int get_nb_actions(std::string nomAction)
     else if (nomAction == "DIR_A")
         return DIR_A;
     else if (nomAction == "DIR_RB")
-        return DIR_RH;
-    else if (nomAction == "DIR_RB")
         return DIR_RB;
     else if (nomAction == "DIR_RH")
         return DIR_RH;

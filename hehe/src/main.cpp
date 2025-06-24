@@ -215,7 +215,7 @@ void	play_game(t_data &data)
 		print_joueur_zone(data);
 		clear_actionUsage(data);
 		actionMenaceDebutTour(data);
-		print_title("JOUEURS");
+		print_title("ACTION DES JOUEURS");
 		while (num_joueur <= data.nb_joueur)
 		{
 			start_color(data.zones[data.joueurs[num_joueur]->getj_zone()]);
@@ -231,15 +231,15 @@ void	play_game(t_data &data)
 		rocketActions(data);
 		putDegatsIntoAction(data);
 		remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
-		std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
-		printInfoMenace(data);
-		std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
+		//std::cout << "\n\n----------------------------- INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
+		//printInfoMenace(data);
+		//std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		mouvement_menaces(data);
 		effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
 	    remove_dead_or_outdated_menaces(data); // doit etre fait apres le mouvement des menaces pour voir si elles sont parties ou non
-		std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
-		printInfoMenace(data);
-		std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
+		//std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
+		//printInfoMenace(data);
+		//std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		//check_maintenance(data);
 		//print_data(data);
 		retarder_joueurs(data);
