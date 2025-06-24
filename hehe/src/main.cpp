@@ -262,8 +262,11 @@ int main(int ac, char* *av)
 	parsing_config(data, av[1]);
 	//init_carte_joueur_test(data);
 	print_data(data);
-	data.GameNarratorJoueur->announce("Je suis le test pour voix Joueur");
-	data.GameNarratorMenace->announce("et moi je suis le test pour voix Joueur");
-	// play_game(data);
+	data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
+	data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");
+	//data.VoixRobot2->announce("et moi je suis le test pour la voix des Menace");
+	// data.VoixRobot1->announceUrgent("Je suis le test pour la voix des Joueurs");
+	// data.VoixRobot2->announceUrgent("et moi je suis le test pour la voix des Menace");
+	play_game(data);
 	erase_data(data);
 }
