@@ -3,6 +3,7 @@
 #include "menace.hpp"
 #include "menace_externe.hpp"
 #include "menace_interne.hpp"
+#include "GameNarrator.hpp"
 
 void erase_data(t_data& data)
 {
@@ -261,6 +262,8 @@ int main(int ac, char* *av)
 	parsing_config(data, av[1]);
 	//init_carte_joueur_test(data);
 	print_data(data);
-	play_game(data);
+	data.GameNarratorJoueur->announce("Je suis le test pour voix Joueur");
+	data.GameNarratorMenace->announce("et moi je suis le test pour voix Joueur");
+	// play_game(data);
 	erase_data(data);
 }
