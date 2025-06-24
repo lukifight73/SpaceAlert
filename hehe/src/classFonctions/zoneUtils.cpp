@@ -460,7 +460,7 @@ std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
 	}
 	else if(zone == ZONE_WHITE)
 	{
-		if(upDownCount == rightCount == leftCount)
+		if((upDownCount == rightCount) == leftCount)
 			return("No movement");
 		else if(rightCount > upDownCount && rightCount > upDownCount)
 			return("Right");
