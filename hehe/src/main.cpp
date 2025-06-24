@@ -257,7 +257,6 @@ int main(int ac, char* *av)
 		return 1;
 	}
 	t_data data;
-
 	init_data(data);
 	parsing_config(data, av[1]);
 	//init_carte_joueur_test(data);

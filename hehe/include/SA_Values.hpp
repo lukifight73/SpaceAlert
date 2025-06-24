@@ -73,3 +73,41 @@ const std::string CANON_LOURD_STR = "un cannon lourd";
 #include <algorithm>
 #include <cstdlib> // Pour rand() et srand()
 #include <ctime>   // Pour time()
+
+//////////////////////////////// VOIX //////////////////////////
+
+// espeak : le programme de synthèse vocale
+// -v en+f3 : voix (voice) = anglais, femme, variant 3
+// -s 150 : vitesse (speed) = mots par minute
+// -p 50 : pitch = hauteur de la voix (grave/aigu)
+// "texte" : ce qui sera lu
+
+// Les paramètres expliqués
+// Speed (vitesse) :
+
+// 80 = très lent (robot mourant)
+// 150 = normal (conversation)
+// 200 = rapide (urgence)
+// 300 = très rapide (panique totale !)
+
+// Pitch (hauteur) :
+
+// 10 = très grave (Darth Vader)
+// 50 = normal
+// 80 = aigu (R2D2)
+// 99 = très aigu (souris)
+
+
+// fr+f1, fr+f2, fr+f3, fr+f4 : voix féminines françaises
+// fr+m1, fr+m2, fr+m3 : voix masculines françaises
+
+#define VOIX_TRES_LENT 80
+#define VOIX_LENT 115
+#define VOIX_NORMAL 150
+#define VOIX_RAPIDE 200
+#define VOIX_TRES_RAPIDE 300
+
+#define TIMBRE_GRAVE 10
+#define TIMBRE_NORMAL 55
+#define TIMBRE_AIGU 80
+#define TIMBRE_TRES_AIGU 99
