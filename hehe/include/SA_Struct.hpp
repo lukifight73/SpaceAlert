@@ -22,8 +22,9 @@ typedef struct s_data
 	std::map<int, zone*> zones;
 	int tour;
 	chemin_menace *chemin_menace_interne;
-	GameNarrator *GameNarratorMenace;
-	GameNarrator *GameNarratorJoueur;
+	GameNarrator *VoixRobot1;
+	GameNarrator *VoixRobot2;
+	GameNarrator *VoixAlert;
 } t_data;
 
 void wr(std::string str);

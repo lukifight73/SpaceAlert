@@ -216,8 +216,9 @@ void init_data(t_data& data)
 	data.zones[ZONE_WHITE] = new zone(ZONE_WHITE);
 	data.zones[ZONE_BLUE] = new zone(ZONE_BLUE);
 	data.zones[ZONE_RED] = new zone(ZONE_RED);
-    data.GameNarratorMenace = new GameNarrator(true, "fr", 100, 30);
-    data.GameNarratorJoueur = new GameNarrator(true, "fr", 150, 55);
+    data.VoixAlert = new GameNarrator(true, "fr+f2", 110, 60);
+    data.VoixRobot1 = new GameNarrator(true, "fr+m2", 100, 28);
+    data.VoixRobot2 = new GameNarrator(true, "fr+m6", 100, 30);
     init_zone_white(data);
     init_zone_blue(data);
     init_zone_red(data);
