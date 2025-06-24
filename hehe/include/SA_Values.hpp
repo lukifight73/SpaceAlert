@@ -20,6 +20,7 @@
 //carte_etat
 #define ASSOME 11
 #define INACTIF 0
+#define TODO 12
 
 //carte_deplacement_hero
 #define DIR_RB 12// Red Bas

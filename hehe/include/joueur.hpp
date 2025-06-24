@@ -32,6 +32,7 @@ public:
     void setj_bots(int input);
     void setj_capitaine(bool input);
     void setj_zone(int input);
+    void setj_nom(std::string nom);
 
     //autre
     void attaqueIntercepteur(t_data &data);

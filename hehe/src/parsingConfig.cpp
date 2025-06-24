@@ -351,6 +351,26 @@ void pars_joueurs(t_data &data, std::string line_joueur)
     }
 }
 
+//apres changement, les joueurs donnent leur cartes petit a petit
+void pars_joueurs2(t_data &data, std::string line_joueur)
+{
+    std::istringstream iss(line_joueur);
+    std::string joueur_keyword;
+    iss >> joueur_keyword; // Lire le mot-clé "joueur"
+    int nb_joueur(0);
+    std::string nomAction;
+    if (iss >> nb_joueur) {
+       data.nb_joueur = nb_joueur;
+    }
+    int i(1);
+    while(i <= nb_joueur)
+    {
+        data.joueurs[i] = new joueur();
+        data.joueurs[i]->setj_number(i); // Créer un nouveau joueur
+        i++;
+    }
+}
+
 void place_joueurs(t_data& data)
 {
     int i = 1;
@@ -381,8 +401,11 @@ void parsing_config(t_data &data, char* av)
         else if (line.find("menaceE") != std::string::npos || line.find("menaceI") != std::string::npos) {
             parsMenace(data, line);
 		}
-        else if (line.find("joueur") != std::string::npos) {
-            pars_joueurs(data, line);
+        // else if (line.find("joueur") != std::string::npos) {
+        //     pars_joueurs(data, line);
+        // }
+        else if (line.find("NombreDeJoueurs") != std::string::npos) {
+            pars_joueurs2(data, line);
         }
     }
 	file.close();
