@@ -243,12 +243,14 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
     //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10)
     {
+        wait();
         std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
         cumuleDegatsRocket(menaceProche);
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
     }
     else
     {
+        wait();
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 0); // Reset the rocket position
         std::cout << "[La roquette n'a touché aucune menace, elle revient a la base.]\n";
     }
@@ -263,6 +265,7 @@ void rocketActions(t_data &data)
     {
         if (rocketMap[rocketNum] == 1)
         {
+            wait();
             data.zones[ZONE_BLUE]->setz_roquete_position(rocketNum, 2);
             std::cout << "[La roquette numero " << rocketNum << " a été lancée !]\n";
         }

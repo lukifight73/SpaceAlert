@@ -21,6 +21,7 @@ class menace
     int m_difficulte;
     int m_buff_attack;
     std::string m_degats_str;
+    std::string m_degats_totaux_str;
     int m_degats;
 
     chemin_menace *m_chemin; // chemin de la menace
@@ -38,6 +39,7 @@ class menace
         std::string get_m_name() const {
             return m_name;
         };
+        void messageRecapCapitaine();
         void increase_m_buff_attack(int input)
         {
             m_buff_attack += input;
@@ -77,16 +79,25 @@ class menace
         };
         int get_m_degats() {
             return (m_degats);
-        }
+        };
         std::string get_m_degats_str() {
             return (m_degats_str);
-        }
+        };
+        std::string get_m_degats_totaux_str() {
+            return (m_degats_totaux_str);
+        };
         void set_m_degats_str(std::string input) {
             m_degats_str = input;
-        }
+        };
         void add_m_degats_str(std::string input) {
             m_degats_str += input;
-        }
+        };
+        void set_m_degats_totaux_str(std::string input) {
+            m_degats_totaux_str = input;
+        };
+        void add_m_degats_totaux_str(std::string input) {
+            m_degats_totaux_str += input;
+        };
         void setm_buff_attack(int input) {
             m_buff_attack = input;
         };

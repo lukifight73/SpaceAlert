@@ -4,10 +4,9 @@
 #include "cannon.hpp"
 
 
-menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces) 
+menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menaces)
 {
     if (menaces.empty()) {
-        wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
@@ -43,10 +42,12 @@ void attaqueDesCanons(t_data &data)
         if (canon_haut->getcanon_used())
         {
             canon_haut->attaque_canon(data.zones[i]);
+            canon_haut->settireur("");
         }
         if (canon_bas->getcanon_used())
         {
             canon_bas->attaque_canon(data.zones[i]);
+            canon_bas->settireur("");
         }
         i++;
     }

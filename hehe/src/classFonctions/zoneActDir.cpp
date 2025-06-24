@@ -180,6 +180,7 @@ void zone::moveplayerzone(zone *zone_to_move, bool direction_haut)
 		std::cout << "[Vous vous deplacez en haut, dans la " << zone_to_move->getz_nom_zone() << ".]\n";
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
+		this->getz_joueur_haut(z_joueur_playing)->setj_zone(zone_to_move->getz_zone());
 		if (direction_haut)
 			zone_to_move->addz_joueurs_haut(this->getz_joueur_haut(z_joueur_playing));
 		else
@@ -188,6 +189,7 @@ void zone::moveplayerzone(zone *zone_to_move, bool direction_haut)
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
+		this->getz_joueur_bas(z_joueur_playing)->setj_zone(zone_to_move->getz_zone());
 		if (direction_haut)
 			zone_to_move->addz_joueurs_haut(this->getz_joueur_bas(z_joueur_playing));
 		else
@@ -196,6 +198,7 @@ void zone::moveplayerzone(zone *zone_to_move, bool direction_haut)
 	}
 	else if(z_joueur_intercepteurs)
 	{
+		z_joueur_intercepteurs->setj_zone(zone_to_move->getz_zone());
 		if (direction_haut)
 			zone_to_move->addz_joueurs_haut(z_joueur_intercepteurs);
 		else

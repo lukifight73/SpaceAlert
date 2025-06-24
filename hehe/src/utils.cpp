@@ -51,6 +51,22 @@ void print_title(std::string msg)
     end_color();
 }
 
+void start_color_tour()
+{
+    std::cout << "\033[1;35m";
+}
+
+void print_tour(std::string msg)
+{
+    std::string msg_tour_joueur = "\n\n\n-----------------------------------------------------------------------------------------------------------------------------------------------\n";
+    msg_tour_joueur += "                  ****            ****            ****              [" + msg + "]             ****            ****            ****                   \n";
+    msg_tour_joueur += "-----------------------------------------------------------------------------------------------------------------------------------------------\n\n\n";
+
+	start_color_tour();
+	std::cout << msg_tour_joueur;
+    end_color();
+}
+
 void start_color_titre()
 {
     std::cout << "\033[1;33m";

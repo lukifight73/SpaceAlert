@@ -64,6 +64,7 @@ void menace::actionQuandDetruit() {
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
     std::cout << "[La menace " << m_name << " en " << m_zone << " a été détruite.]\033[0m\n";
+    messageRecapCapitaine();
 }
 
 void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
@@ -197,7 +198,7 @@ void menace::recoitDegats(int input)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " a reçu " << input << " points de dégâts. Vie restante : " << m_vie << "]\033[0m" << std::endl;
+    printSlowly("[La menace " + m_name + " a reçu " + std::to_string(input) + " points de dégâts. Vie restante : " + std::to_string(m_vie) + "]\033[0m\n");
     if (m_vie == 0) {
         actionQuandDetruit();
         // m_presence = false; // la presence n'est pas enleve car elle doit tjs etre cible si c est la plus proche

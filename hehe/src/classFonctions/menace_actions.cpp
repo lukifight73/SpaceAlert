@@ -238,6 +238,7 @@ void menace_se1_08::actionQuandDetruit()
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
+    messageRecapCapitaine();
 }
 
 
@@ -449,6 +450,7 @@ void menace_se2_06::actionQuandDetruit()
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
+    messageRecapCapitaine();
 }
 
 
@@ -798,6 +800,7 @@ void menace_e2_02::actionQuandDetruit()
     }
     std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus!]";
     messageBufferMenace(msg, -1);
+    messageRecapCapitaine();
 }
 
 void menace_e2_03::actionMenace(char input)
@@ -949,6 +952,7 @@ void menace_e2_06::actionQuandDetruit()
     }
     std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 blindage) n'est plus!]";
     messageBufferMenace(msg, -1);
+    messageRecapCapitaine();
 }
 
 void menace_e2_06::effetDebutTour()
@@ -999,6 +1003,7 @@ void menace_e2_07::actionQuandDetruit()
     std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
+    messageRecapCapitaine();
 }
 
 

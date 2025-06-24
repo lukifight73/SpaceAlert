@@ -24,7 +24,6 @@ void chemin_menace::add_menaceExte(menace_externe *input) {
 menace_externe* chemin_menace::get_menace_that_attracts_rocket()
 {
     if (ch_menacesExte.empty()) {
-        wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     for (auto it = ch_menacesExte.begin(); it != ch_menacesExte.end(); it++)
@@ -47,7 +46,6 @@ menace_externe* chemin_menace::get_menace_that_attracts_rocket()
 menace_externe* chemin_menace::get_closest_menace_rocket_vulnerable()
 {
     if (ch_menacesExte.empty()) {
-        wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;
@@ -88,7 +86,6 @@ std::vector<menace_externe*> chemin_menace::targeted_intercepteur_menace()
 menace* chemin_menace::get_closest_menace()
 {
     if (ch_menacesExte.empty()) {
-        wr("No menaces available.");
         return nullptr; // Si il n'y a pas de menace, on retourne nullptr
     }
     int positionPlusProche = 0;

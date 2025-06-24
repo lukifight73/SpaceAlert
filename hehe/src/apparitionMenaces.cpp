@@ -44,7 +44,7 @@ void mouvement_menaces(t_data &data)
 {
     int j = 0;
     int i = 1;
-    print_title("MENACES");
+    print_title("ACTIONS MENACES");
     while (i < 4)
     {
         std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
@@ -52,6 +52,7 @@ void mouvement_menaces(t_data &data)
         {
             if ((*it)->get_m_presence())
             {
+                wait();
                 start_color((*it)->get_m_zone());
                 int positionBefore = (*it)->get_m_position();
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
@@ -76,6 +77,7 @@ void mouvement_menaces(t_data &data)
 	{
 		if ((*it)->get_m_presence())
         {
+            wait();
             start_color_interne();
             int positionBefore = (*it)->get_m_position();
             int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
@@ -111,6 +113,7 @@ void apparitionMenaces(t_data &data)
         {
             if ((*it)->get_m_tourDarrivee() == data.tour)
             {
+                wait();
                 start_color((*it)->get_m_zone());
                 (*it)->set_m_presence(true);
                 (*it)->send_announcement_message();
@@ -124,6 +127,7 @@ void apparitionMenaces(t_data &data)
 	{
 		if ((*it)->get_m_tourDarrivee() == data.tour)
         {
+            wait();
             start_color_interne();
             (*it)->set_m_presence(true);
             (*it)->send_announcement_message();

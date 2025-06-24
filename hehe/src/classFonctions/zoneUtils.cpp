@@ -147,15 +147,6 @@ void zone::retarderactionZone()
 
 void zone::etatdesdegats()
 {
-
-	if (z_zone == 1)
-        std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
-    else if (z_zone == 2)
-        std::cout << "\033[1;37m[DEGATS ZONE BLANCHE]\n";
-    else if (z_zone == 3)
-	{
-        std::cout << "\033[1;36m[DEGATS ZONE BLEUE]\n";
-	}
 	z_degats_recu++;
 	if(z_degats_recu > 6)
 	{
@@ -213,11 +204,18 @@ void zone::etatdesdegats()
 			std::cout << "------> [Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]";
 		}
 	}
-	std::cout << "\033[0m\n";
 }
 
 void zone::getdegats(int input)
 {
+	if (z_zone == 1)
+        std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
+    else if (z_zone == 2)
+        std::cout << "\033[1;37m[DEGATS ZONE BLANCHE]\n";
+    else if (z_zone == 3)
+	{
+        std::cout << "\033[1;36m[DEGATS ZONE BLEUE]\n";
+	}
 	while (z_bouclier > 0 && input > 0)
 	{
 		z_bouclier --;
@@ -234,6 +232,7 @@ void zone::getdegats(int input)
 		etatdesdegats();
 		input--;
 	}
+	end_color();
 }
 
 void zone::getdegatsIgnoreBouclier(int input)
@@ -434,7 +433,7 @@ int zone::countPlayerInStation(bool m_position_haut) // count nbr joueur dans st
 }
 
 // en fonction d ou tu es regarde vers ou il y a le plus de joueur
-std::string zone::stationWithMostPlayer(bool m_position_haut, int zone) 
+std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
 {
 	int upDownCount(0);
 	upDownCount = countPlayerInStation(!m_position_haut);

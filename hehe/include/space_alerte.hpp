@@ -40,7 +40,9 @@ menace_externe* get_closest_menace_in_vector(std::vector<menace_externe*> menace
 void revelerMenace(menace_externe* menace);
 void retarder_joueurs(t_data &data);
 int get_nb_actions(std::string nomAction);
-void printSlowly(const std::string& text, int delayMs = 50);
+void printSlowly(const std::string& text, int delayMs = 5);
 void start_color_interne();
 void start_color_titre();
 void print_title(std::string msg);
+void print_tour(std::string msg);
+void wait();

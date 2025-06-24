@@ -59,3 +59,15 @@ void menace::messageBufferMenace(std::string &string, int degats)
     printSlowly(msg);
     end_color();
 }
+
+void menace::messageRecapCapitaine()
+{
+    std::cout << "\33[1;35m";
+    printSlowly("\nCapitaine, la menace " + m_name + " a ete elimine, souhaitez vous un recap ?");
+    std::string input;
+    std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
+    if (input == "Y" || input == "y" || input == "oui" || input == "yes" || input == "OUI" || input == "YES")
+        printSlowly(m_degats_totaux_str);
+    end_color();
+    std::cout << std::endl;
+}

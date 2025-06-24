@@ -25,6 +25,7 @@ void zone::actionA()
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 					addz_cannon_used(this->getz_cannon_haut());
 					this->getz_cannon_haut()->setcanon_used(true);
+					this->getz_cannon_haut()->settireur(z_joueur_playing);
 				}
 				else
 				{
@@ -64,6 +65,7 @@ void zone::actionA()
 					this->addz_actions_used_ce_tour_bas(ACT_A);
 					addz_cannon_used(this->getz_cannon_bas());
 					this->getz_cannon_bas()->setcanon_used(true);
+					this->getz_cannon_bas()->settireur(z_joueur_playing);
 				}
 				else
 				{
@@ -109,6 +111,7 @@ void zone::actionAHeros()
 					addz_cannon_used(this->getz_cannon_haut());
 					this->getz_cannon_haut()->setcanon_used(true);
 					this->getz_cannon_haut()->setactionHeroique(true);
+					this->getz_cannon_haut()->settireur("ACTION HEROHIQUE! " + z_joueur_playing);
 				}
 				else
 				{
@@ -149,6 +152,7 @@ void zone::actionAHeros()
 					this->addz_actions_used_ce_tour_bas(ACT_AH);
 					addz_cannon_used(this->getz_cannon_bas());
 					this->getz_cannon_bas()->setcanon_used(true);
+					this->getz_cannon_bas()->settireur("ACTION HEROHIQUE! " + z_joueur_playing);
 				}
 				else
 				{
@@ -383,18 +387,15 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			else
 			{
 				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-				const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_C);
-				if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+				if (action_possible != this->getz_actions_haut().end())
 				{
 					z_maintenance_ordinateur.push_back(this->getz_temps());
-					wr("[Bravo! Vous avez fait la maintenance! (elle genere toujours autant d'enthousiasme celle la)]");
+					wr("[Vous faites la maintenance!]");
 					this->addz_actions_used_ce_tour_haut(ACT_C);
 					//this->removez_actions_haut(ACT_C);
 				}
 				else if (action_possible == this->getz_actions_haut().end())
 					wr("[Impossible de faire la maintenance maintenant!]");
-				else
-					wr("[Vous etes deux a faire la maintenance.......]");
 			}
 		}
 		if (z_zone == ZONE_BLUE)//a finaliser il faut ajouter les robots au joueur

@@ -23,27 +23,41 @@ bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const
 
 void menace_interne::getDamage(joueur *joueur)
 {
-    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
-    m_vie--;
-    if(m_vie <= 0)
-    {
-        m_vie = 0;
-        actionQuandDetruit();
-    }
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
 }
 
 void menace_interne::getDamageHero(joueur *joueur)
 {
     joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
-    m_vie--;
-    m_vie--;
-    if(m_vie <= 0)
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
+}
+
+void menace_interne::getDamaged()
+{
+    start_color_interne();
+    printSlowly("[La menace interne " + m_name + " a une vie de " + std::to_string(m_vie) + "].\n");
+    printSlowly(m_degats_str);
+    add_m_degats_totaux_str(m_degats_str);
+    m_degats_str = "";
+    while (m_degats)
+    {
+        m_vie--;
+        m_degats--;
+    }
+    if (m_vie <= 0)
     {
         m_vie = 0;
         actionQuandDetruit();
     }
+    else
+        printSlowly("[La menace interne " + m_name + " a desormais une vie de " + std::to_string(m_vie) + "].\n");
+    m_degats = 0;
+    std::cout << std::endl;
+    end_color();
 }
-
 
 
 menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee): menace(input, tourDarrivee)
@@ -51,6 +65,7 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
     m_ripost = false;
     m_zone = zone;
     m_zoneInt = zone->getz_zone();
+    m_degats_str = "";
     if(input == "i1-01")
     {
         m_position_haut = true;
@@ -290,13 +305,21 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
 
 void menace_interne_i1_01::getDamage(joueur *joueur)
 {
-    m_vie--;
-    if(m_vie <= 0)
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    if(m_vie <= m_degats)
     {
-        m_vie = 0;
+        std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
         joueur->setj_bots(BOTS_INACTIF);
-        actionQuandDetruit();
     }
+}
+
+void menace_interne_i1_01::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 void menace_interne_i1_01::actionMenace(char input)
@@ -325,13 +348,20 @@ void menace_interne_i1_01::actionMenace(char input)
 
 void menace_interne_i1_02::getDamage(joueur *joueur)
 {
-    m_vie--;
-    if(m_vie <= 0)
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    if(m_vie <= m_degats)
     {
-        m_vie = 0;
+        std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
         joueur->setj_bots(BOTS_INACTIF);
-        actionQuandDetruit();
     }
+}
+
+void menace_interne_i1_02::getDamageHero(joueur *joueur)
+{
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 void menace_interne_i1_02::actionMenace(char input)
@@ -1006,20 +1036,29 @@ bool menace_interne_si1_06::AttractAction(int joueurAction, int Zone, bool haut)
 
 void menace_interne_si1_06::getDamage(joueur *joueur)
 {
-    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
-    m_vie--;
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
     if (m_degats_tour_zone != joueur->getj_zone() && m_degats_tour_zone != 0)
     {
-        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
-        std::cout << msg << "[+1 degats!!!]";
-        m_vie--;
+        m_degats_str += "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        m_degats_str += "[--> +1 degats!!!]\n";
+        m_degats++;
     }
     m_degats_tour_zone = joueur->getj_zone();
-    if(m_vie <= 0)
+}
+
+void menace_interne_si1_06::getDamageHero(joueur *joueur)
+{
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
+    if (m_degats_tour_zone != joueur->getj_zone() && m_degats_tour_zone != 0)
     {
-        m_vie = 0;
-        actionQuandDetruit();
+        m_degats_str += "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        m_degats_str += "[--> +1 degats!!!]\n";
+        m_degats++;
     }
+    m_degats_tour_zone = joueur->getj_zone();
 }
 
 void menace_interne_si1_06::effetDebutTour()
@@ -1179,6 +1218,7 @@ bool menace_interne_si2_03::AttractAction(int joueurAction, int Zone, bool haut)
 
 void menace_interne_si2_03::getDamage(joueur *joueur)
 {
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
     if (joueur->getj_zone() == ZONE_BLUE)
         m_degats_zone_blue = 1;
     else if (joueur->getj_zone() == ZONE_RED)
@@ -1191,6 +1231,25 @@ void menace_interne_si2_03::getDamage(joueur *joueur)
         m_degats_str += "[--> +2 degats!!!]\n";
         m_degats += 2;
     }
+    m_degats++;
+}
+
+void menace_interne_si2_03::getDamageHero(joueur *joueur)
+{
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    if (joueur->getj_zone() == ZONE_BLUE)
+        m_degats_zone_blue = 1;
+    else if (joueur->getj_zone() == ZONE_RED)
+        m_degats_zone_red = 1;
+    else if (joueur->getj_zone() == ZONE_WHITE)
+        m_degats_zone_white = 1;
+    if (m_degats_zone_blue + m_degats_zone_red + m_degats_zone_white == 3)
+    {
+        m_degats_str += "[Vous avez infliges un degat a la menace " + m_name + " dans chaque zone ou elle se trouve lors du meme tour!.]\n";
+        m_degats_str += "[--> +2 degats!!!]\n";
+        m_degats += 2;
+    }
+    m_degats++;
     m_degats++;
 }
 
@@ -1307,7 +1366,8 @@ void menace_interne_si2_04::getDamage(joueur *joueur)
     {
         if (m_contamination_blue_haut)
         {
-            m_vie--;
+            m_degats++;
+            m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station haute bleu et decontamine la station!]\n";
             m_contamination_blue_haut = false;
         }
     }
@@ -1315,7 +1375,8 @@ void menace_interne_si2_04::getDamage(joueur *joueur)
     {
         if (m_contamination_blue_bas)
         {
-            m_vie--;
+            m_degats++;
+            m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station basse bleu et decontamine la station!]\n";
             m_contamination_blue_bas = false;
         }
     }
@@ -1323,7 +1384,8 @@ void menace_interne_si2_04::getDamage(joueur *joueur)
     {
         if (m_contamination_red_haut)
         {
-            m_vie--;
+            m_degats++;
+            m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station haute rouge et decontamine la station!]\n";
             m_contamination_red_haut = false;
         }
     }
@@ -1331,14 +1393,58 @@ void menace_interne_si2_04::getDamage(joueur *joueur)
     {
         if (m_contamination_red_bas)
         {
-            m_vie--;
+            m_degats++;
+            m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station basse rouge et decontamine la station!]\n";
             m_contamination_red_bas = false;
         }
     }
-    if(m_vie <= 1)
+}
+
+void menace_interne_si2_04::getDamageHero(joueur *joueur)
+{
+    if (m_zone->getzone_blue()->getz_joueur_haut(joueur->getj_nom()))
     {
-        m_vie = 0;
-        actionQuandDetruit();
+        if (m_contamination_blue_haut)
+        {
+            m_degats++;
+            m_degats++;
+            m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station haute bleu et decontamine la zone entiere!]\n";
+            m_contamination_blue_haut = false;
+            m_contamination_blue_bas = false;
+        }
+    }
+    else if (m_zone->getzone_blue()->getz_joueur_bas(joueur->getj_nom()))
+    {
+        if (m_contamination_blue_bas)
+        {
+            m_degats++;
+            m_degats++;
+            m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station basse bleu et decontamine la zone entiere!]\n";
+            m_contamination_blue_haut = false;
+            m_contamination_blue_bas = false;
+        }
+    }
+    else if (m_zone->getzone_red()->getz_joueur_haut(joueur->getj_nom()))
+    {
+        if (m_contamination_red_haut)
+        {
+            m_degats++;
+            m_degats++;
+            m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station haute rouge et decontamine la zone entiere!]\n";
+            m_contamination_red_haut = false;
+            m_contamination_red_bas = false;
+        }
+    }
+    else if (m_zone->getzone_red()->getz_joueur_bas(joueur->getj_nom()))
+    {
+        if (m_contamination_red_bas)
+        {
+            m_degats++;
+            m_degats++;
+            m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " en station basse rouge et decontamine la zone entiere!]\n";
+            m_contamination_red_haut = false;
+            m_contamination_red_bas = false;
+        }
     }
 }
 
@@ -1371,19 +1477,28 @@ void menace_interne_si2_05::getDamage(joueur *joueur)
     m_degats_par_tour++;
     if (m_degats_par_tour == 3)
     {
-        std::string msg = "[Vous avez infliges 3 degat a la menace " + m_name + " pendant le meme tour!!.]\n";
-        std::cout << msg;
-        m_vie -= 1;
+        m_degats_str += "[Vous avez infliges 3 degat a la menace " + m_name + " pendant le meme tour!! Elle prends donc 1 degats et meurt!]\n";
+        m_degats++;
     }
     else
     {
-        std::string msg = "[Vous avez infliges un degat a la menace " + m_name + "!.]\n";
-        std::cout << msg << "[Si vous lui infligez " << 3 - m_degats_par_tour << " degat(s) de plus pendant ce tour, elle mourra!]\n";
+        m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + "]\n" + "[" + std::to_string(3 - m_degats_par_tour) + " attaque(s) de plus lors de ce tour et la menace prendra un degat.]\n";
     }
-    if(m_vie <= 0)
+}
+
+void menace_interne_si2_05::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_par_tour++;
+    m_degats_par_tour++;
+    if (m_degats_par_tour == 3)
     {
-        m_vie = 0;
-        actionQuandDetruit();
+        m_degats_str += "[Vous avez infliges 3 degat a la menace " + m_name + " pendant le meme tour!! Elle prends donc 1 degats et meurt!]\n";
+        m_degats++;
+    }
+    else
+    {
+        m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + "]\n" + "[" + std::to_string(3 - m_degats_par_tour) + " attaque(s) de plus lors de ce tour et la menace prendra un degat.]\n";
     }
 }
 
