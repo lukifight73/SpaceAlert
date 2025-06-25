@@ -69,7 +69,6 @@ void menace_interne::getDamaged()
     else
         printSlowly("[La menace interne " + m_name + " a desormais une vie de " + std::to_string(m_vie) + "].\n", *m_zone->getz_data());
     m_degats = 0;
-    std::cout << std::endl;
     end_color();
 }
 
@@ -316,9 +315,8 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
 //TO DO
 void menace_interne::printfaitdegats(int degats)
 {
-    // std::string msg = "[La menace " + m_name + " inflige " +  std::to_string(degats) + " degats a la " + m_zone->getz_nom_zone() + " .]\n";
-    // m_zone->getz_data()->VoixRobot1->announce(msg);
-    // std::cout << "La " << m_zone->getz_nom_zone() << " a " << m_zone->ge;
+    std::string msg = "[La menace " + m_name + " inflige " +  std::to_string(degats) + " degats a la " + m_zone->getz_nom_zone() + " .]\n";
+    printSlowly(msg, *m_zone->getz_data());
     degats = 0;
 }
 
