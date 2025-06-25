@@ -354,7 +354,7 @@ int main(int ac, char* *av)
 	t_data data;
 	init_data(data);
 	parsing_config(data, av[1]);
-	chose_ton_blase(data);
+	//chose_ton_blase(data);
 	//init_carte_joueur_test(data);
 	print_data(data);
 	// data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
