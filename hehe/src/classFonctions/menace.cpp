@@ -29,7 +29,7 @@ menace::menace(std::string input, int tourDarrivee)
 
 void menace::send_announcement_message() const
 {
-    std::string msg = "[Attention, la menace " + m_name + " vient d'arriver !]\n";
+    std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + m_zone->getz_nom_zone() + "!]\n";
     msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
     printSlowly(msg);
 }

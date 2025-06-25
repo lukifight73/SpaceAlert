@@ -293,35 +293,37 @@ void parsMenace(t_data &data, std::string menace_str)
 
 int get_nb_actions(std::string nomAction)
 {
-    if (nomAction == "ACT_A")
+    if (nomAction == "ACT_A" || nomAction == "A" || nomAction == "a")
         return ACT_A;
-    else if (nomAction == "ACT_B")
+    else if (nomAction == "ACT_B" || nomAction == "B" || nomAction == "b")
         return ACT_B;
-    else if (nomAction == "ACT_C")
+    else if (nomAction == "ACT_C" || nomAction == "C" || nomAction == "c")
         return ACT_C;
-    else if (nomAction == "ACT_R")
+    else if (nomAction == "ACT_R" || nomAction == "R" || nomAction == "r")
         return ACT_R;
-    else if (nomAction == "ACT_AH")
+    else if (nomAction == "ACT_RH" || nomAction == "RH" || nomAction == "rh")
+        return ACT_RH;
+    else if (nomAction == "ACT_AH" || nomAction == "AH" || nomAction == "a")
         return ACT_AH;
-    else if (nomAction == "ACT_BH")
+    else if (nomAction == "ACT_BH" || nomAction == "BH" || nomAction == "bh")
         return ACT_BH;
-    else if (nomAction == "DIR_R")
+    else if (nomAction == "DIR_R" || nomAction == "DR" || nomAction == "dr")
         return DIR_R;
-    else if (nomAction == "DIR_B")
+    else if (nomAction == "DIR_B" || nomAction == "DB" || nomAction == "db")
         return DIR_B;
-    else if (nomAction == "DIR_A")
+    else if (nomAction == "DIR_A" || nomAction == "DA" || nomAction == "da")
         return DIR_A;
-    else if (nomAction == "DIR_RB")
+    else if (nomAction == "DIR_RB" || nomAction == "DRB" || nomAction == "drb")
         return DIR_RB;
-    else if (nomAction == "DIR_RH")
+    else if (nomAction == "DIR_RH" || nomAction == "DRH" || nomAction == "drh")
         return DIR_RH;
-    else if (nomAction == "DIR_WH")
+    else if (nomAction == "DIR_WH" || nomAction == "DWH" || nomAction == "dwh")
         return DIR_WH;
-    else if (nomAction == "DIR_WB")
+    else if (nomAction == "DIR_WB" || nomAction == "DWB" || nomAction == "dwb")
         return DIR_WB;
-    else if (nomAction == "DIR_BH")
+    else if (nomAction == "DIR_BH" || nomAction == "DBH" || nomAction == "dbh")
         return DIR_BH;
-    else if (nomAction == "DIR_BB")
+    else if (nomAction == "DIR_BB" || nomAction == "DBB" || nomAction == "dbb")
         return DIR_BB;
     else if (nomAction == "INACTIF")
         return INACTIF; // Action inactive

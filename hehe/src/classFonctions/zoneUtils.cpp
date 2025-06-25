@@ -155,11 +155,11 @@ void zone::etatdesdegats()
 	int degat = z_ordre_degats[z_degats_recu];
 	if (degat == 1)
 	{
-		std::cout << "[Le vaisseau a recu des degats mais ils sont negligeables!]";
+		std::cout << "[Le vaisseau a recu des degats mais ils sont negligeables!]\n";
 	}
 	else if (degat == 2)
 	{
-		std::cout << "[Le vaisseau a recu des degats et l'ascenseur de la " << z_nom_zone << " est endommage !]";
+		std::cout << "[Le vaisseau a recu des degats et l'ascenseur de la " << z_nom_zone << " est endommage !]\n";
 		this->removez_actions_bas(DIR_A);
 		this->removez_actions_haut(DIR_A);
 	}
@@ -167,7 +167,7 @@ void zone::etatdesdegats()
 	{
 		std::cout << "[Le vaisseau a recu des degats et le canon lazer lourd de la " << z_nom_zone << " est endommage !]\n";
 		z_cannon_haut->setpuissance_cannon(z_cannon_haut->getpuissance_cannon() - 1);
-		std::cout << "------> [Ce canon lourd a desormais une puissance de " << z_cannon_haut->getpuissance_cannon() << " !]";
+		std::cout << "------> [Ce canon lourd a desormais une puissance de " << z_cannon_haut->getpuissance_cannon() << " !]\n";
 	}
 	else if (degat == 4)
 	{
@@ -177,7 +177,7 @@ void zone::etatdesdegats()
 		{
 			z_reacteur = z_max_reacteur;
 		}
-		std::cout << "------> [Ce reacteur a desormais une capacite de " << z_max_reacteur << " !]";
+		std::cout << "------> [Ce reacteur a desormais une capacite de " << z_max_reacteur << " !]\n";
 	}
 	else if (degat == 5)
 	{
@@ -187,7 +187,7 @@ void zone::etatdesdegats()
 		{
 			z_bouclier = z_max_energie_bouclier;
 		}
-		std::cout << "------> [Ce bouclier a desormais une capacite de " << z_max_energie_bouclier << " !]";
+		std::cout << "------> [Ce bouclier a desormais une capacite de " << z_max_energie_bouclier << " !]\n";
 	}
 	else
 	{
@@ -195,13 +195,13 @@ void zone::etatdesdegats()
 		{
 			std::cout << "[Le vaisseau a recu des degats et le canon a impulsion de la " << z_nom_zone << " est endommage !]\n";
 			z_cannon_bas->setportee_cannon(z_cannon_bas->getportee_cannon() - 5);
-			std::cout << "------> [Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]";
+			std::cout << "------> [Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]\n";
 		}
 		else
 		{
 			std::cout << "[Le vaisseau a recu des degats et le canon laser leger de la " << z_nom_zone << " est endommage !]\n";
 			z_cannon_bas->setpuissance_cannon(z_cannon_bas->getpuissance_cannon() - 1);
-			std::cout << "------> [Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]";
+			std::cout << "------> [Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]\n";
 		}
 	}
 }
@@ -482,4 +482,70 @@ void zone::wrongActionInSpace()
 		this->removez_joueur_intercepteurs();
 		this->getz_joueur_haut(z_joueur_playing)->passerTour(this->getz_temps() - 1);
 	}
+}
+
+void zone::printz_action_ce_tour_haut()
+{
+	std::vector<int>::iterator it;
+	std::cout << "z_action_USED_haut : \n";
+	for (it = z_actions_used_ce_tour_haut.begin(); it != z_actions_used_ce_tour_haut.end(); it++)
+	{
+		std::cout << " / " << (*it);
+	}
+	std::cout << "\n fin z_action_USED_haut : \n";
+}
+
+bool zone::action_used_ce_tour_haut(int input)
+{
+	std::vector<int>::iterator it;
+	for (it = z_actions_used_ce_tour_haut.begin(); it != z_actions_used_ce_tour_haut.end(); it++)
+	{
+		if (*it == input)
+			return (true);
+	}
+	return (false);
+}
+
+bool zone::action_used_ce_tour_bas(int input)
+{
+	std::vector<int>::iterator it;
+	for (it = z_actions_used_ce_tour_bas.begin(); it != z_actions_used_ce_tour_bas.end(); it++)
+	{
+		if (*it == input)
+			return (true);
+	}
+	return (false);
+}
+
+bool zone::action_possible_haut(int input)
+{
+	std::vector<int>::iterator it;
+	for (it = z_actions_haut.begin(); it != z_actions_haut.end(); it++)
+	{
+		if (*it == input)
+			return (true);
+	}
+	return (false);
+}
+
+bool zone::action_possible_bas(int input)
+{
+	std::vector<int>::iterator it;
+	for (it = z_actions_bas.begin(); it != z_actions_bas.end(); it++)
+	{
+		if (*it == input)
+			return (true);
+	}
+	return (false);
+}
+
+void zone::printz_action_ce_tour_bas()
+{
+	std::vector<int>::iterator it;
+	std::cout << "z_action_USED_BAS : \n";
+	for (it = z_actions_used_ce_tour_bas.begin(); it != z_actions_used_ce_tour_bas.end(); it++)
+	{
+		std::cout << " / " << (*it);
+	}
+	std::cout << "\n fin z_action_USED_BAS : \n";
 }

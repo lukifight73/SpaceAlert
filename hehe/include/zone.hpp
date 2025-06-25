@@ -147,6 +147,8 @@ class zone
         void addz_maintenance_ordinateur(int input);
         void addz_observations(int input);
         void print();
+        void printz_action_ce_tour_haut();
+        void printz_action_ce_tour_bas();
         void printZone();
         void addtemps();
         void addz_joueurs_bas(joueur* input);
@@ -187,6 +189,10 @@ class zone
         void assomerjoueursZoneRobotsActifs();
         void assomerjoueursZone();
         void retarderactionZone();
+        bool action_used_ce_tour_haut(int input);
+        bool action_possible_haut(int input);
+        bool action_used_ce_tour_bas(int input);
+        bool action_possible_bas(int input);
 
         //Deplacement
         void flechesRouge();

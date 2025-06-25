@@ -13,9 +13,7 @@ void zone::actionA()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_A);
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_A);
-			if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+			if (this->action_possible_haut(ACT_A) && !this->action_used_ce_tour_haut(ACT_A))
 			{
 				if (z_reacteur)
 				{
@@ -33,7 +31,7 @@ void zone::actionA()
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 				}
 			}
-			else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_haut(ACT_A) && this->action_possible_haut(ACT_A)) //action deja utilisee ce tour
 			{
 				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 			}
@@ -50,9 +48,7 @@ void zone::actionA()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_A);
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_A);
-			if (action_possible != this->getz_actions_bas().end() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
+			if (this->action_possible_bas(ACT_A) && !this->action_used_ce_tour_bas(ACT_A))
 			{
 				if (z_reacteur)
 				{
@@ -73,7 +69,7 @@ void zone::actionA()
 					this->addz_actions_used_ce_tour_bas(ACT_A);
 				}
 			}
-			else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_bas(ACT_A) && this->action_possible_bas(ACT_A)) //action deja utilisee ce tour
 			{
 				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 			}
@@ -98,16 +94,14 @@ void zone::actionAHeros()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_AH);
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_haut().begin(), this->getz_actions_used_ce_tour_haut().end(), ACT_AH);
-			if (action_possible != this->getz_actions_haut().end() && action_ce_tour == this->getz_actions_used_ce_tour_haut().end())
+			if (this->action_possible_haut(ACT_A) && !this->action_used_ce_tour_haut(ACT_A))
 			{
 				if (z_reacteur)
 				{
 					wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
 					z_reacteur -= 1;
 					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
-					this->addz_actions_used_ce_tour_haut(ACT_AH);
+					this->addz_actions_used_ce_tour_haut(ACT_A);
 					addz_cannon_used(this->getz_cannon_haut());
 					this->getz_cannon_haut()->setcanon_used(true);
 					this->getz_cannon_haut()->setactionHeroique(true);
@@ -116,10 +110,10 @@ void zone::actionAHeros()
 				else
 				{
 					wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
-					this->addz_actions_used_ce_tour_haut(ACT_AH);
+					this->addz_actions_used_ce_tour_haut(ACT_A);
 				}
 			}
-			else if (action_ce_tour != this->getz_actions_used_ce_tour_haut().end() && action_possible != this->getz_actions_haut().end()) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_haut(ACT_A) && this->action_possible_haut(ACT_A)) //action deja utilisee ce tour
 			{
 				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 			}
@@ -136,9 +130,7 @@ void zone::actionAHeros()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_AH);
-			const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_AH);
-			if (action_possible != this->getz_actions_bas().end() && action_ce_tour == this->getz_actions_used_ce_tour_bas().end())
+			if (this->action_possible_bas(ACT_A) && !this->action_used_ce_tour_bas(ACT_A))
 			{
 				if (z_reacteur)
 				{
@@ -149,7 +141,7 @@ void zone::actionAHeros()
 						std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 					}
 					this->getz_cannon_bas()->setactionHeroique(true);
-					this->addz_actions_used_ce_tour_bas(ACT_AH);
+					this->addz_actions_used_ce_tour_bas(ACT_A);
 					addz_cannon_used(this->getz_cannon_bas());
 					this->getz_cannon_bas()->setcanon_used(true);
 					this->getz_cannon_bas()->settireur("ACTION HEROHIQUE! " + z_joueur_playing);
@@ -160,7 +152,7 @@ void zone::actionAHeros()
 					this->addz_actions_used_ce_tour_bas(ACT_A);
 				}
 			}
-			else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end()) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_bas(ACT_A) && this->action_possible_bas(ACT_A)) //action deja utilisee ce tour
 			{
 				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
 			}
@@ -184,8 +176,7 @@ void zone::actionB()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_B);
-			if (action_possible != this->getz_actions_haut().end())
+			if (this->action_possible_haut(ACT_B))
 			{
 				if (z_reacteur)
 				{
@@ -218,8 +209,7 @@ void zone::actionB()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_B);
-			if (action_possible != this->getz_actions_bas().end())
+			if (this->action_possible_bas(ACT_B))
 			{
 				if (z_zone == ZONE_WHITE)
 				{
@@ -278,8 +268,7 @@ void zone::actionBHeros()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_B);
-			if (action_possible != this->getz_actions_haut().end())
+			if (this->action_possible_haut(ACT_B))
 			{
 				if (z_reacteur)
 				{
@@ -313,8 +302,7 @@ void zone::actionBHeros()
 		}
 		else
 		{
-			std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_B);
-			if (action_possible != this->getz_actions_bas().end())
+			if (this->action_possible_bas(ACT_B))
 			{
 				if (z_zone == ZONE_WHITE)
 				{
@@ -386,16 +374,17 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-				if (action_possible != this->getz_actions_haut().end())
+				if (this->action_possible_haut(ACT_C) && !this->action_used_ce_tour_haut(ACT_C))
 				{
 					z_maintenance_ordinateur.push_back(this->getz_temps());
 					wr("[Vous faites la maintenance!]");
 					this->addz_actions_used_ce_tour_haut(ACT_C);
 					//this->removez_actions_haut(ACT_C);
 				}
-				else if (action_possible == this->getz_actions_haut().end())
+				else if (!this->action_possible_haut(ACT_C))
 					wr("[Impossible de faire la maintenance maintenant!]");
+				else
+					wr("[Cette action a deja ete faite ce tour... staffez vous!]");
 			}
 		}
 		if (z_zone == ZONE_BLUE)//a finaliser il faut ajouter les robots au joueur
@@ -407,8 +396,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-				if (action_possible != this->getz_actions_haut().end())
+				if (this->action_possible_haut(ACT_C))
 				{
 					if (z_bots && this->getz_joueur_haut(z_joueur_playing)->getj_bots() == 0)
 					{
@@ -441,8 +429,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), ACT_C);
-				if (action_possible != this->getz_actions_haut().end())
+				if (this->action_possible_haut(ACT_C))
 				{
 					if(this->z_joueur_intercepteurs)
 					{
@@ -476,9 +463,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				const std::vector<int>::const_iterator action_ce_tour = std::find(this->getz_actions_used_ce_tour_bas().begin(), this->getz_actions_used_ce_tour_bas().end(), ACT_C);
-				const std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
-				if (action_ce_tour == this->getz_actions_used_ce_tour_bas().end() && action_possible != this->getz_actions_bas().end())
+				if (this->action_possible_bas(ACT_C) && !this->action_used_ce_tour_bas(ACT_C))
 				{
 					if (z_roquete_position[1] == 0)
 					{
@@ -503,11 +488,11 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 						wr("[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]");
 					}
 				}
-				else if (action_ce_tour != this->getz_actions_used_ce_tour_bas().end())
+				else if (this->action_used_ce_tour_bas(ACT_C))
 				{
 					wr("[Mais coordonnez vous bordel]");
 				}
-				else if (action_possible == this->getz_actions_bas().end())
+				else if (!this->action_possible_bas(ACT_C))
 				{
 					wr("[Impossible de lancer les roquettes]");
 				}
@@ -522,8 +507,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), ACT_C);
-				if (action_possible != this->getz_actions_bas().end())
+				if (this->action_possible_bas(ACT_C))
 				{
 					if (z_bots && this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 0)
 					{
@@ -564,7 +548,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-			//a faire
+				wr("[Vous effectuez une observation de vos alentours, en toute detente.]\n");
 			}
 		}
 	}

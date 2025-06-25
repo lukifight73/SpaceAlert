@@ -29,6 +29,7 @@ class menace_interne :public menace
         void manaceMoveInZone(std::string string);
         void printfaitdegats(int degats);
         virtual ~menace_interne();
+        virtual void send_announcement_message() const;
         void getDamaged();
 };
 

@@ -268,6 +268,8 @@ void	play_game(t_data &data)
 			action_joueur(data, num_joueur);
 			end_color();
 			num_joueur++;
+			data.zones[2]->printz_action_ce_tour_haut();
+			data.zones[2]->printz_action_ce_tour_bas();
 		}
 		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)
 		print_title("CALCUL DES DEGATS");
@@ -316,7 +318,7 @@ int main(int ac, char* *av)
 	t_data data;
 	init_data(data);
 	parsing_config(data, av[1]);
-	chose_ton_blase(data);
+	//chose_ton_blase(data);
 	//init_carte_joueur_test(data);
 	print_data(data);
 	data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");

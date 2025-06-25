@@ -140,7 +140,7 @@ class menace
         int checkNombreInputCrossed(char input) const;
 
         void checkIfCrossActionZone(int positionBefore, int positionAfter);
-        void send_announcement_message() const;
+        virtual void send_announcement_message() const;
         virtual void print_menace() const;
 
         // Action de la menace

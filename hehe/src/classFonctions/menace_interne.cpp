@@ -9,6 +9,18 @@ menace_interne::menace_interne()
 {
 }
 
+void menace_interne::send_announcement_message() const
+{
+    std::string station;
+    if (m_position_haut)
+        station = "station haute ";
+    else
+        station = "station basse ";
+    std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + station + m_zone->getz_nom_zone() + "!]\n";
+    msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
+    printSlowly(msg);
+}
+
 void menace_interne::print_menace() const {
     menace::print_menace();  // Appeler la version de base
     std::cout << "La menace interne est en haut? : " << m_position_haut << std::endl;
@@ -335,14 +347,14 @@ void menace_interne_i1_01::actionMenace(char input)
     {
         this->set_m_zone(this->get_m_zone()->getzone_right());
         this->set_m_zoneInt(ZONE_WHITE);
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " station haute.]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
     else if (input == 'Y')
     {
         this->set_m_Positionhaut(0);
-        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + ".]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
@@ -378,14 +390,14 @@ void menace_interne_i1_02::actionMenace(char input)
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
         this->set_m_zoneInt(ZONE_WHITE);
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " station haute.]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
     else if (input == 'Y')
     {
         this->set_m_Positionhaut(0);
-        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + ".]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
@@ -403,7 +415,7 @@ void menace_interne_i1_03::actionMenace(char input)
     {
         this->set_m_zone(this->get_m_zone()->getzone_right());
         this->set_m_zoneInt(ZONE_BLUE);
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " station basse.]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
@@ -438,7 +450,7 @@ void menace_interne_i1_04::actionMenace(char input)
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
         this->set_m_zoneInt(ZONE_RED);
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " station basse.]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
@@ -448,7 +460,7 @@ void menace_interne_i1_04::actionMenace(char input)
         if(m_zone->getz_reacteur() > 0)
         {
             m_zone->setz_reacteur(m_zone->getz_reacteur() -1);
-            msg = "[La menace " + m_name + " consume 1 d'energie au reacteur de la " + m_zone->getz_nom_zone() + ", il reste " + std::to_string(m_zone->getz_reacteur()) + " energie au reacteur ..]\n";
+            msg = "[La menace " + m_name + " consume 1 d'energie au reacteur de la " + m_zone->getz_nom_zone() + ", il reste " + std::to_string(m_zone->getz_reacteur()) + " energie(s) au reacteur ..]\n";
             m_zone->getz_data()->VoixRobot1->announce(msg);
         }
         else
@@ -779,7 +791,7 @@ void menace_interne_i2_05::actionMenace(char input)
         if(energie < 0)
             energie = 0;
         this->m_zone->getzone_right()->setz_reacteur(energie);
-        std::string msg = "[La menace " + m_name + " draine un d'energie a chaque reacteur.]\n";
+        std::string msg = "[La menace " + m_name + " draine un d'energie a chaque reacteur.]\n"; //TODO
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
     }
@@ -837,6 +849,7 @@ void menace_interne_i2_06::actionQuandDetruit()
    m_zone->getzone_right()->assomerjoueursZoneBas();
    m_zone->getzone_left()->assomerjoueursZoneBas();
    std::string msg = "[Les joueurs en bas des Zones Bleu et Rouge sont assomes par " + m_name + ".]\n";
+   std::cout << msg;
    m_zone->getz_data()->VoixRobot1->announce(msg);
 }
 
