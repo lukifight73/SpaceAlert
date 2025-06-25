@@ -1,10 +1,10 @@
 #include "menace.hpp"
 #include "menace_externe.hpp"
 
-void messageAttaque(std::string nom)
-{
-    std::cout << "\033[1;35m[ACTION MENACE " << nom << "!]\033[0m" << std::endl;
-}
+// void messageAttaque(std::string nom)
+// {
+//     std::cout << "\033[1;35m[ACTION MENACE " << nom << "!]\033[0m" << std::endl;
+// }
 
 void menace::messageMenaceZone(int degats, zone *zone)
 {
