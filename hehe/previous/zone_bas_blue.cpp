@@ -177,7 +177,7 @@ void zone_bas_blue::actionC()
 	}
 	else if (action_ce_tour != this->getz_actions_used_ce_tour().end())
 	{
-		wr("[Mais coordonnez vous bordel]");
+		wr("[Mais coordonnez vous bordel, rocket deja lancee]");
 	}
 	else if (action_possible == this->getz_actions().end())
 	{

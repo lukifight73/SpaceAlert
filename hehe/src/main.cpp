@@ -5,6 +5,56 @@
 #include "menace_interne.hpp"
 #include "GameNarrator.hpp"
 
+void choseCaptain(t_data &data, bool &captain, int i)
+{
+	std::string capt("TODO");
+	std::cout << "Es tu le Captain?\n";
+	std::cout << "(Y/N)\n";
+	while (1)
+	{
+		std::getline(std::cin, capt);
+		if(capt == "Y")
+		{
+			data.joueurs[i]->setj_capitaine(true);
+			std::cout << "Welcome lord Commander!! 🫅 🫅 🫅\n";
+			captain = true;
+			break;
+		}
+		else if(capt == "N")
+		{
+			data.joueurs[i]->setj_capitaine(false);
+			std::cout << "Je n'ai que du dedain pour les membres d'equipage, tellement inferieur a une IA aussi sophistiquée que moi.. Hors de mon chemin 💩💩\n";
+			break;
+		}
+		else
+			std::cout << "Pas kapish..\n";
+	}
+}
+
+void chose_ton_blase(t_data &data)
+{
+	int i(1);
+	std::string nom;
+	bool captain(false);
+    while(i <= data.nb_joueur)
+    {
+		std::cout << "Joueur " << i << " choisi ton blaaazze:\n";
+        std::getline(std::cin, nom);  // Lit toute la ligne, espaces inclus
+        // Protection contre nom vide
+        if(nom.empty()) {
+            std::cout << "Nom vide, réessaie !\n";
+            continue;
+        }
+        std::cout << "All right " << nom << " bienvenu dans le vaisseau!!\n";
+        data.joueurs[i]->setj_nom(nom);
+		if(captain == false)
+			choseCaptain(data, captain, i);
+		else
+			data.joueurs[i]->setj_capitaine(false);
+        i++;
+    }
+}
+
 void erase_data(t_data& data)
 {
 	int i(0);
@@ -236,9 +286,20 @@ void wait()
     std::getline(std::cin, input);
 }
 
+void XIII_tour(t_data &data)
+{
+	print_title("XIIIeme TOUR");
+	rocketActions(data);
+	putDegatsIntoAction(data);
+	remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
+	mouvement_menaces(data);
+	effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
+	remove_dead_or_outdated_menaces(data);
+}
+
 void	play_game(t_data &data)
 {
-	while (data.tour < 13)//commence a 1 et finit a 12
+	while (data.tour < 4)//commence a 1 et finit a 12
 	{
 		int num_joueur(1);
 		print_tour("TOUR " + std::to_string(data.tour));
@@ -279,21 +340,9 @@ void	play_game(t_data &data)
 		setTemps(data);
 		data.tour++;
 	}
+	XIII_tour(data);
 }
 
-void chose_ton_blase(t_data &data)
-{
-	int i(1);
-	std::string nom;
-    while(i <= data.nb_joueur)
-    {
-		std::cout << "Joueur " << i << " choisi ton blaaazze:\n";
-        std::cin >> nom;
-		std::cout << "All right  " << nom << " bienvenu dans le vaisseau!!\n";
-		data.joueurs[i]->setj_nom(nom); // Créer un nouveau joueur
-        i++;
-    }
-}
 
 int main(int ac, char* *av)
 {
@@ -305,11 +354,11 @@ int main(int ac, char* *av)
 	t_data data;
 	init_data(data);
 	parsing_config(data, av[1]);
-	//chose_ton_blase(data);
+	chose_ton_blase(data);
 	//init_carte_joueur_test(data);
 	print_data(data);
-	data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
-	data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");
+	// data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
+	// data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");
 	//data.VoixRobot2->announce("et moi je suis le test pour la voix des Menace");
 	// data.VoixRobot1->announceUrgent("Je suis le test pour la voix des Joueurs");
 	// data.VoixRobot2->announceUrgent("et moi je suis le test pour la voix des Menace");
