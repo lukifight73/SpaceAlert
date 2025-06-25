@@ -310,6 +310,7 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
         m_vitesse = 4;
         m_killAction = ACT_C;
     }
+    this->set_m_max_vie(m_vie);
 };
 
 //TO DO
@@ -554,7 +555,7 @@ void menace_interne_i1_07::send_announcement_message()
     }
     std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + m_zone->getz_nom_zone() + "!]\n";
     msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
-    printSlowly(msg);
+    printSlowly(msg, *m_zone->getz_data());
 }
 
 menace_interne::~menace_interne() {}
@@ -899,7 +900,7 @@ void menace_interne_si1_01::actionMenace(char input)
     }
     else if (input == 'Y')
     {
-        if(get_m_vie() < get_m_max_vie())
+        if(this->get_m_vie() < this->get_m_max_vie())
         {
             this->set_m_zone(this->get_m_zone()->getzone_right());
             this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
@@ -925,6 +926,22 @@ void menace_interne_si1_01::actionMenace(char input)
     }
 }
 
+void menace_interne_si1_01::getDamage(joueur *joueur)
+{
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    joueur->setj_bots(BOTS_INACTIF);
+}
+
+void menace_interne_si1_01::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
+}
+
 void menace_interne_si1_02::actionMenace(char input)
 {
     if (input == 'X')
@@ -936,7 +953,7 @@ void menace_interne_si1_02::actionMenace(char input)
     }
     else if (input == 'Y')
     {
-        if(get_m_vie() < get_m_max_vie())
+        if(this->get_m_vie() < this->get_m_max_vie())
         {
             this->set_m_zone(this->get_m_zone()->getzone_left());
             this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
@@ -960,6 +977,22 @@ void menace_interne_si1_02::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_interne_si1_02::getDamage(joueur *joueur)
+{
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    joueur->setj_bots(BOTS_INACTIF);
+}
+
+void menace_interne_si1_02::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 void menace_interne_si1_03::actionMenace(char input)
@@ -993,6 +1026,25 @@ void menace_interne_si1_03::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_interne_si1_03::getDamage(joueur *joueur)
+{
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    if (m_grandit)
+    {
+        std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+        joueur->setj_bots(BOTS_INACTIF);
+    }
+}
+
+void menace_interne_si1_03::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 void menace_interne_si1_04::actionMenace(char input)

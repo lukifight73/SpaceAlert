@@ -206,7 +206,7 @@ menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data 
         return new menace_interne_si1_02(data.zones[ZONE_BLUE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "si1-03") {
-        return new menace_interne_si1_03(false, data.zones[ZONE_RED], typeMenace, tempsArrivee);
+        return new menace_interne_si1_03(false, data.zones[ZONE_WHITE], typeMenace, tempsArrivee);
     }
     else if (typeMenace == "si1-04") {
         return new menace_interne_si1_04(data.zones[ZONE_RED], typeMenace, tempsArrivee);

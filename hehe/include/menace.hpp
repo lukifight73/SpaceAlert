@@ -50,7 +50,9 @@ class menace
         bool get_m_immunity() const {
             return m_immunity;
         };
-
+        void set_m_max_vie(int input) {
+            m_max_vie = input;
+        }
         void set_m_zone(zone *input) {
             m_zone = input;
         };

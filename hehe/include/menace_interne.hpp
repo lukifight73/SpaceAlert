@@ -228,6 +228,8 @@ class menace_interne_si1_01 :public menace_interne
     public:
         menace_interne_si1_01() {};
         menace_interne_si1_01(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input , input, tourDarrivee) {};
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_si1_01() {};
 };
@@ -239,6 +241,8 @@ class menace_interne_si1_02 :public menace_interne
     public:
         menace_interne_si1_02() {};
         menace_interne_si1_02(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input , input, tourDarrivee) {};
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_si1_02() {};
 };
@@ -252,6 +256,8 @@ class menace_interne_si1_03 :public menace_interne
         menace_interne_si1_03() {};
         menace_interne_si1_03(bool grandit, zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee)
         {m_grandit = grandit;};
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_si1_03() {};
 };
