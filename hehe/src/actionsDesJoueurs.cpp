@@ -45,6 +45,10 @@ void	action_joueur(t_data &data, int num_joueur)
 	{
 		data.zones[zone]->actionR();
 	}
+	else if (carte.getc_action() == ACT_RH)
+	{
+		data.zones[zone]->actionRHeros();
+	}
 	else if (carte.getc_action() == ACT_BH)
 	{
 		data.zones[zone]->actionBHeros();

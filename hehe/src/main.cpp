@@ -19,7 +19,7 @@ void choseCaptain(t_data &data, bool &captain, int i)
 			std::cout << "Welcome lord Commander!! 🫅 🫅 🫅\n";
 			captain = true;
 			break;
-		} 
+		}
 		else if(capt == "N")
 		{
 			data.joueurs[i]->setj_capitaine(false);
@@ -27,7 +27,7 @@ void choseCaptain(t_data &data, bool &captain, int i)
 			break;
 		}
 		else
-			std::cout << "Pas kapish..\n"; 
+			std::cout << "Pas kapish..\n";
 	}
 }
 
@@ -170,7 +170,8 @@ void actionMenaceDebutTour(t_data &data)
 	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		(*it)->effetDebutTour();
+		if ((*it)->get_m_presence())
+			(*it)->effetDebutTour();
 	}
 }
 
@@ -285,16 +286,6 @@ void wait()
     std::getline(std::cin, input);
 }
 
-void create_card(t_data &data)
-{
-	int i(1);
-	while(i <= data.nb_joueur)
-    {
-		carte carte(TODO);
-		data.joueurs[i]->addcartes(data.tour, carte);
-		i++;
-	}
-}
 void XIII_tour(t_data &data)
 {
 	print_title("XIIIeme TOUR");
@@ -303,14 +294,13 @@ void XIII_tour(t_data &data)
 	remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
 	mouvement_menaces(data);
 	effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
-	remove_dead_or_outdated_menaces(data); 
+	remove_dead_or_outdated_menaces(data);
 }
 
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12
 	{
-		create_card(data);
 		int num_joueur(1);
 		print_tour("TOUR " + std::to_string(data.tour));
 		apparitionMenaces(data);
@@ -328,8 +318,6 @@ void	play_game(t_data &data)
 			action_joueur(data, num_joueur);
 			end_color();
 			num_joueur++;
-			data.zones[2]->printz_action_ce_tour_haut();
-			data.zones[2]->printz_action_ce_tour_bas();
 		}
 		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)
 		print_title("CALCUL DES DEGATS");

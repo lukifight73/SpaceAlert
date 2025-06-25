@@ -50,28 +50,32 @@ void zone::actionA()
 		{
 			if (this->action_possible_bas(ACT_A) && !this->action_used_ce_tour_bas(ACT_A))
 			{
-				if (z_reacteur)
+				if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
 				{
-					wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
-					if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
+					if (z_reacteur)
 					{
+						wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
 						z_reacteur -= 1;
 						std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
 					}
-					this->addz_actions_used_ce_tour_bas(ACT_A);
-					addz_cannon_used(this->getz_cannon_bas());
-					this->getz_cannon_bas()->setcanon_used(true);
-					this->getz_cannon_bas()->settireur(z_joueur_playing);
+					else
+					{
+						std::cout << "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+						return ;
+					}
 				}
 				else
 				{
-					wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
-					this->addz_actions_used_ce_tour_bas(ACT_A);
+					wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
 				}
+				this->addz_actions_used_ce_tour_bas(ACT_A);
+				addz_cannon_used(this->getz_cannon_bas());
+				this->getz_cannon_bas()->setcanon_used(true);
+				this->getz_cannon_bas()->settireur(z_joueur_playing);
 			}
-			else if (this->action_used_ce_tour_bas(ACT_A) && this->action_possible_bas(ACT_A)) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_bas(ACT_A))
 			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+				wr("[Les frerots la coordination c'est pas votre fort...]\n");
 			}
 			else
 				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
@@ -132,29 +136,34 @@ void zone::actionAHeros()
 		{
 			if (this->action_possible_bas(ACT_A) && !this->action_used_ce_tour_bas(ACT_A))
 			{
-				if (z_reacteur)
-				{
-					wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]");
+
 					if (this->getz_cannon_bas()->gettype_cannon() == CANON_IMPULSION)
 					{
-						z_reacteur -= 1;
-						std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+						if (z_reacteur)
+						{
+							wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
+							z_reacteur -= 1;
+							std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+						}
+						else
+						{
+							std::cout << "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+							return ;
+						}
+					}
+					else
+					{
+						wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
 					}
 					this->getz_cannon_bas()->setactionHeroique(true);
 					this->addz_actions_used_ce_tour_bas(ACT_A);
 					addz_cannon_used(this->getz_cannon_bas());
 					this->getz_cannon_bas()->setcanon_used(true);
 					this->getz_cannon_bas()->settireur("ACTION HEROHIQUE! " + z_joueur_playing);
-				}
-				else
-				{
-					wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
-					this->addz_actions_used_ce_tour_bas(ACT_A);
-				}
 			}
-			else if (this->action_used_ce_tour_bas(ACT_A) && this->action_possible_bas(ACT_A)) //action deja utilisee ce tour
+			else if (this->action_used_ce_tour_bas(ACT_A))
 			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+				wr("[Les frerots la coordination c'est pas votre fort...]\n");
 			}
 			else
 				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
@@ -487,6 +496,9 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 					{
 						wr("[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]");
 					}
+					std::cout << z_roquete_position[1] << "\n";
+					std::cout << z_roquete_position[2] << "\n";
+					std::cout << z_roquete_position[3] << "\n";
 				}
 				else if (this->action_used_ce_tour_bas(ACT_C))
 				{

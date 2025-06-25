@@ -297,7 +297,7 @@ void menace_externe::print_menace() const
     end_color();
 };
 
-void menace_externe::send_announcement_message_externe() const
+void menace_externe::send_announcement_message_externe()
 {
     start_color(m_zone);
     std::cout << "[Attention, la menace " << m_name << " vient d'arriver !]\n";

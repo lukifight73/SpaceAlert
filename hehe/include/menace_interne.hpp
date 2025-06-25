@@ -29,7 +29,7 @@ class menace_interne :public menace
         void manaceMoveInZone(std::string string);
         void printfaitdegats(int degats);
         virtual ~menace_interne();
-        virtual void send_announcement_message() const;
+        virtual void send_announcement_message();
         void getDamaged();
 };
 
@@ -115,7 +115,7 @@ class menace_interne_i1_07 :public menace_interne
         menace_interne_i1_07(bool life_set, zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee)
         {m_life_set = life_set;};
         virtual void actionMenace(char input);
-        virtual void effetDebutTour();
+        virtual void send_announcement_message();
         virtual ~menace_interne_i1_07() {};
 };
 
@@ -176,6 +176,8 @@ class menace_interne_i2_03 :public menace_interne
     public:
         menace_interne_i2_03() {};
         menace_interne_i2_03(zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee) {};
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_i2_03() {};
 };
@@ -187,6 +189,8 @@ class menace_interne_i2_04 :public menace_interne
     public:
         menace_interne_i2_04() {};
         menace_interne_i2_04(zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee) {};
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual void actionMenace(char input);
         virtual ~menace_interne_i2_04() {};
 };
