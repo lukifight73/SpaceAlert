@@ -490,7 +490,7 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 				}
 				else if (this->action_used_ce_tour_bas(ACT_C))
 				{
-					wr("[Mais coordonnez vous bordel]");
+					wr("[Mais coordonnez vous bordel, rocket deja lancee]");
 				}
 				else if (!this->action_possible_bas(ACT_C))
 				{
