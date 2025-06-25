@@ -300,7 +300,8 @@ void menace_externe::print_menace() const
 void menace_externe::send_announcement_message_externe()
 {
     start_color(m_zone);
-    std::cout << "[Attention, la menace " << m_name << " vient d'arriver !]\n";
+    std::string msg = "[Attention, la menace " + m_name + " vient d'arriver !]\n";
+    printSlowly(msg, *m_zone->getz_data());
     std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << ", Bouclier : " << m_bouclier << "]" << std::endl;
     end_color();
 };

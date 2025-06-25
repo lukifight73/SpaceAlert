@@ -62,8 +62,9 @@ void menace_se1_03::actionMenace(char input)
 void menace_se1_03::actionQuandDetruit()
 {
     std::vector<menace_externe *> menaces = m_zone->getzone_left()->getz_chemin_menace()->get_menacesExte();
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
-    std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
+    msg = "[La menace " + m_name + " a été détruite. Elle inflige 1 point de dégâts aux menaces presentes.]";
     messageBufferMenace(msg, -1);
     std::vector<menace_externe *>::iterator it;
     for (it = menaces.begin(); it != menaces.end(); ++it)
@@ -233,9 +234,10 @@ void menace_se1_08::actionMenace(char input)
 
 void menace_se1_08::actionQuandDetruit()
 {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 2; // Dégâts infligés en fonction des actions croisées
-    std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
+    msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
     messageRecapCapitaine();
@@ -423,7 +425,8 @@ void menace_se2_05::actionMenace(char input)
         messageBufferMenace(msg, -1);
         menace::recoitDegats(2);
     } else if (input == 'Z') {
-        std::cout << "[ GAME OVER: " << m_name << " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]" << std::endl;
+        std::string msg = "[ GAME OVER: " + m_name + " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]\n";
+        printSlowly(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -445,9 +448,10 @@ void menace_se2_06::actionMenace(char input)
 
 void menace_se2_06::actionQuandDetruit()
 {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')) * 3; // Dégâts infligés en fonction des actions croisées
-    std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
+    msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
     messageRecapCapitaine();
@@ -728,7 +732,8 @@ void menace_e2_02::effetDebutTour()
 {
     if(m_effetDebutTourOn)
     {
-        std::cout << "[BUFFER : " << m_name << " augmente la puissance d'attaque de toutes le autres menace ! (attaque +1)]\n";
+        std::string msg = "[BUFFER : " + m_name + " augmente la puissance d'attaque de toutes le autres menace ! (attaque +1)]\n";
+        printSlowly(msg, *m_zone->getz_data());
         augmenteAttackInZone(m_zone);
         augmenteAttackInZone(m_zone->getzone_left());
         augmenteAttackInZone(m_zone->getzone_right());
@@ -782,7 +787,8 @@ bool menace_e2_02::vulnerability_check(cannon* input)
 
 void menace_e2_02::actionQuandDetruit()
 {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     std::vector<menace_externe*> tmp = m_zone->getz_chemin_menace()->get_menacesExte();
     for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
@@ -798,7 +804,7 @@ void menace_e2_02::actionQuandDetruit()
     {
         (*it)->setm_buff_attack(0);
     }
-    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus!]";
+    msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 attaque) n'est plus!]";
     messageBufferMenace(msg, -1);
     messageRecapCapitaine();
 }
@@ -824,7 +830,10 @@ void menace_e2_04::recoitDegats(int input)
 {
     start_color(m_zone);
     if (input > 1)
-        std::cout << "[La menace " << m_name << "ne peut prendre plus de 1 degat par tour.]\n";
+    {
+        std::string msg = "[La menace " + m_name + "ne peut prendre plus de 1 degat par tour.]\n";
+        printSlowly(msg, *m_zone->getz_data());
+    }
     menace::recoitDegats(1);
 }
 
@@ -934,7 +943,8 @@ void menace_e2_06::actionMenace(char input)
 
 void menace_e2_06::actionQuandDetruit()
 {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     std::vector<menace_externe*> tmp = m_zone->getz_chemin_menace()->get_menacesExte();
     for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
@@ -950,7 +960,7 @@ void menace_e2_06::actionQuandDetruit()
     {
         (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - 1);
     }
-    std::string msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 blindage) n'est plus!]";
+    msg = "[La menace " + m_name + " a été détruite. Le buffer (+1 blindage) n'est plus!]";
     messageBufferMenace(msg, -1);
     messageRecapCapitaine();
 }
@@ -998,9 +1008,10 @@ void menace_e2_07::actionMenace(char input)
 
 void menace_e2_07::actionQuandDetruit()
 {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::string msg = "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     int itemCrossed = (checkNombreInputCrossed('X') + checkNombreInputCrossed('Y')); // Dégâts infligés en fonction des actions croisées
-    std::string msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
+    msg = "[La menace " + m_name + " a été détruite. Elle inflige " + std::to_string(itemCrossed) + " points de dégâts!]";
     messageBufferMenace(msg, -1);
     makedegatsInZone(itemCrossed);
     messageRecapCapitaine();

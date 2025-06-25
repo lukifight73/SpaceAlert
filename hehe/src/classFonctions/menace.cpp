@@ -63,7 +63,8 @@ void menace::actionQuandDetruit() {
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::cout << "[La menace " << m_name << " en " << m_zone << " a été détruite.]\033[0m\n";
+    std::string msg = "[La menace " + m_name + " en " + m_zone->getz_nom_zone() + " a été détruite.]\033[0m\n";
+    printSlowly(msg, *m_zone->getz_data());
     messageRecapCapitaine();
 }
 
@@ -128,11 +129,15 @@ void menace::draineEnergieBouclier(int input)
         m_zone->getzone_right()->setz_bouclier(0);
     }
     if( m_zone->getz_bouclier() == 0 && m_zone->getzone_left()->getz_bouclier() == 0 && m_zone->getzone_right()->getz_bouclier() == 0) {
-        std::cout << "[Toutes les zones ont perdu leur bouclier !]\n";
+        std::string msg = "[Toutes les zones ont perdu leur bouclier !]\n";
+        printSlowly(msg, *m_zone->getz_data());
     } else {
-        std::cout << "[Le bouclier de la zone " << m_zone->getz_nom_zone() << " est maintenant de " << m_zone->getz_bouclier() << ".]\n";
-        std::cout << "[Le bouclier de la zone " << m_zone->getzone_left()->getz_nom_zone() << " est maintenant de " << m_zone->getzone_left()->getz_bouclier() << ".]\n";
-        std::cout << "[Le bouclier de la zone " << m_zone->getzone_right()->getz_nom_zone() << " est maintenant de " << m_zone->getzone_right()->getz_bouclier() << ".]\n";
+        std::string msg =  "[Le bouclier de la zone " + m_zone->getz_nom_zone() + " est maintenant de " + std::to_string(m_zone->getz_bouclier()) + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
+        msg = "[Le bouclier de la zone " + m_zone->getzone_left()->getz_nom_zone() + " est maintenant de " + std::to_string(m_zone->getzone_left()->getz_bouclier()) + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
+        msg = "[Le bouclier de la zone " + m_zone->getzone_right()->getz_nom_zone() + " est maintenant de " + std::to_string(m_zone->getzone_right()->getz_bouclier()) + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
     }
 };
 
@@ -184,7 +189,8 @@ void menace::recoitDegats(int input)
     if (m_vie == 0)
     {
         start_color(m_zone);
-        std::cout << "[La menace " << m_name << " est deja detruite.]\n";
+        std::string msg = "[La menace " + m_name + " est deja detruite.]\n";
+        printSlowly(msg, *m_zone->getz_data());
         end_color();
         return ;
     }
