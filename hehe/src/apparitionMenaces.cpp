@@ -58,7 +58,7 @@ void mouvement_menaces(t_data &data)
                 int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
                 std::string msg;
                 msg = "[La menace " + (*it)->get_m_name() + " avance de " + std::to_string((*it)->get_m_vitesse()) + " cases et se trouve desormais en position " + std::to_string(positionAfter) + ".]\n";
-                printSlowly(msg);
+                printSlowly(msg, data);
                 (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
                 (*it)->setm_position(positionAfter); // update position
                 std::cout << std::endl;
@@ -83,7 +83,7 @@ void mouvement_menaces(t_data &data)
             int positionAfter = (*it)->get_m_position() - (*it)->get_m_vitesse();
             std::string msg;
             msg = "[La menace interne " + (*it)->get_m_name() + " avance de " + std::to_string((*it)->get_m_vitesse()) + " cases et se trouve desormais en position " + std::to_string(positionAfter) + ".]\n";
-            printSlowly(msg);
+            printSlowly(msg, data);
             (*it)->checkIfCrossActionZone(positionBefore, positionAfter);
             (*it)->setm_position(positionAfter); // update position
             std::cout << std::endl;
@@ -95,7 +95,7 @@ void mouvement_menaces(t_data &data)
     if (!j)
     {
         std::string msg_mouvement_menace = "[Aucune menace n'est presente a proximite!]\n";
-        printSlowly(msg_mouvement_menace);
+        printSlowly(msg_mouvement_menace, data);
     }
     std::cout << std::endl;
     end_color();

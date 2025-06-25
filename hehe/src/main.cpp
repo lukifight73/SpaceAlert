@@ -214,7 +214,7 @@ void infligeDegats(menace_externe *menace)
 		start_color(menace->get_m_zone());
 		menace->add_m_degats_str("[La menace " + menace->get_m_name() + " absorbe " + std::to_string(menace->get_m_etat_bouclier()) + " degats et recois " + std::to_string(degatsInfliges) + " degats.]\n");
 		menace->add_m_degats_totaux_str(menace->get_m_degats_str());
-		printSlowly(menace->get_m_degats_str());
+		printSlowly(menace->get_m_degats_str(), *menace->get_m_zone()->getz_data());
 		menace->set_m_etat_bouclier(0); // Bouclier épuisé
 		menace->recoitDegats(degatsInfliges); // Inflige les dégâts restants à la menace
 		end_color();
@@ -224,7 +224,7 @@ void infligeDegats(menace_externe *menace)
 		start_color(menace->get_m_zone());
 		menace->add_m_degats_str("[La menace " + menace->get_m_name() + " absorbe " + std::to_string(menace->get_m_etat_bouclier()) + " degats.]\n");
 		menace->add_m_degats_totaux_str(menace->get_m_degats_str());
-		printSlowly(menace->get_m_degats_str());
+		printSlowly(menace->get_m_degats_str(),*menace->get_m_zone()->getz_data());
 		end_color();
 	}
 	menace->set_m_degats(0);
@@ -308,7 +308,7 @@ void XIII_tour(t_data &data)
 
 void	play_game(t_data &data)
 {
-	while (data.tour < 4)//commence a 1 et finit a 12
+	while (data.tour < 13)//commence a 1 et finit a 12
 	{
 		create_card(data);
 		int num_joueur(1);

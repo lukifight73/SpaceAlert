@@ -369,6 +369,7 @@ void pars_joueurs2(t_data &data, std::string line_joueur)
     {
         data.joueurs[i] = new joueur();
         data.joueurs[i]->setj_number(i); // Créer un nouveau joueur
+        data.joueurs[i]->setj_data(&data); // Créer un nouveau joueur
         i++;
     }
 }

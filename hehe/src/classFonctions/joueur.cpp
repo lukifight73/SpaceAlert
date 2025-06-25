@@ -44,6 +44,16 @@ void joueur::setj_number(int input)
     j_number = input;
 }
 
+void joueur::setj_data(t_data *input)
+{
+    j_data = input;
+}
+
+t_data *joueur::getj_data() const
+{
+    return (j_data);
+}
+
 int joueur::getj_number() const
 {
     return (j_number);
@@ -204,13 +214,13 @@ void joueur::getcarteTour(int tour)
     int i = -1;
     if (cartes[tour].getc_action() == ASSOME || cartes[tour].getc_action() == INACTIF)
     {
-        printSlowly("Vous ne pouvez pas jouer ce tour...");
+        printSlowly("Vous ne pouvez pas jouer ce tour...", *j_data);
         std::string input;
         std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
     }
     else
     {
-        printSlowly("Quelle carte avez vous joue ce tour ?\n");
+        printSlowly("Quelle carte avez vous joue ce tour ?\n", *j_data);
         std::string input;
         std::getline(std::cin, input);
         i = get_nb_actions(input);
