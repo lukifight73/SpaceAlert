@@ -353,6 +353,24 @@ void pars_joueurs(t_data &data, std::string line_joueur)
     }
 }
 
+
+void create_card(t_data &data)
+{
+	int i(1);
+	int j(1);
+	while (j < 13)
+	{
+		while(i <= data.nb_joueur)
+		{
+			carte carte(TODO);
+			data.joueurs[i]->addcartes(j, carte);
+			i++;
+		}
+		j++;
+        i = 1;
+	}
+}
+
 //apres changement, les joueurs donnent leur cartes petit a petit
 void pars_joueurs2(t_data &data, std::string line_joueur)
 {
@@ -371,6 +389,7 @@ void pars_joueurs2(t_data &data, std::string line_joueur)
         data.joueurs[i]->setj_number(i); // Créer un nouveau joueur
         i++;
     }
+    create_card(data);
 }
 
 void place_joueurs(t_data& data)

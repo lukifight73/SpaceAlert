@@ -81,7 +81,7 @@ class menace_externe : public menace
             m_bouclier += input;
         };
 
-        void send_announcement_message_externe() const;
+        void send_announcement_message_externe();
         virtual ~menace_externe() {};
 };
 

@@ -27,7 +27,7 @@ menace::menace(std::string input, int tourDarrivee)
     m_buff_attack = 0;
 }
 
-void menace::send_announcement_message() const
+void menace::send_announcement_message()
 {
     std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + m_zone->getz_nom_zone() + "!]\n";
     msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";

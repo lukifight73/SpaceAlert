@@ -160,6 +160,9 @@ void init_zone_blue(t_data& data)
     data.zones[ZONE_BLUE]->setz_ordre_degats();
     data.zones[ZONE_BLUE]->setz_jump_tour_upon_entry_haut(false);
     data.zones[ZONE_BLUE]->setz_jump_tour_upon_entry_bas(false);
+    data.zones[ZONE_BLUE]->setz_roquete_position(1, 0);
+    data.zones[ZONE_BLUE]->setz_roquete_position(2, 0);
+    data.zones[ZONE_BLUE]->setz_roquete_position(3, 0);
 }
 
 void init_zone_red(t_data& data)

@@ -9,7 +9,7 @@ menace_interne::menace_interne()
 {
 }
 
-void menace_interne::send_announcement_message() const
+void menace_interne::send_announcement_message()
 {
     std::string station;
     if (m_position_haut)
@@ -79,6 +79,7 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
     m_zone = zone;
     m_zoneInt = zone->getz_zone();
     m_degats_str = "";
+    m_degats = 0;
     if(input == "i1-01")
     {
         m_position_haut = true;
@@ -532,16 +533,14 @@ void menace_interne_i1_07::actionMenace(char input)
         int degats = this->get_m_vie()*3;
         m_zone->getdegatsIgnoreBouclier(degats);
         this->printfaitdegats(degats);
-    } else {
-        std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
 
-void menace_interne_i1_07::effetDebutTour()
+void menace_interne_i1_07::send_announcement_message()
 {
     if(!m_life_set)
     {
-        std::map<int, int> mapRocket = get_m_zone()->getzone_left()->getz_roquete_position();
+        std::map<int, int> mapRocket = get_m_zone()->getzone_blue()->getz_roquete_position();
         int rocketNum(1);
         int life(0);
         while (rocketNum < 4)
@@ -553,6 +552,9 @@ void menace_interne_i1_07::effetDebutTour()
         this->set_m_vie(life);
         m_life_set = true;
     }
+    std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + m_zone->getz_nom_zone() + "!]\n";
+    msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
+    printSlowly(msg);
 }
 
 menace_interne::~menace_interne() {}
@@ -568,17 +570,17 @@ void menace_interne_i2_01::actionMenace(char input)
         std::map<int, int> roquette_position = this->m_zone->getz_roquete_position();
         if (roquette_position[1] == 0)
         {
-            this->m_zone->setz_roquete_position(1, 2);
+            this->m_zone->setz_roquete_position(1, 4);
             msg = "[La menace " + m_name + " detruit la roquette 1 du vaisseau.]\n";
         }
         else if (roquette_position[2] == 0)
         {
-            this->m_zone->setz_roquete_position(2, 2);
+            this->m_zone->setz_roquete_position(2, 4);
             msg = "[La menace " + m_name + " detruit la roquette 2 du vaisseau.]\n";
         }
         else if (roquette_position[3] == 0)
         {
-            this->m_zone->setz_roquete_position(3, 2);
+            this->m_zone->setz_roquete_position(3, 4);
             msg = "[La menace " + m_name + " detruit la roquette 3 du vaisseau.]\n";
         }
         else {
@@ -604,6 +606,7 @@ void menace_interne_i2_01::actionMenace(char input)
         new_menace->set_m_zone(this->get_m_zone()->getzone_white());
         new_menace->set_m_zoneInt(ZONE_WHITE);
         new_menace->set_m_chemin(this->get_m_zone()->getzone_white()->getz_chemin_menace_Int());
+        this->get_m_zone()->getzone_white()->getz_chemin_menace_Int()->add_menaceInt(new_menace);
         std::string msg = "[La menace " + m_name + " s'etend dans la " + new_menace->get_m_zone()->getz_nom_zone() + " avec un point de vie.]\n";
         std::cout << msg;
         m_zone->getz_data()->VoixRobot1->announce(msg);
@@ -748,6 +751,22 @@ void menace_interne_i2_03::actionMenace(char input)
     }
 }
 
+void menace_interne_i2_03::getDamage(joueur *joueur)
+{
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    joueur->setj_bots(BOTS_INACTIF);
+}
+
+void menace_interne_i2_03::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
+}
+
 void menace_interne_i2_04::actionMenace(char input)
 {
     if (input == 'X')
@@ -771,6 +790,22 @@ void menace_interne_i2_04::actionMenace(char input)
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
+}
+
+void menace_interne_i2_04::getDamage(joueur *joueur)
+{
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    joueur->setj_bots(BOTS_INACTIF);
+}
+
+void menace_interne_i2_04::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 void menace_interne_i2_05::actionMenace(char input)

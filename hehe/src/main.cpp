@@ -120,7 +120,8 @@ void actionMenaceDebutTour(t_data &data)
 	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
 	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		(*it)->effetDebutTour();
+		if ((*it)->get_m_presence())
+			(*it)->effetDebutTour();
 	}
 }
 
@@ -235,22 +236,10 @@ void wait()
     std::getline(std::cin, input);
 }
 
-void create_card(t_data &data)
-{
-	int i(1);
-	while(i <= data.nb_joueur)
-    {
-		carte carte(TODO);
-		data.joueurs[i]->addcartes(data.tour, carte);
-		i++;
-	}
-}
-
 void	play_game(t_data &data)
 {
 	while (data.tour < 13)//commence a 1 et finit a 12
 	{
-		create_card(data);
 		int num_joueur(1);
 		print_tour("TOUR " + std::to_string(data.tour));
 		apparitionMenaces(data);
@@ -268,8 +257,6 @@ void	play_game(t_data &data)
 			action_joueur(data, num_joueur);
 			end_color();
 			num_joueur++;
-			data.zones[2]->printz_action_ce_tour_haut();
-			data.zones[2]->printz_action_ce_tour_bas();
 		}
 		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)
 		print_title("CALCUL DES DEGATS");
