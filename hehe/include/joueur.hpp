@@ -13,6 +13,7 @@ class carte;
 class joueur {
 private:
     std::string j_nom;
+    t_data *j_data;
     bool j_state;//eveille / KO
     int j_bots;//
     int j_jump_tour;
@@ -33,6 +34,7 @@ public:
     void setj_capitaine(bool input);
     void setj_zone(int input);
     void setj_nom(std::string nom);
+    void setj_data(t_data *data);
 
     //autre
     void attaqueIntercepteur(t_data &data);
@@ -46,6 +48,7 @@ public:
 
     //getters
     int getj_number() const;
+    t_data * getj_data() const;
     int getj_jump_tour() const;
     bool getj_state()const;
     bool getj_capitaine()const;

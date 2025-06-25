@@ -1,9 +1,10 @@
 #include "space_alerte.hpp"
+#include "GameNarrator.hpp"
 
 void wr(std::string str)
 {
-    printSlowly(str);
-	std::cout << std::endl;
+    //printSlowly(str);
+	std::cout << str << std::endl;
 }
 
 std::string generateRandomString(int length) {
@@ -18,10 +19,12 @@ std::string generateRandomString(int length) {
     return result;
 }
 
-void printSlowly(const std::string& text, int delayMs) {
+void printSlowly(const std::string& text, t_data &data, int delayMs) {
     for (char c : text) {
         std::cout << c << std::flush;  // afficher sans attendre le buffer
         std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+        //data.VoixRobot1->announce(text);
+        data.nb_joueur += 0;
     }
 }
 

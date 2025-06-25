@@ -31,7 +31,7 @@ void menace::send_announcement_message()
 {
     std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + m_zone->getz_nom_zone() + "!]\n";
     msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
-    printSlowly(msg);
+    printSlowly(msg, *m_zone->getz_data());
 }
 
 void menace::print_menace() const
@@ -77,7 +77,7 @@ void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
         {
             std::string msg;
             msg = "[La menace " + m_name + " effectue son action X.]\n";
-            printSlowly(msg);
+            printSlowly(msg, *m_zone->getz_data());
             actionMenace('X');
             i = 1;
         }
@@ -85,7 +85,7 @@ void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
         {
             std::string msg;
             msg = "[La menace " + m_name + " effectue son action Y.]\n";
-            printSlowly(msg);
+            printSlowly(msg, *m_zone->getz_data());
             actionMenace('Y');
             i = 1;
         }
@@ -93,7 +93,7 @@ void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
         {
             std::string msg;
             msg = "[La menace " + m_name + " effectue son action Z.]\n";
-            printSlowly(msg);
+            printSlowly(msg, *m_zone->getz_data());
             actionMenace('Z');
             i = 1;
         }
@@ -102,7 +102,7 @@ void menace::checkIfCrossActionZone(int positionBefore, int positionAfter)
     {
         std::string msg;
         msg = "[Elle n'effectue pas d'action ce tour.]\n";
-        printSlowly(msg);
+        printSlowly(msg, *m_zone->getz_data());
     }
 }
 
@@ -198,7 +198,7 @@ void menace::recoitDegats(int input)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    printSlowly("[La menace " + m_name + " a reçu " + std::to_string(input) + " points de dégâts. Vie restante : " + std::to_string(m_vie) + "]\033[0m\n");
+    printSlowly("[La menace " + m_name + " a reçu " + std::to_string(input) + " points de dégâts. Vie restante : " + std::to_string(m_vie) + "]\033[0m\n", *m_zone->getz_data());
     if (m_vie == 0) {
         actionQuandDetruit();
         // m_presence = false; // la presence n'est pas enleve car elle doit tjs etre cible si c est la plus proche

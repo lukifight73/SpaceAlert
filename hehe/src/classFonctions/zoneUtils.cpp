@@ -224,7 +224,7 @@ void zone::getdegats(int input)
 	if (z_degats_doubles)
 	{
 		std::string msg = "[Attention, les degats recus sont doubles!]\n";
-		printSlowly(msg);
+		printSlowly(msg, *z_data);
 		input = input * 2;
 	}
 	while (input > 0)

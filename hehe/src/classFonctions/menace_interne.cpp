@@ -2,6 +2,7 @@
 #include "menace_interne.hpp"
 #include "zone.hpp"
 #include "GameNarrator.hpp"
+#include "space_alerte.hpp"
 
 menace_interne *create_menaceI(std::string typeMenace, int tempsArrivee, t_data &data);
 
@@ -18,7 +19,7 @@ void menace_interne::send_announcement_message()
         station = "station basse ";
     std::string msg = "[Attention, la menace " + m_name + " vient d'arriver et est presente en " + station + m_zone->getz_nom_zone() + "!]\n";
     msg += "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + "]\n\n";
-    printSlowly(msg);
+    printSlowly(msg, *m_zone->getz_data());
 }
 
 void menace_interne::print_menace() const {
@@ -51,8 +52,8 @@ void menace_interne::getDamageHero(joueur *joueur)
 void menace_interne::getDamaged()
 {
     start_color_interne();
-    printSlowly("[La menace interne " + m_name + " a une vie de " + std::to_string(m_vie) + "].\n");
-    printSlowly(m_degats_str);
+    printSlowly("[La menace interne " + m_name + " a une vie de " + std::to_string(m_vie) + "].\n", *m_zone->getz_data());
+    printSlowly(m_degats_str, *m_zone->getz_data());
     add_m_degats_totaux_str(m_degats_str);
     m_degats_str = "";
     while (m_degats)
@@ -66,7 +67,7 @@ void menace_interne::getDamaged()
         actionQuandDetruit();
     }
     else
-        printSlowly("[La menace interne " + m_name + " a desormais une vie de " + std::to_string(m_vie) + "].\n");
+        printSlowly("[La menace interne " + m_name + " a desormais une vie de " + std::to_string(m_vie) + "].\n", *m_zone->getz_data());
     m_degats = 0;
     std::cout << std::endl;
     end_color();
@@ -329,7 +330,8 @@ void menace_interne_i1_01::getDamage(joueur *joueur)
     m_degats++;
     if(m_vie <= m_degats)
     {
-        std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+        std::string msg = "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
         joueur->setj_bots(BOTS_INACTIF);
     }
 }
