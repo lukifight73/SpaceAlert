@@ -28,7 +28,7 @@ void menace_interne::print_menace() const {
 
 bool menace_interne::AttractAction(int joueurAction, int Zone, bool haut) const
 {
-    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone && m_presence == true)
         return true;
     else
         return false;

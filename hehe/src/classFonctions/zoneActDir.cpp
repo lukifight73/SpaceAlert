@@ -4,8 +4,7 @@ void zone::flechesRouge()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_R);
-		if (action_possible != this->getz_actions_haut().end())
+		if (this->action_possible_haut(DIR_R))
 		{
 			wr("[Vous vous deplacez.]");
 			if (z_zone == ZONE_BLUE)
@@ -30,8 +29,7 @@ void zone::flechesRouge()
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_R);
-		if (action_possible != this->getz_actions_bas().end())
+		if (this->action_possible_bas(DIR_R))
 		{
 			wr("[Vous vous deplacez.]");
 			if (z_zone == ZONE_BLUE)
@@ -67,8 +65,7 @@ void zone::flechesBleue()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_B);
-		if (action_possible != this->getz_actions_haut().end())
+		if (this->action_possible_haut(DIR_B))
 		{
 			wr("[Vous vous deplacez.]");
 			if (z_zone == ZONE_RED)
@@ -93,8 +90,7 @@ void zone::flechesBleue()
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_B);
-		if (action_possible != this->getz_actions_bas().end())
+		if (this->action_possible_bas(DIR_B))
 		{
 			wr("[Vous vous deplacez.]");
 			if (z_zone == ZONE_RED)
@@ -125,17 +121,7 @@ void zone::ascenseur()
 {
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
-		std::vector<int> actions_used = this->getz_actions_used_ce_tour_haut();
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_haut().begin(), this->getz_actions_haut().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(actions_used.begin(), actions_used.end(), DIR_A);
-		//std::cout << *action_ce_tour.base() << std::endl;
-		// std::cout << "action_ce_tour" << std::endl;
-		// std::vector<int> yo = this->getz_actions_used_ce_tour_haut();
-		// for (std::vector<int>::const_iterator it = yo.begin(); it != yo.end(); ++it)
-		// {
-		// 	std::cout << *it << std::endl;
-		// }
-		if (action_possible != this->getz_actions_haut().end() && action_ce_tour == actions_used.end())
+		if (this->action_possible_haut(DIR_A) && !this->action_used_ce_tour_haut(DIR_A))
 		{
 			wr("[Vous prenez l'ascenseur pour descendre d'un etage.]");
 			std::cout << "[Vous arrivez en bas, dans la " << this->getz_nom_zone() << ".]\n";
@@ -151,10 +137,7 @@ void zone::ascenseur()
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
-		std::vector<int> actions_used = this->getz_actions_used_ce_tour_bas();
-		std::vector<int>::const_iterator action_possible = std::find(this->getz_actions_bas().begin(), this->getz_actions_bas().end(), DIR_A);
-		const std::vector<int>::const_iterator action_ce_tour = std::find(actions_used.begin(), actions_used.end(), DIR_A);
-		if (action_possible != this->getz_actions_bas().end() && action_ce_tour == actions_used.end())
+		if (this->action_possible_bas(DIR_A) && !this->action_used_ce_tour_bas(DIR_A))
 		{
 			wr("[Vous prenez l'ascenseur pour monter d'un etage.]");
 			std::cout << "[Vous arrivez en haut, dans la " << this->getz_nom_zone() << ".]\n";
