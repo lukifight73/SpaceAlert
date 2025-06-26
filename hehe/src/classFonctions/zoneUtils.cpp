@@ -37,7 +37,7 @@ void zone::assomerjoueursZoneHaut_IfNoActifRobot()
 	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
 	{
 		if((*it)->getj_bots() != BOTS_EVEILLE)
-			(*it)->setcarteInactif(z_temps);
+			(*it)->setcarteAssome(z_temps);
 	}
 }
 
@@ -69,7 +69,6 @@ void zone::assomerjoueursZoneHautRobotsActifs()
 		if ((*it)->getj_bots() == 1)
 		{
 			(*it)->setcarteAssome(z_temps);
-			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
 			printSlowly(msg, *z_data);
 		}
 	}
@@ -78,7 +77,6 @@ void zone::assomerjoueursZoneHautRobotsActifs()
 		if (z_joueur_intercepteurs)
 		{
 			z_joueur_intercepteurs->setcarteAssome(z_temps);
-			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
 			printSlowly(msg, *z_data);
 		}
 	}
@@ -102,7 +100,6 @@ void zone::assomerjoueursZoneBasRobotsActifs()
 		if ((*it)->getj_bots() == 1)
 		{
 			(*it)->setcarteAssome(z_temps);
-			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
 			printSlowly(msg, *z_data);
 		}
 	}
@@ -156,7 +153,7 @@ void zone::etatdesdegats()
 	z_degats_recu++;
 	if(z_degats_recu > 6)
 	{
-		msg = "[///////!!!!!\\\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]";
+		msg = "[Le vaisseau a recu trop de degats, il est detruit !]\n";
 		mission_failed(msg, *z_data);
 		return ;
 	}
@@ -228,6 +225,8 @@ void zone::etatdesdegats()
 
 void zone::getdegats(int input)
 {
+	if (input == 0)
+		return;
 	int degats_absorbes(0);
 	if (z_zone == 1)
         std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
@@ -270,6 +269,8 @@ void zone::getdegats(int input)
 
 void zone::getdegatsIgnoreBouclier(int input)
 {
+	if (input == 0)
+		return;
 	if (z_zone == 1)
         std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
     else if (z_zone == 2)
@@ -501,14 +502,16 @@ std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
 	}
 	else if(zone == ZONE_WHITE)
 	{
-		if((upDownCount == rightCount) == leftCount)
+		if(upDownCount == rightCount && rightCount == leftCount)
 			return("No movement");
-		else if(rightCount > upDownCount && rightCount > upDownCount)
+		else if(rightCount > upDownCount && rightCount > leftCount)
 			return("Right");
-		else if(rightCount > upDownCount && rightCount > upDownCount)
+		else if(leftCount > upDownCount && leftCount > rightCount)
 			return("Left");
-		else
+		else if(upDownCount > leftCount && upDownCount > rightCount)
 			return("Up/Down");
+		else
+			return("No mouvement");
 	}
 	return("FUCK");
 }

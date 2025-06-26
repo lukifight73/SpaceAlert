@@ -288,8 +288,8 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
         m_position_haut = false;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Surcharge des generateurs";
-        m_vie = 3;
-        m_vitesse = 7;
+        m_vie = 7;
+        m_vitesse = 3;
         m_killAction = ACT_B;
     }
     else if(input == "si2-04")
@@ -297,8 +297,8 @@ menace_interne::menace_interne(zone *zone, std::string input, int tourDarrivee):
         m_position_haut = false;
         m_difficulte = MENACE_SERIEUSE_AVANCEE;
         m_name ="Contamination";
-        m_vie = 2;
-        m_vitesse = 3;
+        m_vie = 3;
+        m_vitesse = 2;
         m_killAction = ACT_R;
     }
     else if(input == "si2-05")
@@ -1071,7 +1071,7 @@ void menace_interne_si1_05::actionMenace(char input)
         if(EnergieBouclier > m_zone->getz_max_energie_bouclier())
         {
             m_zone->setz_bouclier(m_zone->getz_max_energie_bouclier());
-            std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier, le sruplus se volatilise et cause "
+            std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier, le surplus se volatilise et cause "
             + std::to_string(EnergieBouclier - m_zone->getz_max_energie_bouclier()) + " degats.]\n";
             printSlowly(msg, *m_zone->getz_data());
             m_zone->getdegatsIgnoreBouclier(EnergieBouclier - m_zone->getz_max_energie_bouclier());
@@ -1096,7 +1096,7 @@ void menace_interne_si1_05::actionMenace(char input)
         int EnergieReacteur = m_zone->getz_reacteur();
         int EnergieReacteurR = m_zone->getzone_right()->getz_reacteur();
         int EnergieReacteurL = m_zone->getzone_left()->getz_reacteur();
-        std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie du reacteur, causant "
+        std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie des reacteurs, causant "
         + std::to_string(EnergieReacteur) + " degats a la " + m_zone->getz_nom_zone() + ", " +
         std::to_string(EnergieReacteurR) + " degats a la " + m_zone->getzone_right()->getz_nom_zone() + ", " +
         std::to_string(EnergieReacteurL) + " degats a la " + m_zone->getzone_left()->getz_nom_zone() +
@@ -1117,7 +1117,7 @@ void menace_interne_si1_06::actionMenace(char input)
 {
     if (input == 'X')
     {
-        std::string msg = "[La menace " + m_name + " assome tous les joueurs ayant des robots actifs.\n";
+        std::string msg = "[La menace " + m_name + " assome tous les joueurs ayant des robots actifs.]\n";
         printSlowly(msg, *m_zone->getz_data());
         m_zone->getzone_right()->assomerjoueursZoneRobotsActifs();
         m_zone->getzone_left()->assomerjoueursZoneRobotsActifs();
@@ -1143,9 +1143,9 @@ void menace_interne_si1_06::actionMenace(char input)
 
 bool menace_interne_si1_06::AttractAction(int joueurAction, int Zone, bool haut) const
 {
-    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone && m_presence == true)
         return true;
-    else if (m_position_haut_bis == haut && joueurAction == m_killAction && m_zoneInt_bis == Zone)
+    else if (m_position_haut_bis == haut && joueurAction == m_killAction && m_zoneInt_bis == Zone && m_presence == true)
         return true;
     else
         return false;
@@ -1190,14 +1190,18 @@ void menace_interne_si2_01::actionMenace(char input)
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
         this->set_m_zoneInt(ZONE_WHITE); // le Int qui correspond a la zone
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " et assome tous les joueurs qu'il croise.]\n";
         printSlowly(msg, *m_zone->getz_data());
+        m_zone->assomerjoueursZoneHaut_IfNoActifRobot();
+        m_zone->getzone_blue()->assomerjoueursZoneHaut_IfNoActifRobot();
     }
     else if (input == 'Y')
     {
         this->set_m_Positionhaut(0);
         std::string msg = "[La menace " + m_name + " descend en " + m_zone->getz_nom_zone() + " .]\n";
         printSlowly(msg, *m_zone->getz_data());
+        m_zone->assomerjoueursZoneHaut_IfNoActifRobot();
+        m_zone->assomerjoueursZoneBas_IfNoActifRobot();
     }
     else if (input == 'Z') {
         this->printfaitdegats(3);
@@ -1207,18 +1211,27 @@ void menace_interne_si2_01::actionMenace(char input)
     }
 }
 
-void menace_interne_si2_01::effetApresMvt()
+void menace_interne_si2_01::getDamage(joueur *joueur)
 {
-    if(m_position_haut)
-         m_zone->assomerjoueursZoneHaut_IfNoActifRobot();
-    else
-        m_zone->assomerjoueursZoneBas_IfNoActifRobot();
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    std::string msg = "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    printSlowly(msg, *m_zone->getz_data());
+    joueur->setj_bots(BOTS_INACTIF);
+}
 
+void menace_interne_si2_01::getDamageHero(joueur *joueur)
+{
+    joueur->setj_bots(joueur->getj_bots()); // pour eviter probleme de compilation
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
 }
 
 // deplace le menace vers la bonne direction
 void menace_interne::manaceMoveInZone(std::string string)
 {
+    std::string station = "station basse";
     if(string == "Left")
     {
         this->set_m_zone(this->get_m_zone()->getzone_left());
@@ -1228,7 +1241,9 @@ void menace_interne::manaceMoveInZone(std::string string)
             this->set_m_zoneInt(ZONE_RED); // le Int qui correspond a la zone
         else
             wr("Chelou, je peux pas bouger plus a gauche\n");
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        if (m_position_haut)
+            station = "station haute";
+        std::string msg = "[La menace " + m_name + " va en " + station + " " + m_zone->getz_nom_zone() + ".]\n";
         printSlowly(msg, *m_zone->getz_data());
     }
     else if(string == "Right")
@@ -1240,13 +1255,24 @@ void menace_interne::manaceMoveInZone(std::string string)
             this->set_m_zoneInt(ZONE_BLUE); // le Int qui correspond a la zone
         else
             wr("Chelou, je peux pas bouger plus a gauche\n");
-        std::string msg = "[La menace " + m_name + " va en " + m_zone->getz_nom_zone() + " .]\n";
+        if (m_position_haut)
+            station = "station haute";
+        std::string msg = "[La menace " + m_name + " va en " + station + " " + m_zone->getz_nom_zone() + " .]\n";
         printSlowly(msg, *m_zone->getz_data());
     }
     else if(string == "Up/Down")
     {
         this->set_m_Positionhaut(!m_position_haut);
-        std::string msg = "[La menace " + m_name + " chagne de niveau .]\n";
+        if (m_position_haut)
+            station = "station haute";
+        std::string msg = "[La menace " + m_name + " change de niveau et se retrouve en " + station + " " + m_zone->getz_nom_zone() + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
+    }
+    else if(string == "No mouvement")
+    {
+        if (m_position_haut)
+            station = "station haute";
+        std::string msg = "[La menace " + m_name + " reste en " + station + " " + m_zone->getz_nom_zone() + ".]\n";
         printSlowly(msg, *m_zone->getz_data());
     }
 
@@ -1275,6 +1301,40 @@ void menace_interne_si2_02::actionMenace(char input)
             m_zone->assomerjoueursZoneBas();
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
+    }
+}
+
+void menace_interne_si2_02::getDamage(joueur *joueur)
+{
+    if(m_vie <= m_degats)
+    {
+        m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " qui n'a deja plus de vie...]\n";
+        return ;
+    }
+    m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
+    m_degats++;
+    if(m_vie <= m_degats)
+    {
+        std::string msg = "[La menace internce " + m_name + " riposte et assome " + joueur->getj_nom() + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
+        joueur->setcarteAssome(m_zone->getz_temps());
+    }
+}
+void menace_interne_si2_02::getDamageHero(joueur *joueur)
+{
+    if(m_vie <= m_degats)
+    {
+        m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " qui n'a deja plus de vie...]\n";
+        return ;
+    }
+    m_degats_str += "[ACTION HEROIQUE! " + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige deux degat!]\n";
+    m_degats++;
+    m_degats++;
+    if(m_vie <= m_degats)
+    {
+        std::string msg = "[La menace internce " + m_name + " riposte et assome " + joueur->getj_nom() + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
+        joueur->setcarteAssome(m_zone->getz_temps());
     }
 }
 
@@ -1307,9 +1367,9 @@ void menace_interne_si2_03::actionMenace(char input)
             z_reacteur = 0;
         m_zone->getzone_blue()->setz_reacteur(z_reacteur);
         std::string msg = "[La menace " + m_name + " consume 1 blocs d'energie de chaque reacteur, il en reste "
-        + std::to_string(m_zone->getzone_white()->getz_reacteur()) + "dans la " + m_zone->getzone_white()->getz_nom_zone() + ", "
-        + std::to_string(m_zone->getzone_red()->getz_reacteur()) + "dans la " + m_zone->getzone_red()->getz_nom_zone() + ", et "
-        + std::to_string(m_zone->getzone_blue()->getz_reacteur()) + "dans la " + m_zone->getzone_blue()->getz_nom_zone()
+        + std::to_string(m_zone->getzone_white()->getz_reacteur()) + " dans la " + m_zone->getzone_white()->getz_nom_zone() + ", "
+        + std::to_string(m_zone->getzone_red()->getz_reacteur()) + " dans la " + m_zone->getzone_red()->getz_nom_zone() + ", et "
+        + std::to_string(m_zone->getzone_blue()->getz_reacteur()) + " dans la " + m_zone->getzone_blue()->getz_nom_zone()
         + " .]\n";
         printSlowly(msg, *m_zone->getz_data());
     }
@@ -1468,13 +1528,13 @@ void menace_interne_si2_04::actionMenace(char input)
 
 bool menace_interne_si2_04::AttractAction(int joueurAction, int Zone, bool haut) const
 {
-    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone)
+    if(m_position_haut == haut && joueurAction == m_killAction && m_zoneInt == Zone && m_presence == true)
         return true;
-    else if (m_position_haut_bis1 == haut && joueurAction == m_killAction && m_zoneInt_bis1 == Zone)
+    else if (m_position_haut_bis1 == haut && joueurAction == m_killAction && m_zoneInt_bis1 == Zone && m_presence == true)
         return true;
-    else if (m_position_haut_bis2 == haut && joueurAction == m_killAction && m_zoneInt_bis2 == Zone)
+    else if (m_position_haut_bis2 == haut && joueurAction == m_killAction && m_zoneInt_bis2 == Zone && m_presence == true)
         return true;
-    else if (m_position_haut_bis3 == haut && joueurAction == m_killAction && m_zoneInt_bis3 == Zone)
+    else if (m_position_haut_bis3 == haut && joueurAction == m_killAction && m_zoneInt_bis3 == Zone && m_presence == true)
         return true;
     else
         return false;

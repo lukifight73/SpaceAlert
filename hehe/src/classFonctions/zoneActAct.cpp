@@ -229,7 +229,7 @@ void zone::actionB()
 						z_reacteur--;
 						z_bouclier++;
 					}
-					msg = "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+					msg = "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " + std::to_string(z_bouclier) + "]\n";
 					printSlowly(msg, *z_data);
 					msg = "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
 					printSlowly(msg, *z_data);

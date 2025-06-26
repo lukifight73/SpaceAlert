@@ -315,7 +315,8 @@ class menace_interne_si2_01 :public menace_interne
         menace_interne_si2_01() {};
         menace_interne_si2_01(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee) {};
         virtual void actionMenace(char input);
-        virtual void effetApresMvt();
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual ~menace_interne_si2_01() {};
 };
 
@@ -327,6 +328,8 @@ class menace_interne_si2_02 :public menace_interne
         menace_interne_si2_02() {};
         menace_interne_si2_02(zone *zone_input, std::string input, int tourDarrivee): menace_interne(zone_input, input, tourDarrivee) {};
         virtual void actionMenace(char input);
+        virtual void getDamage(joueur *joueur);
+        virtual void getDamageHero(joueur *joueur);
         virtual ~menace_interne_si2_02() {};
 };
 

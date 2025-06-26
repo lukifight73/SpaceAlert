@@ -13,7 +13,7 @@ void choseCaptain(t_data &data, bool &captain, int i)
 	while (1)
 	{
 		std::getline(std::cin, capt);
-		if(capt == "Y")
+		if(capt == "Y" || capt == "y" || capt == "yes" || capt == "oui")
 		{
 			data.joueurs[i]->setj_capitaine(true);
 			std::cout << "Welcome lord Commander!! 🫅 🫅 🫅\n";
@@ -51,6 +51,9 @@ void chose_ton_blase(t_data &data)
 			choseCaptain(data, captain, i);
 		else
 			data.joueurs[i]->setj_capitaine(false);
+		if (captain)
+			nom = "Capitaine " + nom;
+		data.joueurs[i]->setj_nom(nom);
         i++;
     }
 }
@@ -175,23 +178,6 @@ void actionMenaceDebutTour(t_data &data)
 	}
 }
 
-void effetMenaceApresMvt(t_data &data)
-{
-	for (int i = 1; i < 4; i++)
-	{
-		std::vector<menace_externe*> tmp = data.zones[i]->getz_chemin_menace()->get_menacesExte();
-		for (std::vector<menace_externe*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
-		{
-			(*it)->effetApresMvt();
-		}
-	}
-	std::vector<menace_interne*> tmp = data.chemin_menace_interne->get_menacesInte();
-	for (std::vector<menace_interne*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
-	{
-		(*it)->effetApresMvt();
-	}
-}
-
 
 void infligeDegats(menace_externe *menace)
 {
@@ -293,7 +279,6 @@ void XIII_tour(t_data &data)
 	putDegatsIntoAction(data);
 	remove_dead_or_outdated_menaces(data); // doit etre fait avant le mouvement des menaces pour voir si elles sont mortes ou non
 	mouvement_menaces(data);
-	effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
 	remove_dead_or_outdated_menaces(data);
 }
 
@@ -319,7 +304,6 @@ void	play_game(t_data &data)
 			end_color();
 			num_joueur++;
 		}
-		effetMenaceApresMvt(data); // effet des menaces apres que les joueurs ai bouge (eg. si ils croisent une menace interne)
 		print_title("CALCUL DES DEGATS");
 		attaqueDesCanons(data); // remplace les deux d apres
 		rocketActions(data);
@@ -329,7 +313,6 @@ void	play_game(t_data &data)
 		//printInfoMenace(data);
 		//std::cout << "----------------------------- FIN INFORMATIONS MENACE AVANT MVMT-----------------------------" << std::endl;
 		mouvement_menaces(data);
-		effetMenaceApresMvt(data); // effet des menaces apres qu'elles aint bouge (eg. si ils croisent un joueur par ex.)
 	    remove_dead_or_outdated_menaces(data); // doit etre fait apres le mouvement des menaces pour voir si elles sont parties ou non
 		//std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		//printInfoMenace(data);
@@ -354,7 +337,7 @@ int main(int ac, char* *av)
 	t_data data;
 	init_data(data);
 	parsing_config(data, av[1]);
-	//chose_ton_blase(data);
+	chose_ton_blase(data);
 	//init_carte_joueur_test(data);
 	// data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
 	// data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");

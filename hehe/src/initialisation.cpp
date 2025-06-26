@@ -55,7 +55,6 @@ void init_carte_joueur_test(t_data& data)
 	data.joueurs[i]->addcartes(11, carte_ACT_A);
 	data.joueurs[i]->addcartes(12, carte_ACT_A);
 	i++;
-	data.joueurs[1]->setj_capitaine(true);
 	data.joueurs[i]->addcartes(1, carte_DIR_B);
 	data.joueurs[i]->addcartes(2, carte_DIR_A);
 	data.joueurs[i]->addcartes(3, carte_ACT_B);
