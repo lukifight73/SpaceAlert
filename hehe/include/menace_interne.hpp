@@ -269,6 +269,7 @@ class menace_interne_si1_04 :public menace_interne
     public:
         menace_interne_si1_04() {};
         menace_interne_si1_04(zone *zone, std::string input, int tourDarrivee): menace_interne(zone , input, tourDarrivee) {};
+        virtual bool AttractAction(int joueurAction, int Zone, bool haut) const;
         virtual void actionMenace(char input);
         virtual void actionQuandDetruit();
         virtual ~menace_interne_si1_04() {};

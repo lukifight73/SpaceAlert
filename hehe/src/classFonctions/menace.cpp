@@ -56,7 +56,7 @@ void menace::actionMenace(char input)
 }
 
 void menace::actionQuandDetruit() {
-    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !\033[0m\n";
+    std::cout << "\033[1;32m[ELIMINATION DE LA MENACE !]\033[0m\n";
     if (m_zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
     else if (m_zone->getz_zone() == 2)

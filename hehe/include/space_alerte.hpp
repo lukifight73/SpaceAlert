@@ -47,3 +47,4 @@ void start_color_titre();
 void print_title(std::string msg);
 void print_tour(std::string msg);
 void wait();
+void mission_failed(std::string msg, t_data &data);

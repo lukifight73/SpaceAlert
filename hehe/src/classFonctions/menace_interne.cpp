@@ -361,8 +361,8 @@ void menace_interne_i1_01::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(3);
         this->printfaitdegats(3);
+        m_zone->getdegatsIgnoreBouclier(3);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -403,8 +403,8 @@ void menace_interne_i1_02::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(3);
         this->printfaitdegats(3);
+        m_zone->getdegatsIgnoreBouclier(3);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -431,13 +431,13 @@ void menace_interne_i1_03::actionMenace(char input)
         }
         else
         {
-            m_zone->getdegatsIgnoreBouclier(1);
             this->printfaitdegats(1);
+            m_zone->getdegatsIgnoreBouclier(1);
         }
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -463,13 +463,13 @@ void menace_interne_i1_04::actionMenace(char input)
         }
         else
         {
-            m_zone->getdegatsIgnoreBouclier(1);
             this->printfaitdegats(1);
+            m_zone->getdegatsIgnoreBouclier(1);
         }
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -490,8 +490,8 @@ void menace_interne_i1_05::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -512,8 +512,8 @@ void menace_interne_i1_06::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -523,8 +523,8 @@ void menace_interne_i1_07::actionMenace(char input)
 {
     if (input == 'Z') {
         int degats = this->get_m_vie()*3;
-        m_zone->getdegatsIgnoreBouclier(degats);
         this->printfaitdegats(degats);
+        m_zone->getdegatsIgnoreBouclier(degats);
     }
 }
 
@@ -601,8 +601,8 @@ void menace_interne_i2_01::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -636,8 +636,8 @@ void menace_interne_i2_015::actionMenace(char input)
     {
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -705,8 +705,8 @@ void menace_interne_i2_02::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(2);
         this->printfaitdegats(2);
+        m_zone->getdegatsIgnoreBouclier(2);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -728,8 +728,8 @@ void menace_interne_i2_03::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(4);
         this->printfaitdegats(4);
+        m_zone->getdegatsIgnoreBouclier(4);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -768,8 +768,8 @@ void menace_interne_i2_04::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(4);
         this->printfaitdegats(4);
+        m_zone->getdegatsIgnoreBouclier(4);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -815,18 +815,18 @@ void menace_interne_i2_05::actionMenace(char input)
     }
     else if (input == 'Y')
     {
+        std::string msg = "[La menace " + m_name + " retarde tous les joueurs.]\n";
+        printSlowly(msg, *m_zone->getz_data());
         m_zone->retarderactionZone();
         m_zone->getzone_right()->retarderactionZone();
         m_zone->getzone_left()->retarderactionZone();
-        std::string msg = "[La menace " + m_name + " retarde tous les joueurs.]\n";
-        printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " inflige 1 degats sur toutes les zones...]\n";
+        printSlowly(msg, *m_zone->getz_data());
         m_zone->getdegatsIgnoreBouclier(1);
         m_zone->getzone_right()->getdegatsIgnoreBouclier(1);
         m_zone->getzone_left()->getdegatsIgnoreBouclier(1);
-        std::string msg = "[La menace " + m_name + " inflige 1 degats sur toutes les zones...]\n";
-        printSlowly(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -837,9 +837,9 @@ void menace_interne_i2_06::actionMenace(char input)
     if (input == 'X')
     {
         int degats = this->m_zone->getz_reacteur();
-        m_zone->getdegatsIgnoreBouclier(degats);
         std::string msg = "[La menace " + m_name + "inflige " + std::to_string(degats) + " degats a la " + m_zone->getz_nom_zone() + ".]\n";
-        m_zone->getz_data()->VoixRobot1->announce(msg);
+        printSlowly(msg, *m_zone->getz_data());
+        m_zone->getdegatsIgnoreBouclier(degats);
     }
     else if (input == 'Y')
     {
@@ -851,8 +851,8 @@ void menace_interne_i2_06::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(3);
         this->printfaitdegats(3);
+        m_zone->getdegatsIgnoreBouclier(3);
     }
     else {
         std::cerr << "Action inconnue: " << input << std::endl;
@@ -861,10 +861,11 @@ void menace_interne_i2_06::actionMenace(char input)
 
 void menace_interne_i2_06::actionQuandDetruit()
 {
-   m_zone->getzone_right()->assomerjoueursZoneBas();
-   m_zone->getzone_left()->assomerjoueursZoneBas();
    std::string msg = "[Les joueurs en bas des Zones Bleu et Rouge sont assomes par " + m_name + ".]\n";
    printSlowly(msg, *m_zone->getz_data());
+   m_zone->getzone_right()->assomerjoueursZoneBas();
+   m_zone->getzone_left()->assomerjoueursZoneBas();
+   menace::actionQuandDetruit();
 }
 
 void menace_interne_si1_01::actionMenace(char input)
@@ -886,16 +887,16 @@ void menace_interne_si1_01::actionMenace(char input)
         }
         else
         {
-            m_zone->getdegatsIgnoreBouclier(2);
             this->printfaitdegats(2);
+            m_zone->getdegatsIgnoreBouclier(2);
         }
 
     }
     else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents dans sa station.]\n";
+        printSlowly(msg, *m_zone->getz_data());
         m_zone->getdegatsIgnoreBouclier(4);
         m_zone->assomerjoueursZoneHaut();
-        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents a son niveau .]\n";
-        printSlowly(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -905,7 +906,8 @@ void menace_interne_si1_01::getDamage(joueur *joueur)
 {
     m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
     m_degats++;
-    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    std::string msg = "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    printSlowly(msg, *m_zone->getz_data());
     joueur->setj_bots(BOTS_INACTIF);
 }
 
@@ -936,16 +938,15 @@ void menace_interne_si1_02::actionMenace(char input)
         }
         else
         {
-            m_zone->getdegatsIgnoreBouclier(2);
             this->printfaitdegats(2);
+            m_zone->getdegatsIgnoreBouclier(2);
         }
-
     }
     else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents dans sa station.]\n";
+        printSlowly(msg, *m_zone->getz_data());
         m_zone->getdegatsIgnoreBouclier(4);
         m_zone->assomerjoueursZoneBas();
-        std::string msg = "[La menace " + m_name + " inflige 4 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs qui y sont presents a son niveau.]\n";
-        printSlowly(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -955,7 +956,8 @@ void menace_interne_si1_02::getDamage(joueur *joueur)
 {
     m_degats_str += "[" + joueur->getj_nom() + " attaque la menace interne " + m_name + " et lui inflige un degat!]\n";
     m_degats++;
-    std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    std::string msg = "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+    printSlowly(msg, *m_zone->getz_data());
     joueur->setj_bots(BOTS_INACTIF);
 }
 
@@ -985,13 +987,13 @@ void menace_interne_si1_03::actionMenace(char input)
         {
             joueurCount++;
         }
-        m_zone->getdegatsIgnoreBouclier(joueurCount);
         std::string msg = "[La menace " + m_name + " monte en " + m_zone->getz_nom_zone() + " et inflige " + std::to_string(joueurCount) + " degats.]\n";
         printSlowly(msg, *m_zone->getz_data());
+        m_zone->getdegatsIgnoreBouclier(joueurCount);
     }
     else if (input == 'Z') {
-        std::string msg = "[La menace " + m_name + " s empare du vaisseau !!!! YOU LOSE !!!!!]\n";
-        printSlowly(msg, *m_zone->getz_data());
+        std::string msg = "[La menace " + m_name + " s empare du vaisseau !!!!]\n";
+        mission_failed(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -1003,7 +1005,8 @@ void menace_interne_si1_03::getDamage(joueur *joueur)
     m_degats++;
     if (m_grandit)
     {
-        std::cout << "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+        std::string msg = "[La menace internce " + m_name + " riposte et desactive les robots de " + joueur->getj_nom() + ".]\n";
+        printSlowly(msg, *m_zone->getz_data());
         joueur->setj_bots(BOTS_INACTIF);
     }
 }
@@ -1032,12 +1035,20 @@ void menace_interne_si1_04::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        std::string msg = "[La menace " + m_name + " emporte et detruit le vaisseau en piece detachees... YOU LOSE !!!!!]\n";
-        printSlowly(msg, *m_zone->getz_data());
+        std::string msg = "[La menace " + m_name + " emporte et detruit le vaisseau en piece detachees...]\n";
+        mission_failed(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
 }
+
+bool menace_interne_si1_04::AttractAction(int joueurAction, int Zone, bool haut) const
+{
+    joueurAction += 0;
+    if (haut)
+        Zone += 0;
+    return false;
+};
 
 void menace_interne_si1_04::actionQuandDetruit()
 {
@@ -1046,8 +1057,8 @@ void menace_interne_si1_04::actionQuandDetruit()
     m_zone->setz_degats_doubles(false);
     std::string msg = "[La menace " + m_name + " est elimine! Les degats recu par le vaisseau ne sont plus doubles!]\n";
     printSlowly(msg, *m_zone->getz_data());
+    menace::actionQuandDetruit();
 }
-
 
 
 void menace_interne_si1_05::actionMenace(char input)
@@ -1060,10 +1071,10 @@ void menace_interne_si1_05::actionMenace(char input)
         if(EnergieBouclier > m_zone->getz_max_energie_bouclier())
         {
             m_zone->setz_bouclier(m_zone->getz_max_energie_bouclier());
-            m_zone->getdegatsIgnoreBouclier(EnergieBouclier - m_zone->getz_max_energie_bouclier());
             std::string msg = "[La menace " + m_name + " transfere l'energie du reacteur central au bouclier, le sruplus se volatilise et cause "
             + std::to_string(EnergieBouclier - m_zone->getz_max_energie_bouclier()) + " degats.]\n";
             printSlowly(msg, *m_zone->getz_data());
+            m_zone->getdegatsIgnoreBouclier(EnergieBouclier - m_zone->getz_max_energie_bouclier());
         }
         else
         {
@@ -1076,27 +1087,27 @@ void menace_interne_si1_05::actionMenace(char input)
     else if (input == 'Y')
     {
         int EnergieReacteur = m_zone->getz_reacteur();
-        m_zone->setz_reacteur(0);
-        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
         std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie du reacteur, causant " + std::to_string(EnergieReacteur) + " degats.]\n";
         printSlowly(msg, *m_zone->getz_data());
+        m_zone->setz_reacteur(0);
+        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
     }
     else if (input == 'Z') {
         int EnergieReacteur = m_zone->getz_reacteur();
-        m_zone->setz_reacteur(0);
-        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
         int EnergieReacteurR = m_zone->getzone_right()->getz_reacteur();
-        m_zone->getzone_right()->setz_reacteur(0);
-        m_zone->getzone_right()->getdegatsIgnoreBouclier(EnergieReacteurR);
         int EnergieReacteurL = m_zone->getzone_left()->getz_reacteur();
-        m_zone->getzone_left()->setz_reacteur(0);
-        m_zone->getzone_left()->getdegatsIgnoreBouclier(EnergieReacteurL);
         std::string msg = "[La menace " + m_name + " fait se volatiliser l'energie du reacteur, causant "
         + std::to_string(EnergieReacteur) + " degats a la " + m_zone->getz_nom_zone() + ", " +
         std::to_string(EnergieReacteurR) + " degats a la " + m_zone->getzone_right()->getz_nom_zone() + ", " +
         std::to_string(EnergieReacteurL) + " degats a la " + m_zone->getzone_left()->getz_nom_zone() +
         ".]\n";
         printSlowly(msg, *m_zone->getz_data());
+        m_zone->setz_reacteur(0);
+        m_zone->getdegatsIgnoreBouclier(EnergieReacteur);
+        m_zone->getzone_right()->setz_reacteur(0);
+        m_zone->getzone_right()->getdegatsIgnoreBouclier(EnergieReacteurR);
+        m_zone->getzone_left()->setz_reacteur(0);
+        m_zone->getzone_left()->getdegatsIgnoreBouclier(EnergieReacteurL);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -1189,8 +1200,8 @@ void menace_interne_si2_01::actionMenace(char input)
         printSlowly(msg, *m_zone->getz_data());
     }
     else if (input == 'Z') {
-        m_zone->getdegatsIgnoreBouclier(3);
         this->printfaitdegats(3);
+        m_zone->getdegatsIgnoreBouclier(3);
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -1244,7 +1255,7 @@ void menace_interne::manaceMoveInZone(std::string string)
 
 void menace_interne_si2_02::actionMenace(char input)
 {
-   
+
     std::string move = m_zone->stationWithMostPlayer(m_position_haut, m_zoneInt);
     if (input == 'X')
     {
@@ -1255,13 +1266,13 @@ void menace_interne_si2_02::actionMenace(char input)
         manaceMoveInZone(move);
     }
     else if (input == 'Z') {
+        std::string msg = "[La menace " + m_name + " inflige 5 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs de sa station .]\n";
+        printSlowly(msg, *m_zone->getz_data());
         m_zone->getdegatsIgnoreBouclier(5);
         if(m_position_haut)
             m_zone->assomerjoueursZoneHaut();
         else
             m_zone->assomerjoueursZoneBas();
-        std::string msg = "[La menace " + m_name + " inflige 5 degats a la " + m_zone->getz_nom_zone() + " et assome les joueurs de sa station .]\n";
-        printSlowly(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -1273,7 +1284,6 @@ void menace_interne_si2_03::actionMenace(char input)
     int z_reacteur = 0;
     if (input == 'X')
     {
-
         z_reacteur = m_zone->getzone_white()->getz_reacteur() - 2;
         if (z_reacteur < 0)
             z_reacteur = 0;
@@ -1573,11 +1583,8 @@ void menace_interne_si2_05::actionMenace(char input)
         m_vitesse++;
     }
     else if (input == 'Z') {
-        std::string msg = "[La menace " + m_name + " detruit le vaisseaux. FUUUUUCCCKKK]\n";
-        printSlowly(msg, *m_zone->getz_data());
-        m_zone->getzone_blue()->getdegatsIgnoreBouclier(6);
-        m_zone->getzone_white()->getdegatsIgnoreBouclier(6);
-        m_zone->getzone_red()->getdegatsIgnoreBouclier(6);
+        std::string msg = "[La menace " + m_name + " detruit le vaisseaux.]\n";
+        mission_failed(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }

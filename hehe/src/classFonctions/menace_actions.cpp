@@ -425,8 +425,8 @@ void menace_se2_05::actionMenace(char input)
         messageBufferMenace(msg, -1);
         menace::recoitDegats(2);
     } else if (input == 'Z') {
-        std::string msg = "[ GAME OVER: " + m_name + " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]\n";
-        printSlowly(msg, *m_zone->getz_data());
+        std::string msg = "[GAME OVER: " + m_name + " vient de detruire le vaisseau!//////!!!!\\\\\\\\\\\\]\n";
+        mission_failed(msg, *m_zone->getz_data());
     } else {
         std::cerr << "Action inconnue: " << input << std::endl;
     }
@@ -505,12 +505,12 @@ void menace_e1_02::actionMenace(char input)
     else if (input == 'Y') {
         messageAttaqueMenace(2);
         if (m_zone->getz_bouclier() == 1) {
-            std::string msg = "------> [Le bouclier part un degat, l'autre degat est multiplie par deux!]";
+            std::string msg = "[Le bouclier part un degat, l'autre degat est multiplie par deux!]";
             messageBufferMenace(msg, -1);
             makedegatsInZone(3);
         }
         else if (m_zone->getz_bouclier() == 0) {
-            std::string msg = "------> [Il n'y a pas de bouclier, les degats sont multiplies par deux!]";
+            std::string msg = "[Il n'y a pas de bouclier, les degats sont multiplies par deux!]";
             messageBufferMenace(msg, -1);
             makedegatsInZone(4);
         }
@@ -521,12 +521,12 @@ void menace_e1_02::actionMenace(char input)
     else if (input == 'Z') {
         messageAttaqueMenace(2);
         if (m_zone->getz_bouclier() == 1) {
-            std::string msg = "------> [Le bouclier part un degat, l'autre degat est multiplie par deux!]";
+            std::string msg = "[Le bouclier part un degat, l'autre degat est multiplie par deux!]";
             messageBufferMenace(msg, -1);
             makedegatsInZone(3);
         }
         else if (m_zone->getz_bouclier() == 0) {
-            std::string msg = "------> [Il n'y a pas de bouclier, les degats sont multiplies par deux!]";
+            std::string msg = "[Il n'y a pas de bouclier, les degats sont multiplies par deux!]";
             messageBufferMenace(msg, -1);
             makedegatsInZone(4);
         }

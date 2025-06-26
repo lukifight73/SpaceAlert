@@ -3,6 +3,7 @@
 
 void zone::actionA()
 {
+	std::string msg;
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
@@ -17,9 +18,11 @@ void zone::actionA()
 			{
 				if (z_reacteur)
 				{
-					wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
+					msg = "[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]\n";
+					printSlowly(msg, *z_data);
 					z_reacteur -= 1;
-					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+					msg = "[Carburant disponible : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 					addz_cannon_used(this->getz_cannon_haut());
 					this->getz_cannon_haut()->setcanon_used(true);
@@ -27,16 +30,21 @@ void zone::actionA()
 				}
 				else
 				{
-					wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+					msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]\n";
+					printSlowly(msg, *z_data);
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 				}
 			}
 			else if (this->action_used_ce_tour_haut(ACT_A) && this->action_possible_haut(ACT_A)) //action deja utilisee ce tour
 			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+				msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]\n";
+				printSlowly(msg, *z_data);
 			}
 			else
-				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			{
+				msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
@@ -54,19 +62,23 @@ void zone::actionA()
 				{
 					if (z_reacteur)
 					{
-						wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
+						msg = "[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n";
+						printSlowly(msg, *z_data);
 						z_reacteur -= 1;
-						std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+						msg = "[Carburant disponible : " + std::to_string(z_reacteur) + "]\n";
+						printSlowly(msg, *z_data);
 					}
 					else
 					{
-						std::cout << "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+						msg = "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+						printSlowly(msg, *z_data);
 						return ;
 					}
 				}
 				else
 				{
-					wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
+					msg = "[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n";
+					printSlowly(msg, *z_data);
 				}
 				this->addz_actions_used_ce_tour_bas(ACT_A);
 				addz_cannon_used(this->getz_cannon_bas());
@@ -75,10 +87,14 @@ void zone::actionA()
 			}
 			else if (this->action_used_ce_tour_bas(ACT_A))
 			{
-				wr("[Les frerots la coordination c'est pas votre fort...]\n");
+				msg = "[Les frerots la coordination c'est pas votre fort...]\n";
+				printSlowly(msg, *z_data);
 			}
 			else
-				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			{
+				msg = "[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 	}
 	else if(z_joueur_intercepteurs)
@@ -87,7 +103,8 @@ void zone::actionA()
 
 void zone::actionAHeros()
 {
-	wr("[ACTION HEROIQUE !!!]");
+	std::string msg = "[ACTION HEROIQUE !!!]\n";
+	printSlowly(msg, *z_data);
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
@@ -102,9 +119,11 @@ void zone::actionAHeros()
 			{
 				if (z_reacteur)
 				{
-					wr("[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]");
+					msg = "[ATTACK avec le " + this->getz_cannon_haut()->getnom_cannon() + " !]\n";
+					printSlowly(msg, *z_data);
 					z_reacteur -= 1;
-					std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+					msg = "[Carburant disponible : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 					addz_cannon_used(this->getz_cannon_haut());
 					this->getz_cannon_haut()->setcanon_used(true);
@@ -113,16 +132,21 @@ void zone::actionAHeros()
 				}
 				else
 				{
-					wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]");
+					msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " ... Echec par manque d'energie! Dommage...]\n";
+					printSlowly(msg, *z_data);
 					this->addz_actions_used_ce_tour_haut(ACT_A);
 				}
 			}
 			else if (this->action_used_ce_tour_haut(ACT_A) && this->action_possible_haut(ACT_A)) //action deja utilisee ce tour
 			{
-				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]");
+				msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, coordonnez vous bordel]\n";
+				printSlowly(msg, *z_data);
 			}
 			else
-				wr("[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			{
+				msg = "[Tentative d'attack avec " + this->getz_cannon_haut()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]\n";
+				printSlowly(msg, *z_data);;
+			}
 		}
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
@@ -141,19 +165,23 @@ void zone::actionAHeros()
 					{
 						if (z_reacteur)
 						{
-							wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
+							msg = "[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n";
+							printSlowly(msg, *z_data);
 							z_reacteur -= 1;
-							std::cout << "[Carburant disponible : " << z_reacteur << "]\n";
+							msg = "[Carburant disponible : " + std::to_string(z_reacteur) + "]\n";
+							printSlowly(msg, *z_data);
 						}
 						else
 						{
-							std::cout << "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+							msg = "[Echec de l'attack avec le " + this->getz_cannon_bas()->getnom_cannon() + " par manque d'energie...]\n";
+							printSlowly(msg, *z_data);
 							return ;
 						}
 					}
 					else
 					{
-						wr("[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n");
+						msg = "[ATTACK avec le " + this->getz_cannon_bas()->getnom_cannon() + " !]\n";
+						printSlowly(msg, *z_data);
 					}
 					this->getz_cannon_bas()->setactionHeroique(true);
 					this->addz_actions_used_ce_tour_bas(ACT_A);
@@ -163,10 +191,14 @@ void zone::actionAHeros()
 			}
 			else if (this->action_used_ce_tour_bas(ACT_A))
 			{
-				wr("[Les frerots la coordination c'est pas votre fort...]\n");
+				msg = "[Les frerots la coordination c'est pas votre fort...]\n";
+				printSlowly(msg, *z_data);
 			}
 			else
-				wr("[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]");
+			{
+				msg = "[Tentative d'attack avec " + this->getz_cannon_bas()->getnom_cannon() + " Echec, impossible d'utiliser cet arme ce tour]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 	}
 	else if(z_joueur_intercepteurs)
@@ -175,6 +207,7 @@ void zone::actionAHeros()
 
 void zone::actionB()
 {
+	std::string msg;
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
@@ -189,23 +222,28 @@ void zone::actionB()
 			{
 				if (z_reacteur)
 				{
-					wr("[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]");
+					msg = "[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]\n";
+					printSlowly(msg, *z_data);
 					while (z_reacteur && z_bouclier < z_max_energie_bouclier)
 					{
 						z_reacteur--;
 						z_bouclier++;
 					}
-					std::cout << "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " << z_bouclier << "]\n";
-					std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
+					msg = "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
+					msg = "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
 				}
 				else
 				{
-					wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]");
+					msg = "[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]\n";
+					printSlowly(msg, *z_data);
 				}
 			}
 			else
 			{
-				wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]");
+				msg = "[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]\n";
+				printSlowly(msg, *z_data);
 			}
 		}
 	}
@@ -224,14 +262,17 @@ void zone::actionB()
 				{
 					if (z_capsule_energie)
 					{
-						wr("[Activation d'une capsule de carburant - Carburant disponible : 5]");
+						msg = "[Activation d'une capsule de carburant - Carburant disponible : 5]\n";
+						printSlowly(msg, *z_data);
 						z_reacteur = 5;
 						z_capsule_energie -= 1;
-						std::cout << "[Capsule de carburant restante : " << z_capsule_energie << "]\n";
+						msg = "[Capsule de carburant restante : " + std::to_string(z_capsule_energie) + "]\n";
+						printSlowly(msg, *z_data);
 					}
 					else
 					{
-						wr("[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]");
+						msg = "[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]\n";
+						printSlowly(msg, *z_data);
 					}
 
 				}
@@ -239,24 +280,29 @@ void zone::actionB()
 				{
 					if (zone_white->getz_reacteur())
 					{
-						wr("[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]");
+						msg = "[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]\n";
+						printSlowly(msg, *z_data);
 						while (zone_white->getz_reacteur() && z_reacteur < z_max_reacteur)
 						{
 							z_reacteur++;
 							zone_white->setz_reacteur(zone_white->getz_reacteur() - 1);
 						}
-						std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
-						std::cout << "[Energie disponible dans le reacteur central : " << zone_white->getz_reacteur() << "]\n";
+						msg = "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+						printSlowly(msg, *z_data);
+						msg = "[Energie disponible dans le reacteur central : " + std::to_string(zone_white->getz_reacteur()) + "]\n";
+						printSlowly(msg, *z_data);
 					}
 					else
 					{
-						wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]");
+						msg = "[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]\n";
+						printSlowly(msg, *z_data);
 					}
 				}
 			}
 			else
 			{
-				wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]");
+				msg = "[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]\n";
+				printSlowly(msg, *z_data);
 			}
 		}
 	}
@@ -266,7 +312,8 @@ void zone::actionB()
 
 void zone::actionBHeros()
 {
-	wr("[ACTION HEROIQUE !!!]");
+	std::string msg = "[ACTION HEROIQUE !!!]\n";
+	printSlowly(msg, *z_data);
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
@@ -281,24 +328,29 @@ void zone::actionBHeros()
 			{
 				if (z_reacteur)
 				{
-					wr("[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]");
+					msg = "[Recuperation de l'energie du reacteur de la " + z_nom_zone + " pour alimenter le bouclier de la zone " + z_nom_zone + "]\n";
+					printSlowly(msg, *z_data);
 					while (z_reacteur && z_bouclier < z_max_energie_bouclier)
 					{
 						z_reacteur--;
 						z_bouclier++;
 					}
 					z_bouclier++;
-					std::cout << "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " << z_bouclier << "]\n";
-					std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
+					msg = "[Energie disponible dans le bouclier de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
+					msg = "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+					printSlowly(msg, *z_data);
 				}
 				else
 				{
-					wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]");
+					msg = "[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... c'est la merde, et en plus ton tour sert a rien...]\n";
+					printSlowly(msg, *z_data);
 				}
 			}
 			else
 			{
-				wr("[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]");
+				msg = "[Tentative de recuperation de l'energie du reacteur de la zone " + z_nom_zone + " pour alimenter le bouclier.. Echec... Impossible ce tour...]\n";
+				printSlowly(msg, *z_data);
 			}
 		}
 	}
@@ -317,14 +369,17 @@ void zone::actionBHeros()
 				{
 					if (z_capsule_energie)
 					{
-						wr("[Activation d'une capsule de carburant - Carburant disponible : 5]");
+						msg = "[Activation d'une capsule de carburant - Carburant disponible : 5]\n";
+						printSlowly(msg, *z_data);
 						z_reacteur = 6;
 						z_capsule_energie -= 1;
-						std::cout << "[Capsule de carburant restante : " << z_capsule_energie << "]\n";
+						msg = "[Capsule de carburant restante : " + std::to_string(z_capsule_energie) + "]\n";
+						printSlowly(msg, *z_data);
 					}
 					else
 					{
-						wr("[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]");
+						msg = "[Tentative d'activation d'une capsule de carburant... echouee... plus de carburant disponible]\n";
+						printSlowly(msg, *z_data);
 					}
 
 				}
@@ -332,25 +387,30 @@ void zone::actionBHeros()
 				{
 					if (zone_white->getz_reacteur())
 					{
-						wr("[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]");
+						msg = "[Recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "]\n";
+						printSlowly(msg, *z_data);
 						while (zone_white->getz_reacteur() && z_reacteur < z_max_reacteur)
 						{
 							z_reacteur++;
 							zone_white->setz_reacteur(zone_white->getz_reacteur() - 1);
 						}
 						z_reacteur++;
-						std::cout << "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " << z_reacteur << "]\n";
-						std::cout << "[Energie disponible dans le reacteur central : " << zone_white->getz_reacteur() << "]\n";
+						msg = "[Energie disponible dans le reacteur de la zone " + z_nom_zone + " : " + std::to_string(z_reacteur) + "]\n";
+						printSlowly(msg, *z_data);
+						msg = "[Energie disponible dans le reacteur central : " + std::to_string(zone_white->getz_reacteur()) + "]\n";
+						printSlowly(msg, *z_data);
 					}
 					else
 					{
-						wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]");
+						msg = "[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + "... Echec... il n'y a pas d'energie...]\n";
+						printSlowly(msg, *z_data);
 					}
 				}
 			}
 			else
 			{
-				wr("[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]");
+				msg = "[Tentative de recuperation de l'energie du reacteur central pour alimenter le reacteur de la zone " + z_nom_zone + " mais ce n'est pas possible ce tour.]\n";
+				printSlowly(msg, *z_data);
 			}
 		}
 	}
@@ -371,6 +431,7 @@ menace_interne* zone::checkIfMenaceInternAttrackAction(int joueurAction, int Zon
 
 void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois du tour 1 a 3, puis une fois du tour 4 a 6  et une fois du tour 7 a 9 -> a actualiser dans getz_actions_haut donc fin tour 3, 6 et 9 il faudra la reset des actions possibles.
 {
+	std::string msg;
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
@@ -386,14 +447,21 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 				if (this->action_possible_haut(ACT_C) && !this->action_used_ce_tour_haut(ACT_C))
 				{
 					z_maintenance_ordinateur.push_back(this->getz_temps());
-					wr("[Vous faites la maintenance!]");
+					msg = "[Vous faites la maintenance!]\n";
+					printSlowly(msg, *z_data);
 					this->addz_actions_used_ce_tour_haut(ACT_C);
 					//this->removez_actions_haut(ACT_C);
 				}
 				else if (!this->action_possible_haut(ACT_C))
-					wr("[Impossible de faire la maintenance maintenant!]");
+				{
+					msg = "[Impossible de faire la maintenance maintenant!]\n";
+					printSlowly(msg, *z_data);
+				}
 				else
-					wr("[Cette action a deja ete faite ce tour... staffez vous!]");
+				{
+					msg = "[Cette action a deja ete faite ce tour... staffez vous!]\n";
+					printSlowly(msg, *z_data);
+				}
 			}
 		}
 		if (z_zone == ZONE_BLUE)//a finaliser il faut ajouter les robots au joueur
@@ -409,23 +477,27 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 				{
 					if (z_bots && this->getz_joueur_haut(z_joueur_playing)->getj_bots() == 0)
 					{
-						wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
+						msg = "[Vous prenez les robots avec vous! C'est parti pour la baston!]\n";
+						printSlowly(msg, *z_data);
 						z_bots = false;
 						this->getz_joueur_haut(z_joueur_playing)->setj_bots(1);
 					}
 					else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == 2)
 					{
-						wr("[Vous reactivez les robots qui vous accompagnent!]");
+						msg = "[Vous reactivez les robots qui vous accompagnent!]\n";
+						printSlowly(msg, *z_data);
 						this->getz_joueur_haut(z_joueur_playing)->setj_bots(1);
 					}
 					else
 					{
-						wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
+						msg = "[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]\n";
+						printSlowly(msg, *z_data);
 					}
 				}
 				else
 				{
-					wr("[Impossible de prendre les robots a ce tour, dommage!]");
+					msg = "[Impossible de prendre les robots a ce tour, dommage!]\n";
+					printSlowly(msg, *z_data);
 				}
 			}
 		}
@@ -442,21 +514,27 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 				{
 					if(this->z_joueur_intercepteurs)
 					{
-						wr("[Impossible de prendre les vaisseaux, ils sont deja en vol!]\n");
+						msg = "[Impossible de prendre les vaisseaux, ils sont deja en vol!]\n";
+						printSlowly(msg, *z_data);
 					}
 					else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 					{
+						msg = "[Vous vous envolez avec les robots dans l'espace!!]\n";
+						printSlowly(msg, *z_data);
 						this->getz_joueur_haut(z_joueur_playing)->attaqueIntercepteur(*z_data);
 						this->setz_joueur_intercepteurs(this->getz_joueur_haut(z_joueur_playing));
 						this->removez_joueurs_haut(z_joueur_playing);
-						wr("[Vous vous envolez avec les robots dans l'espace!!]");
 					}
 					else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() != BOTS_EVEILLE)
-						wr("[Impossible de prendre les vaisseaux, tu n'as pas de robots operationel avec toi!]\n");
+					{
+						msg = "[Impossible de prendre les vaisseaux, tu n'as pas de robots operationel avec toi!]\n";
+						printSlowly(msg, *z_data);
+					}
 				}
 				else
 				{
-					wr("[Impossible de prendre les vaisseaux a ce tour, dommage!]\n");
+					msg = "[Impossible de prendre les vaisseaux a ce tour, dommage!]\n";
+					printSlowly(msg, *z_data);
 				}
 			}
 		}
@@ -476,38 +554,36 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 				{
 					if (z_roquete_position[1] == 0)
 					{
-						wr("[Lancement de la premiere rocket !]");
+						msg = "[Lancement de la premiere rocket !]\n";
 						z_roquete_position[1] = 1;
 						this->addz_actions_used_ce_tour_bas(ACT_C);
 					}
 					else if (z_roquete_position[2] == 0)
 					{
-						wr("[Lancement de la seconde rocket !]");
+						msg = "[Lancement de la seconde rocket !]\n";
 						z_roquete_position[2] = 1;
 						this->addz_actions_used_ce_tour_bas(ACT_C);
 					}
 					else if (z_roquete_position[3] == 0)
 					{
-						wr("[Lancement de la troisieme rocket !]");
+						msg = "[Lancement de la troisieme rocket !]\n";
 						z_roquete_position[3] = 1;
 						this->addz_actions_used_ce_tour_bas(ACT_C);
 					}
 					else
 					{
-						wr("[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]");
+						msg = "[Toutes les roquetes ont deja ete lancees... pas la peine de s'exciter frere]\n";
 					}
-					std::cout << z_roquete_position[1] << "\n";
-					std::cout << z_roquete_position[2] << "\n";
-					std::cout << z_roquete_position[3] << "\n";
 				}
 				else if (this->action_used_ce_tour_bas(ACT_C))
 				{
-					wr("[Mais coordonnez vous bordel, rocket deja lancee]");
+					msg = "[Mais coordonnez vous bordel, rocket deja lancee]\n";
 				}
 				else if (!this->action_possible_bas(ACT_C))
 				{
-					wr("[Impossible de lancer les roquettes]");
+					msg = "[Impossible de lancer les roquettes]\n";
 				}
+				printSlowly(msg, *z_data);
 			}
 		}
 		if (z_zone == ZONE_RED)//a finaliser il faut ajouter les robots au joueur
@@ -526,28 +602,30 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 						if (this->getz_bots_englues())
 						{
 							this->getz_joueur_bas(z_joueur_playing)->setj_bots(2);
-							wr("[Vous prenez les robots avec vous! Ils sont englues, il faut donc les activer une seconde fois!]");
+							msg = "[Vous prenez les robots avec vous! Ils sont englues, il faut donc les activer une seconde fois!]\n";
 						}
 						else
 						{
 							this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
-							wr("[Vous prenez les robots avec vous! C'est parti pour la baston!]");
+							msg = "[Vous prenez les robots avec vous! C'est parti pour la baston!]\n";
 						}
 						z_bots = false;
 					}
 					else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == 2)
 					{
-						wr("[Vous reactivez les robots qui vous accompagnent!]");
+						msg = "[Vous reactivez les robots qui vous accompagnent!]\n";
 						this->getz_joueur_bas(z_joueur_playing)->setj_bots(1);
 					}
 					else
 					{
-						wr("[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]");
+						msg = "[Faites un effort, la vous allez tous mourir... Les robots accompagnent deja un autre joueur.]\n";
 					}
+					printSlowly(msg, *z_data);
 				}
 				else
 				{
-					wr("[Impossible de prendre les robots a ce tour, dommage!]");
+					msg = "[Impossible de prendre les robots a ce tour, dommage!]\n";
+					printSlowly(msg, *z_data);
 				}
 			}
 		}
@@ -560,7 +638,8 @@ void zone::actionC()//attention la maintenance on ne peut la faire qu'une fois d
 			}
 			else
 			{
-				wr("[Vous effectuez une observation de vos alentours, en toute detente.]\n");
+				msg = "[Vous effectuez une observation de vos alentours, en toute detente.]\n";
+				printSlowly(msg, *z_data);
 			}
 		}
 	}
@@ -572,12 +651,14 @@ zone::~zone() {}
 
 void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois du tour 1 a 3, puis une fois du tour 4 a 6  et une fois du tour 7 a 9 -> a actualiser dans getz_actions_haut donc fin tour 3, 6 et 9 il faudra la reset des actions possibles.
 {
+	std::string msg;
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
 		if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			wr("[Vous effectuez l'action Robot !]");
+			msg = "[Vous effectuez l'action Robot !]\n";
+			printSlowly(msg, *z_data);
 			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 1);
 			if(menaceInt)
 			{
@@ -586,18 +667,29 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 					this->getz_joueur_haut(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
-				wr("[Il n'y a aucun ennemi a proximite... flute.]");
+			{
+				msg = "[Il n'y a aucun ennemi a proximite... flute.]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 		else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]\n";
+			printSlowly(msg, *z_data);
+		}
 		else
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]\n";
+			printSlowly(msg, *z_data);
+		}
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
 		if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			wr("[Vous effectuez l'action Robot !]");
+			msg = "[Vous effectuez l'action Robot !]\n";
+			printSlowly(msg, *z_data);
+
 			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 0);
 			if(menaceInt)
 			{
@@ -606,67 +698,106 @@ void zone::actionR()//attention la maintenance on ne peut la faire qu'une fois d
 					this->getz_joueur_bas(z_joueur_playing)->setj_bots(BOTS_INACTIF);
 			}
 			else
-				wr("[Il n'y a aucun ennemi a proximite... flute.]");
+			{
+				msg = "[Il n'y a aucun ennemi a proximite... flute.]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 		else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]\n";
+			printSlowly(msg, *z_data);
+		}
 		else
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]\n";
+			printSlowly(msg, *z_data);
+		}
 	}
 	else if(z_joueur_intercepteurs)
 	{
-		wr("[Vous restez avec les robots dans l'espace!!]");
+		msg = "[Vous restez avec les robots dans l'espace!!]\n";
+			printSlowly(msg, *z_data);
 		z_joueur_intercepteurs->attaqueIntercepteur(*z_data);
 	}
 }
 
 void zone::actionRHeros()//attention la maintenance on ne peut la faire qu'une fois du tour 1 a 3, puis une fois du tour 4 a 6  et une fois du tour 7 a 9 -> a actualiser dans getz_actions_haut donc fin tour 3, 6 et 9 il faudra la reset des actions possibles.
 {
-	wr("[ACTION HEROIQUE !!!]");
+	std::string msg;
+	msg = "[ACTION HEROIQUE !!!]\n";
+	printSlowly(msg, *z_data);
 	menace_interne* menaceInt = NULL;
 	if (this->getz_joueur_haut(z_joueur_playing))
 	{
 		if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			wr("[Vous effectuez l'action Robot !]");
+			msg = "[Vous effectuez l'action Robot !]\n";
+			printSlowly(msg, *z_data);
 			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 1);
 			if(menaceInt)
 			{
 				menaceInt->getDamageHero(this->getz_joueur_haut(z_joueur_playing));
 				if(menaceInt->get_m_Ripost())
-					wr("[La menace riposte mais vous etes un Hero et cette riposte ne vous attend pas!!]");
+				{
+					msg = "[La menace riposte mais vous etes un Hero et cette riposte ne vous attend pas!!]\n";
+					printSlowly(msg, *z_data);
+				}
 			}
 			else
-				wr("[Il n'y a aucun ennemi a proximite... flute.]");
+			{
+				msg = "[Il n'y a aucun ennemi a proximite... flute.]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 		else if (this->getz_joueur_haut(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]\n";
+			printSlowly(msg, *z_data);
+		}
 		else
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]\n";
+			printSlowly(msg, *z_data);
+		}
 	}
 	else if (this->getz_joueur_bas(z_joueur_playing))
 	{
 		if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_EVEILLE)
 		{
-			wr("[Vous effectuez l'action Robot !]");
+			msg = "[Vous effectuez l'action Robot !]\n";
+			printSlowly(msg, *z_data);
 			menaceInt = checkIfMenaceInternAttrackAction(ACT_R, z_zone, 0);
 			if(menaceInt)
 			{
 				menaceInt->getDamageHero(this->getz_joueur_bas(z_joueur_playing));
 				if(menaceInt->get_m_Ripost())
-					wr("[La menace riposte mais vous etes un Hero et cette riposte ne vous attend pas!!]");
+				{
+					msg = "[La menace riposte mais vous etes un Hero et cette riposte ne vous attend pas!!]\n";
+					printSlowly(msg, *z_data);
+				}
 			}
 			else
-				wr("[Il n'y a aucun ennemi a proximite... flute.]");
+			{
+				msg = "[Il n'y a aucun ennemi a proximite... flute.]\n";
+				printSlowly(msg, *z_data);
+			}
 		}
 		else if (this->getz_joueur_bas(z_joueur_playing)->getj_bots() == BOTS_INACTIF)
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vos robots sont inactifs...]\n";
+			printSlowly(msg, *z_data);
+		}
 		else
-			wr("[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]");
+		{
+			msg = "[Vous effectuez l'action Robot ! Malheureusement, vous n'avez pas de robots avec vous, dommage!]\n";
+			printSlowly(msg, *z_data);
+		}
 	}
 	else if(z_joueur_intercepteurs)
 	{
-		wr("[Vous restez avec les robots dans l'espace!!]");
+		msg = "[Vous restez avec les robots dans l'espace!!]\n";
+		printSlowly(msg, *z_data);
 		z_joueur_intercepteurs->attaqueIntercepteurHero(*z_data);
 	}
 }

@@ -63,7 +63,6 @@ void mouvement_menaces(t_data &data)
                 (*it)->setm_position(positionAfter); // update position
                 std::cout << std::endl;
                 end_color();
-                //std::cout << (*it)->get_m_name() << " a croise X >>> " << (*it)->checkNombreInputCrossed('X') << std::endl;
                 j = 1;
             }
             if (!(*it)->get_m_revele())

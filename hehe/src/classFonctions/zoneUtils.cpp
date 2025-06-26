@@ -62,13 +62,15 @@ void zone::assomerjoueursZoneHaut()
 
 void zone::assomerjoueursZoneHautRobotsActifs()
 {
+	std::string msg;
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_haut.begin(); it != z_joueurs_haut.end(); it++)
 	{
 		if ((*it)->getj_bots() == 1)
 		{
 			(*it)->setcarteAssome(z_temps);
-			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
+			printSlowly(msg, *z_data);
 		}
 	}
 	if (z_zone == ZONE_RED)
@@ -76,7 +78,8 @@ void zone::assomerjoueursZoneHautRobotsActifs()
 		if (z_joueur_intercepteurs)
 		{
 			z_joueur_intercepteurs->setcarteAssome(z_temps);
-			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
+			printSlowly(msg, *z_data);
 		}
 	}
 }
@@ -92,13 +95,15 @@ void zone::assomerjoueursZoneBas()
 
 void zone::assomerjoueursZoneBasRobotsActifs()
 {
+	std::string msg;
 	std::vector<joueur*>::iterator it;
 	for (it = z_joueurs_bas.begin(); it != z_joueurs_bas.end(); it++)
 	{
 		if ((*it)->getj_bots() == 1)
 		{
 			(*it)->setcarteAssome(z_temps);
-			std::cout << "[Le joueur " << (*it)->getj_nom() << " est assome]\n";
+			msg = "[Le joueur " + (*it)->getj_nom() + " est assome]\n";
+			printSlowly(msg, *z_data);
 		}
 	}
 }
@@ -147,67 +152,83 @@ void zone::retarderactionZone()
 
 void zone::etatdesdegats()
 {
+	std::string msg;
 	z_degats_recu++;
 	if(z_degats_recu > 6)
 	{
-		std::cout << "[///////!!!!!\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]";
+		msg = "[///////!!!!!\\\\\\\\\\\\\\ Le vaisseau a recu trop de degats, il est detruit !]";
+		mission_failed(msg, *z_data);
+		return ;
 	}
 	int degat = z_ordre_degats[z_degats_recu];
 	if (degat == 1)
 	{
-		std::cout << "[Le vaisseau a recu des degats mais ils sont negligeables!]\n";
+		msg = "[Le vaisseau a recu des degats mais ils sont negligeables!]\n";
+		printSlowly(msg, *z_data);
 	}
 	else if (degat == 2)
 	{
-		std::cout << "[Le vaisseau a recu des degats et l'ascenseur de la " << z_nom_zone << " est endommage !]\n";
+		msg = "[Le vaisseau a recu des degats et l'ascenseur de la " + z_nom_zone + " est endommage !]\n";
+		printSlowly(msg, *z_data);
 		this->removez_actions_bas(DIR_A);
 		this->removez_actions_haut(DIR_A);
 	}
 	else if (degat == 3)
 	{
-		std::cout << "[Le vaisseau a recu des degats et le canon lazer lourd de la " << z_nom_zone << " est endommage !]\n";
+		msg = "[Le vaisseau a recu des degats et le canon lazer lourd de la " + z_nom_zone + " est endommage !]\n";
+		printSlowly(msg, *z_data);
 		z_cannon_haut->setpuissance_cannon(z_cannon_haut->getpuissance_cannon() - 1);
-		std::cout << "------> [Ce canon lourd a desormais une puissance de " << z_cannon_haut->getpuissance_cannon() << " !]\n";
+		msg = "------> [Ce canon lourd a desormais une puissance de " + std::to_string(z_cannon_haut->getpuissance_cannon()) + " !]\n";
+		printSlowly(msg, *z_data);
 	}
 	else if (degat == 4)
 	{
-		std::cout << "[Le vaisseau a recu des degats et le reacteur de la " << z_nom_zone << " est endommage !]\n";
+		msg = "[Le vaisseau a recu des degats et le reacteur de la " + z_nom_zone + " est endommage !]\n";
+		printSlowly(msg, *z_data);
 		z_max_reacteur--;
 		if (z_reacteur > z_max_reacteur)
 		{
 			z_reacteur = z_max_reacteur;
 		}
-		std::cout << "------> [Ce reacteur a desormais une capacite de " << z_max_reacteur << " !]\n";
+		msg = "------> [Ce reacteur a desormais une capacite de " + std::to_string(z_max_reacteur) + " !]\n";
+		printSlowly(msg, *z_data);
 	}
 	else if (degat == 5)
 	{
-		std::cout << "[Le vaisseau a recu des degats et le bouclier de la " << z_nom_zone << " est endommage !]\n";
+		msg = "[Le vaisseau a recu des degats et le bouclier de la " + z_nom_zone + " est endommage !]\n";
+		printSlowly(msg, *z_data);
 		z_max_energie_bouclier--;
 		if (z_bouclier > z_max_energie_bouclier)
 		{
 			z_bouclier = z_max_energie_bouclier;
 		}
-		std::cout << "------> [Ce bouclier a desormais une capacite de " << z_max_energie_bouclier << " !]\n";
+		msg = "------> [Ce bouclier a desormais une capacite de " + std::to_string(z_max_energie_bouclier) + " !]\n";
+		printSlowly(msg, *z_data);
 	}
-	else
+	else if (degat == 6)
 	{
 		if (z_zone == ZONE_WHITE)
 		{
-			std::cout << "[Le vaisseau a recu des degats et le canon a impulsion de la " << z_nom_zone << " est endommage !]\n";
+			msg = "[Le vaisseau a recu des degats et le canon a impulsion de la " + z_nom_zone + " est endommage !]\n";
+			printSlowly(msg, *z_data);
 			z_cannon_bas->setportee_cannon(z_cannon_bas->getportee_cannon() - 5);
-			std::cout << "------> [Ce canon leger a desormais une portee de " << z_cannon_bas->getportee_cannon() << " !]\n";
+			msg = "------> [Ce canon leger a desormais une portee de " + std::to_string(z_cannon_bas->getportee_cannon()) + " !]\n";
+			printSlowly(msg, *z_data);
 		}
 		else
 		{
-			std::cout << "[Le vaisseau a recu des degats et le canon laser leger de la " << z_nom_zone << " est endommage !]\n";
+			msg = "[Le vaisseau a recu des degats et le canon laser leger de la " + z_nom_zone + " est endommage !]\n";
+			printSlowly(msg, *z_data);
 			z_cannon_bas->setpuissance_cannon(z_cannon_bas->getpuissance_cannon() - 1);
-			std::cout << "------> [Ce canon leger a desormais une puissance de " << z_cannon_bas->getpuissance_cannon() << " !]\n";
+			msg = "------> [Ce canon leger a desormais une puissance de " + std::to_string(z_cannon_bas->getpuissance_cannon()) + " !]\n";
+			printSlowly(msg, *z_data);
 		}
 	}
 }
 
 void zone::getdegats(int input)
 {
+	int degats_absorbes(0);
 	if (z_zone == 1)
         std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
     else if (z_zone == 2)
@@ -218,14 +239,26 @@ void zone::getdegats(int input)
 	}
 	while (z_bouclier > 0 && input > 0)
 	{
-		z_bouclier --;
+		degats_absorbes++;
+		z_bouclier--;
 		input--;
 	}
-	if (z_degats_doubles)
+	if (z_degats_doubles && input)
 	{
 		std::string msg = "[Attention, les degats recus sont doubles!]\n";
 		printSlowly(msg, *z_data);
 		input = input * 2;
+	}
+	else if (!input)
+	{
+		std::string msg = "[Le bouclier de la zone rouge absorbe tous les degats!]\n";
+		msg += "[Bouclier restant : " + std::to_string(z_bouclier) + "]\n";
+		printSlowly(msg, *z_data);
+	}
+	else if (input && degats_absorbes)
+	{
+		std::string msg = "[Le bouclier de la zone rouge absorbe" + std::to_string(degats_absorbes) + " degat(s)!]\n";
+		printSlowly(msg, *z_data);
 	}
 	while (input > 0)
 	{
@@ -237,11 +270,20 @@ void zone::getdegats(int input)
 
 void zone::getdegatsIgnoreBouclier(int input)
 {
+	if (z_zone == 1)
+        std::cout << "\033[1;31m[DEGATS ZONE ROUGE]\n";
+    else if (z_zone == 2)
+        std::cout << "\033[1;37m[DEGATS ZONE BLANCHE]\n";
+    else if (z_zone == 3)
+	{
+        std::cout << "\033[1;36m[DEGATS ZONE BLEUE]\n";
+	}
 	while (input > 0)
 	{
 		etatdesdegats();
 		input--;
 	}
+	end_color();
 }
 
 menace_interne* zone::is_menace_fissure()
@@ -404,7 +446,7 @@ void zone::printZone()
 	wr("Zone : " + z_nom_zone);
 	std::cout << "Temps : " << z_temps << std::endl;
 	std::cout << "Bouclier : " << z_bouclier << std::endl;
-	std::cout << "Reacteur : " << z_reacteur << "/ " << z_max_reacteur << std::endl;
+	std::cout << "Reacteur : " << z_reacteur << "/ " << std::to_string(z_max_reacteur) << std::endl;
 	std::cout << "Capsule d'energie : " << z_capsule_energie << std::endl;
 	wr("Joueur en jeu : " + z_joueur_playing);
 	wr("chemin_menace : " + z_chemin_menace->get_ch_nom());
@@ -468,7 +510,6 @@ std::string zone::stationWithMostPlayer(bool m_position_haut, int zone)
 		else
 			return("Up/Down");
 	}
-	wr("huum something went wrong I think\n");
 	return("FUCK");
 }
 
@@ -477,7 +518,8 @@ void zone::wrongActionInSpace()
 {
 	if(z_zone == ZONE_RED)
 	{
-		wr("[Vous revenez dans le vaisseau et vos attaques sont decalees!!]");
+		std::string msg = "[Vous revenez dans le vaisseau et vos attaques sont decalees!!]\n";
+		printSlowly(msg, *z_data);
 		this->addz_joueurs_haut(z_joueur_intercepteurs);
 		this->removez_joueur_intercepteurs();
 		this->getz_joueur_haut(z_joueur_playing)->passerTour(this->getz_temps() - 1);
@@ -542,10 +584,10 @@ bool zone::action_possible_bas(int input)
 void zone::printz_action_ce_tour_bas()
 {
 	std::vector<int>::iterator it;
-	std::cout << "z_action_USED_BAS : \n";
+	std::cout << "z_action_USED_bas : \n";
 	for (it = z_actions_used_ce_tour_bas.begin(); it != z_actions_used_ce_tour_bas.end(); it++)
 	{
 		std::cout << " / " << (*it);
 	}
-	std::cout << "\n fin z_action_USED_BAS : \n";
+	std::cout << "\n fin z_action_USED_bas : \n";
 }

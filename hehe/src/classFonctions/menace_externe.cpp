@@ -302,6 +302,7 @@ void menace_externe::send_announcement_message_externe()
     start_color(m_zone);
     std::string msg = "[Attention, la menace " + m_name + " vient d'arriver !]\n";
     printSlowly(msg, *m_zone->getz_data());
-    std::cout << "[Difficulté : " << m_difficulte << ", Vitesse : " << m_vitesse << ", Vie : " << m_vie << ", Bouclier : " << m_bouclier << "]" << std::endl;
+    msg = "[Difficulté : " + std::to_string(m_difficulte) + ", Vitesse : " + std::to_string(m_vitesse) + ", Vie : " + std::to_string(m_vie) + ", Bouclier : " + std::to_string(m_bouclier) + "]\n";
+    printSlowly(msg, *m_zone->getz_data());
     end_color();
 };

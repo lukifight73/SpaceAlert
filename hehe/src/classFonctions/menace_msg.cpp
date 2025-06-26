@@ -15,7 +15,7 @@ void menace::messageMenaceZone(int degats, zone *zone)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack);
+    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack) + "\n";
     printSlowly(msg, *m_zone->getz_data());
     if (zone->getz_zone() == 1)
         std::cout << "\033[1;31m";
@@ -37,7 +37,7 @@ void menace::messageAttaqueMenace(int degats)
         std::cout << "\033[1;37m";
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
-    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack);
+    std::string msg = "[La menace " + m_name + " lance une attaque de puissance " + std::to_string(degats + m_buff_attack) + "\n";
     printSlowly(msg, *m_zone->getz_data());
     end_color();
 }
@@ -53,7 +53,7 @@ void menace::messageBufferMenace(std::string &string, int degats)
     else if (m_zone->getz_zone() == 3)
         std::cout << "\033[1;36m";
     if (degats < 0)
-        msg = "[" + string + "!]\n";
+        msg = string + "\n";
     else
         msg = string + std::to_string(degats) + "\n";
     printSlowly(msg, *m_zone->getz_data());

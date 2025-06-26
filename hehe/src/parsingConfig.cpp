@@ -432,5 +432,6 @@ void parsing_config(t_data &data, char* av)
     }
 	file.close();
     place_joueurs(data);
-    std::cout << "Configuration parsing complete." << std::endl;
+    std::string msg = "Configuration parsing complete.\n";
+    printSlowly(msg, data);
 }

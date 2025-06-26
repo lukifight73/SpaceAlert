@@ -128,15 +128,17 @@ void cannon::attaque_canon(zone *zone)
 	if(!menaceCible) // Si la menace n'est pas dans la portée du canon
 	{
 		wait();
-		std::cout << "[" + tireur << " tire avec le " + nom_cannon + "]\n";
-		std::cout << "[Pas de menace a portée du " << nom_cannon << " en " << zone->getz_nom_zone() << ". Dommage!]\n";
+		std::string msg = "[" + tireur + " tire avec le " + nom_cannon + "]\n";
+		msg += "[Pas de menace a portée du " + nom_cannon + " en " + zone->getz_nom_zone() + ". Dommage!]\n";
+		printSlowly(msg, *zone->getz_data());
 		return;
 	}
 	if(!MenaceIsinCannonRange(menaceCible)) // Si la menace n'est pas dans la portée du canon
 	{
 		wait();
-		std::cout << "[" + tireur << " tire avec le " + nom_cannon + "]\n";
-		std::cout << "[La menace " << menaceCible->get_m_name() << " en " <<  zone->getz_nom_zone() << " n'est pas dans la portée du " << nom_cannon << ".]\n";
+		std::string msg = "[" + tireur + " tire avec le " + nom_cannon + "]\n";
+		msg = "[La menace " + menaceCible->get_m_name() + " en " +  zone->getz_nom_zone() + " n'est pas dans la portée du " + nom_cannon + ".]\n";
+		printSlowly(msg, *zone->getz_data());
 		return;
 	}
 	if((menaceCible->get_m_name() == "Maelstrom" || menaceCible->get_m_name() == "Nuage d'energie") && this->gettype_cannon() == CANON_IMPULSION)

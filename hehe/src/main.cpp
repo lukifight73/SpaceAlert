@@ -271,7 +271,7 @@ std::string get_zone_joueur_str(t_data &data, joueur *j)
 		{
 			return ("la station basse " + data.zones[i]->getz_nom_zone());
 		}
-		else if (data.zones[i]->getz_joueur_intercepteurs())
+		else if (data.zones[i]->getz_joueur_intercepteurs() && data.zones[i]->getz_joueur_intercepteurs()->getj_nom() == j->getj_nom())
 		{
 			return ("les vaisseaux intercepteurs");
 		}
@@ -334,7 +334,7 @@ void	play_game(t_data &data)
 		//std::cout << "\n\n----------------------------- INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
 		//printInfoMenace(data);
 		//std::cout << "----------------------------- FIN INFORMATIONS MENACE APRES MVMT-----------------------------" << std::endl;
-		//check_maintenance(data);
+		check_maintenance(data);
 		//print_data(data);
 		retarder_joueurs(data);
 		setTemps(data);
@@ -356,7 +356,6 @@ int main(int ac, char* *av)
 	parsing_config(data, av[1]);
 	//chose_ton_blase(data);
 	//init_carte_joueur_test(data);
-	print_data(data);
 	// data.VoixAlert->announce("===IL SE PASSE UN TRUC DE OUF!!!!");
 	// data.VoixRobot1->announce("Je suis le test pour la voix des Joueurs");
 	//data.VoixRobot2->announce("et moi je suis le test pour la voix des Menace");

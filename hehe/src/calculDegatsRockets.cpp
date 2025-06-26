@@ -173,10 +173,16 @@ menace_externe *getMenaceNonNull(menace_externe* menace1, menace_externe* menace
 void cumuleDegatsRocket(menace_externe *menace)
 {
 	if(menace->get_m_vie() <= 0)
-		std::cout << "[La rocket ne fait rien, " << menace->get_m_name() << " est deja morte.]\n";
-	std::string degats_str ="[La rocket inflige 3 points de dégâts à la menace " + menace->get_m_name() + ".]\n";
-	menace->add_m_degats_str(degats_str);
-	menace->add_m_degats(3);
+    {
+		std::string degats_str = "[La rocket ne fait rien, " + menace->get_m_name() + " est deja morte.]\n";
+        printSlowly(degats_str, *menace->get_m_zone()->getz_data());
+    }
+    else
+	{
+        std::string degats_str = "[La rocket inflige 3 points de dégâts à la menace " + menace->get_m_name() + ".]\n";
+	    menace->add_m_degats_str(degats_str);
+	    menace->add_m_degats(3);
+    }
 }
 
 bool menace_attract_rocket(t_data &data, int rocketNumber)
@@ -225,7 +231,8 @@ bool menace_attract_rocket(t_data &data, int rocketNumber)
         }
     }
     data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4);
-    std::cout << "[La roquette " << rocketNumber << " a été attirée par " << menaceAttract->get_m_name() << " !]\n";
+    std::string msg = "[La roquette " + std::to_string(rocketNumber) + " a été attirée par " + menaceAttract->get_m_name() + " !]\n";
+    printSlowly(msg, data);
     if (menaceAttract->get_m_vulnerable_roquette())
     {
         cumuleDegatsRocket(menaceAttract);
@@ -237,14 +244,15 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
 {
     std::map<int, int> rocketMap = data.zones[ZONE_BLUE]->getz_roquete_position();
 
+    std::string msg;
     if (menace_attract_rocket(data, rocketNumber))
         return ;
     menace_externe *menaceProche = getMenaceLaPlusProcheTouteZones(data);
-    //std::cout << menaceProche->get_m_name() << " est la menace la plus proche.\n";
     if (menaceProche && menaceProche->get_m_position() <= 10)
     {
         wait();
-        std::cout << "[La roquette " << rocketNumber << " a touché " << menaceProche->get_m_name() << " !]\n";
+        msg = "[La roquette " + std::to_string(rocketNumber) + " a touché " + menaceProche->get_m_name() + " !]\n";
+        printSlowly(msg, data);
         cumuleDegatsRocket(menaceProche);
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 4); // Set the rocket position to 4 to indicate it has hit a target
     }
@@ -252,7 +260,8 @@ void checkMenaceHitByRocket(t_data &data, int rocketNumber)
     {
         wait();
         data.zones[ZONE_BLUE]->setz_roquete_position(rocketNumber, 0); // Reset the rocket position
-        std::cout << "[La roquette n'a touché aucune menace, elle revient a la base.]\n";
+        msg = "[La roquette n'a touché aucune menace, elle revient a la base.]\n";
+        printSlowly(msg, data);
     }
 }
 
@@ -267,7 +276,8 @@ void rocketActions(t_data &data)
         {
             wait();
             data.zones[ZONE_BLUE]->setz_roquete_position(rocketNum, 2);
-            std::cout << "[La roquette numero " << rocketNum << " a été lancée !]\n";
+            std::string msg = "[La roquette numero " + std::to_string(rocketNum) + " a été lancée !]\n";
+            printSlowly(msg, data);
         }
         else if (rocketMap[rocketNum] == 2)
         {
@@ -276,48 +286,3 @@ void rocketActions(t_data &data)
         rocketNum++;
     }
 }
-
-// void impactDegatsTotaux(t_data &data)
-// {
-//     int numZone(1);
-//     while (numZone < 4)
-//     {
-//         std::vector<menace*> tmp = data.zones[numZone]->getz_chemin_menace()->get_menaces();
-//         for (std::vector<menace*>::iterator it = tmp.begin(); it != tmp.end(); ++it)
-//         {
-//             int degatsRecus = (*it)->get_m_degatsRecus(); // tous les degats recu jusqu'ici
-//             if (degatsRecus > 0)
-//             {
-//                 if ((*it)->get_m_immunity())
-//                 {
-//                     (*it)->set_m_immunity(false);
-//                     continue;
-//                 }
-//                 int newLife((*it)->get_m_vie());
-//                 if((*it)->get_m_bouclier() - degatsRecus >= 0)
-//                 {
-//                     (*it)->set_m_etat_bouclier((*it)->get_m_etat_bouclier() - degatsRecus);
-//                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus << " points de dégâts, mais son bouclier a absorbé tous les dégâts.]\n";
-//                 }
-//                 else
-//                 {
-//                     newLife = (*it)->get_m_vie() - degatsRecus + (*it)->get_m_etat_bouclier();
-//                     (*it)->set_m_etat_bouclier(0); // Bouclier épuisé
-//                     std::cout << "[La menace " << (*it)->get_m_name() << " a reçu " << degatsRecus - (*it)->get_m_bouclier() << " points de dégâts.]\n";
-//                 }
-//                 if (newLife < 0)
-//                 {
-//                     newLife = 0; // Ensure life does not go below zero
-//                 }
-//                 (*it)->set_m_vie(newLife);
-//                 (*it)->set_m_degatsRecus(0); // Reset the damage received after applying it
-//                 if ((*it)->get_m_vie() <= 0)
-//                 {
-//                     (*it)->set_m_presence(false);
-//                     (*it)->actionQuandDetruit();
-//                 }
-//             }
-//         }
-//         numZone++;
-//     }
-// }

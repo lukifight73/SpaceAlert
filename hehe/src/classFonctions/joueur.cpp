@@ -9,6 +9,7 @@ joueur::joueur()
 	j_state = ACTIF;
     j_bots = NO_BOTS;
     j_zone = ZONE_WHITE;
+    j_jump_tour = false;
     j_capitaine = false;
 }
 
@@ -16,6 +17,7 @@ joueur::joueur(std::string nom)
 {
     j_nom = nom;
 	j_state = ACTIF;
+    j_jump_tour = false;
     j_bots = NO_BOTS;
     j_zone = ZONE_WHITE;
 }
@@ -112,6 +114,8 @@ void joueur::setcarteInactif(int input)
 
 void joueur::setcarteAssome(int input)
 {
+    std::string msg = "[" + j_nom + " est assome jusqu'a la fin du voyage...]\n";
+    printSlowly(msg, *j_data);
     int i = 12;
     while (i > input + 1)
     {
@@ -168,9 +172,8 @@ void joueur::attaqueIntercepteur(t_data &data)
     if (menace_fissure)
     {
         std::string degats_str = "[Les intercepteurs attaquent la menace interne " + menace_fissure->get_m_name() + " .]\n";
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         menace_fissure->getDamage(this);
-        std::cout << "fdfdfd\n";
         return ;
     }
     std::vector<menace_externe *> menace_intercepteur_blue = data.zones[ZONE_BLUE]->getz_chemin_menace()->targeted_intercepteur_menace();
@@ -187,7 +190,7 @@ void joueur::attaqueIntercepteur(t_data &data)
     if (!nb_menace)
     {
         degats_str = "[Les intercepteurs font pas de degats, il n'y a pas de menaces a distance.]\n";
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         return ;
     }
     if (degats == 3 && menace_intercepteur[0]->get_m_name() == "Behemoth")
@@ -197,7 +200,7 @@ void joueur::attaqueIntercepteur(t_data &data)
 	    menace_intercepteur[0]->add_m_degats_str(degats_str);
         degats_str = "[Les intercepteurs attaquent uniquement la menace " + menace_intercepteur[0]->get_m_name() + " qui assome le pilote et desactive ses robots.]\n";
         this->setcarteAssome(data.tour);
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         return ;
     }
     std::vector<menace_externe *>::iterator it;
@@ -215,6 +218,12 @@ void joueur::getcarteTour(int tour)
     if (cartes[tour].getc_action() == ASSOME || cartes[tour].getc_action() == INACTIF)
     {
         printSlowly("Vous ne pouvez pas jouer ce tour...", *j_data);
+        std::string input;
+        std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
+    }
+    else if (cartes[tour].getc_action() != TODO)
+    {
+        printSlowly("Votre carte a deja ete joue pour ce tour...", *j_data);
         std::string input;
         std::getline(std::cin, input);  // attend que l'utilisateur appuie sur Entrée
     }
@@ -240,9 +249,8 @@ void joueur::attaqueIntercepteurHero(t_data &data)
     if (menace_fissure)
     {
         std::string degats_str = "[Les intercepteurs attaquent la menace interne " + menace_fissure->get_m_name() + " .]\n";
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         menace_fissure->getDamageHero(this);
-        std::cout << "fdfdfd\n";
         return ;
     }
     std::vector<menace_externe *> menace_intercepteur_blue = data.zones[ZONE_BLUE]->getz_chemin_menace()->targeted_intercepteur_menace();
@@ -259,7 +267,7 @@ void joueur::attaqueIntercepteurHero(t_data &data)
     if (!nb_menace)
     {
         degats_str = "[Les intercepteurs font pas de degats, il n'y a pas de menaces a distance.]\n";
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         return ;
     }
     if (degats == 4 && menace_intercepteur[0]->get_m_name() == "Behemoth")
@@ -269,7 +277,7 @@ void joueur::attaqueIntercepteurHero(t_data &data)
 	    menace_intercepteur[0]->add_m_degats_str(degats_str);
         degats_str = "[Les intercepteurs attaquent uniquement la menace " + menace_intercepteur[0]->get_m_name() + " qui assome le pilote et desactive ses robots.]\n";
         this->setcarteAssome(data.tour);
-        std::cout << degats_str;
+        printSlowly(degats_str, *j_data);
         return ;
     }
     std::vector<menace_externe *>::iterator it;
