@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accueil du Jeu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #111, #000);
+      background-image: url('Photos/fond_etoile_hyperspace.jpg'); /* à remplacer par ton image */
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      user-select: none;
+    }
+
+    header {
+      padding: 2.5rem 1rem;
+      text-align: center;
+      text-shadow: 0 0 8px #ff3e00;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 0.8rem;
+      color: #ff3e00;
+      text-shadow: 0 0 15px #ff5300;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ff6f2d;
+      font-weight: 600;
+      text-shadow: 0 0 6px #ff6f2d;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      background: rgba(30, 0, 0, 0.7);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 0 20px #ff3e00;
+    }
+
+    h2 {
+      color: #ff3e00;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px #ff5300;
+    }
+
+    .btn-download,
+    .btn-audio,
+    .btn-zbeul {
+      display: inline-block;
+      padding: 1rem 2.2rem;
+      margin-top: 1rem;
+      background-color: #cc3300;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1.15rem;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 0 15px #ff4400;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .btn-download:hover,
+    .btn-audio:hover {
+      background: linear-gradient(45deg, #ff3e00, #cc2200);
+      box-shadow: 0 0 25px #ff5722;
+    }
+
+    .btn-zbeul {
+      background-color: #b22222; /* rouge tirant vers bordeaux */
+      margin-left: 1rem;
+      box-shadow: 0 0 15px #b22222;
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    .btn-zbeul:hover {
+      background: linear-gradient(45deg, #b22222, #7a0a0a);
+      box-shadow: 0 0 30px #ff2a00;
+    }
+
+    .audio-player {
+      background: #220400;
+      border: 1px solid #660f00;
+      border-radius: 12px;
+      margin: 1.3rem 0;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 0 12px #cc3300;
+      user-select: none;
+    }
+
+    .audio-player p {
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+      color: #ff5c27;
+      text-shadow: 0 0 8px #ff6f2d;
+      user-select: text;
+    }
+
+    audio {
+      width: 100%;
+      outline: none;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #ff4400;
+      background: #330a00;
+    }
+
+  </style>
+  <script>
+    function downloadFile(filePath) {
+      const link = document.createElement('a');
+      link.href = filePath;
+      link.download = '';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function loadAudio(id, src) {
+      const container = document.getElementById(id);
+      const audio = document.createElement('audio');
+      audio.controls = true;
+
+      const source = document.createElement('source');
+      source.src = src;
+      source.type = 'audio/mpeg';
+
+      audio.appendChild(source);
+      container.innerHTML = '';
+      container.appendChild(audio);
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Bienvenue dans le Monde du Jeu</h1>
+    <p>Explorez, apprenez, écoutez et entrez dans l'univers du jeu.</p>
+  </header>
+
+  <div class="section">
+    <h2>Télécharger les Règles</h2>
+    <button class="btn-download" onclick="downloadFile('Manuel/Regles.pdf')">Télécharger les Règles</button>
+  </div>
+
+  <div class="section">
+    <h2>Manuel du Débutant</h2>
+    <button class="btn-download" onclick="downloadFile('Manuel/Manuel.pdf')">Télécharger le Manuel</button>
+  </div>
+
+  <div class="section">
+    <h2>Écouter les Audios</h2>
+
+    <!-- Génère 8 audios dynamiquement -->
+    <div class="audio-player">
+      <p>Audio 1</p>
+      <div id="audio1"></div>
+      <button class="btn-audio" onclick="loadAudio('audio1', 'Audio/audio1.mp3')">Charger Audio 1</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission1.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 2</p>
+      <div id="audio2"></div>
+      <button class="btn-audio" onclick="loadAudio('audio2', 'Audio/audio2.mp3')">Charger Audio 2</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission2.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 3</p>
+      <div id="audio3"></div>
+      <button class="btn-audio" onclick="loadAudio('audio3', 'Audio/audio3.mp3')">Charger Audio 3</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission3.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 4</p>
+      <div id="audio4"></div>
+      <button class="btn-audio" onclick="loadAudio('audio4', 'Audio/audio4.mp3')">Charger Audio 4</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission4.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 5</p>
+      <div id="audio5"></div>
+      <button class="btn-audio" onclick="loadAudio('audio5', 'Audio/audio5.mp3')">Charger Audio 5</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission5.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 6</p>
+      <div id="audio6"></div>
+      <button class="btn-audio" onclick="loadAudio('audio6', 'Audio/audio6.mp3')">Charger Audio 6</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission6.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 7</p>
+      <div id="audio7"></div>
+      <button class="btn-audio" onclick="loadAudio('audio7', 'Audio/audio7.mp3')">Charger Audio 7</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission7.html'">Space zbeul</button>
+    </div>
+
+    <div class="audio-player">
+      <p>Audio 8</p>
+      <div id="audio8"></div>
+      <button class="btn-audio" onclick="loadAudio('audio8', 'Audio/audio8.mp3')">Charger Audio 8</button>
+      <button class="btn-zbeul" onclick="window.location.href='mission8.html'">Space zbeul
+    </div>
+  </div>
+</body>
+</html>

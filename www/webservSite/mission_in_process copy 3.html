@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intro Space Alert</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: yellow;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 22px;
+      line-height: 1.8;
+      overflow-y: scroll;
+
+      background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 100px 20px 150px 20px; /* Ajoute de l'espace en bas pour le bouton */
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 40px;
+      color: rgb(255, 153, 0);
+    }
+
+    .yellow { color: yellow; }
+    .red    { color: #FF5555; }
+    .blue   { color: #55AAFF; }
+    .green  { color: #55FF99; }
+    .white  { color: white; }
+    .orange { color: #ff9100; }  /* Orange vif standard */
+    .violet { color: #AA55FF; }  /* Violet doux */
+    .rose   { color: #FF88CC; }  /* Rose pastel */
+
+    .btn-next {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+    }
+
+    .btn-next:hover {
+      background-color: #0056b3;
+    }
+
+    /* Nouveau bouton Hub, même style que btn-next mais en haut à gauche */
+    #btnHub {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    #btnHub:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">SPACE ALERT</div>
+    <div class="section yellow"></div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 1]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[Attention, la menace Maelstrom vient d'arriver et est présente en zone bleue!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine hhhhhh     ---									</div><!--Next-->
+    <div class="white">[ATTACK avec le Cannon laser lourd Central !]</div><!--Next-->
+    <div class="white">[Carburant disponible : 2]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     jjjjjjjj     ---									</div><!--Next-->
+    <div class="white">[jjjjjjjj se déplace.]</div><!--Next-->
+    <div class="white">[jjjjjjjj arrive en zone bleue, en haut.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     eeeeee     ---									</div><!--Next-->
+    <div class="white">[eeeeee se déplace.]</div><!--Next-->
+    <div class="white">[eeeeee arrive en zone rouge, en haut.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ffffffff     ---									</div><!--Next-->
+    <div class="white">[ACTION B de ffffffff!!!]</div><!--Next-->
+    <div class="white">[Récuperation de l'énergie du réacteur de la zone blanche pour alimenter le bouclier de la zone zone blanche]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le bouclier de la zone zone blanche : 3]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le réacteur de la zone zone blanche : 0]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ggggggg     ---									</div><!--Next-->
+    <div class="white">[ggggggg prend l'ascenseur pour descendre d'un etage.]</div><!--Next-->
+    <div class="white">[ggggggg arrive en bas, dans la zone blanche.]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="white">[Capitaine hhhhhh tire avec le Cannon laser lourd Central]</div><!--Next-->
+    <div class="white">[Pas de menace a portée du Cannon laser lourd Central en zone blanche. Dommage!]</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[La menace Maelstrom avance de 2 cases et se trouve desormais en position 9.]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 2]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine hhhhhh     ---									</div><!--Next-->
+    <div class="white">[Capitaine hhhhhh fais la maintenance!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     jjjjjjjj     ---									</div><!--Next-->
+    <div class="blue">[ACTION B de jjjjjjjj!!!]</div><!--Next-->
+    <div class="blue">[Récuperation de l'énergie du réacteur de la zone bleue pour alimenter le bouclier de la zone zone bleue]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le bouclier de la zone zone bleue : 2]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le réacteur de la zone zone bleue : 1]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     eeeeee     ---									</div><!--Next-->
+    <div class="red">[eeeeee prend l'ascenseur pour descendre d'un etage.]</div><!--Next-->
+    <div class="red">[eeeeee arrive en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ffffffff     ---									</div><!--Next-->
+    <div class="white">[ffffffff se déplace.]</div><!--Next-->
+    <div class="white">[ffffffff arrive en zone rouge, en haut.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ggggggg     ---									</div><!--Next-->
+    <div class="white">[ggggggg effectue l'action Robot ! Malheureusement, il n'a pas de robots avec lui, dommage!]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[La menace Maelstrom avance de 2 cases et se trouve desormais en position 7.]</div><!--Next-->
+    <div class="blue">[La menace Maelstrom effectue son action X.]</div><!--Next-->
+    <div class="blue">[La menace Maelstrom draine toutes l'energie de chaque bouclier!]</div><!--Next-->
+    <div class="white">[Toutes les zones ont perdu leur bouclier !]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [MAINTENANCE TOUR 2]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="white">[Maintenance de l'ordinateur effectuée pour le tour 2.]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 3]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[Attention, la menace Asteroide mineur vient d'arriver et est présente en zone rouge!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine hhhhhh     ---									</div><!--Next-->
+    <div class="white">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="white">[Capitaine hhhhhh se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     jjjjjjjj     ---									</div><!--Next-->
+    <div class="blue">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="blue">[jjjjjjjj se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     eeeeee     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[eeeeee se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ffffffff     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[ffffffff se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ggggggg     ---									</div><!--Next-->
+    <div class="white">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="white">[ggggggg se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[La menace Asteroide mineur avance de 4 cases et se trouve desormais en position 7.]</div><!--Next-->
+    <div class="red">[La menace Asteroide mineur effectue son action X.]</div><!--Next-->
+    <div class="blue">[La menace Maelstrom avance de 2 cases et se trouve desormais en position 5.]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 4]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="green">[Attention, la menace Revolte des robots de combat vient d'arriver et est presente en station basse zone rouge!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine hhhhhh     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[Capitaine hhhhhh se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     jjjjjjjj     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[jjjjjjjj se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     eeeeee     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[eeeeee se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ffffffff     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[ffffffff se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     ggggggg     ---									</div><!--Next-->
+    <div class="red">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="red">[ggggggg se déplace en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[La menace Asteroide mineur avance de 4 cases et se trouve desormais en position 3.]</div><!--Next-->
+    <div class="blue">[La menace Maelstrom avance de 2 cases et se trouve desormais en position 3.]</div><!--Next-->
+    <div class="green">[La menace interne Revolte des robots de combat avance de 2 cases et se trouve desormais en position 9.]</div><!--Next-->
+    <div class="white"></div><!--Next-->
+  </div><!--STOP-->
+
+  <!-- Bouton Hub en haut à gauche -->
+  <button id="btnHub">Hub</button>
+
+  <!-- Bouton GET vers /tour_suivant -->
+  <a href="/Next_round">
+    <button class="btn-next">Tour Suivant</button>
+  </a>
+
+  <script>
+    document.getElementById("btnHub").addEventListener("click", () => {
+      fetch('/Hub', { method: 'GET' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = "/Hub";
+          } else {
+            alert("Erreur lors de la requête vers /Hub : " + response.status);
+          }
+        })
+        .catch(err => {
+          alert("Erreur réseau ou serveur : " + err.message);
+        });
+    });
+  </script>
+</body>
+</html>

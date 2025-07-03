@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tour Inactif</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('Photos/fond_etoile_hyperspace.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #ff4500;
+      text-shadow: 0 0 10px #ff6f00;
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff4500;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #ff4500, #ff8c00);
+      box-shadow: 0 0 25px #ff8c00;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pas d'action joueur ce tour,<br />tous les joueurs sont inactifs ou assommés.</h1>
+  <form action="/Round_process" method="get">
+    <button type="submit">Passer au tour suivant</button>
+  </form>
+
+</body>
+</html>

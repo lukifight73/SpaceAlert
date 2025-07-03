@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Formulaire de mission</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-image: url('Photos/fond_etoile_hyperspace.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #ff4500;
+      text-shadow: 0 0 8px #ff6f00;
+    }
+
+    form {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 20px;
+      box-shadow: 0 0 15px #ff4500;
+      max-width: 700px;
+      text-align: left;
+    }
+
+    .player-field, .threat-field, .path-field {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: inline-block;
+      width: 300px;
+      text-align: right;
+      margin-right: 10px;
+      color: #ffffff;
+      user-select: none;
+    }
+
+    input[type="text"], input[type="number"], select {
+      width: 200px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background-color: #222;
+      color: white;
+    }
+
+    select:focus, input[type="text"]:focus, input[type="number"]:focus {
+      box-shadow: 0 0 6px #ff6f00;
+      border: 1px solid #ff6f00;
+      background-color: #333;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #ff4500;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #ff4500, #ff8c00);
+      box-shadow: 0 0 20px #ff8c00;
+    }
+
+    #btnHub {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      margin: 0;
+      padding: 8px 15px;
+      font-size: 14px;
+      background-color: #007acc;
+      box-shadow: 0 0 10px #007acc;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    #btnHub:hover {
+      background-color: #005fa3;
+      box-shadow: 0 0 15px #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Nouveau bouton Hub -->
+  <button id="btnHub">Hub</button>
+
+  <h1>Formulaire de mission</h1>
+
+  <form id="missionForm" action="/Parse_mission" method="post" onsubmit="return validerFormulaire()">
+    <h2>Joueurs</h2>
+    <div class="threat-field">
+      <label for="nbJoueurs">Nombre de joueurs (1-5) :</label>
+      <input type="number" id="nbJoueurs" name="nbJoueurs" min="1" max="5" value="1" required />
+      <button type="button" onclick="genererChampsJoueurs()">Valider</button>
+    </div>
+
+    <div id="joueursContainer"></div>
+
+    <h2>Chemins des menaces</h2>
+
+    <div class="path-field">
+      <label for="cheminRouge">Chemin Zone rouge :</label>
+      <select id="cheminRouge" name="cheminRouge" required>
+        <option value="">--Choisir--</option>
+      </select>
+    </div>
+    <div class="path-field">
+      <label for="cheminBlanche">Chemin Zone blanche :</label>
+      <select id="cheminBlanche" name="cheminBlanche" required>
+        <option value="">--Choisir--</option>
+      </select>
+    </div>
+    <div class="path-field">
+      <label for="cheminBleue">Chemin Zone bleue :</label>
+      <select id="cheminBleue" name="cheminBleue" required>
+        <option value="">--Choisir--</option>
+      </select>
+    </div>
+    <div class="path-field">
+      <label for="cheminInterne">Chemin Menaces internes :</label>
+      <select id="cheminInterne" name="cheminInterne" required>
+        <option value="">--Choisir--</option>
+      </select>
+    </div>
+
+    <h2>Menaces</h2>
+    <div class="threat-field">
+      <label for="menaceIT3">Menace Interne T+3 :</label>
+      <select id="menaceIT3" name="menaceIT3">
+        <option value="">--Aucune--</option>
+      </select>
+    </div>
+    <div class="threat-field">
+      <label for="menaceET4B">Menace Externe Serieuse Zone bleue T+4 :</label>
+      <select id="menaceET4B" name="menaceET4B">
+        <option value="">--Aucune--</option>
+      </select>
+    </div>
+    <div class="threat-field">
+      <label for="menaceET5W">Menace Externe Serieuse Zone blanche T+5 :</label>
+      <select id="menaceET5W" name="menaceET5W">
+        <option value="">--Aucune--</option>
+      </select>
+    </div>
+    <div class="threat-field">
+      <label for="menaceET7R">Menace Externe Serieuse Zone rouge T+7 :</label>
+      <select id="menaceET7R" name="menaceET7R">
+        <option value="">--Aucune--</option>
+      </select>
+    </div>
+    <div class="threat-field">
+      <label for="menaceET8B">Menace Externe Non Confirmee Zone bleue T+8 :</label>
+      <select id="menaceET8B" name="menaceET8B">
+        <option value="">--Aucune--</option>
+      </select>
+    </div>
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <script>
+    // Génère dynamiquement les champs joueurs
+    function genererChampsJoueurs() {
+      const container = document.getElementById("joueursContainer");
+      container.innerHTML = "";
+      const nb = parseInt(document.getElementById("nbJoueurs").value);
+      for (let i = 1; i <= nb; i++) {
+        const div = document.createElement("div");
+        div.className = "player-field";
+        div.innerHTML = `
+          <label for="joueur${i}">Joueur ${i} - Pseudo :</label>
+          <input type="text" id="joueur${i}" name="joueur${i}" required />
+          <label><input type="radio" name="capitaine" value="joueur${i}" required /> Capitaine</label>
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    // Liste des options chemins t1 à t7
+    const cheminsOptions = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"];
+
+    // Remplit un select donné avec ces options chemins
+    function remplirSelectChemins(selectId) {
+      const select = document.getElementById(selectId);
+      cheminsOptions.forEach(chemin => {
+        const option = document.createElement("option");
+        option.value = chemin;
+        option.textContent = chemin;
+        select.appendChild(option);
+      });
+    }
+
+    // Menaces externes
+    const menacesExternes = {
+      "e1-01": "Pulsar",
+      "e1-02": "Destroyer",
+      "e1-03": "Chasseur furtif",
+      "e1-04": "Nuage d energie",
+      "e1-05": "Vaisseau de combat",
+      "e1-06": "Chasseur a cryoprotection",
+      "e1-07": "Chasseur",
+      "e1-08": "Constricteur Blinde",
+      "e1-09": "Amibe",
+      "e1-10": "Meteorite",
+      "e2-01": "Kamikaze",
+      "e2-02": "Eclaireur",
+      "e2-03": "Chasseur fantome",
+      "e2-04": "Nuee Insectoide",
+      "e2-05": "Meduse",
+      "e2-06": "Maraudeur",
+      "e2-07": "Asteroide mineur",
+      "se1-01": "Fregate",
+      "se1-02": "Man of War",
+      "se1-03": "Ravitailleur Leviathan",
+      "se1-04": "Satellite a impulsion",
+      "se1-05": "Fregate a Cryoprotection",
+      "se1-06": "Pieuvre interstellaire",
+      "se1-07": "Maelstrom",
+      "se1-08": "Asteroide",
+      "se2-01": "Behemoth",
+      "se2-02": "Juggernaut",
+      "se2-03": "Satellite psionique",
+      "se2-04": "Crabe Nebula",
+      "se2-05": "Nemesis",
+      "se2-06": "Asteroide Majeur"
+    };
+
+    // Menaces internes
+    const menacesInternes = {
+      "si1-01": "Commandos",
+      "si1-02": "Commandos",
+      "si1-03": "Alien",
+      "si1-04": "Fissure",
+      "si1-05": "Courts-Circuits",
+      "si1-06": "Revolte des robots de combat",
+      "si2-01": "Executeur",
+      "si2-02": "Droide Fureteur",
+      "si2-03": "Surcharge des generateurs",
+      "si2-04": "Contamination Arrive",
+      "si2-05": "Engin nucleaire",
+      "i1-01": "Eclaireurs",
+      "i1-02": "Eclaireurs",
+      "i1-03": "Saboteur",
+      "i1-04": "Saboteur",
+      "i1-05": "Piratage des boucliers",
+      "i1-06": "Piratage des boucliers",
+      "i1-07": "Tetes nucleaires instables",
+      "i2-01": "Slime",
+      "i2-02": "Slime",
+      "i2-03": "Troupe d'assaut",
+      "i2-04": "Troupe d'assaut",
+      "i2-05": "Virus",
+      "i2-06": "Reacteur en fusion"
+    };
+
+    // Fonction pour remplir un select avec un objet menaces (clé: code, valeur: nom)
+    function remplirSelectMenaces(selectId, menacesObj) {
+      const select = document.getElementById(selectId);
+      Object.entries(menacesObj).forEach(([code, nom]) => {
+        const option = document.createElement("option");
+        option.value = code;
+        option.textContent = `${code} - ${nom}`;
+        select.appendChild(option);
+      });
+    }
+
+    // Remplissage des selects chemins au chargement
+    window.onload = function() {
+      genererChampsJoueurs();
+
+      ["cheminRouge", "cheminBlanche", "cheminBleue", "cheminInterne"].forEach(id => {
+        remplirSelectChemins(id);
+      });
+
+      // Pour les menaces externes (T1, T3, T4, T6)
+      ["menaceET4B", "menaceET5W", "menaceET7R", "menaceET8B"].forEach(id => {
+        remplirSelectMenaces(id, menacesExternes);
+      });
+
+      // Pour menace interne (T5)
+      remplirSelectMenaces("menaceIT3", menacesInternes);
+    };
+
+    // Validation du formulaire
+    function validerFormulaire() {
+      const nb = parseInt(document.getElementById("nbJoueurs").value);
+      const pseudos = [];
+      for(let i=1; i<=nb; i++) {
+        const pseudo = document.getElementById(`joueur${i}`).value.trim().toLowerCase();
+        if (pseudos.includes(pseudo)) {
+          alert(`Le pseudo "${pseudo}" est dupliqué. Veuillez saisir des pseudos différents.`);
+          return false;
+        }
+        if(pseudo === "") {
+          alert(`Le pseudo du joueur ${i} ne peut pas être vide.`);
+          return false;
+        }
+        pseudos.push(pseudo);
+      }
+
+      // Vérifier que les 4 chemins ne sont pas vides
+      const chemins = [
+        document.getElementById("cheminRouge").value.trim(),
+        document.getElementById("cheminBlanche").value.trim(),
+        document.getElementById("cheminBleue").value.trim(),
+        document.getElementById("cheminInterne").value.trim()
+      ];
+      for(let i=0; i<chemins.length; i++) {
+        if(chemins[i] === "") {
+          alert("Veuillez renseigner tous les chemins.");
+          return false;
+        }
+      }
+
+      // Vérifier qu'un capitaine est choisi
+      const capt = document.querySelector('input[name="capitaine"]:checked');
+      if (!capt) {
+        alert("Veuillez choisir un capitaine parmi les joueurs.");
+        return false;
+      }
+
+      return true;
+    }
+
+    // Gestion du bouton Hub
+    document.getElementById("btnHub").addEventListener("click", () => {
+      fetch('/Hub', { method: 'GET' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = "/Hub";
+          } else {
+            alert("Erreur lors de la requête vers /Hub : " + response.status);
+          }
+        })
+        .catch(err => {
+          alert("Erreur réseau ou serveur : " + err.message);
+        });
+    });
+  </script>
+
+</body>
+</html>

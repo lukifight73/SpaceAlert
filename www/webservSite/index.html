@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Welcome in Space Alert</title>
+<style>
+  body {
+    margin: 0; height: 100vh; overflow: hidden;
+    background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+    background-size: cover; background-position: center;
+    font-family: 'Pathway Gothic One', sans-serif;
+    color: #ffe81f;
+    perspective: 600px;
+  }
+  h1 {
+    position: absolute;
+    top: 5vh;
+    width: 100%;
+    text-align: center;
+    font-size: 5vw;
+    color: #ff9f00;
+    text-shadow: 0 0 10px #ff9f00;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    z-index: 10;
+  }
+  .star-wars-intro {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* centre horizontal */
+    align-items: center;     /* centre vertical */
+    overflow: visible;
+  }
+  .crawl {
+    width: 600px;
+    font-size: 2em;
+    line-height: 1.4;
+    text-align: center;
+    color: #ffe81f;
+    text-shadow:
+      0 0 5px #ffe81f,
+      0 0 10px #ffe81f,
+      0 0 20px #ffe81f,
+      0 0 30px #000;
+    transform-origin: 50% 100%;
+    /* animation supprimée */
+    transform-style: preserve-3d;
+  }
+  #audioControl, #selectMission {
+    position: fixed;
+    bottom: 20px;
+    background: rgba(0,0,0,0.6);
+    color: #ffe81f;
+    border: none;
+    padding: 10px 15px;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ffe81f;
+    user-select: none;
+    z-index: 1000;
+  }
+  #audioControl { right: 20px; font-size: 16px; }
+  #selectMission {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    padding: 12px 25px;
+    box-shadow: 0 0 15px #ffe81f;
+  }
+  #audioControl:hover, #selectMission:hover {
+    background: rgba(0,0,0,0.9);
+    box-shadow: 0 0 20px #00ffff;
+    color: #00ffff;
+  }
+</style>
+</head>
+<body>
+<h1>Welcome in Space Alert</h1>
+<div class="star-wars-intro">
+  <div class="crawl">
+    <p>Dans une galaxie lointaine, très lointaine...</p>
+    <p>Les joueurs se lancent dans une aventure spatiale sans précédent.</p>
+    <p>Choisissez vos cartes avec sagesse, car chaque décision compte.</p>
+    <p>Votre mission consiste a explorer certaines régions de la Galaxie.</p>
+    <p>Vous devez faire un relevé des mouvements ennemis et identifier secteurs dangereux.</p>
+    <p>Le sort de la mission repose sur vos épaules.</p>
+    <p>Que la force soit avec vous dans ce périple interstellaire !</p>
+  </div>
+</div>
+
+<audio id="backgroundMusic" loop>
+  <source src="/Audio/star-wars-theme.mp3" type="audio/mpeg" />
+  Votre navigateur ne supporte pas l'élément audio.
+</audio>
+
+<button id="audioControl">Pause</button>
+<button id="selectMission">Select Mission</button>
+
+<script>
+  const audio = document.getElementById('backgroundMusic');
+  const btnAudio = document.getElementById('audioControl');
+
+  window.onload = () => {
+    audio.play().catch(() => {
+      btnAudio.textContent = 'Play';
+    });
+  };
+
+  btnAudio.addEventListener('click', () => {
+    if(audio.paused) {
+      audio.play();
+      btnAudio.textContent = 'Pause';
+    } else {
+      audio.pause();
+      btnAudio.textContent = 'Play';
+    }
+  });
+
+  const btnMission = document.getElementById('selectMission');
+  btnMission.addEventListener('click', () => {
+    fetch('/Hub')
+      .then(response => {
+        if(response.ok) {
+          window.location.href = '/Hub';
+        } else {
+          alert('Erreur lors de la requête vers /Hub');
+        }
+      })
+      .catch(() => alert('Impossible de contacter /Hub'));
+  });
+</script>
+</body>
+</html>

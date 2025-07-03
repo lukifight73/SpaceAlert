@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intro Space Alert</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: yellow;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 22px;
+      line-height: 1.8;
+      overflow-y: scroll;
+
+      background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 100px 20px 150px 20px; /* Ajoute de l'espace en bas pour le bouton */
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 40px;
+      color: rgb(255, 153, 0);
+    }
+
+    .yellow { color: yellow; }
+    .red    { color: #FF5555; }
+    .blue   { color: #55AAFF; }
+    .green  { color: #55FF99; }
+    .white  { color: white; }
+    .orange { color: #ff9100; }  /* Orange vif standard */
+    .violet { color: #AA55FF; }  /* Violet doux */
+    .rose   { color: #FF88CC; }  /* Rose pastel */
+
+    .btn-next {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+    }
+
+    .btn-next:hover {
+      background-color: #0056b3;
+    }
+
+    /* Nouveau bouton Hub, même style que btn-next mais en haut à gauche */
+    #btnHub {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    #btnHub:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">SPACE ALERT</div>
+    <div class="section yellow"></div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 1]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine lala     ---									</div><!--Next-->
+    <div class="white">[ATTACK avec le Cannon laser lourd Central !]</div><!--Next-->
+    <div class="white">[Carburant disponible : 2]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lele     ---									</div><!--Next-->
+    <div class="white">[ACTION B de lele!!!]</div><!--Next-->
+    <div class="white">[Récuperation de l'énergie du réacteur de la zone blanche pour alimenter le bouclier de la zone blanche]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le bouclier de la zone blanche : 3]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le réacteur de la zone blanche : 0]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lulu     ---									</div><!--Next-->
+    <div class="white">[lulu se déplace.]</div><!--Next-->
+    <div class="white">[lulu arrive en zone rouge, en haut.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lolo     ---									</div><!--Next-->
+    <div class="white">[lolo se déplace.]</div><!--Next-->
+    <div class="white">[lolo arrive en zone bleue, en haut.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lili     ---									</div><!--Next-->
+    <div class="white">[lili fais la maintenance!]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="white">[Capitaine lala tire avec le Cannon laser lourd Central]</div><!--Next-->
+    <div class="white">[Pas de menace a portée du Cannon laser lourd Central en zone blanche. Dommage!]</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="yellow">[Aucune menace n'est presente a proximité!]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 2]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[Attention, la menace Chasseur furtif vient d'arriver et est présente en zone bleue!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine lala     ---									</div><!--Next-->
+    <div class="white">[Tentative d'attack avec Cannon laser lourd Central ... Échec par manque d'énergie! Dommage...]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lele     ---									</div><!--Next-->
+    <div class="white">[Tentative d'attack avec Cannon laser lourd Central Échec, coordonnez vous bordel]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lulu     ---									</div><!--Next-->
+    <div class="red">[lulu prend l'ascenseur pour descendre d'un etage.]</div><!--Next-->
+    <div class="red">[lulu arrive en bas, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lolo     ---									</div><!--Next-->
+    <div class="blue">[lolo prenez les robots! C'est parti pour la baston!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lili     ---									</div><!--Next-->
+    <div class="white">[ACTION B de lili!!!]</div><!--Next-->
+    <div class="white">[Tentative de récuperation de l'énergie du réacteur de la zone blanche pour alimenter le bouclier.. Échec... c'est la merde, et en plus ton tour sert a rien...]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif avance de 3 cases et se trouve desormais en position 12.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [MAINTENANCE TOUR 2]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="white">[Maintenance de l'ordinateur effectuée pour le tour 2.]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 3]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="green">[Attention, la menace Troupe d'assaut vient d'arriver et est presente en station haute zone rouge!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine lala     ---									</div><!--Next-->
+    <div class="white">[ACTION TELEPORTATION HEROIQUE !!!]</div><!--Next-->
+    <div class="white">[Capitaine lala se déplace en bas, dans la zone blanche.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lele     ---									</div><!--Next-->
+    <div class="white">[lele effectue l'action Robot ! Malheureusement, il n'a pas de robots avec lui, dommage!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lulu     ---									</div><!--Next-->
+    <div class="red">[lulu effectue l'action Robot ! Malheureusement, il n'a pas de robots avec lui, dommage!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lolo     ---									</div><!--Next-->
+    <div class="blue">[lolo effectue l'action Robot !]</div><!--Next-->
+    <div class="blue">[Il n'y a aucun ennemi a proximité... flute.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lili     ---									</div><!--Next-->
+    <div class="white">[lili fais la maintenance!]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif avance de 3 cases et se trouve desormais en position 9.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif effectue son action X.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif se revele.]</div><!--Next-->
+    <div class="green">[La menace interne Troupe d'assaut avance de 2 cases et se trouve desormais en position 10.]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 4]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[Attention, la menace Man of War vient d'arriver et est présente en zone rouge!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine lala     ---									</div><!--Next-->
+    <div class="white">[ACTION B de Capitaine lala!!!]</div><!--Next-->
+    <div class="white">[Activation d'une capsule de carburant - Carburant disponible : 5]</div><!--Next-->
+    <div class="white">[Capsule de carburant restante : 2]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lele     ---									</div><!--Next-->
+    <div class="white">[ATTACK avec le Cannon laser lourd Central !]</div><!--Next-->
+    <div class="white">[Carburant disponible : 4]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lulu     ---									</div><!--Next-->
+    <div class="red">[ACTION B de lulu!!!]</div><!--Next-->
+    <div class="red">[Récuperation de l'énergie du réacteur central pour alimenter le réacteur de la zone rouge]</div><!--Next-->
+    <div class="red">[Énergie disponible dans le réacteur de la zone rouge : 3]</div><!--Next-->
+    <div class="red">[Énergie disponible dans le réacteur central : 3]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lolo     ---									</div><!--Next-->
+    <div class="blue">[ACTION B de lolo!!!]</div><!--Next-->
+    <div class="blue">[Récuperation de l'énergie du réacteur de la zone bleue pour alimenter le bouclier de la zone bleue]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le bouclier de la zone bleue : 2]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le réacteur de la zone bleue : 1]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lili     ---									</div><!--Next-->
+    <div class="white">[ACTION B de lili!!!]</div><!--Next-->
+    <div class="white">[Récuperation de l'énergie du réacteur de la zone blanche pour alimenter le bouclier de la zone blanche]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le bouclier de la zone blanche : 3]</div><!--Next-->
+    <div class="white">[Énergie disponible dans le réacteur de la zone blanche : 3]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="white">[lele tire avec le Cannon laser lourd Central]</div><!--Next-->
+    <div class="white">[Pas de menace a portée du Cannon laser lourd Central en zone blanche. Dommage!]</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[La menace Man of War avance de 1 cases et se trouve desormais en position 10.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif avance de 3 cases et se trouve desormais en position 6.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif effectue son action Y.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif lance une attaque de puissance 2</div><!--Next-->
+    <div class="blue">[DÉGATS ZONE BLEUE]</div><!--Next-->
+    <div class="blue">[Le bouclier de la zone rouge absorbe tous les dégats!]</div><!--Next-->
+    <div class="blue">[Bouclier restant : 0]</div><!--Next-->
+    <div class="green">[La menace interne Troupe d'assaut avance de 2 cases et se trouve desormais en position 8.]</div><!--Next-->
+    <div class="green">[La menace Troupe d'assaut effectue son action X.]</div><!--Next-->
+    <div class="green">[La menace Troupe d'assaut descend en zone rouge .]</div><!--Next-->
+    <div class="orange">-</div><!--Next-->
+    <div class="orange">---</div><!--Next-->
+    <div class="orange">------</div><!--Next-->
+    <div class="orange">------------</div><!--Next-->
+    <div class="orange">--------------------</div><!--Next-->
+    <div class="orange">----------------------------------------</div><!--Next-->
+    <div class="orange">------------------------------------------------------------</div><!--Next-->
+    <div class="orange">--------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange">                  ****            ****            ****              [TOUR 5]             ****            ****            ****  </div><!--Next-->
+    <div class="orange">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="orange"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [APPARITION DES MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [ACTION DES JOUEURS]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     Capitaine lala     ---									</div><!--Next-->
+    <div class="white">[Capitaine lala se déplace.]</div><!--Next-->
+    <div class="white">[Capitaine lala arrive en zone bleue, en bas.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lele     ---									</div><!--Next-->
+    <div class="white">[lele fais la maintenance!]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lulu     ---									</div><!--Next-->
+    <div class="red">[lulu prend l'ascenseur pour monter d'un etage.]</div><!--Next-->
+    <div class="red">[lulu arrive en haut, dans la zone rouge.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lolo     ---									</div><!--Next-->
+    <div class="blue">[ACTION B de lolo!!!]</div><!--Next-->
+    <div class="blue">[Récuperation de l'énergie du réacteur de la zone bleue pour alimenter le bouclier de la zone bleue]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le bouclier de la zone bleue : 1]</div><!--Next-->
+    <div class="blue">[Énergie disponible dans le réacteur de la zone bleue : 0]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">									---     lili     ---									</div><!--Next-->
+    <div class="white">[lili se déplace.]</div><!--Next-->
+    <div class="white">[lili arrive en zone rouge, en haut.]</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow">                  ****            ****            ****          [CALCUL DES DEGATS]          ****            ****            **** </div><!--Next-->
+    <div class="yellow">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="yellow"></div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet">                  ****            ****            ****          [ACTIONS MENACES]          ****            ****            **** </div><!--Next-->
+    <div class="violet">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="violet"></div><!--Next-->
+    <div class="red">[La menace Man of War avance de 1 cases et se trouve desormais en position 9.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif avance de 3 cases et se trouve desormais en position 3.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif effectue son action Y.]</div><!--Next-->
+    <div class="blue">[La menace Chasseur furtif lance une attaque de puissance 2</div><!--Next-->
+    <div class="blue">[DÉGATS ZONE BLEUE]</div><!--Next-->
+    <div class="blue">[Le bouclier de la zone rouge absorbe1 dégat(s)!]</div><!--Next-->
+    <div class="blue">[Le vaisseau a recu des dégats mais ils sont negligeables!]</div><!--Next-->
+    <div class="green">[La menace interne Troupe d'assaut avance de 2 cases et se trouve desormais en position 6.]</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose">                  ****            ****            ****          [MAINTENANCE TOUR 5]          ****            ****            **** </div><!--Next-->
+    <div class="rose">----------------------------------------------------------------------------------------------------</div><!--Next-->
+    <div class="rose"></div><!--Next-->
+    <div class="white">[Maintenance de l'ordinateur effectuée pour le tour 5.]</div><!--Next-->
+  </div><!--STOP-->
+
+  <!-- Bouton Hub en haut à gauche -->
+  <button id="btnHub">Hub</button>
+
+  <!-- Bouton GET vers /tour_suivant -->
+  <a href="/Next_round">
+    <button class="btn-next">Tour Suivant</button>
+  </a>
+
+  <script>
+    document.getElementById("btnHub").addEventListener("click", () => {
+      fetch('/Hub', { method: 'GET' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = "/Hub";
+          } else {
+            alert("Erreur lors de la requête vers /Hub : " + response.status);
+          }
+        })
+        .catch(err => {
+          alert("Erreur réseau ou serveur : " + err.message);
+        });
+    });
+  </script>
+</body>
+</html>

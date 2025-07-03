@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Victoire - Space Alert</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: yellow;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 22px;
+      line-height: 1.8;
+      overflow-y: scroll;
+
+      background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 100px 20px 150px 20px;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 40px;
+      color: rgb(255, 153, 0);
+    }
+
+    .yellow { color: yellow; }
+    .red    { color: #FF5555; }
+    .blue   { color: #55AAFF; }
+    .green  { color: #55FF99; }
+    .white  { color: white; }
+    .orange { color: #ff9100; }
+    .violet { color: #AA55FF; }
+    .rose   { color: #FF88CC; }
+
+    .btn-next {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    .btn-next:hover {
+      background-color: #0056b3;
+    }
+
+    #btnHub {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #007BFF;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    #btnHub:hover {
+      background-color: #0056b3;
+    }
+
+    /* Effets de flottement */
+    .floating-text {
+      position: absolute;
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ffcc;
+      animation: float 5s infinite ease-in-out alternate;
+      pointer-events: none;
+      z-index: 500;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0px) scale(1); opacity: 0.9; }
+      30%  { transform: translateY(-20px) scale(1.05); opacity: 1; }
+      70%  { transform: translateY(10px) scale(0.95); opacity: 0.8; }
+      100% { transform: translateY(0px) scale(1); opacity: 1; }
+    }
+
+    .damage-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    }
+
+    .damage-box {
+      padding: 20px 30px;
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      min-width: 200px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .red-zone {
+      background-color: rgba(255, 0, 0, 0.3);
+      color: #ff9999;
+      border: 2px solid #ff4444;
+    }
+
+    .white-zone {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border: 2px solid #cccccc;
+    }
+
+    .blue-zone {
+      background-color: rgba(0, 100, 255, 0.3);
+      color: #99ccff;
+      border: 2px solid #3399ff;
+    }
+
+    .threats-destroyed .title {
+      color: #55FF99;
+      text-shadow: 0 0 10px #00FFAA;
+    }
+
+    .threat-list {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      color: #66ffcc;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border: 2px dashed #55ff99;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffaa66;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+      white-space: pre-wrap;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">SPACE ALERT</div>
+    <div class="section yellow">Mission accomplie, capitaine !</div>
+    <div class="damage-row">
+      <div class="damage-box red-zone">
+        Dégâts reçus zone rouge : 0
+      </div>
+      <div class="damage-box white-zone">
+        Dégâts reçus zone blanche : 0
+      </div>
+      <div class="damage-box blue-zone">
+        Dégâts reçus zone bleue : 6
+      </div>
+    </div>
+    <div class="section threats-destroyed">
+      <div class="title green">MENACES DÉTRUITES</div>
+      <pre class="threat-list"><!--Start-->
+[ACTION HÉROIQUE! Capitaine yyyy tire avec le Canon Lateral et  inflige 3 points de dégâts à la menace Pulsar.]
+[eee tire avec le Canon a impulsion et  inflige 1 points de dégâts à la menace Pulsar.]
+[La menace Pulsar absorbe 1 degats et reçois 3 degats.]
+[tttt tire avec le Cannon laser lourd lateral et  inflige 4 points de dégâts à la menace Pulsar.]
+[ACTION HÉROIQUE! Capitaine yyyy tire avec le Canon Lateral et  inflige 3 points de dégâts à la menace Pulsar.]
+[La menace Pulsar absorbe 1 degats et reçois 6 degats.]
+[tttt tire avec le Cannon laser lourd lateral et  inflige 4 points de dégâts à la menace Pulsar.]
+[ACTION HÉROIQUE! Capitaine yyyy tire avec le Canon Lateral et  inflige 3 points de dégâts à la menace Pulsar.]
+[eee tire avec le Canon a impulsion et  inflige 1 points de dégâts à la menace Pulsar.]
+[La menace Pulsar absorbe 1 degats et reçois 7 degats.]
+[eee tire avec le Canon a impulsion et  inflige 1 points de dégâts à la menace Pulsar.]
+[uuuuu tire avec le Canon Lateral et  inflige 1 points de dégâts à la menace Pulsar.]
+[La menace Pulsar absorbe 1 degats et reçois 1 degats.]
+[ACTION HÉROIQUE! eee tire avec le Canon a impulsion et  inflige 2 points de dégâts à la menace Pulsar.]
+[uuuuu tire avec le Cannon laser lourd lateral et  inflige 3 points de dégâts à la menace Pulsar.]
+[La menace Pulsar absorbe 1 degats et reçois 4 degats.]
+
+      </pre><!--End-->
+    </div>
+  </div>
+
+  <!-- Bouton Hub -->
+  <button id="btnHub">Hub</button>
+
+  <!-- Mots flottants -->
+  <div id="floating-container"></div>
+
+  <script>
+    const phrases = [
+      "YAY", "BRAVO", "YOUPI", "C'ÉTAIT PAS GAGNÉ",
+      "YOUHOUUUUU", "BRAVOOOOO", "J'Y CROYAIS PASSSS",
+      "Félicitations !", "Vous en avez bien chié !",
+      "Mission réussie!!!!", "HEHEHEHEHEHE",
+      "On a frôlé le drame, bravo !",
+      "Felicitation Capitaine !",
+      "Champions !", "Ce soir on sort la gnole!",
+      "Ca c'est de la haute voltige !",
+      "WTF ??? Ça a marché !",
+      "Qui l'eut cru!!!",
+      "Trop facile ce jeu...",
+      "La chance du débutant ?",
+      "La menace nemesis vient d'appa... je deconne!",
+      "YOYOYOYOYOYOYO",
+      "YESSAIIIIIIIIII",
+      "Vous avez eu de l'aide, non ?",
+      "On a serré les fesses jusqu’au bout.",
+      "YO",
+      "YOYOO",
+      "YOYOYOOO",
+      "YOYOYOYO",
+      "YOHOHOOHOHOOO",
+      "YOOOHOOOO",
+      "Yooohohohoho",
+      "YIHIIII", "YOULOUULOUOUU", "YALAAAAAAAA", "YOOOO", "YOOOO", "yohohohoho", "yoyoyoyo", "YOOOOOOOOOOO", "YOO",
+    ];
+
+    const container = document.getElementById("floating-container");
+
+    function createFloatingText() {
+      const text = document.createElement("div");
+      text.classList.add("floating-text");
+      text.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+
+      const positionType = Math.random();
+
+      if (positionType < 0.7) {
+        // ➤ 70% des messages sur les côtés
+        const side = Math.random() > 0.5 ? 'left' : 'right';
+        text.style[side] = `${Math.random() * 20}px`;
+        text.style.top = `${Math.random() * window.innerHeight}px`;
+      } else {
+        // ➤ 30% des messages dans les 40% inférieurs de l'écran
+        const bottomZoneHeight = window.innerHeight * 0.4;
+        const bottomStart = window.innerHeight * 0.6;
+
+        text.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+        text.style.top = `${bottomStart + Math.random() * bottomZoneHeight}px`;
+      }
+
+      text.style.animationDuration = `${4 + Math.random() * 3}s`;
+      container.appendChild(text);
+
+      // Supprimer après animation
+      setTimeout(() => {
+        container.removeChild(text);
+      }, 8000);
+    }
+
+    // Génère en boucle quelques éléments aléatoires
+    setInterval(createFloatingText, 400);
+  </script>
+
+  <script>
+    document.getElementById("btnHub").addEventListener("click", () => {
+      fetch('/Hub', { method: 'GET' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = "/Hub";
+          } else {
+            alert("Erreur lors de la requête vers /Hub : " + response.status);
+          }
+        })
+        .catch(err => {
+          alert("Erreur réseau ou serveur : " + err.message);
+        });
+    });
+  </script>
+</body>
+</html>

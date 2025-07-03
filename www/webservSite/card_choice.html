@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TOUR 1 - Space Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #ffcc00;
+            text-shadow: 0 0 5px #000;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin: 30px 0 15px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .image-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .image-grid a {
+        display: block;
+        max-width: 120px;
+        max-height: 180px;
+        overflow: hidden;
+        }
+
+        .image-grid a img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: border 0.3s, transform 0.2s;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.3); /* pour encadrer joliment */
+        }
+
+        .image-grid a img:hover {
+            border: 2px solid #00ffff;
+            transform: scale(1.05);
+        }
+        .image-grid-large {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+        }
+
+        .image-grid-large a {
+            display: block;
+            max-width: 160px;
+            max-height: 240px;
+            overflow: hidden;
+        }
+
+        .image-grid-large a img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: border 0.3s, transform 0.2s;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .image-grid-large a img:hover {
+            border: 2px solid #00ffff;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>TOUR 5</h1>
+    <h2>Joueur lili, quelle carte avez-vous joué ce tour ?</h2>
+
+    <h3>Cartes joueur :</h3>
+    <div class="image-grid-large">
+        <a href="ACT_A"><img src="/Photos/ACT_A.jpg" alt="Carte 1"></a>
+        <a href="ACT_B"><img src="/Photos/ACT_B.jpg" alt="Carte 2"></a>
+        <a href="ACT_C"><img src="/Photos/ACT_C.jpg" alt="Carte 3"></a>
+        <a href="ACT_R"><img src="/Photos/ACT_R.jpg" alt="Carte 4"></a>
+    </div>
+    <div class="image-grid-large">
+        <a href="DIR_R"><img src="/Photos/DIR_R.jpg" alt="Carte 5"></a>
+        <a href="DIR_B"><img src="/Photos/DIR_B.jpg" alt="Carte 6"></a>
+        <a href="DIR_A"><img src="/Photos/DIR_A.jpg" alt="Carte 7"></a>
+
+    </div>
+
+    <h3>Cartes héros :</h3>
+    <div class="image-grid">
+        <a href="ACT_AH"><img src="/Photos/ACT_AH.jpg" alt="Hero 1"></a>
+        <a href="ACT_BH"><img src="/Photos/ACT_BH.jpg" alt="Hero 2"></a>
+        <a href="ACT_RH"><img src="/Photos/ACT_RH.jpg" alt="Hero 3"></a>
+    </div>
+    <div class="image-grid">
+        <a href="DIR_RB"><img src="/Photos/DIR_RB.jpg" alt="Hero_deplacement 1"></a>
+        <a href="DIR_RH"><img src="/Photos/DIR_RH.jpg" alt="Hero_deplacement 2"></a>
+        <a href="DIR_WB"><img src="/Photos/DIR_WB.jpg" alt="Hero_deplacement 3"></a>
+        <a href="DIR_WH"><img src="/Photos/DIR_WH.jpg" alt="Hero_deplacement 4"></a>
+        <a href="DIR_BB"><img src="/Photos/DIR_BB.jpg" alt="Hero_deplacement 5"></a>
+        <a href="DIR_BH"><img src="/Photos/DIR_BH.jpg" alt="Hero_deplacement 6"></a>
+    </div>
+    <h3>Cartes autres :</h3>
+    <div class="image-grid-large">
+        <a href="INACTIF"><img src="/Photos/INACTIF.jpg" alt="Autre 1"></a>
+</body>
+</html>

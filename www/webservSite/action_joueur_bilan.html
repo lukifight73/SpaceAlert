@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Actions joueurs tour 1 - Space Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/Photos/fond_etoile_hyperspace.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* ← Centrage vertical */
+            align-items: center;     /* ← Centrage horizontal */
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .joueurs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px; /* espace avant les boutons */
+        }
+
+        .joueur {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            width: 160px;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        .joueur p {
+            margin: 0 0 15px 0;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .joueur img {
+            width: 100%;
+            height: auto;
+            max-width: 140px;
+            max-height: 210px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+            border: 2px solid #00ffff;
+            transition: transform 0.3s;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.3); /* joli fond si vide */
+        }
+
+        .joueur img:hover {
+            transform: scale(1.05);
+            border-color: #ffcc00;
+        }
+
+        /* Styles boutons */
+        .boutons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .boutons button {
+            background-color: #00ffff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffff;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .boutons button:hover {
+            background-color: #ffcc00;
+            box-shadow: 0 0 20px #ffcc00;
+            color: black;
+        }
+
+        /* Bouton Hub en haut à gauche */
+        #btnHub {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            padding: 15px 25px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #007BFF;
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+
+        #btnHub:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Actions joueurs tour 5</h1>
+
+    <div class="joueurs-container">
+        <div class="joueur">
+            <p>Capitaine lala</p>
+            <img src="/Photos/DIR_B.jpg" alt="Carte du joueur Capitaine lala" />
+        </div>
+        <div class="joueur">
+            <p>lele</p>
+            <img src="/Photos/ACT_C.jpg" alt="Carte du joueur lele" />
+        </div>
+        <div class="joueur">
+            <p>lulu</p>
+            <img src="/Photos/DIR_A.jpg" alt="Carte du joueur lulu" />
+        </div>
+        <div class="joueur">
+            <p>lolo</p>
+            <img src="/Photos/ACT_B.jpg" alt="Carte du joueur lolo" />
+        </div>
+        <div class="joueur">
+            <p>lili</p>
+            <img src="/Photos/DIR_R.jpg" alt="Carte du joueur lili" />
+        </div>
+    
+    </div><!--stop-->
+
+    <div class="boutons">
+        <form action="/Retry" method="get">
+            <button type="submit">Erreur dans la saisie, recommencer</button>
+        </form>
+        <form action="/Round_process" method="get">
+            <button type="submit">Confirmation de la saisie</button>
+        </form>
+    </div>
+
+    <!-- Bouton Hub -->
+    <button id="btnHub">Hub</button>
+
+    <script>
+        document.getElementById("btnHub").addEventListener("click", () => {
+            fetch('/Hub', { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/Hub";
+                    } else {
+                        alert("Erreur lors de la requête vers /Hub : " + response.status);
+                    }
+                })
+                .catch(err => {
+                    alert("Erreur réseau ou serveur : " + err.message);
+                });
+        });
+    </script>
+</body>
+</html>
