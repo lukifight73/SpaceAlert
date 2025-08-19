@@ -7,7 +7,7 @@ A personal project with the goal to partialy digitalized the SpaceAlert board ga
 # Installation and compilation
 1. Clone this repository into your project:
 ```bash
-git clone git@github.com:Philippe89fr/spaceAlert.git
+git clone git@github.com:lukifight73/SpaceAlert.git
 ```
 2. Run the following command:
 ```bash
