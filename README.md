@@ -15,5 +15,5 @@ make
 ```
 3. To use the program, run the program and then enter any bash--posix usual command line:
 ```bash
-./spaceAlert config/config.conf
+./spaceAlert conf_files/config.conf
 ```
